@@ -92,13 +92,13 @@ public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.Support
         super.onCreate(savedInstanceState);
 
 
-      /*  ImmersionBar.with(this)
+     ImmersionBar.with(this)
                 .fitsSystemWindows(true)  //使用该属性,必须指定状态栏颜色
                 .statusBarColor(R.color.transparent)
-                .init();*/
-        RxBarTool.setNoTitle(this);
-        RxBarTool.setTransparentStatusBar(this);//状态栏透明化
-        RxBarTool.StatusBarLightMode(this);
+                .init();
+//        RxBarTool.setNoTitle(this);
+//        RxBarTool.setTransparentStatusBar(this);//状态栏透明化
+//        RxBarTool.StatusBarLightMode(this);
         Bundle extras = this.getIntent().getExtras();
 
         if(null != extras) {

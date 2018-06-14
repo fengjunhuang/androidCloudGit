@@ -13,7 +13,9 @@ import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.Tab;
 import com.cloudtenant.yunmenkeji.cloudtenant.fragment.HomeFragment;
 import com.cloudtenant.yunmenkeji.cloudtenant.fragment.MeFragment;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.RxBarTool;
 import com.cloudtenant.yunmenkeji.cloudtenant.widget.FragmentTabHost;
+import com.gyf.barlibrary.ImmersionBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+         ImmersionBar.with(this)
+                .fitsSystemWindows(true)  //使用该属性,必须指定状态栏颜色
+                .statusBarColor(R.color.transparent)
+                .init();
         setContentView(R.layout.activity_main);
 
 

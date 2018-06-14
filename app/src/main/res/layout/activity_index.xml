@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    xmlns:tl="http://schemas.android.com/apk/res-auto">
+
+    <com.cloudtenant.yunmenkeji.cloudtenant.view.CustomViewPager
+        android:clipToPadding="true"
+        android:fitsSystemWindows="true"
+        android:id="@id/yzs_base_tabLayout_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="45dp"
+
+
+
+        android:layout_marginBottom="56dp" />
+
+    <!--<FrameLayout-->
+    <!--android:id="@id/yzs_base_tabLayout_frameLayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginBottom="56dp" />-->
+
+
+    <com.flyco.tablayout.CommonTabLayout
+        android:id="@id/yzs_base_tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom"
+        android:background="@color/md_white_1000"
+        tl:tl_indicator_color="#2C97DE"
+        tl:tl_indicator_gravity="TOP"
+        tl:tl_textSelectColor="#2C97DE"
+        tl:tl_textUnselectColor="#66000000" />
+
+</FrameLayout>

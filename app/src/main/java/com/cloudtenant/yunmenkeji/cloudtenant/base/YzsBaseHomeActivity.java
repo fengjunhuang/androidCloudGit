@@ -4,6 +4,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.base;//
 //
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -55,6 +56,7 @@ public abstract class YzsBaseHomeActivity extends YzsBaseActivity {
         this.mViewPager = (ViewPager)this.findViewById(id.yzs_base_tabLayout_viewPager);
         this.mFrameLayout = (FrameLayout)this.findViewById(id.yzs_base_tabLayout_frameLayout);
         this.initTab();
+        mTabLayout.setTextSelectColor(Color.RED);
         if(null != this.mFragments && this.mFragments.length != 0) {
             this.initTabEntities();
             if(null == this.mTabLayout) {

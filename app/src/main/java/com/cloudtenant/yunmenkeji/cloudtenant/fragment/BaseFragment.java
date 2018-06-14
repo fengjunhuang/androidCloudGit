@@ -7,22 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yzs.yzsbaseactivitylib.fragment.YzsBaseFragment;
 
 
-
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends YzsBaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = createView(inflater,container,savedInstanceState);
-
-
-        initToolBar();
-
-        init();
-
+       super.onCreateView(inflater,container,savedInstanceState);
+        showLoadingDialog();
         return view;
+
 
     }
 
