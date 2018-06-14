@@ -1,11 +1,4 @@
 <resources>
-<<<<<<< HEAD
-    <string name="app_name">cloudTenant</string>
-    <string name="mine">我的</string>
-    <string name="message">消息</string>
-    <string name="home">房间</string>
-    <string name="house">入住</string>
-=======
     <string name="app_name">BuoyManagemenApp</string>
     <string name="action_settings">Settings</string>
 
@@ -62,5 +55,4 @@
     <string name="userinfo_sex">性别</string>
     <string name="userinfo_bith">生日</string>
 
->>>>>>> 75baa585fba6f582692248fd3c07385882e368cc
 </resources>
