@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cloudtenant.yunmenkeji.cloudTenant">
+    package="com.cloudtenant.yunmenkeji.cloudtenant">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
@@ -34,13 +34,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
-        <activity android:name=".MainActivity"
+        <activity android:name="com.cloudtenant.yunmenkeji.cloudtenant.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             >
-=======
-        <activity android:name="com.cloudtenant.yunmenkeji.cloudTenant.MainActivity">
->>>>>>> 75baa585fba6f582692248fd3c07385882e368cc
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

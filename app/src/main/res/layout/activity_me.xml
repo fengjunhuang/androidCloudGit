@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:layout_height="match_parent">
+    <!--<android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:background="#cfc5c5"
+        android:layout_height="match_parent"
+        android:paddingTop="?attr/actionBarSize"
+        android:clipToPadding="false"
+        />-->
+    <ScrollView
+        android:id="@+id/myscrollview"
+        android:scrollbars="none"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:id="@+id/userName"
+                    android:textSize="21sp"
+                    android:textColor="@android:color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="登录/注册" />
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/userName"
+                    android:text="查看或修改个人资料"
+                    style="@style/me_text_style" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/settingicon" />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+            <RelativeLayout
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="我的合同"
+                    style="@style/me_text_style" />
+                <ImageView
+                    android:src="@drawable/image_my_contract"
+                    style="@style/me_img_style" />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+            <RelativeLayout
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="我的家庭"
+                    style="@style/me_text_style" />
+                <ImageView
+                    android:src="@drawable/image_my_family"
+                    style="@style/me_img_style" />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+            <RelativeLayout
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="设置"
+                    style="@style/me_text_style" />
+                <ImageView
+                    android:src="@drawable/image_my_setting"
+                    style="@style/me_img_style" />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+            <RelativeLayout
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="客服电话"
+                    style="@style/me_text_style" />
+                <ImageView
+                    android:src="@drawable/image_my_connect"
+                    style="@style/me_img_style" />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+            <RelativeLayout
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="意见反馈"
+                    style="@style/me_text_style" />
+                <ImageView
+                    android:src="@drawable/image_my_request"
+                    style="@style/me_img_style" />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+            <RelativeLayout
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="关于我们"
+                    style="@style/me_text_style" />
+                <ImageView
+                    android:src="@drawable/image_my_about"
+                    style="@style/me_img_style" />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+            <RelativeLayout
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="清除缓冲（0.0B）"
+                    style="@style/me_text_style" />
+                <ImageView
+                    android:src="@drawable/image_my_clean"
+                    style="@style/me_img_style" />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+        </LinearLayout>
+    </ScrollView>
+    <!--<android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"/>-->
+    <LinearLayout
+        android:id="@+id/me_topbar"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="@string/app_name"
+            android:textSize="12sp"
+            android:layout_height="wrap_content" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="20dp"
+            app:cropStyle="circle"
+            android:src="@drawable/settingicon"
+            android:layout_height="20dp" />
+    </LinearLayout>
+
+
+</FrameLayout>

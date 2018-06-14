@@ -9,8 +9,10 @@ import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.Tab;
 import com.cloudtenant.yunmenkeji.cloudtenant.fragment.HomeFragment;
+import com.cloudtenant.yunmenkeji.cloudtenant.fragment.MeFragment;
 import com.cloudtenant.yunmenkeji.cloudtenant.widget.FragmentTabHost;
 
 import java.util.ArrayList;
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         Tab tab_share = new Tab(HomeFragment.class,R.string.house,R.drawable.selector_icon_house);
         Tab tab_route = new Tab(HomeFragment.class,R.string.home,R.drawable.selector_icon_home);
         Tab tab_more = new Tab(HomeFragment.class,R.string.message,R.drawable.selector_icon_message);
-        Tab tab_mine = new Tab(HomeFragment.class,R.string.mine,R.drawable.selector_icon_me);
+        Tab tab_mine = new Tab(MeFragment.class,R.string.mine,R.drawable.selector_icon_me);
 
         mTabs.add(tab_share);
         mTabs.add(tab_route);
