@@ -93,7 +93,7 @@ public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.Support
 
 
      ImmersionBar.with(this)
-                .fitsSystemWindows(true)  //使用该属性,必须指定状态栏颜色
+
                 .statusBarColor(R.color.transparent)
                 .init();
 //        RxBarTool.setNoTitle(this);

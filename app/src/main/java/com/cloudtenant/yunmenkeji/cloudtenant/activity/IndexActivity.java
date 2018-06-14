@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
+import android.view.View;
+import android.view.WindowManager;
 
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
@@ -32,14 +34,14 @@ public class IndexActivity extends YzsBaseHomeActivity {
 
     private static final String TAG = "IndexActivity";
 
-    private String[] mTitles = {"浮标", "故障上报", "我的"};
+    private String[] mTitles = {"入住", "房间", "消息","我的"};
     @ViewById(R.id.yzs_base_tabLayout_viewPager)
     CustomViewPager customViewPager;
-    private int[] mIconUnselectIds = {
+    private int[] mIconUnselectIds = {R.mipmap.home,
             R.mipmap.mehome, R.mipmap.message,
             R.mipmap.me};
     private int[] mIconSelectIds = {
-            R.mipmap.myhome_select, R.mipmap.message_select,
+            R.mipmap.home_select,R.mipmap.myhome_select, R.mipmap.message_select,
             R.mipmap.me_select};
 
     @Override
@@ -92,12 +94,11 @@ public class IndexActivity extends YzsBaseHomeActivity {
 
     @Override
     protected void initTab() {
-        setmFragments(new YzsBaseFragment[]{new HomeFragment(), new HomeFragment(), new MeFragment()});
+        setmFragments(new YzsBaseFragment[]{new HomeFragment(), new HomeFragment(),new HomeFragment(), new MeFragment()});
         setmIconSelectIds(mIconSelectIds);
         setmIconUnSelectIds(mIconUnselectIds);
         setmTitles(mTitles);
 
-        customViewPager.setScanScroll(false);
 
 
 

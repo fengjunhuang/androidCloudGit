@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+
+    >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+<RelativeLayout
+    android:padding="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+        <TextView
+            style="@style/head_title_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选 择 好 住 处"
+
+            />
+
+    <com.yzs.yzslibrary.view.StateButton
+        android:id="@+id/btn_loginout"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:drawableLeft="@mipmap/image_navshare"
+
+
+        android:text="分享"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="8sp"
+        app:normalBackgroundColor="@color/white"
+        app:pressedBackgroundColor="@color/colorPrimaryDark"
+        app:radius="8dp"
+        app:unableBackgroundColor="@android:color/holo_red_light" />
+</RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
