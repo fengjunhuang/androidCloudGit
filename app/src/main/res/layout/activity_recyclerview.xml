@@ -1,9 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/white"
+
+    >
+    <include
+        layout="@layout/item_title"
+        ></include>
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/head_title_style"
+        android:textSize="16sp"
+        android:text="为你推荐"
+       android:layout_marginLeft="20dp"
+
+        />
+
+    <TextView
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/head_title_style"
+        android:textSize="13sp"
+        android:text="经过现场精选验证的优质小区"
+        android:textColor="@color/text_gray"
+
+        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@id/yzs_base_list"
+
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="入住"/>
-</android.support.constraint.ConstraintLayout>
+        android:layout_marginBottom="20dp"
+        tools:listitem="@layout/item_house_detil" />
+</LinearLayout>
