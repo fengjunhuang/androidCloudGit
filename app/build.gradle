@@ -52,6 +52,8 @@ dependencies {
     compile 'com.gyf.barlibrary:barlibrary:2.1.9'
     compile 'com.just.agentweb:agentweb:2.0.1'
 
+    compile 'com.zhy:autolayout:1.4.5'
+
     compile 'com.github.GaoGersy:BaseInfrastructure:1.0.0'
 
     annotationProcessor "org.androidannotations:androidannotations:$AAVersion"
