@@ -5,8 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
-import android.view.View;
-import android.view.WindowManager;
 
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
