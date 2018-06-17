@@ -9,16 +9,18 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:layout_margin="@dimen/x15"
 
 
     >
     <ImageView
-        android:layout_width="@dimen/y80"
-        android:layout_height="@dimen/y80" />
+        android:layout_width="@dimen/y120"
+        android:layout_height="@dimen/y90" />
  <LinearLayout
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
      android:orientation="vertical"
+     android:layout_margin="@dimen/x5"
 
      >
      <LinearLayout
@@ -43,7 +45,7 @@
        android:layout_marginLeft="@dimen/x5"
        android:layout_height="wrap_content"
          android:layout_width="wrap_content"
-         android:textColor="@color/black"
+
          android:textStyle="bold"
 
          android:text="已经验证.剩3间"
@@ -52,10 +54,58 @@
 
          />
      </LinearLayout>
+     <TextView
+         android:layout_marginTop="@dimen/x10"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="东圃镇明珠新村"
+         style="@style/head_title_style"
 
+         />
+     <TextView
+         android:layout_marginTop="@dimen/x10"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="阳光好,临地铁5号线,带空调热水器"
+
+         android:textSize="8sp"
+         />
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal"
+         >
+     <TextView
+         android:layout_marginTop="@dimen/x10"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="最低:   "
+         android:textColor="@color/red"
+
+         android:textSize="10sp"
+         />
+         <TextView
+             android:layout_marginTop="@dimen/x10"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="$280"
+             android:textColor="@color/black"
+             android:textStyle="bold"
+
+             android:textSize="10sp"
+             />
+         <TextView
+             android:layout_marginTop="@dimen/x10"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="/月"
+             android:textColor="@color/red"
+
+             android:textSize="8sp"
+             />
  </LinearLayout>
 
-
+ </LinearLayout>
 </LinearLayout>
 
 
