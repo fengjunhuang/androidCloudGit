@@ -6,36 +6,30 @@ import java.io.Serializable;
  * Created by feng on 2017/12/19.
  */
 
-public class BaseBean implements Serializable{
-    private int result;
-    private String error;
-    private int code;
-    public  boolean isSuccess(){
-        return  result==1;
+public class BaseBean implements Serializable {
 
 
-    }
-    public int getResult() {
+    /**
+     * result : true
+     * message : 修改成功
+     */
+
+    private String result;
+    private String message;
+
+    public String getResult() {
         return result;
     }
 
-    public void setResult(int result) {
+    public void setResult(String result) {
         this.result = result;
     }
 
-    public String getError() {
-        return error;
+    public String getMessage() {
+        return message;
     }
 
-    public void setError(String error) {
-        this.error = error;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

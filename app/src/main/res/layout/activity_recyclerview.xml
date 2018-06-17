@@ -4,12 +4,19 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@color/white"
+
 
     >
     <include
         layout="@layout/item_title"
         ></include>
+
+    <com.youth.banner.Banner
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/banner"
+        android:layout_margin="@dimen/x10"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x80" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

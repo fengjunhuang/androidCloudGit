@@ -34,7 +34,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.cloudtenant.yunmenkeji.cloudtenant.activity.IndexActivity_"
+        <activity android:name="com.cloudtenant.yunmenkeji.cloudtenant.activity.SplashActivity_"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"
             >
@@ -44,6 +44,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="com.cloudtenant.yunmenkeji.cloudtenant.activity.IndexActivity_"
+
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"
+            ></activity>
     </application>
     <meta-data android:name="design_width" android:value="768">
     </meta-data>

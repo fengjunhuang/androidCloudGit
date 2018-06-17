@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+
 
     >
 
@@ -41,7 +41,7 @@
         android:textSize="8sp"
         app:normalBackgroundColor="@color/white"
         app:pressedBackgroundColor="@color/colorPrimaryDark"
-        app:radius="8dp"
+        app:radius="6dp"
         app:unableBackgroundColor="@android:color/holo_red_light" />
     <com.yzs.yzslibrary.view.StateButton
         android:id="@+id/btn_op2"
@@ -57,7 +57,7 @@
         android:textSize="8sp"
         app:normalBackgroundColor="@color/white"
         app:pressedBackgroundColor="@color/colorPrimaryDark"
-        app:radius="8dp"
+        app:radius="6dp"
         app:unableBackgroundColor="@android:color/holo_red_light" />
 </RelativeLayout>
     </android.support.v7.widget.CardView>
