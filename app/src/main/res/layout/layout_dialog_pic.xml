@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/image"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+
+
+    <LinearLayout
+        android:id="@+id/pop_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+
+        <TextView
+            android:text="请选择"
+            android:textSize="11sp"
+            android:gravity="center"
+            android:background="@color/ivory"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <Button
+            android:id="@+id/takePhotoBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/ivory"
+            android:layout_marginTop="1dp"
+            android:text="查看合同"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            />
+
+        <Button
+            android:id="@+id/pickPhotoBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="申请退房"
+            android:textColor="@color/black"
+            android:background="@color/ivory"
+            android:textSize="15sp"
+             />
+
+        <Button
+            android:id="@+id/cancelBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@color/ivory"
+            android:text="取消"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+             />
+    </LinearLayout>
+
+</RelativeLayout>
