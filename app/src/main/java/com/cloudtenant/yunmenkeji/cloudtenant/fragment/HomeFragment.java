@@ -68,12 +68,12 @@ public class HomeFragment extends YzsBaseListFragment<Indexdata> implements View
 
     @Override
     protected void initItemLayout() {
-
+        setLayoutResId(R.layout.item_house_detil);
+        setListType(LINEAR_LAYOUT_MANAGER, true);
     }
 
     @Override
     protected void MyHolder(BaseViewHolder baseViewHolder, Indexdata indexdata) {
-
 
     }
 
@@ -81,7 +81,14 @@ public class HomeFragment extends YzsBaseListFragment<Indexdata> implements View
 
     @Override
     protected void initLogic() {
-
+        Indexdata indexdata1 =new Indexdata();
+        Indexdata indexdata2 =new Indexdata();
+        Indexdata indexdata3=new Indexdata();
+        List<Indexdata> lists=new ArrayList<>();
+        lists.add(indexdata1);
+        lists.add(indexdata2);
+        lists.add(indexdata3);
+        mAdapter.addData(lists);
     }
 
     @Override
