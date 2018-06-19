@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cloudtenant.yunmenkeji.cloudtenant">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
     <!-- Required  一些系统要求的权限，如访问网络等-->
     <uses-permission android:name="com.buoymanagement.htht.buoymanagemenapp.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
@@ -29,12 +29,14 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme">
-        <activity android:name="com.cloudtenant.yunmenkeji.cloudtenant.activity.IndexActivity_"
+        <activity android:name="com.cloudtenant.yunmenkeji.cloudtenant.activity.SplashActivity_"
+
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"
             >
@@ -44,6 +46,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".activity.IndexActivity_"
+
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"
+
+            />
+
+        <activity android:name=".activity.AboutActivity" />
+        <activity android:name=".activity.RequestActivity" />
+        <activity android:name=".activity.SettingActivity" />
+        <activity android:name=".activity.MyFamilyActivity" />
+        <activity android:name=".activity.ManageActivity" />
+        <activity android:name=".activity.ContractActivity" />
+
     </application>
     <meta-data android:name="design_width" android:value="768">
     </meta-data>

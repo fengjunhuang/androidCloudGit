@@ -5,14 +5,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
-import android.view.View;
-import android.view.WindowManager;
 
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseHomeActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.fragment.HomeFragment;
 import com.cloudtenant.yunmenkeji.cloudtenant.fragment.MeFragment;
+import com.cloudtenant.yunmenkeji.cloudtenant.fragment.RoomFragment;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.CustomViewPager;
 import com.flyco.tablayout.widget.MsgView;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
@@ -94,7 +93,7 @@ public class IndexActivity extends YzsBaseHomeActivity {
 
     @Override
     protected void initTab() {
-        setmFragments(new YzsBaseFragment[]{new HomeFragment(), new HomeFragment(),new HomeFragment(), new MeFragment()});
+        setmFragments(new YzsBaseFragment[]{new HomeFragment(),new RoomFragment(),new HomeFragment(), new MeFragment()});
         setmIconSelectIds(mIconSelectIds);
         setmIconUnSelectIds(mIconUnselectIds);
         setmTitles(mTitles);

@@ -1,8 +1,10 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.fragment;
 
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,8 +15,15 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.AboutActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.ContractActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.MyFamilyActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.RequestActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.SettingActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 
 
@@ -38,24 +47,43 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            /*case R.id.down: {
-                if (flag){
-                    fenlei.setVisibility(View.GONE);
-                    gridView.setVisibility(View.GONE);
-                    flag=false;
-                }else {
-                    fenlei.setVisibility(View.VISIBLE);
-                    gridView.setVisibility(View.VISIBLE);
-                    flag=true;
-                }
-            }break;*/
-
+            case R.id.rl_clean: {
+                Toast.makeText(_mActivity, "清理完成！", Toast.LENGTH_SHORT).show();
+            }break;
+            case R.id.rl_about:{
+                startActivity(new Intent(getActivity(), AboutActivity.class));
+            }break;
+            case R.id.rl_request:{
+                startActivity(new Intent(getActivity(), RequestActivity.class));
+            }break;
+            case R.id.rl_setting:{
+                startActivity(new Intent(getActivity(), SettingActivity.class));
+            }break;
+            case R.id.rl_family:{
+                startActivity(new Intent(getActivity(), MyFamilyActivity.class));
+            }break;
+            case R.id.rl_contract:{
+                startActivity(new Intent(getActivity(), ContractActivity.class));
+            }break;
+            case R.id.rl_connect:{
+                //用intent启动拨打电话
+                /*Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:18925012200"));
+                startActivity(intent);*/
+            }break;
         }
     }
 
     @Override
     protected View initContentView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
         View view=layoutInflater.inflate(R.layout.activity_me,viewGroup,false);
+        view.findViewById(R.id.rl_about).setOnClickListener(this);
+        view.findViewById(R.id.rl_clean).setOnClickListener(this);
+        view.findViewById(R.id.rl_connect).setOnClickListener(this);
+        view.findViewById(R.id.rl_contract).setOnClickListener(this);
+        view.findViewById(R.id.rl_family).setOnClickListener(this);
+        view.findViewById(R.id.rl_setting).setOnClickListener(this);
+        view.findViewById(R.id.rl_request).setOnClickListener(this);
+        view.findViewById(R.id.rl_icon).setOnClickListener(this);
         TextView userName=view.findViewById(R.id.userName);
         userName.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         final View me_topbar=view.findViewById(R.id.me_topbar);
