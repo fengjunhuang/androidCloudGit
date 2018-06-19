@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
 
 <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_margin="@dimen/x15"
+   android:padding="@dimen/x10"
 
 
     >
     <ImageView
-        android:layout_width="@dimen/y120"
-        android:layout_height="@dimen/y90" />
+        android:layout_width="@dimen/x120"
+        android:layout_height="@dimen/y80"
+        android:src="@mipmap/zufang"
+        android:layout_marginRight="@dimen/x20"
+        />
  <LinearLayout
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
      android:orientation="vertical"
-     android:layout_margin="@dimen/x5"
+
 
      >
      <LinearLayout
@@ -37,7 +45,7 @@
          android:textColor="@color/white"
          android:gravity="center"
          android:text="云门"
-         android:textSize="8sp"
+         android:textSize="10sp"
          android:textStyle="bold"
 
          />
@@ -49,7 +57,7 @@
          android:textStyle="bold"
 
          android:text="已经验证.剩3间"
-         android:textSize="8sp"
+         android:textSize="11sp"
 
 
          />
@@ -68,7 +76,7 @@
          android:layout_height="wrap_content"
          android:text="阳光好,临地铁5号线,带空调热水器"
 
-         android:textSize="8sp"
+         android:textSize="11sp"
          />
      <LinearLayout
          android:layout_width="match_parent"
@@ -108,5 +116,5 @@
  </LinearLayout>
 </LinearLayout>
 
-
+</android.support.v7.widget.CardView>
 </LinearLayout>

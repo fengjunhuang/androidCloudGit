@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:padding="20dp"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <ImageView
+            style="@style/click"
+            android:id="@+id/out"
+            android:src="@mipmap/leftback"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+        <TextView
+            android:id="@+id/title"
+            android:layout_gravity="center_vertical"
+            android:text="家庭信息管理"
+            android:textColor="@android:color/black"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="19sp"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:background="@drawable/butten_background_red"
+            android:gravity="center"
+            android:layout_height="25dp">
+
+            <TextView
+                android:layout_margin="5dp"
+                android:text="删除此家庭组"
+                android:lines="1"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="11sp"
+                android:layout_marginLeft="3dp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout
+                android:id="@+id/rl_room_number"
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="所属房间"
+                    style="@style/me_text_style" />
+                <TextView
+                    android:id="@+id/tv_room_number"
+                    android:text="明珠新村6栋1101"
+                    android:layout_alignParentRight="true"
+                    style="@style/me_text_style" />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+            <RelativeLayout
+                android:id="@+id/rl_famliy_name"
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="我的家庭"
+                    style="@style/me_text_style" />
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:text="家庭"
+                    android:layout_alignParentRight="true"
+                    style="@style/me_text_style" />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+
+
+            <RelativeLayout
+                android:id="@+id/rl_qr_code"
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="家庭二维码"
+                    style="@style/me_text_style" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:src="@mipmap/right_return"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+
+
+            <RelativeLayout
+                android:id="@+id/rl_permission"
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="我的权限"
+                    style="@style/me_text_style" />
+                <TextView
+                    android:id="@+id/tv_permission"
+                    android:text="成员"
+                    android:layout_alignParentRight="true"
+                    style="@style/me_text_style" />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_manage"
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="成员管理"
+                    style="@style/me_text_style" />
+                <ImageView
+                    android:src="@mipmap/right_return"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>

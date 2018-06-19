@@ -19,8 +19,11 @@ import android.widget.Toast;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.AboutActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.ContractActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.MyFamilyActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.RequestActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.SettingActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 
 
@@ -55,6 +58,12 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
             }break;
             case R.id.rl_setting:{
                 startActivity(new Intent(getActivity(), SettingActivity.class));
+            }break;
+            case R.id.rl_family:{
+                startActivity(new Intent(getActivity(), MyFamilyActivity.class));
+            }break;
+            case R.id.rl_contract:{
+                startActivity(new Intent(getActivity(), ContractActivity.class));
             }break;
             case R.id.rl_connect:{
                 //用intent启动拨打电话

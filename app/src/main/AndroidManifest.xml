@@ -63,6 +63,9 @@
         <activity android:name=".activity.AboutActivity" />
         <activity android:name=".activity.RequestActivity" />
         <activity android:name=".activity.SettingActivity" />
+        <activity android:name=".activity.MyFamilyActivity" />
+        <activity android:name=".activity.ManageActivity" />
+        <activity android:name=".activity.ContractActivity" />
 
     </application>
     <meta-data android:name="design_width" android:value="768">

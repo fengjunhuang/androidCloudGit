@@ -13,6 +13,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.Indexdata;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.PicassoImageLoader;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.SpacesItemDecoration;
 import com.youth.banner.Banner;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 import com.yzs.yzsbaseactivitylib.fragment.YzsBaseListFragment;
@@ -63,13 +64,16 @@ public class HomeFragment extends YzsBaseListFragment<Indexdata> implements View
 
     @Override
     protected void initView(View view) {
-
+        super.initView(view);
+        int space = 8;
+        mRecyclerView.addItemDecoration(new SpacesItemDecoration(space));
     }
 
     @Override
     protected void initItemLayout() {
         setLayoutResId(R.layout.item_house_detil);
         setListType(LINEAR_LAYOUT_MANAGER, true);
+
     }
 
     @Override
@@ -81,14 +85,13 @@ public class HomeFragment extends YzsBaseListFragment<Indexdata> implements View
 
     @Override
     protected void initLogic() {
-        Indexdata indexdata1 =new Indexdata();
-        Indexdata indexdata2 =new Indexdata();
-        Indexdata indexdata3=new Indexdata();
-        List<Indexdata> lists=new ArrayList<>();
-        lists.add(indexdata1);
-        lists.add(indexdata2);
-        lists.add(indexdata3);
-        mAdapter.addData(lists);
+        mAdapter.addData(new Indexdata());
+        mAdapter.addData(new Indexdata());
+        mAdapter.addData(new Indexdata());
+        mAdapter.addData(new Indexdata());
+        mAdapter.addData(new Indexdata());
+        mAdapter.addData(new Indexdata());
+        mAdapter.addData(new Indexdata());
     }
 
     @Override
