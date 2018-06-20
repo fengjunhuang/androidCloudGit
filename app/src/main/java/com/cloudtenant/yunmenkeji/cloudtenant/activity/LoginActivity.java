@@ -1,27 +1,52 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 
 import android.os.Bundle;
-import android.view.View;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
-import com.gersion.library.base.BaseActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
+import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
 
 /**
- * Created by tlol20 on 2017/6/14
+ * Created by 72984 on 2018/6/18.
  */
-public class LoginActivity extends BaseActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
-        findViewById(R.id.out).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+@EActivity
+public class LoginActivity extends YzsBaseActivity {
+    @Click(R.id.btn_login)
+    void login(){
+
+
+    }
+    @Click(R.id.btn_visitor)
+    void visitor(){
+        readyGo(IndexActivity_.class);
     }
 
+    @Override
+    protected void initContentView(Bundle var1) {
+        setContentView(R.layout.activity_login);
 
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initLogic() {
+
+    }
+
+    @Override
+    protected void getBundleExtras(Bundle var1) {
+
+    }
+
+    @Override
+    protected void onEventComing(EventCenter var1) {
+
+    }
 }

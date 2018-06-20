@@ -85,7 +85,7 @@ public class SplashActivity extends YzsBaseActivity {
         mforeBanner.setEnterSkipViewIdAndDelegate(R.id.btn_guide_enter, 0, new BGABanner.GuideDelegate() {
             @Override
             public void onClickEnterOrSkip() {
-                startActivity(new Intent(SplashActivity.this, IndexActivity_.class));
+                startActivity(new Intent(SplashActivity.this, LoginActivity_.class));
                 finish();
             }
         });
