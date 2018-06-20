@@ -10,21 +10,19 @@
         android:background="@android:color/white"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
-        <ImageView
+        android:layout_height="30dp">
+        <!--<ImageView
             style="@style/click"
             android:id="@+id/out"
             android:src="@mipmap/leftback"
             android:layout_width="20dp"
-            android:layout_height="20dp" />
+            android:layout_height="20dp" />-->
         <TextView
             android:id="@+id/title"
-            android:layout_gravity="center_vertical"
-            android:text="我的合同"
-            android:layout_marginLeft="5dp"
-            android:textColor="@color/light_black"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:gravity="center"
+            android:text="消息"
+            android:textColor="@android:color/black"
+            android:layout_width="match_parent"
             android:textSize="19sp"
             android:layout_height="wrap_content" />
 

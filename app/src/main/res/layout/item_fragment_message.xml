@@ -5,12 +5,19 @@
     android:orientation="horizontal"
     android:gravity="center_vertical"
     style="@style/click"
-    android:layout_height="80dp">
+    android:layout_height="70dp">
+    <ImageView
+        android:id="@+id/iv"
+        android:src="@drawable/image_message_other"
+        android:layout_width="20dp"
+        android:layout_height="20dp" />
     <TextView
         android:id="@+id/name"
+        android:layout_marginLeft="5dp"
         android:text="家庭1"
-        android:textSize="17sp"
+        android:textSize="15sp"
         android:layout_width="0dp"
+        android:textColor="@color/light_black"
         android:layout_weight="1"
         android:layout_height="wrap_content" />
     <ImageView
