@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MessageOtherActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.MessageRoomActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.RequestActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.ContractAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MessageAdapter;
@@ -73,7 +74,7 @@ public class MessageFragment extends YzsBaseListFragment<Indexdata> implements V
             public void onItemClick(int position) {
                 switch (position){
                             case 0: {
-                                startActivity(new Intent(getActivity(), MessageOtherActivity.class));
+                                startActivity(new Intent(getActivity(), MessageRoomActivity.class));
                                  }break;
                             case 1: {
                                 startActivity(new Intent(getActivity(), MessageOtherActivity.class));
