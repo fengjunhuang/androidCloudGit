@@ -1,66 +1,48 @@
-package com.cloudtenant.yunmenkeji.cloudtenant.fragment;
+package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
+import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.Indexdata;
+import com.gersion.library.base.BaseActivity;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.listener.ChartTouchListener;
-import com.github.mikephil.charting.listener.OnChartGestureListener;
+import com.youth.banner.Banner;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
-import com.yzs.yzsbaseactivitylib.fragment.YzsBaseListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomFragment extends YzsBaseListFragment<Indexdata> {
+public class MpChartActivity extends YzsBaseActivity {
 
-    LineChart mLineChart;
+    ViewPager mViewPager;
     @Override
-    protected void initItemLayout() {
-        setLayoutResId(R.layout.item_safe_sensor);
-        setListType(LINEAR_LAYOUT_MANAGER, false);
+    protected void initContentView(Bundle var1) {
+
+
+        setContentView(R.layout.activity_mp_chart);
+        mViewPager=findViewById(R.id.slidebar_viewPager);
+        mViewPager.setAdapter(new MpChartAdapter());
 
     }
 
-    @Override
-    protected void MyHolder(BaseViewHolder baseViewHolder, Indexdata indexdata) {
-
-    }
-
-    @Override
-    protected View initContentView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
-
-        View view=layoutInflater.inflate(R.layout.frament_room,viewGroup,false);
-
-        return view;
-    }
-
-    @Override
-    protected void initLogic() {
-         initMpChat();
-        setListener();
-    }
-
-    private void initMpChat() {
-
-        mLineChart = (LineChart) view.findViewById(R.id.lineChart);
+    private  View MpinitMpChat(View view) {
+       ;
+        LineChart mLineChart=  view.findViewById(R.id.lineChart);
         //显示边界
         mLineChart.setDrawBorders(true);
         //设置数据
@@ -120,7 +102,7 @@ public class RoomFragment extends YzsBaseListFragment<Indexdata> {
         xAxis.setTextSize(18);
 
         List<ILineDataSet> sets = new ArrayList<>();
-        LineDataSet  lineDataSet=     new LineDataSet(entries, "电费");
+        LineDataSet lineDataSet=     new LineDataSet(entries, "电费");
 
         lineDataSet.setColor(Color.GREEN);
         sets.add(lineDataSet);
@@ -132,64 +114,58 @@ public class RoomFragment extends YzsBaseListFragment<Indexdata> {
         legend.setFormSize(13);
         mLineChart.setData(lineData);
         mLineChart.animateY(1000);
-        mAdapter.addData(new Indexdata());
-        mAdapter.addData(new Indexdata());
-        mAdapter.addData(new Indexdata());
+        return mLineChart;
+
     }
-
-    private void setListener() {
-        mLineChart.setOnChartGestureListener(new OnChartGestureListener() { // 手势监听器
-            @Override
-            public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
-                // 按下
-            }
-
-            @Override
-            public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
-                // 抬起,取消
-            }
-
-            @Override
-            public void onChartLongPressed(MotionEvent me) {
-                // 长按
-            }
-
-            @Override
-            public void onChartDoubleTapped(MotionEvent me) {
-                // 双击
-            }
-
-            @Override
-            public void onChartSingleTapped(MotionEvent me) {
-                // 单击
-
-
-            }
-
-            @Override
-            public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
-                // 甩动
-            }
-
-            @Override
-            public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
-                // 缩放
-            }
-
-            @Override
-            public void onChartTranslate(MotionEvent me, float dX, float dY) {
-                // 移动
-            }
-        });
-    }
-
     @Override
-    protected void getBundleExtras(Bundle bundle) {
+    protected void initView() {
 
     }
 
     @Override
-    protected void onEventComing(EventCenter eventCenter) {
+    protected void initLogic() {
 
     }
+
+    @Override
+    protected void getBundleExtras(Bundle var1) {
+
+    }
+
+    @Override
+    protected void onEventComing(EventCenter var1) {
+
+    }
+
+ class MpChartAdapter extends PagerAdapter {
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public boolean isViewFromObject(View arg0, Object arg1) {
+            return arg0 == arg1;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+//          if (object instanceof ScaleView) {
+//              ScaleView scaleView = (ScaleView) object;
+//              container.removeView(scaleView);
+//          }
+//            container.removeView(mScaleViews[position]);
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+
+
+                return   MpinitMpChat(LayoutInflater.from(MpChartActivity.this).inflate(R.layout.item_mp_chart,null));
+
+            }
+        }
+
+
 }
