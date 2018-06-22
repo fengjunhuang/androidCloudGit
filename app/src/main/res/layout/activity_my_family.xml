@@ -21,11 +21,11 @@
             android:id="@+id/title"
             android:layout_gravity="center_vertical"
             android:text="我的家庭"
-            android:layout_marginLeft="5dp"
-            android:textColor="@android:color/black"
+            android:layout_marginLeft="2dp"
+            android:textColor="@color/light_black"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:textSize="19sp"
+            android:textSize="17sp"
             android:layout_height="wrap_content" />
 
         <LinearLayout

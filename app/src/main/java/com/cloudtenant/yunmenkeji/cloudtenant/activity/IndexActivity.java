@@ -11,6 +11,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseHomeActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.fragment.HomeFragment;
 import com.cloudtenant.yunmenkeji.cloudtenant.fragment.MeFragment;
+import com.cloudtenant.yunmenkeji.cloudtenant.fragment.MessageFragment;
 import com.cloudtenant.yunmenkeji.cloudtenant.fragment.RoomFragment;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.CustomViewPager;
 import com.flyco.tablayout.widget.MsgView;
@@ -93,7 +94,7 @@ public class IndexActivity extends YzsBaseHomeActivity {
 
     @Override
     protected void initTab() {
-        setmFragments(new YzsBaseFragment[]{new HomeFragment(),new RoomFragment(),new HomeFragment(), new MeFragment()});
+        setmFragments(new YzsBaseFragment[]{new HomeFragment(),new RoomFragment(),new MessageFragment(), new MeFragment()});
         setmIconSelectIds(mIconSelectIds);
         setmIconUnSelectIds(mIconUnselectIds);
         setmTitles(mTitles);

@@ -77,6 +77,9 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.0.0'
 
 
+    //二維碼
+    implementation 'com.github.yuzhiqiang1993:zxing:2.1.8'
     compile 'com.shizhefei:ViewPagerIndicator:1.1.7'
+
 
 }
