@@ -45,6 +45,7 @@ public class SplashActivity extends YzsBaseActivity {
         // Bitmap 的宽高在 maxWidth maxHeight 和 minWidth minHeight 之间
         List<View> views = new ArrayList<>();
         views.add(getPageView(R.drawable.uoko_guide_background_1));
+
         views.add(getPageView(R.drawable.uoko_guide_background_2));
         views.add(getPageView(R.drawable.uoko_guide_background_3));
         List<View> foreViews = new ArrayList<>();

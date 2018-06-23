@@ -60,12 +60,27 @@
 
             />
 
-        <activity android:name=".activity.AboutActivity" />
-        <activity android:name=".activity.RequestActivity" />
-        <activity android:name=".activity.SettingActivity" />
-        <activity android:name=".activity.MyFamilyActivity" />
-        <activity android:name=".activity.ManageActivity" />
-        <activity android:name=".activity.ContractActivity" />
+        <activity
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.AboutActivity" />
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.RequestActivity" />
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.SettingActivity" />
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.MyFamilyActivity" />
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.ManageActivity" />
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.ContractActivity" />
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+                    android:name=".activity.MessageOtherActivity" />
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+                    android:name=".activity.MessageRoomActivity" />
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+                    android:name=".activity.MessageTraceActivity" />
+
+
 
     </application>
     <meta-data android:name="design_width" android:value="768">

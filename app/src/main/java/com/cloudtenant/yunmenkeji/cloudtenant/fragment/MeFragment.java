@@ -87,7 +87,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         TextView userName=view.findViewById(R.id.userName);
         userName.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         final View me_topbar=view.findViewById(R.id.me_topbar);
-
+        me_topbar.setAlpha(0);
         ScrollView mScrollView=view.findViewById(R.id.myscrollview);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             mScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
@@ -105,8 +105,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                             }
                         }else {
                             //me_topbar.getBackground().setAlpha(255);
-                            me_topbar.setAlpha(1);
-
+                                me_topbar.setAlpha(1);
                         }
                     }
                 }

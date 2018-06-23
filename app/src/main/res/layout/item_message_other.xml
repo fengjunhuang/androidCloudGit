@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    style="@style/click"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_message"
+        android:text="家庭1"
+        android:textSize="15sp"
+        android:lines="1"
+        android:layout_width="match_parent"
+        android:textColor="@color/light_black"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="3dp"
+        android:id="@+id/tv_time"
+        android:text="家庭1"
+        android:textSize="13sp"
+        android:layout_width="match_parent"
+        android:textColor="@color/gray"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

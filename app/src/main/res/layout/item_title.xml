@@ -34,7 +34,8 @@
         android:drawableLeft="@mipmap/image_navshare"
         android:layout_centerVertical="true"
         app:normalStrokeColor="@color/actionsheet_gray"
-        app:strokeDashWidth="1dp"
+        app:strokeDashWidth="3dp"
+
         android:padding="2dp"
         android:text="分 享"
         android:textColor="@android:color/darker_gray"
@@ -55,6 +56,7 @@
         android:text="分 享"
         android:textColor="@android:color/darker_gray"
         android:textSize="8sp"
+        app:strokeDashWidth="3dp"
         app:normalBackgroundColor="@color/white"
         app:pressedBackgroundColor="@color/colorPrimaryDark"
         app:radius="6dp"

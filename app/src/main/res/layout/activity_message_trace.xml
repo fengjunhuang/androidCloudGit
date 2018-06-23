@@ -19,9 +19,9 @@
             android:layout_height="20dp" />
         <TextView
             android:id="@+id/title"
-            android:layout_gravity="center_vertical"
-            android:text="我的合同"
-            android:layout_marginLeft="5dp"
+            android:text="時間綫"
+            android:gravity="center"
+            android:layout_marginRight="20dp"
             android:textColor="@color/light_black"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -49,9 +49,9 @@
 
     </LinearLayout>
 
-    <View
+    <!--<View
         android:layout_marginTop="20dp"
-        style="@style/match_line"/>
+        style="@style/match_line"/>-->
 
     <com.jude.easyrecyclerview.EasyRecyclerView
         android:id="@+id/recycler_view"
