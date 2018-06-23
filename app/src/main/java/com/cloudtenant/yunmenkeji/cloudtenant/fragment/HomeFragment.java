@@ -9,10 +9,8 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
-import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
-import com.cloudtenant.yunmenkeji.cloudtenant.model.Indexdata;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
-import com.cloudtenant.yunmenkeji.cloudtenant.util.PicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.SpacesItemDecoration;
 import com.youth.banner.Banner;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
@@ -22,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeFragment extends YzsBaseListFragment<Indexdata> implements View.OnClickListener {
+public class HomeFragment extends YzsBaseListFragment<HouseDetil> implements View.OnClickListener {
 
 
 
@@ -71,13 +69,13 @@ public class HomeFragment extends YzsBaseListFragment<Indexdata> implements View
 
     @Override
     protected void initItemLayout() {
-        setLayoutResId(R.layout.item_house_detil);
+        setLayoutResId(R.layout.item_recy_house_detil);
         setListType(LINEAR_LAYOUT_MANAGER, true);
 
     }
 
     @Override
-    protected void MyHolder(BaseViewHolder baseViewHolder, Indexdata indexdata) {
+    protected void MyHolder(BaseViewHolder baseViewHolder, HouseDetil houseDetil) {
 
     }
 
@@ -85,13 +83,13 @@ public class HomeFragment extends YzsBaseListFragment<Indexdata> implements View
 
     @Override
     protected void initLogic() {
-        mAdapter.addData(new Indexdata());
-        mAdapter.addData(new Indexdata());
-        mAdapter.addData(new Indexdata());
-        mAdapter.addData(new Indexdata());
-        mAdapter.addData(new Indexdata());
-        mAdapter.addData(new Indexdata());
-        mAdapter.addData(new Indexdata());
+        mAdapter.addData(new HouseDetil());
+        mAdapter.addData(new HouseDetil());
+        mAdapter.addData(new HouseDetil());
+        mAdapter.addData(new HouseDetil());
+        mAdapter.addData(new HouseDetil());
+        mAdapter.addData(new HouseDetil());
+        mAdapter.addData(new HouseDetil());
     }
 
     @Override

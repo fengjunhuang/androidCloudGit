@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="20dp"
-        tools:listitem="@layout/item_house_detil" />
+        tools:listitem="@layout/item_recy_house_detil" />
 </LinearLayout>
     </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
