@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -48,7 +49,26 @@ public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.Support
     public ImageView back;
     public TextView tv_menu;
     public MLoadingDialog m_cProgressDialog;
+
+    public View getTitleView() {
+
+        return  findViewById(R.id.include_title);
+    }
+
+    public void setTitleView(View titleView) {
+        this.titleView = titleView;
+    }
+    public void  setSmellText(String s){
+        ((TextView) getTitleView().findViewById(R.id.tv_small)).setVisibility(View.VISIBLE);
+        ((TextView) getTitleView().findViewById(R.id.tv_small)).setText(s);
+    }
+    public void  setMainText(String s){
+        ((TextView) getTitleView().findViewById(R.id.tv_main)).setVisibility(View.VISIBLE);
+        ((TextView) getTitleView().findViewById(R.id.tv_main)).setText(s);
+    }
+
     public ImageView iv_menu;
+    public  View titleView;
     protected WaitPorgressDialog mWaitPorgressDialog;
     public YzsBaseActivity() {
 

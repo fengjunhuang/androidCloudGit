@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.HouseDetilActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.SpacesItemDecoration;
@@ -68,17 +69,24 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil> implements Vie
         int space = 8;
         mRecyclerView.addItemDecoration(new SpacesItemDecoration(space));
 
+
     }
 
     @Override
     protected void initItemLayout() {
-        setLayoutResId(R.layout.item_recy_house_detil);
+        setLayoutResId(R.layout.item_house_detil);
         setListType(LINEAR_LAYOUT_MANAGER, true);
 
     }
 
     @Override
     protected void MyHolder(BaseViewHolder baseViewHolder, HouseDetil houseDetil) {
+        baseViewHolder.convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                readyGo(HouseDetilActivity.class);
+            }
+        });
 
     }
 

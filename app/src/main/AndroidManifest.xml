@@ -59,7 +59,12 @@
             android:screenOrientation="portrait"
 
             />
+        <activity android:name=".activity.HouseDetilActivity"
 
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"
+
+            />
         <activity
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".activity.AboutActivity" />

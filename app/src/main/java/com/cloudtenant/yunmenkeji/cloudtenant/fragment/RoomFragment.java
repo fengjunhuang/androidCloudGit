@@ -132,9 +132,9 @@ public class RoomFragment extends YzsBaseListFragment<HouseDetil> {
         legend.setFormSize(13);
         mLineChart.setData(lineData);
         mLineChart.animateY(1000);
-        mAdapter.addData(new Indexdata());
-        mAdapter.addData(new Indexdata());
-        mAdapter.addData(new Indexdata());
+        mAdapter.addData(new HouseDetil());
+        mAdapter.addData(new HouseDetil());
+        mAdapter.addData(new HouseDetil());
     }
 
     private void setListener() {
