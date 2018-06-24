@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:padding="20dp"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <ImageView
+            style="@style/click"
+            android:id="@+id/out"
+            android:src="@mipmap/leftback"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+        <TextView
+            android:id="@+id/title"
+            android:layout_gravity="center_vertical"
+            android:text="个人资料"
+            android:layout_marginLeft="2dp"
+            android:textColor="@color/light_black"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="17sp"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/ll_commit"
+            android:layout_width="70dp"
+            android:background="@drawable/butten_background_black"
+            android:gravity="center"
+            android:layout_height="32dp">
+            <ImageView
+                android:background="@drawable/image_me_add"
+                android:layout_width="12dp"
+                android:layout_height="12dp" />
+            <TextView
+                android:text="提 交"
+                android:textColor="@android:color/black"
+                android:textSize="11sp"
+                android:layout_marginLeft="3dp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    <ScrollView
+        android:id="@+id/myscrollview"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_marginTop="30dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/civ_icon"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/settingicon" />
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:text="上传头像"
+                    android:textColor="@color/txt_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:layout_marginTop="20dp"
+                style="@style/match_line"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_nick_name"
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="@string/userinfo_name"
+                    style="@style/edit_pro_text_style" />
+                <EditText
+                    android:id="@+id/et_nick_name"
+                    android:hint="你的姓名"
+                    android:background="@null"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+            <RelativeLayout
+                android:id="@+id/rl_sex"
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="@string/userinfo_sex"
+                    style="@style/edit_pro_text_style"
+                    />
+                <TextView
+                    android:id="@+id/tv_sex"
+                    style="@style/edit_pro_text_style"
+                    android:text="女"
+                    android:layout_alignParentRight="true"
+                    />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+            <RelativeLayout
+                android:id="@+id/rl_birthday"
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="@string/userinfo_bith"
+                    style="@style/edit_pro_text_style"
+                    />
+                <TextView
+                    android:id="@+id/tv_birthday"
+                    style="@style/edit_pro_text_style"
+                    android:text="1997-07-07"
+                    android:layout_alignParentRight="true"
+                    />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+            <RelativeLayout
+                android:id="@+id/rl_constellation"
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="星座"
+                    style="@style/edit_pro_text_style"
+                    />
+                <TextView
+                    android:id="@+id/tv_constellation"
+                    style="@style/edit_pro_text_style"
+                    android:text="双子座"
+                    android:layout_alignParentRight="true"
+                    />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+            <RelativeLayout
+                android:id="@+id/rl_job"
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="职业"
+                    style="@style/edit_pro_text_style"
+                    />
+                <TextView
+                    android:id="@+id/tv_job"
+                    style="@style/edit_pro_text_style"
+                    android:text="篮球"
+                    android:layout_alignParentRight="true"
+                    />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+            <RelativeLayout
+                android:id="@+id/rl_interest"
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="兴趣爱好"
+                    style="@style/edit_pro_text_style"
+                    />
+                <TextView
+                    android:id="@+id/tv_interest"
+                    style="@style/edit_pro_text_style"
+                    android:text="篮球"
+                    android:layout_alignParentRight="true"
+                    />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

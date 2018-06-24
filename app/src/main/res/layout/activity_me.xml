@@ -45,7 +45,9 @@
                     android:layout_height="60dp"
                     android:src="@drawable/settingicon" />
             </RelativeLayout>
-            <View style="@style/match_line"/>
+            <View
+                android:layout_marginTop="10dp"
+                style="@style/match_line"/>
             <RelativeLayout
                 android:id="@+id/rl_contract"
                 style="@style/me_item_rl_style">
