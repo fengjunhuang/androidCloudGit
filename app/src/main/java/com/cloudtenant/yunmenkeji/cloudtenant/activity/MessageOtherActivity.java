@@ -62,8 +62,7 @@ public class MessageOtherActivity extends BaseActivity implements View.OnClickLi
 
     private void AddData() {
         List<MessageOther> list=new ArrayList<>();
-        list.add(new MessageOther("好野，今晚大保健","2018年6月20日 17:26:00"));
-        list.add(new MessageOther("好野，今晚大保健","2018年6月20日 17:26:00"));
+        list.add(new MessageOther("云房祝大家新年快乐！","2018年6月20日 17:26:00"));
         adapter.addAll(list);
     }
 
