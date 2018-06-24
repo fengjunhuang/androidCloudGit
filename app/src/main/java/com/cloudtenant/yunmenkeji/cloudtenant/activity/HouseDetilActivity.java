@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -42,6 +43,12 @@ public class HouseDetilActivity extends YzsBaseListActivity<HouseDetil> {
         houseDetilAdater.add(new HouseDetil());
         houseDetilAdater.add(new HouseDetil());
         houseDetilAdater.add(new HouseDetil());
+        baseViewHolder.convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                readyGo(TnementAcitivity.class);
+            }
+        });
     }
 
 
@@ -60,10 +67,18 @@ public class HouseDetilActivity extends YzsBaseListActivity<HouseDetil> {
         mAdapter.addData(new HouseDetil());
         mAdapter.addData(new HouseDetil());
         mAdapter.addData(new HouseDetil());
+        getBtn1();
+        getBtn2();
         setMainText("明珠公寓");
         setSmellText("东浦新村5号");
         findViewById(R.id.out).setVisibility(View.VISIBLE);
-
+        ((Button)getBtn1()).setText("导航");
+        ((Button)getBtn1()).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                readyGo(RoutingActivity.class);
+            }
+        });
     }
 
     @Override
@@ -81,20 +96,6 @@ public class HouseDetilActivity extends YzsBaseListActivity<HouseDetil> {
 
     }
 
-    public View getTitleView() {
-    View view=    findViewById(R.id.include_title);
-        return  findViewById(R.id.include_title);
-    }
 
-    public void setTitleView(View titleView) {
-        this.titleView = titleView;
-    }
-    public void  setSmellText(String s){
-        ((TextView) getTitleView().findViewById(R.id.tv_small)).setVisibility(View.VISIBLE);
-        ((TextView) getTitleView().findViewById(R.id.tv_small)).setText(s);
-    }
-    public void  setMainText(String s){
-        ((TextView) getTitleView().findViewById(R.id.tv_main)).setVisibility(View.VISIBLE);
-        ((TextView) getTitleView().findViewById(R.id.tv_main)).setText(s);
-    }
+
 }

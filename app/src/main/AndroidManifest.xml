@@ -35,6 +35,9 @@
         android:supportsRtl="true"
 
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="TencentMapSDK"
+            android:value="NQ3BZ-BORR4-I6IUC-D3PQQ-VYAQ2-PKBEQ"/>
         <activity android:name="com.cloudtenant.yunmenkeji.cloudtenant.activity.SplashActivity_"
 
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
@@ -60,6 +63,24 @@
 
             />
         <activity android:name=".activity.HouseDetilActivity"
+
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"
+
+            />
+        <activity android:name=".activity.RoutingActivity"
+
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"
+
+            />
+        <activity android:name=".activity.TnementAcitivity_"
+
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"
+
+            />
+        <activity android:name=".activity.OnlineVisitAcivity"
 
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"

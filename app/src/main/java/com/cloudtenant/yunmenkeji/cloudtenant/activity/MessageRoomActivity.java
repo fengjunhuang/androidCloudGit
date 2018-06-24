@@ -1,7 +1,9 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -21,6 +23,9 @@ import com.gersion.library.base.BaseActivity;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +48,34 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        findViewById(R.id.ll_phone).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AndPermission.with(MessageRoomActivity.this)
+                        .permission(Permission.CALL_PHONE, Permission.READ_EXTERNAL_STORAGE)
+                        .onGranted(new Action() {
+                            @SuppressLint("MissingPermission")
+                            @Override
+                            public void onAction(Object data) {
+                                //用intent启动拨打电话
+                                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:10086"));
+                                startActivity(intent);
+                            }
+                        })
+                        .onDenied(new Action() {
+                            @Override
+                            public void onAction(Object data) {
+                                /*Uri packageURI = Uri.parse("package:" + getActivity().getPackageName());
+                                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                                startActivity(intent);*/
+
+                                Toast.makeText(MessageRoomActivity.this, "没有权限打电话哦", Toast.LENGTH_LONG).show();
+                            }
+                        }).start();
             }
         });
         spinner=findViewById(R.id.room_spinner);

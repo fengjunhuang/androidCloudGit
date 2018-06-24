@@ -41,7 +41,7 @@ public class MpChartActivity extends YzsBaseActivity {
     }
 
     private  View MpinitMpChat(View view) {
-       ;
+
         LineChart mLineChart=  view.findViewById(R.id.lineChart);
         //显示边界
         mLineChart.setDrawBorders(true);
