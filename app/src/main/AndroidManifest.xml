@@ -79,6 +79,10 @@
                     android:name=".activity.MessageRoomActivity" />
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
                     android:name=".activity.MessageTraceActivity" />
+        <!--<activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.LoginActivity" />-->
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.EditProFileActivity" />
 
 
 

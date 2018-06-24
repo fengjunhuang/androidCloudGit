@@ -21,6 +21,8 @@ import android.widget.Toast;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.AboutActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.ContractActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.EditProFileActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.LoginActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MessageRoomActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MyFamilyActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.RequestActivity;
@@ -34,7 +36,7 @@ import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 
 public class MeFragment extends BaseFragment implements View.OnClickListener {
 
-
+    private boolean isLogin=false;
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return null;
@@ -69,6 +71,14 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
             }break;
             case R.id.rl_contract:{
                 startActivity(new Intent(getActivity(), ContractActivity.class));
+            }break;
+            case R.id.rl_icon:{
+                if (isLogin) {
+                    startActivity(new Intent(getActivity(), EditProFileActivity.class));
+                }else {
+                    //startActivity(new Intent(getActivity(), LoginActivity.class));
+                    startActivity(new Intent(getActivity(), EditProFileActivity.class));
+                }
             }break;
             case R.id.rl_connect:{
                 //用intent启动拨打电话
