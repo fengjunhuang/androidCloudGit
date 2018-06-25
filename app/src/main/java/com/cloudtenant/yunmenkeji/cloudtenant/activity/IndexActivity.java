@@ -140,7 +140,7 @@ public class IndexActivity extends YzsBaseHomeActivity {
             rtv_2_3.setBackgroundColor(Color.parseColor("#6D8FB0"));
         }
 
-
+        customViewPager.setScanScroll(false);
 
 
     }

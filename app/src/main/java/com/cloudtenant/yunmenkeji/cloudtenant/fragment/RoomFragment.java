@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.MpChartActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -141,7 +142,9 @@ public class RoomFragment extends YzsBaseListFragment<HouseDetil> {
         mLineChart.setOnChartGestureListener(new OnChartGestureListener() { // 手势监听器
             @Override
             public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+
                 // 按下
+                readyGo(MpChartActivity.class);
             }
 
             @Override
@@ -162,6 +165,7 @@ public class RoomFragment extends YzsBaseListFragment<HouseDetil> {
             @Override
             public void onChartSingleTapped(MotionEvent me) {
                 // 单击
+
 
 
             }

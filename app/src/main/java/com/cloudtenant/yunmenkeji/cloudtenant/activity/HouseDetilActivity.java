@@ -13,6 +13,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.adapter.HouseDetilAdater;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseListActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 
 /**
@@ -43,10 +44,10 @@ public class HouseDetilActivity extends YzsBaseListActivity<HouseDetil> {
         houseDetilAdater.add(new HouseDetil());
         houseDetilAdater.add(new HouseDetil());
         houseDetilAdater.add(new HouseDetil());
-        baseViewHolder.convertView.setOnClickListener(new View.OnClickListener() {
+        houseDetilAdater.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                readyGo(TnementAcitivity.class);
+            public void onItemClick(int position) {
+                readyGo(TnementAcitivity_.class);
             }
         });
     }

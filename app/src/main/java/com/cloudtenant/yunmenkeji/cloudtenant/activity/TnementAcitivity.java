@@ -20,7 +20,7 @@ public class TnementAcitivity extends YzsBaseActivity {
     @Click(R.id.ll_online_visit)
    void onClick(){
 
-//        readyGo(OnlineVisitAcivity.class);
+       readyGo(OnlineVisitAcivity.class);
     }
     @Override
     protected void initContentView(Bundle var1) {
