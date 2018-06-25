@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -48,7 +49,47 @@ public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.Support
     public ImageView back;
     public TextView tv_menu;
     public MLoadingDialog m_cProgressDialog;
+    private View btn1;
+    private View btn2;
+
+    public View getBtn1() {
+        btn1.setVisibility(View.VISIBLE);
+        return btn1;
+    }
+
+    public void setBtn1(View btn1) {
+
+        this.btn1 = btn1;
+    }
+
+    public View getBtn2() {
+        btn2.setVisibility(View.VISIBLE);
+        return btn2;
+    }
+
+    public void setBtn2(View btn2) {
+        this.btn2 = btn2;
+    }
+
+    public View getTitleView() {
+
+        return  findViewById(R.id.include_title);
+    }
+
+    public void setTitleView(View titleView) {
+        this.titleView = titleView;
+    }
+    public void  setSmellText(String s){
+        ((TextView) getTitleView().findViewById(R.id.tv_small)).setVisibility(View.VISIBLE);
+        ((TextView) getTitleView().findViewById(R.id.tv_small)).setText(s);
+    }
+    public void  setMainText(String s){
+        ((TextView) getTitleView().findViewById(R.id.tv_main)).setVisibility(View.VISIBLE);
+        ((TextView) getTitleView().findViewById(R.id.tv_main)).setText(s);
+    }
+
     public ImageView iv_menu;
+    public  View titleView;
     protected WaitPorgressDialog mWaitPorgressDialog;
     public YzsBaseActivity() {
 
@@ -58,35 +99,7 @@ public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.Support
         return mToolbar;
     }
 
-    public void setmToolbar(Toolbar mToolbar) {
-        this.mToolbar = mToolbar;
-    }
 
-
-
-    public ImageView getBack() {
-        return back;
-    }
-
-    public void setBack(ImageView back) {
-        this.back = back;
-    }
-
-    public TextView getTv_menu() {
-        return tv_menu;
-    }
-
-    public void setTv_menu(TextView tv_menu) {
-        this.tv_menu = tv_menu;
-    }
-
-    public ImageView getIv_menu() {
-        return iv_menu;
-    }
-
-    public void setIv_menu(ImageView iv_menu) {
-        this.iv_menu = iv_menu;
-    }
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,10 +120,10 @@ public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.Support
 
         EventBus.getDefault().register(this);
         this.initContentView(savedInstanceState);
-        this.mToolbar = (Toolbar)this.findViewById(R.id.toolbar);
-        if(null != this.mToolbar) {
-            this.setSupportActionBar(this.mToolbar);
-            this.getSupportActionBar().setDisplayShowTitleEnabled(false);
+        this.titleView = findViewById(R.id.include_title);
+        if(null != this.titleView) {
+//            this.setSupportActionBar(this.mToolbar);
+//            this.getSupportActionBar().setDisplayShowTitleEnabled(false);
             this.initTitle();
 
         }
@@ -130,17 +143,18 @@ public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.Support
     protected abstract void getBundleExtras(Bundle var1);
 
     protected void initTitle() {
-        this.title = (TextView)this.findViewById(com.yzs.yzsbaseactivitylib.R.id.toolbar_title);
-        this.back = (ImageView)this.findViewById(com.yzs.yzsbaseactivitylib.R.id.toolbar_back);
-        this.iv_menu = (ImageView)this.findViewById(com.yzs.yzsbaseactivitylib.R.id.toolbar_iv_menu);
-        this.tv_menu = (TextView)this.findViewById(com.yzs.yzsbaseactivitylib.R.id.toolbar_tv_menu);
-        if(null != this.back) {
-            this.back.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                   YzsBaseActivity.this.finish();
-                }
-            });
-        }
+       this.titleView.findViewById(R.id.out).setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               finish();
+
+           }
+       });
+      btn1=  this.titleView.findViewById(R.id.btn_op1);
+        btn2=  this.titleView.findViewById(R.id.btn_op2);
+    }
+    public void setBtn1Vis(){
+
 
     }
 

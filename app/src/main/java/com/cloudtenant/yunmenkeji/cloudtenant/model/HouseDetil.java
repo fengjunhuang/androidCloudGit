@@ -6,7 +6,7 @@ import java.util.List;
  * Created by 72984 on 2018/6/17.
  */
 
-public class Indexdata extends BaseBean {
+public class HouseDetil extends BaseBean {
 
 
     /**

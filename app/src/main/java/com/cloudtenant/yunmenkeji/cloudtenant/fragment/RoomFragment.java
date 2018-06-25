@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
-import com.cloudtenant.yunmenkeji.cloudtenant.model.Indexdata;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
@@ -29,7 +29,7 @@ import com.yzs.yzsbaseactivitylib.fragment.YzsBaseListFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomFragment extends YzsBaseListFragment<Indexdata> {
+public class RoomFragment extends YzsBaseListFragment<HouseDetil> {
 
     LineChart mLineChart;
     @Override
@@ -40,7 +40,7 @@ public class RoomFragment extends YzsBaseListFragment<Indexdata> {
     }
 
     @Override
-    protected void MyHolder(BaseViewHolder baseViewHolder, Indexdata indexdata) {
+    protected void MyHolder(BaseViewHolder baseViewHolder, HouseDetil houseDetil) {
 
     }
 
@@ -132,9 +132,9 @@ public class RoomFragment extends YzsBaseListFragment<Indexdata> {
         legend.setFormSize(13);
         mLineChart.setData(lineData);
         mLineChart.animateY(1000);
-        mAdapter.addData(new Indexdata());
-        mAdapter.addData(new Indexdata());
-        mAdapter.addData(new Indexdata());
+        mAdapter.addData(new HouseDetil());
+        mAdapter.addData(new HouseDetil());
+        mAdapter.addData(new HouseDetil());
     }
 
     private void setListener() {

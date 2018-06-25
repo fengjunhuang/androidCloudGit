@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    >
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/item_title"
+
+
+
+        ></include>
+    <LinearLayout
+        android:layout_below="@+id/include_title"
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        android:padding="10dp"
+        >
+
+        <include
+            layout="@layout/item_house_detil"
+
+            ></include>
+        <View
+            android:layout_marginTop="20dp"
+            style="@style/match_line"/>
+        <LinearLayout
+            android:id="@+id/ll_online_visit"
+            android:layout_marginTop="20dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                style="@style/click"
+                android:layout_height="55dp">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:text="在线看房"
+                    android:textSize="17sp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:src="@mipmap/right_return"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp" />
+            </LinearLayout>
+            <View
+                android:layout_marginTop="20dp"
+
+                style="@style/match_line"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                style="@style/click"
+                android:layout_height="55dp">
+
+                <TextView
+
+                    android:text="合同订约"
+                    android:textSize="17sp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:src="@mipmap/right_return"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp" />
+            </LinearLayout>
+            <View
+                 android:layout_marginTop="20dp"
+                style="@style/match_line"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

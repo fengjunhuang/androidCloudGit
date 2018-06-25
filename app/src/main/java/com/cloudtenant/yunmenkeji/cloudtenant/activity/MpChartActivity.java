@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
-import com.cloudtenant.yunmenkeji.cloudtenant.model.Indexdata;
+
 import com.gersion.library.base.BaseActivity;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;

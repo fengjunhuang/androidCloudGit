@@ -83,7 +83,8 @@ dependencies {
     implementation 'com.yanzhenjie:permission:2.0.0-rc11'
 
     compile 'com.shizhefei:ViewPagerIndicator:1.1.7'
+    //腾讯地图
+    compile 'com.tencent.map:tencent-map-vector-sdk:latest.release'
 
-
-
+    compile 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.2.2'
 }

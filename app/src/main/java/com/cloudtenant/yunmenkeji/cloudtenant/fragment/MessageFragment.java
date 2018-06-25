@@ -19,7 +19,8 @@ import com.cloudtenant.yunmenkeji.cloudtenant.adapter.ContractAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MessageAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.FgMessage;
-import com.cloudtenant.yunmenkeji.cloudtenant.model.Indexdata;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.SpacesItemDecoration;
 import com.jude.easyrecyclerview.EasyRecyclerView;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MessageFragment extends YzsBaseListFragment<Indexdata> implements View.OnClickListener {
+public class MessageFragment extends YzsBaseListFragment<HouseDetil> implements View.OnClickListener {
 
 
 
@@ -99,7 +100,7 @@ public class MessageFragment extends YzsBaseListFragment<Indexdata> implements V
     }
 
     @Override
-    protected void MyHolder(BaseViewHolder baseViewHolder, Indexdata indexdata) {
+    protected void MyHolder(BaseViewHolder baseViewHolder, HouseDetil indexdata) {
 
     }
 
