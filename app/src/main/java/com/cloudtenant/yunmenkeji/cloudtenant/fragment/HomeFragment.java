@@ -1,11 +1,13 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.fragment;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.CityPickerActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.HouseDetilActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
@@ -38,7 +41,7 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil> implements Vie
 
     private static final int REQUEST_CODE_SCAN=77;
 
-
+    public static final int GETCITY=9527;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -82,6 +85,9 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil> implements Vie
                 /*Intent intent = new Intent(getActivity(), CaptureActivity.class);
                 startActivityForResult(intent, REQUEST_CODE_SCAN);*/
             }break;
+            case R.id.tv_main:{
+                startActivityForResult(new Intent(getActivity(),CityPickerActivity.class),GETCITY);
+            }
 
         }
     }
@@ -90,7 +96,17 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil> implements Vie
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Log.e("onActivityResult","requestCode="+requestCode+">>>>resultCode="+resultCode);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case GETCITY:
+                    String city=data.getExtras().getString("city");
+                    if(city!= null) {
+                        System.out.println("ccccccctttttt" + city);
+                    }
+                    break;
+            }
+        }
         // 扫描二维码/条码回传
         if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
             if (data != null) {
@@ -107,7 +123,7 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil> implements Vie
        View view=layoutInflater.inflate(R.layout.activity_recyclerview,viewGroup,false);
         List<String> images=new ArrayList<>();
         Banner banner = (Banner)view. findViewById(R.id.banner);
-        view.findViewById(R.id.btn_op1).setOnClickListener(this);
+        view.findViewById(R.id.tv_main).setOnClickListener(this);
         view.findViewById(R.id.btn_op2).setOnClickListener(this);
         images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529230178291&di=71e9d9b4ad4deb6d8f21e90cf4ced6ac&imgtype=0&src=http%3A%2F%2Fpic15.nipic.com%2F20110708%2F7843095_103004548386_2.jpg");
        images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529230293646&di=b367f393dc03c3c8d22d0ee923eb2f2d&imgtype=0&src=http%3A%2F%2Fpic3.16pic.com%2F00%2F04%2F28%2F16pic_428522_b.jpg");

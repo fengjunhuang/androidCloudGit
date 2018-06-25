@@ -109,6 +109,8 @@
             android:name=".activity.LoginActivity" />-->
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".activity.EditProFileActivity" />
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.CityPickerActivity" />
 
 
 
