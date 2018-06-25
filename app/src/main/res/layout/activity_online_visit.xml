@@ -7,13 +7,11 @@
     >
 
 
-    <com.youth.banner.Banner
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/banner"
-        android:layout_margin="@dimen/x10"
+    <com.zph.glpanorama.GLPanorama
+        android:id="@+id/mGLPanorama"
         android:layout_width="match_parent"
         android:layout_weight="1"
-        android:layout_height="0dp" />
+        android:layout_height="0dp"></com.zph.glpanorama.GLPanorama>
 
     <TextView
         android:layout_width="wrap_content"

@@ -71,7 +71,7 @@
         app:pressedBackgroundColor="@color/colorPrimaryDark"
         app:radius="6dp"
         app:unableBackgroundColor="@android:color/holo_red_light"
-        android:visibility="invisible"
+
 
         />
     <!--<com.yzs.yzslibrary.view.StateButton
@@ -109,7 +109,7 @@
         android:layout_marginRight="10dp"
         android:background="@drawable/butten_background_black"
         android:gravity="center"
-        android:visibility="invisible"
+
         android:layout_height="30dp">
         <ImageView
             android:background="@drawable/image_navlocation"

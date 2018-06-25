@@ -3,15 +3,139 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/white"
-
+android:paddingLeft="10dp"
+    android:paddingRight="10dp"
 
     >
-    <include
-        layout="@layout/item_title"
-        ></include>
 
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+
+        >
+
+        <ImageView
+            style="@style/click"
+            android:id="@+id/out"
+            android:src="@mipmap/leftback"
+            android:layout_width="20dp"
+            android:layout_centerVertical="true"
+            android:visibility="invisible"
+            android:layout_height="20dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x5"
+
+            android:orientation="vertical">
+            <TextView
+
+                android:id="@+id/tv_main"
+                style="@style/head_title_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选 择 好 住 处"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true"
+                />
+            <TextView
+                android:id="@+id/tv_small"
+                style="@style/login_text_style_nor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="东圃明珠新村5号"
+                android:layout_marginLeft="20dp"
+                android:visibility="invisible"
+
+                android:layout_centerVertical="true"
+                />
+        </LinearLayout>
+        <com.yzs.yzslibrary.view.StateButton
+            android:id="@+id/btn_op1"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:drawableLeft="@drawable/image_navqr"
+            android:layout_centerVertical="true"
+            app:normalStrokeColor="@color/actionsheet_gray"
+            app:strokeDashWidth="3dp"
+
+            android:padding="5dp"
+            android:text="扫一扫 "
+            android:textColor="@android:color/darker_gray"
+            android:textSize="8sp"
+            app:normalBackgroundColor="@color/white"
+            app:pressedBackgroundColor="@color/colorPrimaryDark"
+            app:radius="6dp"
+            app:unableBackgroundColor="@android:color/holo_red_light"
+
+
+            />-->
+        <!--<com.yzs.yzslibrary.view.StateButton
+            android:id="@+id/btn_op2"
+            android:layout_width="55dp"
+            android:layout_height="35dp"
+            android:layout_toLeftOf="@+id/btn_op1"
+            android:drawableLeft="@mipmap/image_navshare"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:padding="2dp"
+            android:text="分 享"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="8sp"
+            app:strokeDashWidth="3dp"
+            app:normalBackgroundColor="@color/white"
+            app:pressedBackgroundColor="@color/colorPrimaryDark"
+            app:radius="6dp"
+            app:unableBackgroundColor="@android:color/holo_red_light" />-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            style="@style/head_title_style"
+            android:visibility="invisible"
+            android:text="路线规划"
+            />
+        <LinearLayout
+            android:id="@+id/btn_op2"
+            android:layout_toLeftOf="@+id/btn_op1"
+            android:layout_width="65dp"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/butten_background_black"
+            android:gravity="center"
+
+            android:layout_height="30dp">
+            <ImageView
+                android:background="@drawable/image_navlocation"
+                android:layout_width="12dp"
+                android:layout_height="12dp" />
+            <TextView
+                android:id="@+id/tv_location"
+                android:text="深圳市"
+                android:textColor="@android:color/black"
+                android:textSize="11sp"
+                android:layout_marginLeft="3dp"
+
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view"
+            android:layout_marginTop="20dp"
+
+            android:layout_alignParentBottom="true"
+            style="@style/match_line"/>
+    </RelativeLayout>
 <android.support.v4.widget.SwipeRefreshLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -38,6 +162,17 @@
         android:layout_margin="@dimen/x10"
         android:layout_width="match_parent"
         android:layout_height="@dimen/x80" />
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+
+          android:orientation="horizontal">
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:layout_weight="1"
+              >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,6 +193,17 @@
         android:textColor="@color/text_gray"
 
         />
+          </LinearLayout>
+          <ImageView
+              android:layout_width="40dp"
+              android:layout_height="40dp"
+              android:layout_gravity="center"
+              android:layout_marginRight="@dimen/x10"
+
+              android:src="@drawable/settingicon"
+
+              />
+      </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@id/yzs_base_list"
 

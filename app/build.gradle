@@ -88,4 +88,7 @@ dependencies {
     compile 'com.tencent.map:tencent-map-vector-sdk:latest.release'
 
     compile 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.2.2'
+//全景图
+        compile 'com.github.CN-ZPH:weibo360panorama:v1.0.1'
+
 }
