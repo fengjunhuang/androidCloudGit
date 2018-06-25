@@ -25,7 +25,7 @@
             android:background="@android:color/white"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="30dp">
             <ImageView
                 style="@style/click"
                 android:id="@+id/out"
@@ -69,7 +69,7 @@
 
             android:id="@+id/lineChart"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="200dp"
             android:layout_centerInParent="true"
             android:layout_marginTop="24dp"
             app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -94,7 +94,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/x5"
+                android:layout_margin="5dp"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
                 android:text=" + "
                 />
@@ -107,7 +107,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/x5"
+                android:layout_margin="5dp"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
                 android:text=" + "
                 />
@@ -120,7 +120,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/x5"
+                android:layout_margin="5dp"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
                 android:text=" + "
                 />
@@ -133,7 +133,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/x5"
+                android:layout_margin="5dp"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
                 android:text=" + "
                 />
@@ -146,7 +146,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/x5"
+                android:layout_margin="5dp"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
                 android:text=" = "
                 />
@@ -166,13 +166,13 @@
             android:layout_width="match_parent"
             android:layout_margin="@dimen/x10"
 
-            android:layout_height="150dp"
-
-
-
-
+            android:layout_height="130dp"
 
             app:layout_constraintTop_toBottomOf="@+id/ll_prace"
+
+
+
+
             tools:listitem="@layout/item_safe_sensor" />
 
     </android.support.constraint.ConstraintLayout>

@@ -8,4 +8,8 @@
 /captures
 .externalNativeBuild
 /.idea
+<<<<<<< HEAD
 /.idea/caches
+=======
+.idea
+>>>>>>> cad5e28683f46632d54a7717e926ef52f9084366
