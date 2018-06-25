@@ -4,23 +4,24 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="@color/white"
 
 
     >
     <include
         layout="@layout/item_title"
         ></include>
+
 <android.support.v4.widget.SwipeRefreshLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
     >
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-
-        >
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:orientation="vertical"
+     >
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -64,8 +65,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="20dp"
-        tools:listitem="@layout/item_house_detil" />
+        tools:listitem="@layout/item_recy_house_detil" />
 </LinearLayout>
-    </ScrollView>
+ </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
