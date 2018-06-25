@@ -154,7 +154,7 @@
                 <TextView
                     android:id="@+id/tv_job"
                     style="@style/edit_pro_text_style"
-                    android:text="篮球"
+                    android:text="学生"
                     android:layout_alignParentRight="true"
                     />
             </RelativeLayout>

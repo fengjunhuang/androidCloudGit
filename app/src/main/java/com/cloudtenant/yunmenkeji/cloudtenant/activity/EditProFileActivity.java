@@ -29,7 +29,18 @@ public class EditProFileActivity extends BaseActivity implements View.OnClickLis
     private CustomSinglePicker constellationPicker;
     private CustomSinglePicker jobPicker;
     private CustomSinglePicker interestDatePicker;
-
+    private CustomSinglePicker.ResultHandler jobHandler=new CustomSinglePicker.ResultHandler() {
+        @Override
+        public void handle(String time) { // 回调接口，获得选中的时间
+            tv_job.setText(time);
+        }
+    };
+    private CustomSinglePicker.ResultHandler interestHandler=new CustomSinglePicker.ResultHandler() {
+        @Override
+        public void handle(String time) { // 回调接口，获得选中的时间
+            tv_interest.setText(time);
+        }
+    };
     private TextView currentDate,
             tv_sex,
             tv_job,
@@ -178,12 +189,7 @@ public class EditProFileActivity extends BaseActivity implements View.OnClickLis
         jobList.add("演员");
         jobList.add("歌手");
         jobList.add("其他");
-        jobPicker = new CustomSinglePicker(this, new CustomSinglePicker.ResultHandler() {
-            @Override
-            public void handle(String time) { // 回调接口，获得选中的时间
-                tv_job.setText(time);
-            }
-        },jobList,"选择职业"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        jobPicker = new CustomSinglePicker(this, jobHandler,jobList,"选择职业"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         jobPicker.setIsLoop(false); // 允许循环滚动
 
         ArrayList<String> interestList=new ArrayList<>();
@@ -209,12 +215,7 @@ public class EditProFileActivity extends BaseActivity implements View.OnClickLis
         interestList.add("篮球");
         interestList.add("篮球");
         interestList.add("英雄联盟");
-        interestDatePicker = new CustomSinglePicker(this, new CustomSinglePicker.ResultHandler() {
-            @Override
-            public void handle(String time) { // 回调接口，获得选中的时间
-                tv_interest.setText(time);
-            }
-        },interestList,"选择兴趣"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        interestDatePicker = new CustomSinglePicker(this, interestHandler,interestList,"选择兴趣"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         interestDatePicker.setIsLoop(false); // 允许循环滚动
 
     }
