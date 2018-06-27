@@ -82,7 +82,7 @@ dependencies {
     implementation 'com.github.yuzhiqiang1993:zxing:2.1.8'
     //权限获取
     implementation 'com.yanzhenjie:permission:2.0.0-rc11'
-
+    compile 'com.alibaba:fastjson:1.2.47'
     compile 'com.shizhefei:ViewPagerIndicator:1.1.7'
     //腾讯地图
     compile 'com.tencent.map:tencent-map-vector-sdk:latest.release'

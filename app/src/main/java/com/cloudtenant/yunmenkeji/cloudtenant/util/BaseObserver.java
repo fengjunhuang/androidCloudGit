@@ -36,24 +36,17 @@ public abstract class BaseObserver<T> implements Observer<BaseBean> {
 
     }
 
-//    @Override
-////    public void onNext(BaseBean tBaseEntity) {
-////        onRequestEnd();
-////        if (tBaseEntity.isSuccess()) {
-////            try {
-////                onSuccees(tBaseEntity);
-////            } catch (Exception e) {
-////                e.printStackTrace();
-////            }
-////        } else {
-////            try {
-////                onCodeError(tBaseEntity);
-////
-////            } catch (Exception e) {
-////                e.printStackTrace();
-////            }
-////        }
-////    }
+    @Override
+    public void onNext(BaseBean tBaseEntity) {
+        onRequestEnd();
+
+            try {
+                onSuccees(tBaseEntity);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+    }
 
     @Override
     public void onError(Throwable e) {

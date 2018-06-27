@@ -2,6 +2,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.http;
 
 
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -37,4 +38,6 @@ public interface ApiService {
 //    Observable<BuoyHistoryList> getBuoyHistorysById(@Body HistoryParmerBean userBean);
        @POST("Login")
        Observable<BaseBean> login();
+       @POST("HomeData")
+       Observable<HouseDetil> homeData();
 }

@@ -1,5 +1,7 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.model;
 
+import com.cloudtenant.yunmenkeji.cloudtenant.util.AESOperator;
+
 import java.io.Serializable;
 
 /**
@@ -16,6 +18,16 @@ public class BaseBean implements Serializable {
 
     private String result;
     private String message;
+    private  String viewData;
+
+    public String getViewData() throws Exception {
+        return AESOperator.getInstance().decrypt(viewData);
+    }
+
+    public void setViewData(String viewData) throws Exception {
+        this.viewData = viewData;
+
+    }
 
     public String getResult() {
         return result;
