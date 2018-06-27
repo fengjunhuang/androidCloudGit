@@ -22,7 +22,7 @@
             android:layout_weight="1"
             style="@style/login_text_style"
             android:text="手机短信登录"
-
+            android:id="@+id/msg_login"
             />
         <View
            android:layout_marginTop="@dimen/x20"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             style="@style/login_text_style_nor"
             android:layout_weight="1"
-
+            android:id="@+id/pwd_login"
             android:text="账号密码登录"
 
             />
@@ -50,37 +50,56 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="10sp"
-
+        android:id="@+id/et_number"
         android:hint="请输入您的手机号码"
         />
     <LinearLayout
+        android:id="@+id/one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-    <EditText
-        android:layout_margin="@dimen/x5"
-        android:layout_marginTop="@dimen/x10"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="10sp"
-
-        android:hint="请输入您的手机号码"
-        android:layout_weight="2"
-        />
-        <Button
-            android:id="@+id/btn_get_message"
+        <EditText
             android:layout_margin="@dimen/x5"
+            android:layout_marginTop="@dimen/x10"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            style="@style/btn_stly"
-            android:text="获取短信"
-
-
+            android:textSize="10sp"
+            android:id="@+id/et_code"
+            android:hint="请输入验证码"
+            android:layout_weight="2"
             />
+            <Button
+                android:id="@+id/btn_get_message"
+                android:layout_margin="@dimen/x5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/btn_stly"
+                android:text="获取短信"
+                />
 
-
-
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_margin="@dimen/x5"
+            android:layout_marginTop="@dimen/x10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:id="@+id/et_pwd"
+            android:hint="请输入验证码"
+            />
+        <TextView
+            android:text="忘记密码？"
+            android:id="@+id/tx_fg_pwd"
+            style="@style/login_text_style"
+            android:gravity="end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
