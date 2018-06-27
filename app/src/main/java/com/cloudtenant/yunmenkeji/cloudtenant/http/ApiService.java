@@ -1,7 +1,11 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.http;
 
 
+import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 
+import io.reactivex.Observable;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
 
 /**
  * Created by zt on 2017/3/10.
@@ -31,5 +35,6 @@ public interface ApiService {
 //
 //    @POST ("buoy/getBuoyHistorysById")
 //    Observable<BuoyHistoryList> getBuoyHistorysById(@Body HistoryParmerBean userBean);
-
+       @POST("Login")
+       Observable<BaseBean> login();
 }
