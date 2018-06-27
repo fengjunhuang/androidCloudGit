@@ -2,6 +2,10 @@ package com.cloudtenant.yunmenkeji.cloudtenant.http;
 
 
 
+import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -14,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HttpMethods {
 
-    private static final String BASE_URL = "http://192.168.1.166/";
+    private static final String BASE_URL = "http://5ae10bf1ee98370014cf2455.mockapi.io/";
     private static final int TIME_OUT=4;
     private Retrofit retrofit;
     private ApiService apiService;
@@ -50,6 +54,14 @@ public class HttpMethods {
 
     public  static HttpMethods getInstance(){
         return sinalInstance.instance;
+    }
+
+    public void login(BaseObserver<String> observer,String aa){
+        apiService.login().subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+
     }
 //   public  void getAllBuoyHead(BaseObserver<BuoyListBean> observer){
 //        apiService.getAllBuoyHead().subscribeOn(Schedulers.io())
