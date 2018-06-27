@@ -18,6 +18,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.CityPickerActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.HouseDetilActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.SensorActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.SpacesItemDecoration;
@@ -89,7 +90,10 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil> implements Vie
             case R.id.btn_op2:{
                 startActivityForResult(new Intent(getActivity(),CityPickerActivity.class),GETCITY);
             }
+            case R.id.tv_main:{
 
+                startActivityForResult(new Intent(getActivity(),SensorActivity.class),GETCITY);
+            }break;
         }
     }
 
@@ -127,6 +131,7 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil> implements Vie
         Banner banner = (Banner)view. findViewById(R.id.banner);
         tv_location =view. findViewById(R.id.tv_location);
         view.findViewById(R.id.btn_op1).setOnClickListener(this);
+        view.findViewById(R.id.tv_main).setOnClickListener(this);
         view.findViewById(R.id.btn_op2).setOnClickListener(this);
         images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529230178291&di=71e9d9b4ad4deb6d8f21e90cf4ced6ac&imgtype=0&src=http%3A%2F%2Fpic15.nipic.com%2F20110708%2F7843095_103004548386_2.jpg");
        images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529230293646&di=b367f393dc03c3c8d22d0ee923eb2f2d&imgtype=0&src=http%3A%2F%2Fpic3.16pic.com%2F00%2F04%2F28%2F16pic_428522_b.jpg");

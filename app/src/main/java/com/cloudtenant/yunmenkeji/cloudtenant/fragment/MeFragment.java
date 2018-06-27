@@ -4,7 +4,6 @@ package com.cloudtenant.yunmenkeji.cloudtenant.fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,21 +12,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.AboutActivity;
-import com.cloudtenant.yunmenkeji.cloudtenant.activity.ContractActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.SensorActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.EditProFileActivity;
-import com.cloudtenant.yunmenkeji.cloudtenant.activity.LoginActivity;
-import com.cloudtenant.yunmenkeji.cloudtenant.activity.MessageRoomActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MyFamilyActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.RequestActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.SettingActivity;
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
@@ -70,7 +65,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), MyFamilyActivity.class));
             }break;
             case R.id.rl_contract:{
-                startActivity(new Intent(getActivity(), ContractActivity.class));
+                startActivity(new Intent(getActivity(), SensorActivity.class));
             }break;
             case R.id.rl_icon:{
                 if (isLogin) {

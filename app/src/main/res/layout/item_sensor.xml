@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    style="@style/click"
+    android:layout_height="100dp">
+    <TextView
+        android:id="@+id/time"
+        android:text="09:10-11:00"
+        android:textSize="21sp"
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:textColor="@color/light_black"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text="模式1"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text="一  三  五"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/gren_cut_clorr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+         />
+</RelativeLayout>
