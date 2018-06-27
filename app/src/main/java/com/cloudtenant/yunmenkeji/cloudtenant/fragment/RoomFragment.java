@@ -1,5 +1,6 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.fragment;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
@@ -33,6 +35,7 @@ import java.util.List;
 public class RoomFragment extends YzsBaseListFragment<HouseDetil> {
 
     LineChart mLineChart;
+    View myScrollView;
     @Override
     protected void initItemLayout() {
         setLayoutResId(R.layout.item_safe_sensor);
@@ -49,6 +52,10 @@ public class RoomFragment extends YzsBaseListFragment<HouseDetil> {
     protected View initContentView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
 
         View view=layoutInflater.inflate(R.layout.frament_room,viewGroup,false);
+         myScrollView = view.findViewById(R.id.my_scrollview);
+
+
+
 
         return view;
     }
@@ -185,6 +192,15 @@ public class RoomFragment extends YzsBaseListFragment<HouseDetil> {
                 // 移动
             }
         });
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        myScrollView.setFocusable(true);
+        myScrollView.setFocusableInTouchMode(true);
+        myScrollView.requestFocus();
     }
 
     @Override
