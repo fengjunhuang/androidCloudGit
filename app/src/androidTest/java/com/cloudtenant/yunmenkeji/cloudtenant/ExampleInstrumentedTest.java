@@ -4,6 +4,10 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -22,5 +26,25 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.cloudtenant.yunmenkeji.cloudtenant", appContext.getPackageName());
+    }
+    public void test(){
+
+        HttpMethods.getInstance().login(new BaseObserver<String>() {
+            @Override
+            protected void onSuccees(BaseBean t) throws Exception {
+                System.out.println(t);
+
+            }
+
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                System.out.println(e);
+            }
+
+            @Override
+            public void onNext(BaseBean baseBean) {
+
+            }
+        });
     }
 }
