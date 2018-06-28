@@ -2,8 +2,10 @@ package com.cloudtenant.yunmenkeji.cloudtenant.http;
 
 
 
+import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
@@ -63,6 +65,15 @@ public class HttpMethods {
                 .subscribe(observer);
 
     }
+    public void homeData(BaseObserver<HouseDetil> observer, String aa){
+        apiService.homeData().subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+
+    }
+
+}
 //   public  void getAllBuoyHead(BaseObserver<BuoyListBean> observer){
 //        apiService.getAllBuoyHead().subscribeOn(Schedulers.io())
 //                .unsubscribeOn(Schedulers.io())
@@ -129,5 +140,5 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }*/
-}
+
 
