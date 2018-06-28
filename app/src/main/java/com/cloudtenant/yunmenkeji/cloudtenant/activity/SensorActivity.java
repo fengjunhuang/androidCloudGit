@@ -1,6 +1,5 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,11 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
-import com.cloudtenant.yunmenkeji.cloudtenant.adapter.ContractAdapter;
-import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MyFamliyAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.SensorAdapter;
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamily;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.Sensor;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.gersion.library.base.BaseActivity;
@@ -71,13 +66,6 @@ public class SensorActivity extends BaseActivity implements View.OnClickListener
     }
 
 
-    SelectPicPopupWindow mPopWindow;
-    private void showPopupWindow() {
-        //设置contentView
-        mPopWindow = new SelectPicPopupWindow(this,this);
-        mPopWindow.showAsDropDown(LayoutInflater.from(this).inflate(R.layout.activity_me, null));
-
-    }
 
     @Override
     public void onClick(View view) {
@@ -85,8 +73,9 @@ public class SensorActivity extends BaseActivity implements View.OnClickListener
             case R.id.pickPhotoBtn:{
                 Toast.makeText(this, "申请退房！", Toast.LENGTH_SHORT).show();
             }break;
-            case R.id.cancelBtn:{
-                mPopWindow.dismiss();
+            case R.id.tv_add:{
+
+
             }break;
 
         }

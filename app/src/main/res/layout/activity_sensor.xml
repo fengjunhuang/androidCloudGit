@@ -23,6 +23,7 @@
             style="@style/sensor_text_style" />
 
         <TextView
+            android:id="@+id/tv_add"
             android:layout_alignParentRight="true"
             android:gravity="center"
             android:textColor="@android:color/white"
