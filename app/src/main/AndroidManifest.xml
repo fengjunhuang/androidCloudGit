@@ -119,6 +119,8 @@
             android:name=".activity.CityPickerActivity" />
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".activity.ContractActivity" />
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.SensorAddActivity" />
 
 
 

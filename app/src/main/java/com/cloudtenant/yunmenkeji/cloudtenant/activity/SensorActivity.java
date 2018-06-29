@@ -1,5 +1,6 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,6 +38,7 @@ public class SensorActivity extends BaseActivity implements View.OnClickListener
                 finish();
             }
         });
+        findViewById(R.id.tv_add).setOnClickListener(this);
         findViewById(R.id.title).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,8 +76,7 @@ public class SensorActivity extends BaseActivity implements View.OnClickListener
                 Toast.makeText(this, "申请退房！", Toast.LENGTH_SHORT).show();
             }break;
             case R.id.tv_add:{
-
-
+                startActivity(new Intent(this, SensorAddActivity.class));
             }break;
 
         }
