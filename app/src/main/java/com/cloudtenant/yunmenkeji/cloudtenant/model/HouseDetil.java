@@ -105,6 +105,21 @@ public class HouseDetil extends BaseBean {
     }
 
     public static class ViewDataBean {
+        @Override
+        public String toString() {
+            return "ViewDataBean{" +
+                    "cellImage='" + cellImage + '\'' +
+                    ", cellName='" + cellName + '\'' +
+                    ", cellRemain='" + cellRemain + '\'' +
+                    ", cellCost='" + cellCost + '\'' +
+                    ", cellBuildID='" + cellBuildID + '\'' +
+                    ", cellAddress='" + cellAddress + '\'' +
+                    ", cellBuildingSet='" + cellBuildingSet + '\'' +
+                    ", cellLatitude='" + cellLatitude + '\'' +
+                    ", cellLongitude='" + cellLongitude + '\'' +
+                    '}';
+        }
+
         /**
          * cellImage : http://img.zcool.cn/community/0126825548ff270000019ae99b6ff7.jpg@1280w_1l_2o_100sh.jpg
          * cellName : 明珠公寓

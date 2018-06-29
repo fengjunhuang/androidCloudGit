@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +19,12 @@ import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MessageOtherAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MessageRoomAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageRoom;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
+import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.gersion.library.base.BaseActivity;
 import com.jude.easyrecyclerview.EasyRecyclerView;
@@ -100,7 +107,7 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
         recyclerView.addItemDecoration(new DividerDecoration(Color.parseColor("#aaaaaa"), 1));
         adapter = new MessageRoomAdapter(this);
         recyclerView.setAdapter(adapter);
-        //getData();
+        getData();
         AddData();
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
@@ -142,22 +149,19 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
         spinner.setSelection(0);
 
     }
-    /*private void getData() {
-        Map<String,Object> params = new HashMap<>(2);
-        params.put("page",1);
-        params.put("rows",20);
-        ok.post(Contants.API.SCAN_LIST, params, new SimpleCallback<Scan>(this) {
+    public void getData() {
+        HttpMethods.getInstance().messageSave(new BaseObserver<MessageSave>() {
             @Override
-            public void onSuccess(okhttp3.Response response, Scan o) {
-                if (o.getMsg().getCode()==0) {
-                    adapter.addAll(o.getRowSet());
-                }
+            protected void onSuccees(BaseBean t) throws Exception {
+                MessageSave houseDetil= (MessageSave) t;
+                System.out.println(houseDetil.getViewData()+"");
+
             }
 
             @Override
-            public void onError(okhttp3.Response response, int code, Exception e) {
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        });
-    }*/
+        },"");
+    }
 }
