@@ -23,6 +23,7 @@
 
     >
     <ImageView
+        android:id="@+id/iv_cellimage"
         android:layout_width="@dimen/x120"
         android:layout_height="@dimen/y80"
         android:src="@mipmap/zufang"
@@ -54,6 +55,7 @@
 
          />
      <TextView
+         android:id="@+id/tv_cellremain"
        android:layout_marginLeft="@dimen/x5"
        android:layout_height="wrap_content"
          android:layout_width="wrap_content"
@@ -67,6 +69,7 @@
          />
      </LinearLayout>
      <TextView
+         android:id="@+id/tv_cellName"
          android:layout_marginTop="@dimen/x10"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
@@ -75,6 +78,7 @@
 
          />
      <TextView
+         android:id="@+id/tv_cellbuildingset"
          android:layout_marginTop="@dimen/x10"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
@@ -97,6 +101,7 @@
          android:textSize="10sp"
          />
          <TextView
+             android:id="@+id/tv_cellhost"
              android:layout_marginTop="@dimen/x10"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
