@@ -1,19 +1,20 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.bean;
 
+import com.alibaba.fastjson.JSON;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 
+import java.util.List;
+
 public class MessageSave extends BaseBean{
+
+
     /**
-     * id : 15
-     * result : true
-     * viewData : dL74iBrWew9+e+lvaBOMCSrCkGhB/kpTa/m3v8LztO8bY95gWMX5FfE9OSNoRKz4HDQxGfOlZ2yvQs255h6Mj0s90M9VktqeYmA9+hEUtuLouiaWr/ozjSm8U0euMVJOBtY0kBzcvn+30eYM6OKvOUC9ZVV1++0niLKL3O2jBJsPM0/SlrDfe9Ttkvc4d6Z/9SciuXSR94N1GkK+Cp7Cg4AzJTIjdYLUjkf+aX2E4a8J99WI8/PvguIW3Q1m1Lko2Ru51HFnh2FI5TE6cSEg0LKKS4q0mOJrx7HDBKQDmjF6tj/4Y4wBd7qYtyvxnRsm45/2d7yU827QqTBx3LqjDgvXu4dtZzeEzdRdUO0VVqPuO5jhD2oFw/41PBZnv5iejS509WAyza8luHJ2NafSuMJMQJitV+wPxiSg/C/BuLl8BWr3/NMki1CdxfjK0s2S4rMAMwfVLAUBl1tGwF2YNl/rbnIn1K45pZdaPVIq7+Kt4as4y9dI7bHhGl//JF/Wik/pXqGbVR+iUejR/PsfLdBI8ixdX6GBuTRsYvv5GAaPBX9e/mTdA2et8M1/VneOfqg/E3H4sBiEUe4dhhm4JRChChbca13//Ri2bSZK04nLR6MG2dWxpjzN6SdYYpdAvvFQh9vS61kQvrAr128D3BD1ZCdL2RVT5bY5JZAt2fdu1yA8jNWAGxA0wSKnBFjM2abkYEqNMiePo/N4Yn4w0xgZtoTcGoFYYcDwPFvwuUskE58qljTEVH5uUELNyNaG93DFJBf3T8B/HUtSGYoJnNwytCiw0cRwnaWZ5P7gLUy88Q4k+q21eFz5ik8yumu1O4gtitkf/kdhqHOWlKWosvjUjajVDxS/BghU1zE97UXSFnlo2ya6heWFuxsF4yUMjXoXGKniMMPQiA1t7bHGXZFPrMJtML0hWaKasFNNVH+UAY8FrMzIjug0W8SnJQXqgVxU1qiebYhr6ZbGF2zMsNpw88B8YQYOvCqhK01MNVCAvLV8Vk9IGoQ4MZyiNKKqWWxb3/lP8ixV33+pE+jyQl/KCvYLTYf/zaEwSNlKrgiG5zdsmI87fPTMVmJEF1IhXWxO73azgxQz/spo84fLYPVsWAmMiIirklxpgolr0RwKzoVpSGUsYKQvoOWw8kyHO1e2Wq2nOLm3KXxd7Voq73QTB8sjdeaEpWnOYWFGYuJrK0HbPHftVIS1kJRPH7iug2qf1E9JpCTBQFe4n/DxtKfehDQlCqC1wC7JQrge61Fhy210UynFOqbjqTHzApFchaZU0JfC8/T9LO8B1RFcr4f8iS4OgouLtY32WDntNv/BzlKnyjO9rjlZQ03TcVtV9FsmiXCsjzkBeXf45fBXoBzTFfL7EMlYVcqe/4PlL4QPLSfZuAFlJyB3t0MmCTeP
-     * message : 你好
+     * id : 22
+     * viewData : [{"messageRoomName":"东圃明珠新村6栋201","messageRoomID":"13123123123123123123","messageLandlordPhone":"13800138000","messageArray":[{"messageNotice":"今晚8am-9pm停电","messageWarningTime":"2018-09-12 07:22:22","messageWarningStatus":1},{"messageNotice":"22222222","messageWarningTime":"2018-09-12 22:22:22","messageWarningStatus":1}]},{"messageRoomName":"东圃明珠新村6栋205","messageRoomID":"4234543534534123123","messageLandlordPhone":"18665710271","messageArray":[{"messageNotice":"今晚送西瓜","messageWarningTime":"2018-09-12 18:22:22","messageWarningStatus":1},{"messageNotice":"3333333333","messageWarningTime":"2018-09-12 22:22:22","messageWarningStatus":0}]}]
      */
 
     private String id;
-    private String result;
-    private String viewDataX;
-    private String message;
+    private List<ViewDataBean> viewDataX;
 
     public String getId() {
         return id;
@@ -23,27 +24,95 @@ public class MessageSave extends BaseBean{
         this.id = id;
     }
 
-    public String getResult() {
-        return result;
+    public List<ViewDataBean> getViewDataX() throws Exception {
+
+        return  JSON.parseArray(getViewData(),MessageSave.ViewDataBean.class);
+
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setViewDataX(List<ViewDataBean> viewDataX) {
+        this.viewDataX = viewDataX;
     }
 
-    public String getViewData() {
-        return viewDataX;
-    }
+    public static class ViewDataBean {
+        /**
+         * messageRoomName : 东圃明珠新村6栋201
+         * messageRoomID : 13123123123123123123
+         * messageLandlordPhone : 13800138000
+         * messageArray : [{"messageNotice":"今晚8am-9pm停电","messageWarningTime":"2018-09-12 07:22:22","messageWarningStatus":1},{"messageNotice":"22222222","messageWarningTime":"2018-09-12 22:22:22","messageWarningStatus":1}]
+         */
 
-    public void setViewData(String viewData) {
-        this.viewDataX = viewData;
-    }
+        private String messageRoomName;
+        private String messageRoomID;
+        private String messageLandlordPhone;
+        private List<MessageArrayBean> messageArray;
 
-    public String getMessage() {
-        return message;
-    }
+        public String getMessageRoomName() {
+            return messageRoomName;
+        }
 
-    public void setMessage(String message) {
-        this.message = message;
+        public void setMessageRoomName(String messageRoomName) {
+            this.messageRoomName = messageRoomName;
+        }
+
+        public String getMessageRoomID() {
+            return messageRoomID;
+        }
+
+        public void setMessageRoomID(String messageRoomID) {
+            this.messageRoomID = messageRoomID;
+        }
+
+        public String getMessageLandlordPhone() {
+            return messageLandlordPhone;
+        }
+
+        public void setMessageLandlordPhone(String messageLandlordPhone) {
+            this.messageLandlordPhone = messageLandlordPhone;
+        }
+
+        public List<MessageArrayBean> getMessageArray() {
+            return messageArray;
+        }
+
+        public void setMessageArray(List<MessageArrayBean> messageArray) {
+            this.messageArray = messageArray;
+        }
+
+        public static class MessageArrayBean {
+            /**
+             * messageNotice : 今晚8am-9pm停电
+             * messageWarningTime : 2018-09-12 07:22:22
+             * messageWarningStatus : 1
+             */
+
+            private String messageNotice;
+            private String messageWarningTime;
+            private int messageWarningStatus;
+
+            public String getMessageNotice() {
+                return messageNotice;
+            }
+
+            public void setMessageNotice(String messageNotice) {
+                this.messageNotice = messageNotice;
+            }
+
+            public String getMessageWarningTime() {
+                return messageWarningTime;
+            }
+
+            public void setMessageWarningTime(String messageWarningTime) {
+                this.messageWarningTime = messageWarningTime;
+            }
+
+            public int getMessageWarningStatus() {
+                return messageWarningStatus;
+            }
+
+            public void setMessageWarningStatus(int messageWarningStatus) {
+                this.messageWarningStatus = messageWarningStatus;
+            }
+        }
     }
 }

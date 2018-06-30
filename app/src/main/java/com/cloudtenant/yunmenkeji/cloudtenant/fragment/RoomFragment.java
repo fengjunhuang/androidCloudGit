@@ -1,6 +1,7 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.widget.ScrollView;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MpChartActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.SensorActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -45,7 +47,12 @@ public class RoomFragment extends YzsBaseListFragment<HouseDetil> {
 
     @Override
     protected void MyHolder(BaseViewHolder baseViewHolder, HouseDetil houseDetil) {
-
+            baseViewHolder.convertView.findViewById(R.id.iv_my_room_cell).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getActivity(),SensorActivity.class));
+                }
+            });
     }
 
     @Override

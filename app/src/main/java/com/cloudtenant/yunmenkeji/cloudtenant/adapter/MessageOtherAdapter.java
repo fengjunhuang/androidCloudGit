@@ -12,7 +12,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 
-public class MessageOtherAdapter extends RecyclerArrayAdapter<MessageOther> {
+public class MessageOtherAdapter extends RecyclerArrayAdapter<MessageOther.ViewDataBean> {
     public MessageOtherAdapter(Context context) {
         super(context);
     }

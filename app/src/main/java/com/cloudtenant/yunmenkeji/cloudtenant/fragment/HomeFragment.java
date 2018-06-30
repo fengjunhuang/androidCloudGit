@@ -102,7 +102,7 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
             }
             case R.id.tv_main:{
 
-                startActivityForResult(new Intent(getActivity(),SensorActivity.class),GETCITY);
+
             }break;
         }
     }

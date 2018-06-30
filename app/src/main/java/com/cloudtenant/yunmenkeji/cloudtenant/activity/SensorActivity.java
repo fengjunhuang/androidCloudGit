@@ -10,12 +10,14 @@ import android.widget.Toast;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.SensorAdapter;
+import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.Sensor;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.gersion.library.base.BaseActivity;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
+import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ import java.util.List;
 /**
  * Created by tlol20 on 2017/6/14
  */
-public class SensorActivity extends BaseActivity implements View.OnClickListener{
+public class SensorActivity extends YzsBaseActivity implements View.OnClickListener{
 
     private EasyRecyclerView recyclerView;
     private SensorAdapter adapter;
@@ -31,6 +33,11 @@ public class SensorActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    protected void initContentView(Bundle var1) {
         setContentView(R.layout.activity_sensor);
         findViewById(R.id.out).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,9 +62,29 @@ public class SensorActivity extends BaseActivity implements View.OnClickListener
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                //showPopupWindow();
+                startActivity(new Intent(SensorActivity.this, SensorAddActivity.class));
             }
         });
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initLogic() {
+
+    }
+
+    @Override
+    protected void getBundleExtras(Bundle var1) {
+
+    }
+
+    @Override
+    protected void onEventComing(EventCenter var1) {
+
     }
 
     private void AddData() {
