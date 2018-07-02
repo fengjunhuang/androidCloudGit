@@ -101,7 +101,7 @@ public class HttpMethods {
     }
 
 
-}
+
 //   public  void getAllBuoyHead(BaseObserver<BuoyListBean> observer){
 //        apiService.getAllBuoyHead().subscribeOn(Schedulers.io())
 //                .unsubscribeOn(Schedulers.io())
