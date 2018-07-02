@@ -104,7 +104,7 @@
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".activity.ManageActivity" />
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:name=".activity.ContractActivity" />
+            android:name=".activity.SensorActivity" />
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
                     android:name=".activity.MessageOtherActivity" />
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
@@ -117,6 +117,10 @@
             android:name=".activity.EditProFileActivity" />
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".activity.CityPickerActivity" />
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.ContractActivity" />
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.SensorAddActivity" />
 
 
 

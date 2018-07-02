@@ -54,9 +54,6 @@ public class RoomFragment extends YzsBaseListFragment<HouseDetil> {
         View view=layoutInflater.inflate(R.layout.frament_room,viewGroup,false);
          myScrollView = view.findViewById(R.id.my_scrollview);
 
-
-
-
         return view;
     }
 

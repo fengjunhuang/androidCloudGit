@@ -1,5 +1,6 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,8 +9,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
-import com.cloudtenant.yunmenkeji.cloudtenant.adapter.ContractAdapter;
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
+import com.cloudtenant.yunmenkeji.cloudtenant.adapter.SensorAdapter;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.Sensor;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.gersion.library.base.BaseActivity;
 import com.jude.easyrecyclerview.EasyRecyclerView;
@@ -22,21 +23,22 @@ import java.util.List;
 /**
  * Created by tlol20 on 2017/6/14
  */
-public class ContractActivity extends BaseActivity implements View.OnClickListener{
+public class SensorActivity extends BaseActivity implements View.OnClickListener{
 
     private EasyRecyclerView recyclerView;
-    private ContractAdapter adapter;
+    private SensorAdapter adapter;
     //private OkHttpHelper ok=OkHttpHelper.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_contract);
+        setContentView(R.layout.activity_sensor);
         findViewById(R.id.out).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        findViewById(R.id.tv_add).setOnClickListener(this);
         findViewById(R.id.title).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,33 +48,26 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
         recyclerView= (EasyRecyclerView)findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerDecoration(Color.parseColor("#aaaaaa"), 1));
-        adapter = new ContractAdapter(this);
+        adapter = new SensorAdapter(this);
         recyclerView.setAdapter(adapter);
         //getData();
         AddData();
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                showPopupWindow();
+                //showPopupWindow();
             }
         });
     }
 
     private void AddData() {
-        List<Contract> list=new ArrayList<>();
-        list.add(new Contract("水斗新村23栋1002合同"));
-        list.add(new Contract("星光之约23栋1002合同"));
+        List<Sensor> list=new ArrayList<>();
+        list.add(new Sensor("10:00-11:29"));
+        list.add(new Sensor("17:00-19:29"));
         adapter.addAll(list);
     }
 
 
-    SelectPicPopupWindow mPopWindow;
-    private void showPopupWindow() {
-        //设置contentView
-        mPopWindow = new SelectPicPopupWindow(this,this);
-        mPopWindow.showAsDropDown(LayoutInflater.from(this).inflate(R.layout.activity_me, null));
-
-    }
 
     @Override
     public void onClick(View view) {
@@ -80,8 +75,8 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
             case R.id.pickPhotoBtn:{
                 Toast.makeText(this, "申请退房！", Toast.LENGTH_SHORT).show();
             }break;
-            case R.id.cancelBtn:{
-                mPopWindow.dismiss();
+            case R.id.tv_add:{
+                startActivity(new Intent(this, SensorAddActivity.class));
             }break;
 
         }

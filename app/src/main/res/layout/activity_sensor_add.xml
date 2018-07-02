@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:padding="20dp"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <ImageView
+            style="@style/click"
+            android:id="@+id/out"
+            android:src="@mipmap/leftback"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+        <TextView
+            android:id="@+id/title"
+            android:text="模式1"
+            android:layout_marginLeft="5dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="17sp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="20dp"
+        style="@style/match_line"/>
+
+    <LinearLayout
+        style="@style/click"
+        android:id="@+id/start_time"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <TextView
+            android:text="开启时间"
+            android:layout_width="0dp"
+            android:textColor="@color/light_black"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="09:00"
+            android:textColor="@color/light_black"
+            android:id="@+id/tv_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        style="@style/match_line"/>
+    <LinearLayout
+        style="@style/click"
+        android:id="@+id/end_time"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <TextView
+            android:text="关闭时间"
+            android:layout_width="0dp"
+            android:textColor="@color/light_black"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="20:00"
+            android:id="@+id/tv_end_time"
+            android:textColor="@color/light_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        style="@style/match_line"/>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:text="星期"
+        android:layout_width="wrap_content"
+            android:textColor="@color/light_black"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/image_day_1"
+            android:src="@drawable/image_day_select_1"
+            style="@style/sensor_image_style" />
+        <ImageView
+            android:id="@+id/image_day_2"
+            android:src="@drawable/image_day_select_2"
+            style="@style/sensor_image_style" />
+        <ImageView
+            android:id="@+id/image_day_3"
+            android:src="@drawable/image_day_select_3"
+            style="@style/sensor_image_style" />
+        <ImageView
+            android:id="@+id/image_day_4"
+            android:src="@drawable/image_day_select_4"
+            style="@style/sensor_image_style" />
+        <ImageView
+            android:id="@+id/image_day_5"
+            android:src="@drawable/image_day_select_5"
+            style="@style/sensor_image_style" />
+        <ImageView
+            android:id="@+id/image_day_6"
+            android:src="@drawable/image_day_select_6"
+            style="@style/sensor_image_style" />
+        <ImageView
+            android:id="@+id/image_day_7"
+            android:src="@drawable/image_day_select_7"
+            style="@style/sensor_image_style" />
+
+    </LinearLayout>
+</LinearLayout>

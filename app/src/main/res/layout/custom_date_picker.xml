@@ -69,6 +69,7 @@
                 android:layout_weight="3" />
 
             <TextView
+                android:id="@+id/year_text"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -89,6 +90,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/month"
+                android:id="@+id/month_text"
                 android:textColor="@color/text2"
                 android:textSize="18sp" />
 
@@ -104,6 +106,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/day"
+                android:id="@+id/day_text"
                 android:textColor="@color/text2"
                 android:textSize="18sp" />
 

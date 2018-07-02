@@ -82,6 +82,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/two"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/x10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
@@ -91,7 +93,7 @@
             android:layout_height="wrap_content"
             android:textSize="10sp"
             android:id="@+id/et_pwd"
-            android:hint="请输入验证码"
+            android:hint="请输入密码"
             />
         <TextView
             android:text="忘记密码？"

@@ -61,7 +61,7 @@ public class CustomDatePicker {
     private int startYear, startMonth, startDay, startHour, startMinute, endYear, endMonth, endDay, endHour, endMinute;
     private boolean spanYear, spanMon, spanDay, spanHour, spanMin;
     private Calendar selectedCalender, startCalendar, endCalendar;
-    private TextView tv_cancle, tv_select, hour_text, minute_text;
+    private TextView tv_cancle, tv_select, hour_text, minute_text,month_text,year_text,day_text;
     private String title;
     public CustomDatePicker(Context context, ResultHandler resultHandler, String startDate, String endDate) {
         if (isValidDate(startDate, "yyyy-MM-dd HH:mm") && isValidDate(endDate, "yyyy-MM-dd HH:mm")) {
@@ -133,6 +133,9 @@ public class CustomDatePicker {
         tv_cancle = (TextView) datePickerDialog.findViewById(R.id.tv_cancle);
         tv_select = (TextView) datePickerDialog.findViewById(R.id.tv_select);
         hour_text = (TextView) datePickerDialog.findViewById(R.id.hour_text);
+        month_text = (TextView) datePickerDialog.findViewById(R.id.month_text);
+        year_text = (TextView) datePickerDialog.findViewById(R.id.year_text);
+        day_text = (TextView) datePickerDialog.findViewById(R.id.day_text);
         minute_text = (TextView) datePickerDialog.findViewById(R.id.minute_text);
 
         tv_cancle.setOnClickListener(new View.OnClickListener() {
@@ -532,6 +535,12 @@ public class CustomDatePicker {
                 hour_text.setVisibility(View.VISIBLE);
                 minute_pv.setVisibility(View.VISIBLE);
                 minute_text.setVisibility(View.VISIBLE);
+                day_pv.setVisibility(View.GONE);
+                day_text.setVisibility(View.GONE);
+                month_pv.setVisibility(View.GONE);
+                month_text.setVisibility(View.GONE);
+                year_pv.setVisibility(View.GONE);
+                year_text.setVisibility(View.GONE);
             } else {
                 disScrollUnit(SCROLL_TYPE.HOUR, SCROLL_TYPE.MINUTE);
                 hour_pv.setVisibility(View.GONE);
