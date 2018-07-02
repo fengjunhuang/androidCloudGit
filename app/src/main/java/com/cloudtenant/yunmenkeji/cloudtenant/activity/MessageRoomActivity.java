@@ -154,6 +154,7 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
                 MessageSave houseDetil= (MessageSave) t;
+
                 System.out.println(houseDetil.getViewData()+"");
 
             }

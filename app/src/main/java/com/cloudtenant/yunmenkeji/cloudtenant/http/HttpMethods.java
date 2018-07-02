@@ -4,6 +4,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.http;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 
 import io.reactivex.Observer;
@@ -80,7 +81,13 @@ public class HttpMethods {
                 .subscribe(observer);
 
     }
+    public void myRoom(BaseObserver<MyRoom> observer, String aa){
+        apiService.MyRoom().subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
 
+    }
 
 
 }

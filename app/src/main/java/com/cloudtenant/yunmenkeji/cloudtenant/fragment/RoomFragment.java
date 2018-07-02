@@ -8,12 +8,18 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MpChartActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
@@ -32,10 +38,11 @@ import com.yzs.yzsbaseactivitylib.fragment.YzsBaseListFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomFragment extends YzsBaseListFragment<HouseDetil> {
+public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoomSensorListBean> {
 
     LineChart mLineChart;
     View myScrollView;
+    private  MyRoom myRoom;
     @Override
     protected void initItemLayout() {
         setLayoutResId(R.layout.item_safe_sensor);
@@ -44,8 +51,26 @@ public class RoomFragment extends YzsBaseListFragment<HouseDetil> {
     }
 
     @Override
-    protected void MyHolder(BaseViewHolder baseViewHolder, HouseDetil houseDetil) {
+    protected void MyHolder(BaseViewHolder baseViewHolder, MyRoom.ViewDataBean.MyRoomSensorListBean myRoomSensorListBean) {
+        ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_name))).setText(myRoomSensorListBean.getSensorName());
+        ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_sensorID))).setText(myRoomSensorListBean.getSensorID());
+        if(myRoomSensorListBean.isSensorOn()){
+            ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_name))).setTextColor(Color.WHITE);
+            ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_sensorID))).setTextColor(Color.WHITE);
+            ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_sensorID))).setText(myRoomSensorListBean.getSensorID());
+            ((ImageView)(baseViewHolder.convertView.findViewById(R.id.iv_sign))).setImageResource(R.drawable.image_myroom_open);
+            ((ImageView)(baseViewHolder.convertView.findViewById(R.id.iv_senicon))).setImageResource(R.drawable.image_sensor_status_on);
+            baseViewHolder.convertView.setBackgroundResource((R.drawable.shape_corner_up));
+        ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_switch))).setText("开");
 
+        }
+        else {
+            ((ImageView)(baseViewHolder.convertView.findViewById(R.id.iv_sign))).setImageResource(R.drawable.image_myroom_off);
+            ((ImageView)(baseViewHolder.convertView.findViewById(R.id.iv_senicon))).setImageResource(R.drawable.image_sensor_status_off);
+            baseViewHolder.convertView.setBackground(getResources().getDrawable(R.drawable.shape_corner_down));
+            ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_switch))).setText("关");
+
+        }
     }
 
     @Override
@@ -59,18 +84,45 @@ public class RoomFragment extends YzsBaseListFragment<HouseDetil> {
 
     @Override
     protected void initLogic() {
-         initMpChat();
+        mLineChart = (LineChart) view.findViewById(R.id.lineChart);
         setListener();
+        request();
+
     }
 
-    private void initMpChat() {
+    private void request() {
 
-        mLineChart = (LineChart) view.findViewById(R.id.lineChart);
+        HttpMethods.getInstance().myRoom(new BaseObserver<MyRoom>() {
+            @Override
+            protected void onSuccees(BaseBean t) throws Exception {
+                 myRoom=(MyRoom)t;
+
+                List<Entry> entries=new ArrayList<>();
+                List<Entry> entries1=new ArrayList<>();
+                for(Integer water:((MyRoom) t).getViewDataX().get(0).getMyRoomWaterArr()){
+                    entries.add(new Entry(((MyRoom) t).getViewDataX().get(0).getMyRoomWaterArr().indexOf(water),water.floatValue()));
+                }
+                for(Integer power:((MyRoom) t).getViewDataX().get(0).getMyRoomPowerArr()){
+                    entries1.add(new Entry(((MyRoom) t).getViewDataX().get(0).getMyRoomPowerArr().indexOf(power),power.floatValue()));
+                }
+                initMpChat(entries,entries1);
+                mAdapter.addData(myRoom.getViewDataX().get(0).getMyRoomSensorList());
+            }
+
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+            }
+        },"");
+    }
+
+    private void initMpChat( List<Entry> entries,List<Entry> entries1) {
+
+
         //显示边界
         mLineChart.setDrawBorders(true);
         //设置数据
-        List<Entry> entries = new ArrayList<>();
-        List<Entry> entries1 = new ArrayList<>();
+
         final List<String> mlistX =new ArrayList<>();
         mlistX.add("1月");
         mlistX.add("2月");
@@ -84,7 +136,7 @@ public class RoomFragment extends YzsBaseListFragment<HouseDetil> {
         mlistX.add("10月");
         mlistX.add("11月");
         mlistX.add("12月");
-        entries.add(new Entry(0, 30f));
+       /* entries.add(new Entry(0, 30f));
         entries.add(new Entry(1, 50f));
         entries.add(new Entry(2, 81f));
         entries.add(new Entry(3, 46f));
@@ -107,7 +159,7 @@ public class RoomFragment extends YzsBaseListFragment<HouseDetil> {
         entries1.add(new Entry(8, 17f));
         entries1.add(new Entry(9, 12f));
         entries1.add(new Entry(10, 17f));
-        entries1.add(new Entry(11, 19f));
+        entries1.add(new Entry(11, 19f));*/
         //一个LineDataSet就是一条线
         XAxis xAxis = mLineChart.getXAxis();
 
@@ -137,9 +189,7 @@ public class RoomFragment extends YzsBaseListFragment<HouseDetil> {
         legend.setFormSize(13);
         mLineChart.setData(lineData);
         mLineChart.animateY(1000);
-        mAdapter.addData(new HouseDetil());
-        mAdapter.addData(new HouseDetil());
-        mAdapter.addData(new HouseDetil());
+
     }
 
     private void setListener() {
