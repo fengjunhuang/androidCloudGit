@@ -2,6 +2,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.http;
 
 
 
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
@@ -75,17 +76,27 @@ public class HttpMethods {
 
     }
     public void messageSave(BaseObserver<MessageSave> observer, String aa){
-            apiService.messageSave().subscribeOn(Schedulers.io())
+        apiService.messageSave().subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
 
     }
-    public void myRoom(BaseObserver<MyRoom> observer, String aa){
+    public void otherMessage(BaseObserver<MessageOther> observer, String aa){
+        apiService.otherMessage().subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+   public void myRoom(BaseObserver<MyRoom> observer, String aa){
         apiService.MyRoom().subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
+
+
+    }
+
 
     }
 

@@ -1,6 +1,7 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.http;
 
 
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
@@ -44,6 +45,11 @@ public interface ApiService {
        Observable<HouseDetil> homeData();
        @POST("MessageSave")
        Observable<MessageSave> messageSave();
+       @POST("OtherMessage")
+       Observable<MessageOther> otherMessage();
+
        @POST("MyRoom")
        Observable<MyRoom> MyRoom();
+
+
 }

@@ -46,6 +46,9 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
     private MessageRoomAdapter adapter;
     private ArrayAdapter<String> arrayAdapter;
     private Spinner spinner;
+    private String telephone="tel:10086";
+    private List<String> list=new ArrayList<>();
+
     //private OkHttpHelper ok=OkHttpHelper.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,7 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
                             @Override
                             public void onAction(Object data) {
                                 //用intent启动拨打电话
-                                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:10086"));
+                                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(telephone));
                                 startActivity(intent);
                             }
                         })
@@ -87,20 +90,8 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
         });
         spinner=findViewById(R.id.room_spinner);
 
-        List<String> list=new ArrayList<>();
-        list.add("水斗新村23栋1701");
-        list.add("水斗新村23栋1201");
-        /*新建适配器*/
-        arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,list);
 
-        /*adapter设置一个下拉列表样式，参数为系统子布局*/
-        //arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
 
-        /*spDown加载适配器*/
-        spinner.setAdapter(arrayAdapter);
-
-        /*soDown的监听器*/
-        spinner.setOnItemSelectedListener(this);
 
         recyclerView= (EasyRecyclerView)findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -108,7 +99,6 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
         adapter = new MessageRoomAdapter(this);
         recyclerView.setAdapter(adapter);
         getData();
-        AddData();
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -118,7 +108,7 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
         });
     }
 
-    private void AddData() {
+    /*private void AddData() {
         List<MessageRoom> dataList=new ArrayList<>();
         dataList.add(new MessageRoom("夏天到了，請各位要注意用電安全。儘量避免疊加使用大功率電器","2018年6月20日 17:26:00"));
         dataList.add(new MessageRoom("你的房間可能已被入侵","2018年6月20日 17:26:00"));
@@ -130,18 +120,15 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
         dataList.add(new MessageRoom("夏天到了，我請大家去大保健","2018年6月20日 17:26:00"));
         dataList.add(new MessageRoom("你的房間沒有任何情況","2018年6月20日 17:26:00"));
         adapter.addAll(dataList);
-    }
+    }*/
 
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         spinner.setSelection(i);
         adapter.removeAll();
-        if (i==0){
-            AddData();
-        }else {
-            AddData1();
-        }
+        adapter.addAll(viewDataBeanList.get(i).getMessageArray());
+        telephone="tel:"+viewDataBeanList.get(i).getMessageLandlordPhone();
     }
 
     @Override
@@ -149,6 +136,7 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
         spinner.setSelection(0);
 
     }
+    List<MessageSave.ViewDataBean> viewDataBeanList;
     public void getData() {
         HttpMethods.getInstance().messageSave(new BaseObserver<MessageSave>() {
             @Override
@@ -156,7 +144,10 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
                 MessageSave houseDetil= (MessageSave) t;
 
                 System.out.println(houseDetil.getViewData()+"");
+                viewDataBeanList=houseDetil.getViewDataX();
 
+                Log.e("viewDataBeanList",viewDataBeanList.get(0).getMessageRoomName());
+                banData(houseDetil.getViewDataX());
             }
 
             @Override
@@ -164,5 +155,23 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
 
             }
         },"");
+    }
+
+    private void banData(List<MessageSave.ViewDataBean> houseDetil) {
+
+        for (int i = 0; i < houseDetil.size(); i++) {
+            list.add(houseDetil.get(i).getMessageRoomName());
+        }
+        /*新建适配器*/
+        arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,list);
+
+        /*adapter设置一个下拉列表样式，参数为系统子布局*/
+        //arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+        /*spDown加载适配器*/
+        spinner.setAdapter(arrayAdapter);
+
+        /*soDown的监听器*/
+        spinner.setOnItemSelectedListener(this);
     }
 }
