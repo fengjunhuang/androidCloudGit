@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +55,7 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
     private     List<String> images=new ArrayList<>();
     private     List<HouseDetil.BannerDataBean> bannerDataBeans=new ArrayList<>();
     private Banner banner;
+    private SwipeRefreshLayout swipeRefreshLayout;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -146,7 +148,7 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
        //images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529230293646&di=b367f393dc03c3c8d22d0ee923eb2f2d&imgtype=0&src=http%3A%2F%2Fpic3.16pic.com%2F00%2F04%2F28%2F16pic_428522_b.jpg");
 
 
-        getData();
+
 
         return view;
     }
@@ -156,8 +158,18 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
         super.initView(view);
         int space = 8;
         mRecyclerView.addItemDecoration(new SpacesItemDecoration(space));
+        swipeRefreshLayout=view.findViewById(R.id.sw_refesh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                requestData();
 
 
+            }
+        });
+
+        getData();
     }
 
     @Override
@@ -206,7 +218,13 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
 
     }
 
+
     public void getData() {
+       requestData();
+    }
+
+    private void requestData() {
+
         HttpMethods.getInstance().homeData(new BaseObserver<HouseDetil>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
@@ -219,6 +237,7 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
                 }
                 banner.setImages(images).setImageLoader(new BannerPicassoImageLoader()).start();
                 mAdapter.addData(houseDetil.getViewDataX());
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override

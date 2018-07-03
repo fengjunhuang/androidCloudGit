@@ -5,6 +5,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -46,5 +47,9 @@ public interface ApiService {
        Observable<MessageSave> messageSave();
        @POST("OtherMessage")
        Observable<MessageOther> otherMessage();
+
+       @POST("MyRoom")
+       Observable<MyRoom> MyRoom();
+
 
 }

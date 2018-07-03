@@ -1,5 +1,6 @@
 package com.cloudtenant.yunmenkeji.cloudtenant;
 
+import com.cloudtenant.yunmenkeji.cloudtenant.util.AESOperator;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.base64.BackAES;
 
 import org.junit.Test;
@@ -19,56 +20,9 @@ public class ExampleUnitTest {
 
     }
     @Test
-    public void test(){
-        String content = "18420013303";
-        String skey = "smkldospdosldaaa";
-        try {
-            //����
-            byte[] encryptResultStr = BackAES.encrypt(content, skey, 0);
-          String as=  new String(encryptResultStr);
-            System.out.println("����-���ܺ�"+new String(encryptResultStr));
-            String decryptString=BackAES.decrypt(new String(encryptResultStr),
-                    skey, 0);
-            System.out.println("����-���ܺ�"+decryptString);
-
-            /**
-             * String parseByte2HexStr(byte buf[]) //**��������ת����16����
-             *byte[] parseHexStr2Byte(String hexStr) //java��16����ת��Ϊ������
-             */
-
-
-//			String skey2 = "admin";
-//			byte[] encryptResultStr2 = BackAES.newencrypt(content, skey2);
-//
-//			//System.out.println("���������ܺ�"+new String(encryptResultStr2));
-//			////.java��2��������ת����16����parseHexStr2Byte
-//			String toByteString=BackAES.parseByte2HexStr(encryptResultStr2);//java��16����ת��Ϊ������
-//			System.out.println("���������ܺ�ת��16���ƣ�"+toByteString);
-//
-//
-//			// /**��16����ת����2����
-//
-//			byte[] ascToByte=BackAES.parseHexStr2Byte(toByteString);
-//			System.out.println("�����������ܺ�ת�ɶ����ƣ�"+new String(ascToByte));
-//
-//			byte[] decryptString2=BackAES.newdecrypt(ascToByte,skey2);
-//			System.out.println("���������ܺ�"+new String(decryptString2));
-//
-
-
-
-        }
-
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        // String result1 = Base64.encode(encryptResultStr, chartCode);
-        // System.out.println("Base64ת���" + result1);
-        //
-        // System.out.println("============================================");
-        // String result2 = Base64.decode(result1, chartCode);
-        // System.out.println("Base64�����" + result2);
-
+    public void test() throws Exception {
+    String ss=    AESOperator.getInstance().decrypt("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");
+   System.out.print("");
     }
 
 
