@@ -11,16 +11,23 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.HouseDetilAdater;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseListActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 
+import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
+
+import java.util.List;
 
 /**
  * Created by 72984 on 2018/6/21.
  */
 
-public class HouseDetilActivity extends YzsBaseListActivity<HouseDetil> {
+public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataBean> {
+    private List<BudingInfo.ViewDataBean> viewDataX;
     @Override
     protected void initItemLayout() {
 
@@ -30,8 +37,10 @@ public class HouseDetilActivity extends YzsBaseListActivity<HouseDetil> {
     }
 
     @Override
-    protected void MyHolder(BaseViewHolder baseViewHolder, HouseDetil houseDetil) {
+    protected void MyHolder(BaseViewHolder baseViewHolder, BudingInfo.ViewDataBean houseDetil) {
         RecyclerView recyclerView =baseViewHolder.convertView.findViewById(R.id.recy_floor);
+        TextView tv_floor= baseViewHolder.convertView.findViewById(R.id.tv_floor);
+        tv_floor.setText(houseDetil.getFloor());
         LinearLayoutManager ms= new LinearLayoutManager(this);
         ms.setOrientation(LinearLayoutManager.HORIZONTAL);// 设置 recyclerview 布局方式为横向布局
         //     LinearLayoutManager 种 含有3 种布局样式  第一个就是最常用的 1.横向 , 2. 竖向,3.偏移
@@ -41,9 +50,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<HouseDetil> {
 
         HouseDetilAdater houseDetilAdater =new HouseDetilAdater(this);
         recyclerView.setAdapter(houseDetilAdater);
-        houseDetilAdater.add(new HouseDetil());
-        houseDetilAdater.add(new HouseDetil());
-        houseDetilAdater.add(new HouseDetil());
+       houseDetilAdater.addAll(houseDetil.getData());
         houseDetilAdater.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -65,9 +72,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<HouseDetil> {
     @Override
     protected void initLogic() {
 
-        mAdapter.addData(new HouseDetil());
-        mAdapter.addData(new HouseDetil());
-        mAdapter.addData(new HouseDetil());
+
         getBtn1();
         getBtn2();
         setMainText("明珠公寓");
@@ -80,6 +85,26 @@ public class HouseDetilActivity extends YzsBaseListActivity<HouseDetil> {
                 readyGo(RoutingActivity.class);
             }
         });
+        requset();
+    }
+
+    private void requset() {
+        HttpMethods.getInstance().BudingInfo(new BaseObserver<BudingInfo>() {
+            @Override
+            protected void onSuccees(BaseBean t) throws Exception {
+                BudingInfo budingInfo= (BudingInfo) t;
+               viewDataX = budingInfo.getViewDataX();
+               mAdapter.addData(viewDataX);
+
+                System.out.print("");
+
+            }
+
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+            }
+        },"");
     }
 
     @Override
