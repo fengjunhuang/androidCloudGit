@@ -20,6 +20,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MessageRoomAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageRoom;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
@@ -102,18 +103,18 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                if (position==1)
+                if (position==1) {
                     startActivity(new Intent(MessageRoomActivity.this, MessageTraceActivity.class));
+                }
+                else{
+                   // AddData();
+                }
+
             }
         });
     }
 
-    /*private void AddData() {
-        List<MessageRoom> dataList=new ArrayList<>();
-        dataList.add(new MessageRoom("夏天到了，請各位要注意用電安全。儘量避免疊加使用大功率電器","2018年6月20日 17:26:00"));
-        dataList.add(new MessageRoom("你的房間可能已被入侵","2018年6月20日 17:26:00"));
-        adapter.addAll(dataList);
-    }
+    /*
 
     private void AddData1() {
         List<MessageRoom> dataList=new ArrayList<>();
