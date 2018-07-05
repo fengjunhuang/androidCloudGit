@@ -2,6 +2,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.http;
 
 
 
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
@@ -121,7 +122,14 @@ public class HttpMethods {
 
     }
 
+    public void BudingInfo(BaseObserver<BudingInfo> observer, String aa){
+        apiService.BudingInfo().subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
 
+
+    }
     }
 
 
