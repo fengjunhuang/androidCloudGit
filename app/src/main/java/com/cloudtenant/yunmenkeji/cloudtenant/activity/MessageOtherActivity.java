@@ -70,7 +70,7 @@ public class MessageOtherActivity extends BaseActivity implements View.OnClickLi
     SelectPicPopupWindow mPopWindow;
     private void showPopupWindow() {
         //设置contentView
-        mPopWindow = new SelectPicPopupWindow(this,this);
+        mPopWindow = new SelectPicPopupWindow(this,this,2);
         mPopWindow.showAsDropDown(LayoutInflater.from(this).inflate(R.layout.activity_me, null));
 
     }

@@ -3,6 +3,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.http;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
@@ -50,6 +51,12 @@ public interface ApiService {
        Observable<MessageOther> otherMessage();
        @POST("RoomMessageHistory")
        Observable<RoomMessageHistory> roomMessageHistory();
+       @POST("BrokenUpDone")
+       Observable<BaseBean> brokenUpDone();
+       @POST("MyContract")
+       Observable<MyContract> myContract();
+
+
 
        @POST("MyRoom")
        Observable<MyRoom> MyRoom();

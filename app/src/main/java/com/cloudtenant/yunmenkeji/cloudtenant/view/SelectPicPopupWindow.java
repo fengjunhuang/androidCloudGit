@@ -31,7 +31,7 @@ public class SelectPicPopupWindow extends PopupWindow {
 	private ImageView imageView;
 	private View mMenuView;
 	@SuppressLint("InflateParams")
-	public SelectPicPopupWindow(Context context, OnClickListener itemsOnClick) {
+	public SelectPicPopupWindow(Context context, OnClickListener itemsOnClick,int type) {
 		super(context);
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -45,6 +45,12 @@ public class SelectPicPopupWindow extends PopupWindow {
 		pickPhotoBtn.setOnClickListener(itemsOnClick);
 		takePhotoBtn.setOnClickListener(itemsOnClick);
 
+
+		if (type==1) {
+			pickPhotoBtn.setText("撤销退房申请");
+		}else {
+			pickPhotoBtn.setText("申请退房");
+		}
 		// 设置SelectPicPopupWindow的View
 		this.setContentView(mMenuView);
 		// 设置SelectPicPopupWindow弹出窗体的宽

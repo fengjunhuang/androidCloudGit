@@ -55,8 +55,7 @@ public class MessageTraceActivity extends BaseActivity implements View.OnClickLi
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //recyclerView.addItemDecoration(new DividerDecoration(Color.parseColor("#aaaaaa"), 1));
         AddData();
-        adapter = new TraceListAdapter (this,traceList);
-        recyclerView.setAdapter(adapter);
+
 
         //getData();
 
@@ -70,13 +69,18 @@ public class MessageTraceActivity extends BaseActivity implements View.OnClickLi
 
                 System.out.println(houseDetil.getViewData()+"");
                 viewDataBean=houseDetil.getViewDataX();
-                String time;
-                for (int i = 0; i < viewDataBean.get(i).getHistoryTime().size(); i++) {
-                   // traceList.add(new Trace(viewDataBean.getHistoryTime().get(i), viewDataBean.getHistoryInfo().get(i)));
-                    Log.e("viewDataBeanList",viewDataBean.get(i).getHistoryTime().toString());
+                for (int i = 0; i < viewDataBean.get(0).getHistoryTime().size(); i++) {
+                    Log.e("viewDataBeanList",viewDataBean.get(0).getHistoryTime().toString());
+                    traceList.add(new Trace(viewDataBean.get(0).getHistoryTime().get(i), viewDataBean.get(0).getHistoryInfo().get(i)));
 
                 }
+                for (int i = 0; i < traceList.size(); i++) {
 
+                    Log.e("viewDataBeanList","traceList.get(i).toString()="+traceList.get(i).toString());
+
+                }
+                adapter = new TraceListAdapter (MessageTraceActivity.this,traceList);
+                recyclerView.setAdapter(adapter);
                 //banData(houseDetil.getViewDataX());
             }
 
@@ -103,7 +107,7 @@ public class MessageTraceActivity extends BaseActivity implements View.OnClickLi
     SelectPicPopupWindow mPopWindow;
     private void showPopupWindow() {
         //设置contentView
-        mPopWindow = new SelectPicPopupWindow(this,this);
+        mPopWindow = new SelectPicPopupWindow(this,this,0);
         mPopWindow.showAsDropDown(LayoutInflater.from(this).inflate(R.layout.activity_me, null));
 
     }
@@ -120,22 +124,4 @@ public class MessageTraceActivity extends BaseActivity implements View.OnClickLi
 
         }
     }
-    /*private void getData() {
-        Map<String,Object> params = new HashMap<>(2);
-        params.put("page",1);
-        params.put("rows",20);
-        ok.post(Contants.API.SCAN_LIST, params, new SimpleCallback<Scan>(this) {
-            @Override
-            public void onSuccess(okhttp3.Response response, Scan o) {
-                if (o.getMsg().getCode()==0) {
-                    adapter.addAll(o.getRowSet());
-                }
-            }
-
-            @Override
-            public void onError(okhttp3.Response response, int code, Exception e) {
-
-            }
-        });
-    }*/
 }
