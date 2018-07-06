@@ -1,5 +1,7 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.model;
 
+
+
 import com.alibaba.fastjson.JSON;
 
 import java.util.List;
