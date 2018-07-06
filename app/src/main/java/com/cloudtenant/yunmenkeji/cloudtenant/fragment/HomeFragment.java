@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.CityPickerActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.HouseDetilActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
@@ -41,7 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeFragment extends YzsBaseListFragment< HouseDetil.ViewDataBean> implements View.OnClickListener {
+public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> implements View.OnClickListener {
 
 
 
@@ -49,8 +52,11 @@ public class HomeFragment extends YzsBaseListFragment< HouseDetil.ViewDataBean> 
     private static final int REQUEST_CODE_SCAN=77;
     private TextView tv_location;
     public static final int GETCITY=9527;
-    List<String> images=new ArrayList<>();
-    private   Banner banner;
+
+    private     List<String> images=new ArrayList<>();
+    private     List<HouseDetil.BannerDataBean> bannerDataBeans=new ArrayList<>();
+    private Banner banner;
+    private SwipeRefreshLayout swipeRefreshLayout;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -98,6 +104,8 @@ public class HomeFragment extends YzsBaseListFragment< HouseDetil.ViewDataBean> 
                 startActivityForResult(new Intent(getActivity(),CityPickerActivity.class),GETCITY);
             }
 
+
+            break;
         }
     }
 
@@ -131,12 +139,12 @@ public class HomeFragment extends YzsBaseListFragment< HouseDetil.ViewDataBean> 
     @Override
     protected View initContentView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
        View view=layoutInflater.inflate(R.layout.activity_recyclerview,viewGroup,false);
-
         banner = (Banner)view. findViewById(R.id.banner);
         tv_location =view. findViewById(R.id.tv_location);
         view.findViewById(R.id.btn_op1).setOnClickListener(this);
         view.findViewById(R.id.btn_op2).setOnClickListener(this);
-
+        //images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529230178291&di=71e9d9b4ad4deb6d8f21e90cf4ced6ac&imgtype=0&src=http%3A%2F%2Fpic15.nipic.com%2F20110708%2F7843095_103004548386_2.jpg");
+       //images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529230293646&di=b367f393dc03c3c8d22d0ee923eb2f2d&imgtype=0&src=http%3A%2F%2Fpic3.16pic.com%2F00%2F04%2F28%2F16pic_428522_b.jpg");
 
 
 
@@ -149,36 +157,18 @@ public class HomeFragment extends YzsBaseListFragment< HouseDetil.ViewDataBean> 
         super.initView(view);
         int space = 8;
         mRecyclerView.addItemDecoration(new SpacesItemDecoration(space));
-        rquestData();
-
-    }
-
-    private void rquestData() {
-        HttpMethods.getInstance().homeData(new BaseObserver<HouseDetil>() {
+        swipeRefreshLayout=view.findViewById(R.id.sw_refesh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            protected void onSuccees(BaseBean t) throws Exception {
-                HouseDetil houseDetil= (HouseDetil) t;
-                for(HouseDetil.BannerDataBean bannerDataBean: ((HouseDetil) t).getBannerData()){
-                    images.add(bannerDataBean.getBannerImage());
-                }
-                for( HouseDetil.ViewDataBean viewDataBean:houseDetil.getViewDataX()){
-                    mAdapter.addData(viewDataBean);
+            public void onRefresh() {
 
-                }
+                requestData();
 
-
-                System.out.println(houseDetil.getViewDataX().size()+"");
-
-                banner.setImages(images).setImageLoader(new BannerPicassoImageLoader()).start();
 
             }
+        });
 
-            @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-
-            }
-        },"");
-
+        getData();
     }
 
     @Override
@@ -189,31 +179,32 @@ public class HomeFragment extends YzsBaseListFragment< HouseDetil.ViewDataBean> 
     }
 
     @Override
-    protected void MyHolder(BaseViewHolder baseViewHolder,  HouseDetil.ViewDataBean houseDetil) {
+    protected void MyHolder(BaseViewHolder baseViewHolder, HouseDetil.ViewDataBean viewDataBean) {
+        ImageView iv_cell_image=baseViewHolder.convertView.findViewById(R.id.iv_cell_image);
+        TextView cellCost=baseViewHolder.convertView.findViewById(R.id.tv_cell_cost);
+        TextView cellRemain=baseViewHolder.convertView.findViewById(R.id.tv_cell_remain);
+        TextView cellBuildingSet=baseViewHolder.convertView.findViewById(R.id.tv_cell_building_set);
+        TextView cellName=baseViewHolder.convertView.findViewById(R.id.tv_cell_name);
+        cellBuildingSet.setText(viewDataBean.getCellBuildingSet());
+        cellName.setText(viewDataBean.getCellName());
+        cellRemain.setText("已经验证.剩"+viewDataBean.getCellRemain()+"间");
+        cellCost.setText("$"+viewDataBean.getCellCost());
+        Picasso.with(getActivity()).load(viewDataBean.getCellImage()).into(iv_cell_image);
         baseViewHolder.convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 readyGo(HouseDetilActivity.class);
             }
         });
-        Picasso.with(getActivity()).load(houseDetil.getCellImage()).into((ImageView) baseViewHolder.convertView.findViewById(R.id.iv_cellimage));
-        ((TextView)   baseViewHolder.convertView.findViewById(R.id.tv_cellremain)).setText(houseDetil.getCellRemain());
-        ((TextView)   baseViewHolder.convertView.findViewById(R.id.tv_cellbuildingset)).setText(houseDetil.getCellBuildingSet());
-        ((TextView)   baseViewHolder.convertView.findViewById(R.id.tv_cellhost)).setText("已经验证.剩"+houseDetil.getCellCost()+"间");
-        ((TextView)   baseViewHolder.convertView.findViewById(R.id.tv_cellName)).setText(houseDetil.getCellName());
     }
+
+
 
 
 
     @Override
     protected void initLogic() {
-//        mAdapter.addData(new HouseDetil());
-//        mAdapter.addData(new HouseDetil());
-//        mAdapter.addData(new HouseDetil());
-//        mAdapter.addData(new HouseDetil());
-//        mAdapter.addData(new HouseDetil());
-//        mAdapter.addData(new HouseDetil());
-//        mAdapter.addData(new HouseDetil());
+
     }
 
     @Override
@@ -224,5 +215,34 @@ public class HomeFragment extends YzsBaseListFragment< HouseDetil.ViewDataBean> 
     @Override
     protected void onEventComing(EventCenter eventCenter) {
 
+    }
+
+
+    public void getData() {
+       requestData();
+    }
+
+    private void requestData() {
+
+        HttpMethods.getInstance().homeData(new BaseObserver<HouseDetil>() {
+            @Override
+            protected void onSuccees(BaseBean t) throws Exception {
+                HouseDetil houseDetil= (HouseDetil) t;
+                System.out.println(houseDetil.getViewDataX().size()+"");
+                Log.e("getData",houseDetil.getViewDataX().get(0).toString());
+                bannerDataBeans=houseDetil.getBannerData();
+                for (int i = 0; i < bannerDataBeans.size(); i++) {
+                    images.add(bannerDataBeans.get(i).getBannerImage());
+                }
+                banner.setImages(images).setImageLoader(new BannerPicassoImageLoader()).start();
+                mAdapter.addData(houseDetil.getViewDataX());
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+            }
+        },"");
     }
 }

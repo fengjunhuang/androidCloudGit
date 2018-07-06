@@ -142,7 +142,6 @@ public class IndexActivity extends YzsBaseHomeActivity {
 
         customViewPager.setScanScroll(false);
 
-
     }
 
     @Override

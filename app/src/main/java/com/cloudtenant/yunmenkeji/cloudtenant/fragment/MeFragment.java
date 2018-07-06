@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.AboutActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.ContractActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.SensorActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.EditProFileActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MyFamilyActivity;
@@ -65,7 +66,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), MyFamilyActivity.class));
             }break;
             case R.id.rl_contract:{
-                startActivity(new Intent(getActivity(), SensorActivity.class));
+                startActivity(new Intent(getActivity(), ContractActivity.class));
             }break;
             case R.id.rl_icon:{
                 if (isLogin) {

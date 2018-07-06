@@ -1,5 +1,6 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,15 +8,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.ContractAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
+import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.ImageDownloader;
+import com.cloudtenant.yunmenkeji.cloudtenant.view.CompleteImageView;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.gersion.library.base.BaseActivity;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,24 +64,17 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                showPopupWindow();
+                showPopupWindow(viewDataBeanList.get(position).getContractType());
             }
         });
     }
 
-    private void AddData() {
-        List<Contract> list=new ArrayList<>();
-        list.add(new Contract("水斗新村23栋1002合同"));
-        list.add(new Contract("星光之约23栋1002合同"));
-        adapter.addAll(list);
-    }
-
 
     SelectPicPopupWindow mPopWindow;
-    private void showPopupWindow() {
+    private void showPopupWindow(int contractType) {
         //设置contentView
-        mPopWindow = new SelectPicPopupWindow(this,this);
-        mPopWindow.showAsDropDown(LayoutInflater.from(this).inflate(R.layout.activity_me, null));
+        mPopWindow = new SelectPicPopupWindow(this,this,contractType);
+        mPopWindow.showAsDropDown(LayoutInflater.from(this).inflate(R.layout.activity_my_contract, null));
 
     }
 
@@ -83,25 +87,51 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
             case R.id.cancelBtn:{
                 mPopWindow.dismiss();
             }break;
+            case R.id.takePhotoBtn:{
+                CompleteImageView completeImageView = new CompleteImageView(this, new FileDownLoader());
+                for (int i = 0; i < viewDataBeanList.size(); i++) {
+                    urls.add(viewDataBeanList.get(i).getContractUrl());
+                }
+                completeImageView.setUrls(urls, 0);
+                completeImageView.create();
+                mPopWindow.dismiss();
+            }break;
 
         }
     }
-    /*private void getData() {
-        Map<String,Object> params = new HashMap<>(2);
-        params.put("page",1);
-        params.put("rows",20);
-        ok.post(Contants.API.SCAN_LIST, params, new SimpleCallback<Scan>(this) {
+    List<String> urls=new ArrayList<>();
+    List<MyContract.ViewDataBean> viewDataBeanList;
+    private void AddData() {
+        HttpMethods.getInstance().myContract(new BaseObserver<MyContract>() {
             @Override
-            public void onSuccess(okhttp3.Response response, Scan o) {
-                if (o.getMsg().getCode()==0) {
-                    adapter.addAll(o.getRowSet());
-                }
+            protected void onSuccees(BaseBean t) throws Exception {
+                MyContract houseDetil= (MyContract) t;
+                viewDataBeanList=houseDetil.getViewDataX();
+                System.out.println(houseDetil.getViewData()+"");
+                adapter.addAll(viewDataBeanList);
             }
 
             @Override
-            public void onError(okhttp3.Response response, int code, Exception e) {
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        });
-    }*/
+        },"");
+    }
+
+
+    public class FileDownLoader implements ImageDownloader {
+        @Override
+        public File downLoad(String url, Activity activity) {
+            File file = null;
+            try {
+                file = Glide.with(activity).load(url).downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return file;
+        }
+    }
+
+
 }

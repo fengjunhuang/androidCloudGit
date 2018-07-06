@@ -130,6 +130,7 @@ public class EditProFileActivity extends BaseActivity implements View.OnClickLis
     private void initDatePicker() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         String now = sdf.format(new Date());
+
         Log.e("initDatePicker","SimpleDateFormat="+now);
         currentDate.setText(now.split(" ")[0]);
 

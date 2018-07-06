@@ -23,7 +23,7 @@
 
     >
     <ImageView
-        android:id="@+id/iv_cellimage"
+        android:id="@+id/iv_cell_image"
         android:layout_width="@dimen/x120"
         android:layout_height="@dimen/y80"
         android:src="@mipmap/zufang"
@@ -55,30 +55,29 @@
 
          />
      <TextView
-         android:id="@+id/tv_cellremain"
+
        android:layout_marginLeft="@dimen/x5"
        android:layout_height="wrap_content"
          android:layout_width="wrap_content"
 
          android:textStyle="bold"
-
+         android:id="@+id/tv_cell_remain"
          android:text="已经验证.剩3间"
          android:textSize="11sp"
 
 
          />
      </LinearLayout>
+
      <TextView
-         android:id="@+id/tv_cellName"
-         android:layout_marginTop="@dimen/x10"
+         android:id="@+id/tv_cell_name"
+         style="@style/head_title_style"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:text="东圃镇明珠新村"
-         style="@style/head_title_style"
-
-         />
+         android:layout_marginTop="@dimen/x10"
+         android:text="东圃镇明珠新村" />
      <TextView
-         android:id="@+id/tv_cellbuildingset"
+         android:id="@+id/tv_cell_building_set"
          android:layout_marginTop="@dimen/x10"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
@@ -101,7 +100,7 @@
          android:textSize="10sp"
          />
          <TextView
-             android:id="@+id/tv_cellhost"
+             android:id="@+id/tv_cell_cost"
              android:layout_marginTop="@dimen/x10"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"

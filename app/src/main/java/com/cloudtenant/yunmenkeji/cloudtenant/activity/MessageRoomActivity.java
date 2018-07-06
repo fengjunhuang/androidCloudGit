@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +19,13 @@ import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MessageOtherAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MessageRoomAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageRoom;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
+import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.gersion.library.base.BaseActivity;
 import com.jude.easyrecyclerview.EasyRecyclerView;
@@ -39,6 +47,9 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
     private MessageRoomAdapter adapter;
     private ArrayAdapter<String> arrayAdapter;
     private Spinner spinner;
+    private String telephone="tel:10086";
+    private List<String> list=new ArrayList<>();
+
     //private OkHttpHelper ok=OkHttpHelper.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +71,7 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
                             @Override
                             public void onAction(Object data) {
                                 //用intent启动拨打电话
-                                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:10086"));
+                                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(telephone));
                                 startActivity(intent);
                             }
                         })
@@ -80,9 +91,78 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
         });
         spinner=findViewById(R.id.room_spinner);
 
-        List<String> list=new ArrayList<>();
-        list.add("水斗新村23栋1701");
-        list.add("水斗新村23栋1201");
+
+
+
+        recyclerView= (EasyRecyclerView)findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerDecoration(Color.parseColor("#aaaaaa"), 1));
+        adapter = new MessageRoomAdapter(this);
+        recyclerView.setAdapter(adapter);
+        getData();
+        adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                if (position==1) {
+                    startActivity(new Intent(MessageRoomActivity.this, MessageTraceActivity.class));
+                }
+                else{
+                   // AddData();
+                }
+
+            }
+        });
+    }
+
+    /*
+
+    private void AddData1() {
+        List<MessageRoom> dataList=new ArrayList<>();
+        dataList.add(new MessageRoom("夏天到了，我請大家去大保健","2018年6月20日 17:26:00"));
+        dataList.add(new MessageRoom("你的房間沒有任何情況","2018年6月20日 17:26:00"));
+        adapter.addAll(dataList);
+    }*/
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        spinner.setSelection(i);
+        adapter.removeAll();
+        adapter.addAll(viewDataBeanList.get(i).getMessageArray());
+        telephone="tel:"+viewDataBeanList.get(i).getMessageLandlordPhone();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        spinner.setSelection(0);
+
+    }
+    List<MessageSave.ViewDataBean> viewDataBeanList;
+    public void getData() {
+        HttpMethods.getInstance().messageSave(new BaseObserver<MessageSave>() {
+            @Override
+            protected void onSuccees(BaseBean t) throws Exception {
+                MessageSave houseDetil= (MessageSave) t;
+
+                System.out.println(houseDetil.getViewData()+"");
+                viewDataBeanList=houseDetil.getViewDataX();
+
+                Log.e("viewDataBeanList",viewDataBeanList.get(0).getMessageRoomName());
+                banData(houseDetil.getViewDataX());
+            }
+
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+            }
+        },"");
+    }
+
+    private void banData(List<MessageSave.ViewDataBean> houseDetil) {
+
+        for (int i = 0; i < houseDetil.size(); i++) {
+            list.add(houseDetil.get(i).getMessageRoomName());
+        }
         /*新建适配器*/
         arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,list);
 
@@ -94,70 +174,5 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
 
         /*soDown的监听器*/
         spinner.setOnItemSelectedListener(this);
-
-        recyclerView= (EasyRecyclerView)findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerDecoration(Color.parseColor("#aaaaaa"), 1));
-        adapter = new MessageRoomAdapter(this);
-        recyclerView.setAdapter(adapter);
-        //getData();
-        AddData();
-        adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                if (position==1)
-                    startActivity(new Intent(MessageRoomActivity.this, MessageTraceActivity.class));
-            }
-        });
     }
-
-    private void AddData() {
-        List<MessageRoom> dataList=new ArrayList<>();
-        dataList.add(new MessageRoom("夏天到了，請各位要注意用電安全。儘量避免疊加使用大功率電器","2018年6月20日 17:26:00"));
-        dataList.add(new MessageRoom("你的房間可能已被入侵","2018年6月20日 17:26:00"));
-        adapter.addAll(dataList);
-    }
-
-    private void AddData1() {
-        List<MessageRoom> dataList=new ArrayList<>();
-        dataList.add(new MessageRoom("夏天到了，我請大家去大保健","2018年6月20日 17:26:00"));
-        dataList.add(new MessageRoom("你的房間沒有任何情況","2018年6月20日 17:26:00"));
-        adapter.addAll(dataList);
-    }
-
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        spinner.setSelection(i);
-        adapter.removeAll();
-        if (i==0){
-            AddData();
-        }else {
-            AddData1();
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-        spinner.setSelection(0);
-
-    }
-    /*private void getData() {
-        Map<String,Object> params = new HashMap<>(2);
-        params.put("page",1);
-        params.put("rows",20);
-        ok.post(Contants.API.SCAN_LIST, params, new SimpleCallback<Scan>(this) {
-            @Override
-            public void onSuccess(okhttp3.Response response, Scan o) {
-                if (o.getMsg().getCode()==0) {
-                    adapter.addAll(o.getRowSet());
-                }
-            }
-
-            @Override
-            public void onError(okhttp3.Response response, int code, Exception e) {
-
-            }
-        });
-    }*/
 }

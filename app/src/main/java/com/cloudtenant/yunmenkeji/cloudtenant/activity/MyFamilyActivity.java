@@ -8,7 +8,11 @@ import android.view.View;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MyFamliyAdapter;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamily;
+import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.gersion.library.base.BaseActivity;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -51,12 +55,15 @@ public class MyFamilyActivity extends BaseActivity {
             @Override
             public void onItemClick(int position) {
                 Intent intent=new Intent(MyFamilyActivity.this, ManageActivity.class);
+                intent.putExtra("RoomName",viewDataBeanList.get(position).getRoomName());
+                intent.putExtra("isAdmin",viewDataBeanList.get(position).isIsAdmin());
+                intent.putExtra("familyName",viewDataBeanList.get(position).getFamilyName());
                 startActivity(intent);
             }
         });
     }
 
-    private void AddData() {
+    /*private void AddData() {
         List<MyFamily> list=new ArrayList<>();
         list.add(new MyFamily("我的家庭"));
         list.add(new MyFamily("小米的家庭"));
@@ -64,24 +71,23 @@ public class MyFamilyActivity extends BaseActivity {
         list.add(new MyFamily("二姑的家庭"));
         list.add(new MyFamily("小姨子的家庭"));
         adapter.addAll(list);
-    }
-
-    /*private void getData() {
-        Map<String,Object> params = new HashMap<>(2);
-        params.put("page",1);
-        params.put("rows",20);
-        ok.post(Contants.API.SCAN_LIST, params, new SimpleCallback<Scan>(this) {
-            @Override
-            public void onSuccess(okhttp3.Response response, Scan o) {
-                if (o.getMsg().getCode()==0) {
-                    adapter.addAll(o.getRowSet());
-                }
-            }
-
-            @Override
-            public void onError(okhttp3.Response response, int code, Exception e) {
-
-            }
-        });
     }*/
+
+    List<MyFamily.ViewDataBean> viewDataBeanList;
+    private void AddData() {
+        HttpMethods.getInstance().myFamilyList(new BaseObserver<MyFamily>() {
+            @Override
+            protected void onSuccees(BaseBean t) throws Exception {
+                MyFamily houseDetil= (MyFamily) t;
+                viewDataBeanList=houseDetil.getViewDataX();
+                System.out.println(houseDetil.getViewData()+"");
+                adapter.addAll(viewDataBeanList);
+            }
+
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+            }
+        },"");
+    }
 }

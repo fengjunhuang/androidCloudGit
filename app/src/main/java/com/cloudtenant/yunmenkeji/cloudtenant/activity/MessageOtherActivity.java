@@ -12,6 +12,10 @@ import com.cloudtenant.yunmenkeji.cloudtenant.adapter.ContractAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MessageOtherAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
+import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.gersion.library.base.BaseActivity;
 import com.jude.easyrecyclerview.EasyRecyclerView;
@@ -50,27 +54,23 @@ public class MessageOtherActivity extends BaseActivity implements View.OnClickLi
         recyclerView.addItemDecoration(new DividerDecoration(Color.parseColor("#aaaaaa"), 1));
         adapter = new MessageOtherAdapter(this);
         recyclerView.setAdapter(adapter);
-        //getData();
-        AddData();
+        getData();
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                showPopupWindow();
+                if (viewDataBeanList.get(position).getContractType()==1) {
+                    showPopupWindow();
+                }
+
             }
         });
-    }
-
-    private void AddData() {
-        List<MessageOther> list=new ArrayList<>();
-        list.add(new MessageOther("云房祝大家新年快乐！","2018年6月20日 17:26:00"));
-        adapter.addAll(list);
     }
 
 
     SelectPicPopupWindow mPopWindow;
     private void showPopupWindow() {
         //设置contentView
-        mPopWindow = new SelectPicPopupWindow(this,this);
+        mPopWindow = new SelectPicPopupWindow(this,this,2);
         mPopWindow.showAsDropDown(LayoutInflater.from(this).inflate(R.layout.activity_me, null));
 
     }
@@ -87,22 +87,25 @@ public class MessageOtherActivity extends BaseActivity implements View.OnClickLi
 
         }
     }
-    /*private void getData() {
-        Map<String,Object> params = new HashMap<>(2);
-        params.put("page",1);
-        params.put("rows",20);
-        ok.post(Contants.API.SCAN_LIST, params, new SimpleCallback<Scan>(this) {
+    List<MessageOther.ViewDataBean> viewDataBeanList;
+    public void getData() {
+        HttpMethods.getInstance().otherMessage(new BaseObserver<MessageOther>() {
             @Override
-            public void onSuccess(okhttp3.Response response, Scan o) {
-                if (o.getMsg().getCode()==0) {
-                    adapter.addAll(o.getRowSet());
-                }
+            protected void onSuccees(BaseBean t) throws Exception {
+                MessageOther houseDetil= (MessageOther) t;
+                System.out.println(houseDetil.getViewData()+"");
+                viewDataBeanList=houseDetil.getViewDataX();
+                adapter.addAll(viewDataBeanList);
+               /* viewDataBeanList=houseDetil.getViewDataX();
+
+                banData(houseDetil.getViewDataX());*/
             }
 
             @Override
-            public void onError(okhttp3.Response response, int code, Exception e) {
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        });
-    }*/
+        },"");
+    }
+
 }

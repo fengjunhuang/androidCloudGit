@@ -137,6 +137,7 @@ android:paddingLeft="10dp"
             style="@style/match_line"/>
     </RelativeLayout>
 <android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/sw_refesh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 

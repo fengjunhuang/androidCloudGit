@@ -1,8 +1,16 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.http;
 
 
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamily;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamilyData;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -40,4 +48,27 @@ public interface ApiService {
        Observable<BaseBean> login();
        @POST("HomeData")
        Observable<HouseDetil> homeData();
+       @POST("MessageSave")
+       Observable<MessageSave> messageSave();
+       @POST("OtherMessage")
+       Observable<MessageOther> otherMessage();
+       @POST("RoomMessageHistory")
+       Observable<RoomMessageHistory> roomMessageHistory();
+       @POST("BrokenUpDone")
+       Observable<BaseBean> brokenUpDone();
+       @POST("MyContract")
+       Observable<MyContract> myContract();
+       @POST("MyFamilyList")
+       Observable<MyFamily> myFamilyList();
+       @POST("FamilyMemberList")
+       Observable<MyFamilyData> familyMemberList();
+
+
+
+       @POST("MyRoom")
+       Observable<MyRoom> MyRoom();
+
+   @POST("BuildingInfo")
+   Observable<BudingInfo> BudingInfo();
+
 }

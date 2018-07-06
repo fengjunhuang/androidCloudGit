@@ -27,6 +27,7 @@
             android:layout_height="wrap_content" />
 
         <LinearLayout
+            android:id="@+id/ll_delete"
             android:layout_width="wrap_content"
             android:background="@drawable/butten_background_red"
             android:gravity="center"
