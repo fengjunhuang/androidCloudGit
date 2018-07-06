@@ -123,5 +123,6 @@ dependencies {
     compile 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.2.2'
     //全景图
     compile 'com.github.CN-ZPH:weibo360panorama:v1.0.1'
+    compile 'com.mob.sdk:MobSDK:2018.0319.1724'
 
 }
