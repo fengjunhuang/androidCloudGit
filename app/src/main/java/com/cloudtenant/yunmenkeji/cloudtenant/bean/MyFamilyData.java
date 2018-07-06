@@ -2,7 +2,6 @@ package com.cloudtenant.yunmenkeji.cloudtenant.bean;
 
 import com.alibaba.fastjson.JSON;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
-import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
