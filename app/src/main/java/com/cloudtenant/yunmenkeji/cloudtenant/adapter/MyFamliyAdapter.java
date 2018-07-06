@@ -10,7 +10,7 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 
 
-public class MyFamliyAdapter extends RecyclerArrayAdapter<MyFamily> {
+public class MyFamliyAdapter extends RecyclerArrayAdapter<MyFamily.ViewDataBean> {
     public MyFamliyAdapter(Context context) {
         super(context);
     }

@@ -109,11 +109,12 @@
 
     </style>
     <style name="tv_stly">
-
         <item name="android:textSize">13sp</item>
         <item name="android:layout_height">wrap_content</item>
-
-
+    </style>
+    <style name="Dialog_Fullscreen">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
     <style name="sensor_text_style">
         <item name="android:textSize">17sp</item>

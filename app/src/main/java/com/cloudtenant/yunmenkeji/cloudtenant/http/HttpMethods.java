@@ -6,6 +6,8 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamily;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamilyData;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
@@ -105,7 +107,18 @@ public class HttpMethods {
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
-
+    }
+    public void myFamilyList(BaseObserver<MyFamily> observer, String aa){
+        apiService.myFamilyList().subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void familyMemberList(BaseObserver<MyFamilyData> observer, String aa){
+        apiService.familyMemberList().subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
     public void otherMessage(BaseObserver<MessageOther> observer, String aa){
         apiService.otherMessage().subscribeOn(Schedulers.io())

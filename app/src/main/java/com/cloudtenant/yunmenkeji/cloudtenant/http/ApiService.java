@@ -5,6 +5,8 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamily;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamilyData;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
@@ -56,6 +58,10 @@ public interface ApiService {
        Observable<BaseBean> brokenUpDone();
        @POST("MyContract")
        Observable<MyContract> myContract();
+       @POST("MyFamilyList")
+       Observable<MyFamily> myFamilyList();
+       @POST("FamilyMemberList")
+       Observable<MyFamilyData> familyMemberList();
 
 
 

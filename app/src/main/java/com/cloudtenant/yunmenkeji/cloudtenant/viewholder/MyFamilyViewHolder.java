@@ -14,7 +14,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by Mr.Jude on 2015/2/22
  */
-public class MyFamilyViewHolder extends BaseViewHolder<MyFamily> {
+public class MyFamilyViewHolder extends BaseViewHolder<MyFamily.ViewDataBean> {
     private TextView name;
     private TextView fans;
     private TextView note;
@@ -28,8 +28,8 @@ public class MyFamilyViewHolder extends BaseViewHolder<MyFamily> {
     }
 
     @Override
-    public void setData(final MyFamily person){
-        name.setText(person.getFamily());
+    public void setData(final MyFamily.ViewDataBean person){
+        name.setText(person.getFamilyName());
 
         //name.setText(person.getName());
     }

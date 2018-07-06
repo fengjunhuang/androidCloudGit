@@ -1,17 +1,80 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.bean;
 
-public class MyFamily {
-    private String Family;
+import com.alibaba.fastjson.JSON;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.google.gson.annotations.SerializedName;
 
-    public MyFamily(String family) {
-        Family = family;
+import java.util.List;
+
+public class MyFamily extends BaseBean{
+
+    /**
+     * id : 1
+     * viewData : [{"familyID":"98989898","familyName":"家庭1","isAdmin":true,"roomName":"明珠新村6栋201"},{"familyID":"98333","familyName":"家庭2","isAdmin":false,"roomName":"明珠新村6栋201"}]
+     */
+
+    private String id;
+    private List<ViewDataBean> viewDataX;
+
+    public String getId() {
+        return id;
     }
 
-    public String getFamily() {
-        return Family;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setFamily(String family) {
-        Family = family;
+    public List<ViewDataBean> getViewDataX() throws Exception {
+        return JSON.parseArray(getViewData(),MyFamily.ViewDataBean.class);
+    }
+
+    public void setViewDataX(List<ViewDataBean> viewDataX) {
+        this.viewDataX = viewDataX;
+    }
+
+    public static class ViewDataBean {
+        /**
+         * familyID : 98989898
+         * familyName : 家庭1
+         * isAdmin : true
+         * roomName : 明珠新村6栋201
+         */
+
+        private String familyID;
+        private String familyName;
+        private boolean isAdmin;
+        private String roomName;
+
+        public String getFamilyID() {
+            return familyID;
+        }
+
+        public void setFamilyID(String familyID) {
+            this.familyID = familyID;
+        }
+
+        public String getFamilyName() {
+            return familyName;
+        }
+
+        public void setFamilyName(String familyName) {
+            this.familyName = familyName;
+        }
+
+        public boolean isIsAdmin() {
+            return isAdmin;
+        }
+
+        public void setIsAdmin(boolean isAdmin) {
+            this.isAdmin = isAdmin;
+        }
+
+        public String getRoomName() {
+            return roomName;
+        }
+
+        public void setRoomName(String roomName) {
+            this.roomName = roomName;
+        }
     }
 }

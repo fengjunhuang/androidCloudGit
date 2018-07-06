@@ -1,5 +1,6 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.ContractAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
@@ -15,12 +18,15 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.ImageDownloader;
+import com.cloudtenant.yunmenkeji.cloudtenant.view.CompleteImageView;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.gersion.library.base.BaseActivity;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,9 +87,19 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
             case R.id.cancelBtn:{
                 mPopWindow.dismiss();
             }break;
+            case R.id.takePhotoBtn:{
+                CompleteImageView completeImageView = new CompleteImageView(this, new FileDownLoader());
+                for (int i = 0; i < viewDataBeanList.size(); i++) {
+                    urls.add(viewDataBeanList.get(i).getContractUrl());
+                }
+                completeImageView.setUrls(urls, 0);
+                completeImageView.create();
+                mPopWindow.dismiss();
+            }break;
 
         }
     }
+    List<String> urls=new ArrayList<>();
     List<MyContract.ViewDataBean> viewDataBeanList;
     private void AddData() {
         HttpMethods.getInstance().myContract(new BaseObserver<MyContract>() {
@@ -101,4 +117,21 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
             }
         },"");
     }
+
+
+    public class FileDownLoader implements ImageDownloader {
+        @Override
+        public File downLoad(String url, Activity activity) {
+            File file = null;
+            try {
+                file = Glide.with(activity).load(url).downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return file;
+        }
+    }
+
+
 }
