@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.NoticeHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
@@ -28,11 +29,16 @@ import io.reactivex.disposables.Disposable;
 public class LoginActivity extends YzsBaseActivity implements View.OnClickListener {
     @Click(R.id.btn_login)
     void login(){
-        HttpMethods.getInstance().homeData(new BaseObserver<HouseDetil>() {
+        HttpMethods.getInstance().noticeHistory(new BaseObserver<NoticeHistory>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
-                HouseDetil houseDetil= (HouseDetil) t;
-                System.out.println(houseDetil.getViewDataX().size()+"");
+                NoticeHistory houseDetil= (NoticeHistory) t;
+                System.out.println(houseDetil.getViewData()+"");
+                System.out.println(houseDetil.getViewDataX().get(0).getMessageInfo()+"");
+                System.out.println(houseDetil.getViewDataX().get(1).getMessageInfo()+"");
+                System.out.println(houseDetil.getViewDataX().get(1).getMessageTime()+"");
+                System.out.println(houseDetil.getViewDataX().get(0).getMessageTime()+"");
+
 
             }
 
@@ -58,6 +64,8 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
         msg_login.setOnClickListener(this);
         ll_one=findViewById(R.id.one);
         ll_two=findViewById(R.id.two);
+
+
     }
 
     @Override

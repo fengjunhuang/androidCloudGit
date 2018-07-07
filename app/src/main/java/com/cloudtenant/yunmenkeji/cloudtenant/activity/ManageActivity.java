@@ -44,7 +44,7 @@ public class ManageActivity extends BaseActivity {
         TextView tv_permission=findViewById(R.id.tv_permission);
         Intent intent=getIntent();
         String familyName=intent.getStringExtra("familyName");
-        String roomName=intent.getStringExtra("roomName");
+        String roomName=intent.getStringExtra("RoomName");
         boolean isAdmin=intent.getBooleanExtra("isAdmin",false);
         tvFamilyName.setText(familyName);
         tvRoomName.setText(roomName);
