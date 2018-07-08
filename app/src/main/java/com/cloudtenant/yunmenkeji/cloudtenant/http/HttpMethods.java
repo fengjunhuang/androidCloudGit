@@ -4,6 +4,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.http;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.BuildingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
@@ -130,6 +131,12 @@ public class HttpMethods {
     }
     public void noticeHistory(BaseObserver<NoticeHistory> observer, String aa){
         apiService.noticeHistory().subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void buildingInfo(BaseObserver<BuildingInfo> observer, String aa){
+        apiService.buildingInfo().subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
