@@ -22,7 +22,8 @@ public class HouseDetilViewHolder extends BaseViewHolder<BudingInfo.ViewDataBean
     TextView cellCost;
     TextView cellRemain;
     TextView cellBuildingSet;
-    TextView cellName;
+    TextView tv_seeTimes;
+
     public HouseDetilViewHolder(ViewGroup parent) {
         super(parent, R.layout.item_room_detil);
 
@@ -30,7 +31,7 @@ public class HouseDetilViewHolder extends BaseViewHolder<BudingInfo.ViewDataBean
        cellCost= $ (R.id.tv_cell_cost);
         cellRemain= $ (R.id.tv_cell_remain);
      cellBuildingSet= $ (R.id.tv_cell_building_set);
-        cellName= $ (R.id.tv_cell_name);
+        tv_seeTimes=$(R.id.tv_seeTimes);
     }
 
     @Override
@@ -42,7 +43,7 @@ public class HouseDetilViewHolder extends BaseViewHolder<BudingInfo.ViewDataBean
 //        cellCost.setText("$"+viewDataBean.getCellCost());
         cellCost.setText(data.getRoomMoney());
         cellRemain.setText(data.getRoomNumber());
-        cellName.setText(data.getRoomSet());
+        tv_seeTimes.setText("浏览次数："+data.getRoomReviewTimes()+"次");
         Picasso.with(getContext()).load(data.getRoomSimpleImage()).into(iv_cell_image);
 
         

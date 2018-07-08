@@ -123,7 +123,13 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
     </style>
-
+    <style name="conner_text_style">
+        <item name="android:textSize">11sp</item>
+           <item name="android:padding">2dp</item>
+         <item name="android:background">@drawable/seletor_tv</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
     <style name="sensor_image_style">
         <item name="android:padding">9dp</item>
         <item name="android:layout_width">0dp</item>

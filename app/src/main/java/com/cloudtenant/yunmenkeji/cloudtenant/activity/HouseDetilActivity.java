@@ -37,7 +37,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
     }
 
     @Override
-    protected void MyHolder(BaseViewHolder baseViewHolder, BudingInfo.ViewDataBean houseDetil) {
+    protected void MyHolder(BaseViewHolder baseViewHolder, final BudingInfo.ViewDataBean houseDetil) {
         RecyclerView recyclerView =baseViewHolder.convertView.findViewById(R.id.recy_floor);
         TextView tv_floor= baseViewHolder.convertView.findViewById(R.id.tv_floor);
         tv_floor.setText(houseDetil.getFloor());
@@ -54,7 +54,9 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
         houseDetilAdater.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                readyGo(TnementAcitivity_.class);
+                Bundle bundle =new Bundle();
+                bundle.putSerializable("bean",houseDetil.getData().get(position));
+                readyGo(TnementAcitivity_.class,bundle);
             }
         });
     }
