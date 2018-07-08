@@ -2,12 +2,14 @@ package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.BuildingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.NoticeHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
@@ -29,16 +31,13 @@ import io.reactivex.disposables.Disposable;
 public class LoginActivity extends YzsBaseActivity implements View.OnClickListener {
     @Click(R.id.btn_login)
     void login(){
-        HttpMethods.getInstance().noticeHistory(new BaseObserver<NoticeHistory>() {
+        HttpMethods.getInstance().buildingInfo(new BaseObserver<BuildingInfo>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
-                NoticeHistory houseDetil= (NoticeHistory) t;
+                BuildingInfo houseDetil= (BuildingInfo) t;
                 System.out.println(houseDetil.getViewData()+"");
-                System.out.println(houseDetil.getViewDataX().get(0).getMessageInfo()+"");
-                System.out.println(houseDetil.getViewDataX().get(1).getMessageInfo()+"");
-                System.out.println(houseDetil.getViewDataX().get(1).getMessageTime()+"");
-                System.out.println(houseDetil.getViewDataX().get(0).getMessageTime()+"");
-
+                System.out.println(houseDetil.getContract()+"");
+                Log.e("onSuccees",houseDetil.getViewData());
 
             }
 

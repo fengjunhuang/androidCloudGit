@@ -3,6 +3,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.http;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.BuildingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
@@ -70,6 +71,8 @@ public interface ApiService {
        Observable<BrokenUp> brokenUpCancel();
        @POST("BrokenUp")
        Observable<BrokenUp> brokenUp();
+       @POST("BuildingInfo")
+       Observable<BuildingInfo> buildingInfo();
 
 
 
