@@ -179,7 +179,7 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
     }
 
     @Override
-    protected void MyHolder(BaseViewHolder baseViewHolder, HouseDetil.ViewDataBean viewDataBean) {
+    protected void MyHolder(BaseViewHolder baseViewHolder, final HouseDetil.ViewDataBean viewDataBean) {
         ImageView iv_cell_image=baseViewHolder.convertView.findViewById(R.id.iv_cell_image);
         TextView cellCost=baseViewHolder.convertView.findViewById(R.id.tv_cell_cost);
         TextView cellRemain=baseViewHolder.convertView.findViewById(R.id.tv_cell_remain);
@@ -193,7 +193,11 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
         baseViewHolder.convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                readyGo(HouseDetilActivity.class);
+                Bundle bundle =new Bundle();
+                bundle.putSerializable("bean",viewDataBean);
+
+
+                readyGo(HouseDetilActivity.class,bundle);
             }
         });
     }

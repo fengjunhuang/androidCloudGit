@@ -77,8 +77,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
 
         getBtn1();
         getBtn2();
-        setMainText("明珠公寓");
-        setSmellText("东浦新村5号");
+
         findViewById(R.id.out).setVisibility(View.VISIBLE);
         ((Button)getBtn1()).setText("导航");
         ((Button)getBtn1()).setOnClickListener(new View.OnClickListener() {
@@ -88,6 +87,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
             }
         });
         requset();
+        getBundleExtras(getIntent().getExtras());
     }
 
     private void requset() {
@@ -97,6 +97,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
                 BudingInfo budingInfo= (BudingInfo) t;
                viewDataX = budingInfo.getViewDataX();
                mAdapter.addData(viewDataX);
+
 
                 System.out.print("");
 
@@ -111,7 +112,9 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
 
     @Override
     protected void getBundleExtras(Bundle bundle) {
-
+        HouseDetil.ViewDataBean bean = (HouseDetil.ViewDataBean) bundle.getSerializable("bean");
+        setMainText(bean.getCellName());
+        setSmellText(bean.getCellAddress());
     }
 
     @Override
