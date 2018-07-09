@@ -4,6 +4,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.model;
 
 import com.alibaba.fastjson.JSON;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -59,7 +60,7 @@ public class HouseDetil extends BaseBean {
         this.viewDataX = viewDataX;
     }
 
-    public static class BannerDataBean {
+    public static class BannerDataBean implements Serializable {
         /**
          * bannerImage : http://pic.ziroom.com/house_images/g2/M00/FD/74/v800x600_ChAFfVpjXS2AaxWXAA7iv6GMBmA527.JPG
          * bannerID : 123
@@ -105,7 +106,7 @@ public class HouseDetil extends BaseBean {
         }
     }
 
-    public static class ViewDataBean {
+    public static class ViewDataBean  implements Serializable{
         @Override
         public String toString() {
             return "ViewDataBean{" +

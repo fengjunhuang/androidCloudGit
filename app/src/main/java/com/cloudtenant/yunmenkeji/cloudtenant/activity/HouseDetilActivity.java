@@ -37,7 +37,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
     }
 
     @Override
-    protected void MyHolder(BaseViewHolder baseViewHolder, BudingInfo.ViewDataBean houseDetil) {
+    protected void MyHolder(BaseViewHolder baseViewHolder, final BudingInfo.ViewDataBean houseDetil) {
         RecyclerView recyclerView =baseViewHolder.convertView.findViewById(R.id.recy_floor);
         TextView tv_floor= baseViewHolder.convertView.findViewById(R.id.tv_floor);
         tv_floor.setText(houseDetil.getFloor());
@@ -54,7 +54,9 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
         houseDetilAdater.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                readyGo(TnementAcitivity_.class);
+                Bundle bundle =new Bundle();
+                bundle.putSerializable("bean",houseDetil.getData().get(position));
+                readyGo(TnementAcitivity_.class,bundle);
             }
         });
     }
@@ -75,8 +77,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
 
         getBtn1();
         getBtn2();
-        setMainText("明珠公寓");
-        setSmellText("东浦新村5号");
+
         findViewById(R.id.out).setVisibility(View.VISIBLE);
         ((Button)getBtn1()).setText("导航");
         ((Button)getBtn1()).setOnClickListener(new View.OnClickListener() {
@@ -86,6 +87,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
             }
         });
         requset();
+        getBundleExtras(getIntent().getExtras());
     }
 
     private void requset() {
@@ -95,6 +97,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
                 BudingInfo budingInfo= (BudingInfo) t;
                viewDataX = budingInfo.getViewDataX();
                mAdapter.addData(viewDataX);
+
 
                 System.out.print("");
 
@@ -109,7 +112,9 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
 
     @Override
     protected void getBundleExtras(Bundle bundle) {
-
+        HouseDetil.ViewDataBean bean = (HouseDetil.ViewDataBean) bundle.getSerializable("bean");
+        setMainText(bean.getCellName());
+        setSmellText(bean.getCellAddress());
     }
 
     @Override

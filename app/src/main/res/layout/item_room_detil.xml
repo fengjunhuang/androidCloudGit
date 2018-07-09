@@ -57,8 +57,8 @@
          />
      <TextView
 
-       android:layout_marginLeft="@dimen/x5"
-       android:layout_height="wrap_content"
+         android:layout_marginLeft="@dimen/x5"
+         android:layout_height="wrap_content"
          android:layout_width="wrap_content"
          android:textColor="@color/black"
 
@@ -70,25 +70,25 @@
 
 
          />
+         <TextView
+             android:id="@+id/tv_seeTimes"
+
+             android:layout_marginLeft="@dimen/x5"
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:textColor="#B8B8B8"
+
+             android:textStyle="bold"
+
+             android:text="浏览次数：10次"
+             android:textSize="11sp"
+
+
+
+             />
      </LinearLayout>
 
-     <TextView
-         android:id="@+id/tv_cell_name"
 
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_marginTop="@dimen/x5"
-         android:textSize="11sp"
-         android:text="东圃镇明珠新村" />
-     <TextView
-         android:id="@+id/tv_cell_building_set"
-         android:layout_marginTop="@dimen/x5"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text="阳光好,临地铁5号线,带空调热水器"
-
-         android:textSize="11sp"
-         />
      <LinearLayout
          android:layout_width="match_parent"
          android:layout_height="wrap_content"

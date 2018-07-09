@@ -38,6 +38,7 @@ import com.yzs.yzsbaseactivitylib.util.ToastUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.IOException;
 
 
 public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.SupportActivity {
@@ -51,10 +52,33 @@ public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.Support
     public MLoadingDialog m_cProgressDialog;
     private View btn1;
     private View btn2;
-
+    private ImageView iv_out;
+    private  TextView tv_smell;
+    private  TextView tv_main;
     public View getBtn1() {
         btn1.setVisibility(View.VISIBLE);
         return btn1;
+    }
+    public ImageView getTv_out() {
+        iv_out=getTitleView().findViewById(R.id.out);
+        return iv_out;
+    }
+
+    public TextView getTv_smell() {
+        tv_smell=getTitleView().findViewById(R.id.tv_small);
+        return tv_smell;
+    }
+
+    public void setTv_smell(TextView tv_smell) {
+        this.tv_smell = tv_smell;
+    }
+
+    public TextView getTv_main() {
+        return tv_main;
+    }
+
+    public void setTv_main(TextView tv_main) {
+        this.tv_main = tv_main;
     }
 
     public void setBtn1(View btn1) {
@@ -136,7 +160,7 @@ public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.Support
 
     protected abstract void initContentView(Bundle var1);
 
-    protected abstract void initView();
+    protected abstract void initView() ;
 
     protected abstract void initLogic();
 

@@ -92,15 +92,18 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
                 android:text="房租\n 800"
+                android:textSize="10sp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:textSize="10sp"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
                 android:text=" + "
                 />
             <TextView
+                android:textSize="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
@@ -112,12 +115,14 @@
                 android:layout_margin="5dp"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
                 android:text=" + "
+                android:textSize="10sp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
                 android:text="电费\n  10"
+                android:textSize="10sp"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -125,8 +130,10 @@
                 android:layout_margin="5dp"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
                 android:text=" + "
+                android:textSize="10sp"
                 />
             <TextView
+                android:textSize="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
@@ -138,12 +145,14 @@
                 android:layout_margin="5dp"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
                 android:text=" + "
+                android:textSize="10sp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
                 android:text="管理费\n  50"
+                android:textSize="10sp"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -151,14 +160,16 @@
                 android:layout_margin="5dp"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
                 android:text=" = "
+                android:textSize="10sp"
                 />
-            <com.yzs.yzslibrary.view.StateButton
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:radius="@dimen/x10"
+                  android:background="@drawable/seletor_tv"
                 android:text="支付\n 1059"
-                app:normalStrokeColor="@color/red"
-                app:strokeDashWidth="3dp"
+                android:textSize="10sp"
+                android:padding="3dp"
+
 
                 />
         </LinearLayout>
