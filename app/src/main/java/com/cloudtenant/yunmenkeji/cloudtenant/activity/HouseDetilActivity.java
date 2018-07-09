@@ -78,8 +78,8 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
         setMainText("明珠公寓");
         setSmellText("东浦新村5号");
         findViewById(R.id.out).setVisibility(View.VISIBLE);
-        ((Button)getBtn1()).setText("导航");
-        ((Button)getBtn1()).setOnClickListener(new View.OnClickListener() {
+        (getTt_1()).setText("导航");
+        (getBtn1()).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 readyGo(RoutingActivity.class);

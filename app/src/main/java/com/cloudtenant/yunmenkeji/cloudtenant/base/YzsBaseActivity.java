@@ -51,10 +51,15 @@ public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.Support
     public MLoadingDialog m_cProgressDialog;
     private View btn1;
     private View btn2;
+    private  TextView tv_1;
 
     public View getBtn1() {
         btn1.setVisibility(View.VISIBLE);
         return btn1;
+    }
+    public TextView getTt_1(){
+        tv_1=getTitleView().findViewById(R.id.tv_tv1);
+        return tv_1;
     }
 
     public void setBtn1(View btn1) {
