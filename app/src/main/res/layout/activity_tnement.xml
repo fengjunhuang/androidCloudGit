@@ -60,13 +60,8 @@
 
                 style="@style/match_line"/>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:orientation="vertical"
-            >
             <LinearLayout
-
+                android:id="@+id/ll_details"
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
@@ -74,7 +69,7 @@
                 android:layout_height="55dp">
 
                 <TextView
-
+                    android:gravity="center_vertical"
                     android:text="合同订约"
                     android:textSize="17sp"
                     android:layout_width="0dp"
@@ -86,9 +81,8 @@
                     android:layout_height="25dp" />
             </LinearLayout>
             <View
-                 android:layout_marginTop="20dp"
                 style="@style/match_line"/>
-        </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

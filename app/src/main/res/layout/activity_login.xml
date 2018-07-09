@@ -109,7 +109,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-
         <Button
             android:id="@+id/btn_login"
             android:layout_margin="@dimen/x10"
@@ -118,8 +117,6 @@
             android:layout_weight="1"
             style="@style/btn_stly"
             android:text="登录"
-
-
             />
         <Button
             android:id="@+id/btn_visitor"
@@ -129,8 +126,6 @@
             android:layout_weight="1"
             style="@style/btn_stly"
             android:text="访客浏览!!!"
-
-
             />
 
     </LinearLayout>
@@ -157,10 +152,6 @@
                 android:layout_height="@dimen/x25"
                 android:src="@drawable/wechat_login"
                 android:layout_weight="1"
-
-
-
-
                 />
 
             <ImageView

@@ -38,9 +38,8 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
                 System.out.println(houseDetil.getViewData()+"");
                 System.out.println(houseDetil.getContract()+"");
                 Log.e("onSuccees",houseDetil.getViewData());
-
+                Log.e("onSuccees",houseDetil.getContract());
             }
-
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
@@ -58,6 +57,12 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
     protected void initContentView(Bundle var1) {
         setContentView(R.layout.activity_login);
         pwd_login=findViewById(R.id.pwd_login);
+        findViewById(R.id.tx_fg_pwd).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                readyGo(ResetPwdActivity.class);
+            }
+        });
         pwd_login.setOnClickListener(this);
         msg_login=findViewById(R.id.msg_login);
         msg_login.setOnClickListener(this);

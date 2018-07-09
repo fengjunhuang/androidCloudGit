@@ -1,6 +1,7 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
@@ -22,6 +23,7 @@ public class TnementAcitivity extends YzsBaseActivity {
 
        readyGo(OnlineVisitAcivity.class);
     }
+
     @Override
     protected void initContentView(Bundle var1) {
        setContentView(R.layout.activity_tnement);
@@ -29,7 +31,12 @@ public class TnementAcitivity extends YzsBaseActivity {
 
     @Override
     protected void initView() {
-
+        findViewById(R.id.ll_details).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                readyGo(ContractDetailsActivity.class);
+            }
+        });
     }
 
     @Override
