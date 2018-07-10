@@ -29,22 +29,22 @@ public class ExampleInstrumentedTest {
     }
     public void test(){
 
-        HttpMethods.getInstance().login(new BaseObserver<String>() {
-            @Override
-            protected void onSuccees(BaseBean t) throws Exception {
-                System.out.println(t);
-
-            }
-
-            @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                System.out.println(e);
-            }
-
-            @Override
-            public void onNext(BaseBean baseBean) {
-
-            }
-        });
+//        HttpMethods.getInstance().login(new BaseObserver<String>() {
+//            @Override
+//            protected void onSuccees(BaseBean t) throws Exception {
+//                System.out.println(t);
+//
+//            }
+//
+//            @Override
+//            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+//                System.out.println(e);
+//            }
+//
+//            @Override
+//            public void onNext(BaseBean baseBean) {
+//
+//            }
+//        });
     }
 }
