@@ -94,6 +94,7 @@ dependencies {
     compile 'com.github.chrisbanes.photoview:library:+'
     //地图list
     compile 'me.yokeyword:indexablerecyclerview:1.3.0'
+
     //二維碼
     implementation 'com.github.yuzhiqiang1993:zxing:2.1.8'
     //权限获取

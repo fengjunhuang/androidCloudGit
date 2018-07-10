@@ -35,7 +35,7 @@ public class ShareActivity extends YzsBaseActivity {
         recyclerView=findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerDecoration(Color.parseColor("#aaaaaa"), 1));
-        
+
         messageAdapter = new MessageAdapter(this);
         recyclerView.setAdapter(messageAdapter);
         iv_pic=findViewById(R.id.iv_pic);
@@ -70,4 +70,9 @@ public class ShareActivity extends YzsBaseActivity {
     protected void onEventComing(EventCenter var1) {
 
     }
+
+    
+
+
+
 }
