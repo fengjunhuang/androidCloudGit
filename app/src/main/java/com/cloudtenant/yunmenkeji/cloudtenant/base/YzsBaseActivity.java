@@ -174,7 +174,7 @@ public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.Support
 
     protected abstract void initLogic();
 
-    protected abstract void getBundleExtras(Bundle var1);
+    protected abstract void getBundleExtras(Bundle var1) throws Exception;
 
     protected void initTitle() {
        this.titleView.findViewById(R.id.out).setOnClickListener(new View.OnClickListener() {

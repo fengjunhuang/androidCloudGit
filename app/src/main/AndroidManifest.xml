@@ -85,6 +85,13 @@
             android:screenOrientation="portrait"
 
             />
+        <activity android:name=".activity.DisMapActivity"
+
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"
+
+            />
+
         <activity android:name=".activity.RoutingActivity"
 
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"

@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.gersion.library.base.BaseActivity;
-import com.tencent.tencentmap.mapsdk.maps.MapView;
+
 
 
 /**

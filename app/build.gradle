@@ -88,13 +88,11 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.pinguo-zhouwei:CustomPopwindow:2.1.1'
     compile 'de.hdodenhof:circleimageview:2.0.0'
-    compile 'com.tencent.map:tencent-map-vector-sdk:latest.release'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
     //图片查看器
     compile 'com.github.chrisbanes.photoview:library:+'
     //地图list
     compile 'me.yokeyword:indexablerecyclerview:1.3.0'
-
     //二維碼
     implementation 'com.github.yuzhiqiang1993:zxing:2.1.8'
     //权限获取
@@ -104,6 +102,7 @@ dependencies {
     //全景图
     compile 'com.github.CN-ZPH:weibo360panorama:v1.0.1'
     compile 'com.alibaba:fastjson:1.2.47'
-    implementation files('libs/TencentLocationSdk_v6.2.5.1_r26d6bdbd_20171019_204334.jar')
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation files('libs/TencentMapSDK_Raster_v_1.2.8.1.c02ec64.jar')
+    implementation files('libs/TencentLocationSDK_v5.0.1_r251203_170116_1729.jar')
 }

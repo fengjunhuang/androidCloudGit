@@ -13,12 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.CityPickerActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.DisMapActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.HouseDetilActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
@@ -57,6 +59,8 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
     private     List<HouseDetil.BannerDataBean> bannerDataBeans=new ArrayList<>();
     private Banner banner;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private LinearLayout ll_tuijian;
+    private  HouseDetil houseDetil;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -167,7 +171,15 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
 
             }
         });
-
+         ll_tuijian=view.findViewById(R.id.ll_tuijian);
+        ll_tuijian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle =new Bundle();
+                bundle.putSerializable("bean",houseDetil);
+                readyGo(DisMapActivity.class,bundle);
+            }
+        });
         getData();
     }
 
@@ -231,7 +243,7 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
         HttpMethods.getInstance().homeData(new BaseObserver<HouseDetil>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
-                HouseDetil houseDetil= (HouseDetil) t;
+                 houseDetil= (HouseDetil) t;
                 System.out.println(houseDetil.getViewDataX().size()+"");
                 Log.e("getData",houseDetil.getViewDataX().get(0).toString());
                 bannerDataBeans=houseDetil.getBannerData();
