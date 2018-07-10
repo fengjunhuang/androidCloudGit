@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -58,7 +59,7 @@ public class BudingInfo extends BaseBean{
         this.viewDataX = viewDataX;
     }
 
-    public static class ViewDataBean {
+    public static class ViewDataBean  implements Serializable {
         /**
          * floor : 2
          * data : [{"roomSquare":"20","roomMoney":"850","roomNumber":"201","roomStatus":0,"roomHave360":true,"roomReviewTimes":"10","roomSet":"床 热水器 空调 宽带","roomID":"11","roomSimpleImage":"http://pic.ziroom.com/house_images/g2/M00/FD/72/v800x600_ChAFfVpjW8SAVxlTAA4eIwfrEgI392.JPG","roomMarginType":0,"roomStyle":"一房一厅","roomMoreImageArr":[{"imageTitle":"房间全景照","imageInfo":"房间非常舒适","imageFullView":"1","imageUrl":"https://theta360cn.com/cn/gallery/img/v_04.jpg"},{"imageTitle":"屋内环境照片","imageInfo":"房间","imageFullView":"0","imageUrl":"http://pic.ziroom.com/house_images/g2/M00/FD/72/v800x600_ChAFfVpjW8SAVxlTAA4eIwfrEgI392.JPG"},{"imageTitle":"屋内环境照片","imageInfo":"床屋内配置","imageFullView":"0","imageUrl":"http://pic.ziroom.com/house_images/g2/M00/FD/6B/v800x600_ChAFD1pjWsSADtIvAA5dAQdG5QU465.JPG"},{"imageTitle":"屋内环境照片","imageInfo":"屋内配置","imageFullView":"0","imageUrl":"http://pic.ziroom.com/house_images/g2/M00/FD/74/v800x600_ChAFfVpjXS2AaxWXAA7iv6GMBmA527.JPG"},{"imageTitle":"屋内环境照片","imageInfo":"浴室配置","imageFullView":"0","imageUrl":"http://pic.ziroom.com/house_images/g2/M00/FD/6D/v800x600_ChAFD1pjXBeAHhzNABBYSCeS78Q079.JPG"}],"roomBuildingID":"123123","roomLat":"23.000000","roomLng":"113.00000000"},{"roomSquare":"20","roomMoney":"1350","roomNumber":"202","roomStatus":0,"roomHave360":false,"roomReviewTimes":"11","roomSet":"床 热水器 空调 宽带","roomID":"11","roomSimpleImage":"http://pic.ziroom.com/apartment/upload/20161004/1475572250793-1.JPG","roomMarginType":1,"roomStyle":"两房一厅","roomMoreImageArr":[{"imageTitle":"房间全景照","imageInfo":"房间非常舒适","imageFullView":"0","imageUrl":"http://pic.ziroom.com/apartment/upload/20161004/1475572250793-1.JPG"},{"imageTitle":"屋内环境片","imageInfo":"房间","imageFullView":"0","imageUrl":"http://pic.ziroom.com/apartment/upload/20161004/1475572279647-3.JPG"},{"imageTitle":"屋内环境照片","imageInfo":"床屋内配置","imageFullView":"0","imageUrl":"http://pic.ziroom.com/apartment/upload/20161004/1475572289859-4.JPG"}],"roomBuildingID":"123123","roomLat":"23.000000","roomLng":"113.00000000"},{"roomSquare":"20","roomMoney":"950","roomNumber":"203","roomStatus":0,"roomHave360":false,"roomReviewTimes":"11","roomSet":"床 热水器 空调 宽带","roomID":"11","roomSimpleImage":"http://pic.ziroom.com/apartment/upload/20161004/1475572250793-1.JPG","roomMarginType":1,"roomStyle":"两房一厅","roomMoreImageArr":[{"imageTitle":"房间全景照","imageInfo":"房间非常舒适","imageFullView":"0","imageUrl":"http://pic.ziroom.com/apartment/upload/20161004/1475572250793-1.JPG"},{"imageTitle":"屋内环境片","imageInfo":"房间","imageFullView":"0","imageUrl":"http://pic.ziroom.com/apartment/upload/20161004/1475572279647-3.JPG"},{"imageTitle":"屋内环境照片","imageInfo":"床屋内配置","imageFullView":"0","imageUrl":"http://pic.ziroom.com/apartment/upload/20161004/1475572289859-4.JPG"}],"roomBuildingID":"123123","roomLat":"23.000000","roomLng":"113.00000000"}]
@@ -83,7 +84,7 @@ public class BudingInfo extends BaseBean{
             this.data = data;
         }
 
-        public static class DataBean {
+        public  class DataBean implements  Serializable{
             /**
              * roomSquare : 20
              * roomMoney : 850
@@ -238,7 +239,7 @@ public class BudingInfo extends BaseBean{
                 this.roomMoreImageArr = roomMoreImageArr;
             }
 
-            public static class RoomMoreImageArrBean {
+            public  class RoomMoreImageArrBean  implements Serializable {
                 /**
                  * imageTitle : 房间全景照
                  * imageInfo : 房间非常舒适

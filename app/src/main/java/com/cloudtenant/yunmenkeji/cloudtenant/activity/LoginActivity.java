@@ -2,12 +2,15 @@ package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.BuildingInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.NoticeHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
@@ -28,14 +31,15 @@ import io.reactivex.disposables.Disposable;
 public class LoginActivity extends YzsBaseActivity implements View.OnClickListener {
     @Click(R.id.btn_login)
     void login(){
-        HttpMethods.getInstance().homeData(new BaseObserver<HouseDetil>() {
+        HttpMethods.getInstance().buildingInfo(new BaseObserver<BuildingInfo>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
-                HouseDetil houseDetil= (HouseDetil) t;
-                System.out.println(houseDetil.getViewDataX().size()+"");
-
+                BuildingInfo houseDetil= (BuildingInfo) t;
+                System.out.println(houseDetil.getViewData()+"");
+                System.out.println(houseDetil.getContract()+"");
+                Log.e("onSuccees",houseDetil.getViewData());
+                Log.e("onSuccees",houseDetil.getContract());
             }
-
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
@@ -53,11 +57,19 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
     protected void initContentView(Bundle var1) {
         setContentView(R.layout.activity_login);
         pwd_login=findViewById(R.id.pwd_login);
+        findViewById(R.id.tx_fg_pwd).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                readyGo(ResetPwdActivity.class);
+            }
+        });
         pwd_login.setOnClickListener(this);
         msg_login=findViewById(R.id.msg_login);
         msg_login.setOnClickListener(this);
         ll_one=findViewById(R.id.one);
         ll_two=findViewById(R.id.two);
+
+
     }
 
     @Override

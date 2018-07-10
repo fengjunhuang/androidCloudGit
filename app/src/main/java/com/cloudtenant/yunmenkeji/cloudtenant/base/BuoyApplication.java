@@ -47,6 +47,9 @@ public class BuoyApplication extends MultiDexApplication {
         handler = new Handler();
         mainThreadId = android.os.Process.myTid();
         mApp=this;
+
+
+
     }
 
     /**

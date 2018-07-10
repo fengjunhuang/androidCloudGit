@@ -107,7 +107,8 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
                     startActivity(new Intent(MessageRoomActivity.this, MessageTraceActivity.class));
                 }
                 else{
-                   // AddData();
+                    startActivity(new Intent(MessageRoomActivity.this, NoticeActivity.class));
+
                 }
 
             }

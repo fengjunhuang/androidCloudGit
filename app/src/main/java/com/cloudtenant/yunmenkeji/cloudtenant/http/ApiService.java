@@ -1,12 +1,15 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.http;
 
 
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.BuildingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamily;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamilyData;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.NoticeHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
@@ -62,6 +65,14 @@ public interface ApiService {
        Observable<MyFamily> myFamilyList();
        @POST("FamilyMemberList")
        Observable<MyFamilyData> familyMemberList();
+       @POST("NoticeHistory")
+       Observable<NoticeHistory> noticeHistory();
+       @POST("BrokenUpCancel")
+       Observable<BrokenUp> brokenUpCancel();
+       @POST("BrokenUp")
+       Observable<BrokenUp> brokenUp();
+       @POST("BuildingInfo")
+       Observable<BuildingInfo> buildingInfo();
 
 
 
