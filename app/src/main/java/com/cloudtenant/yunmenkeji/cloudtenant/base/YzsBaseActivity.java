@@ -53,6 +53,7 @@ public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.Support
     private View btn1;
     private View btn2;
     private  TextView tv_1;
+    private  TextView tv_2;
     private ImageView iv_out;
     private  TextView tv_smell;
     private  TextView tv_main;
@@ -68,6 +69,11 @@ public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.Support
         tv_1=getTitleView().findViewById(R.id.tv_tv1);
         return tv_1;
     }
+    public TextView getTt_2(){
+        tv_2=getTitleView().findViewById(R.id.tv_location);
+        return tv_2;
+    }
+
     public TextView getTv_smell() {
         tv_smell=getTitleView().findViewById(R.id.tv_small);
         return tv_smell;

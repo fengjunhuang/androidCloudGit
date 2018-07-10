@@ -28,11 +28,21 @@ import java.util.List;
 
 public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataBean> {
     private List<BudingInfo.ViewDataBean> viewDataX;
+    HouseDetil.ViewDataBean bean;
     @Override
     protected void initItemLayout() {
 
         setLayoutResId(R.layout.item_recy_house_detil);
         setListType(LINEAR_LAYOUT_MANAGER, true);
+        getTt_2().setText("分享");
+        getBtn2().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle =new Bundle();
+                bundle.putSerializable("bean",bean);
+                    readyGo(ShareActivity.class,bundle);
+            }
+        });
 
     }
 
@@ -112,7 +122,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
 
     @Override
     protected void getBundleExtras(Bundle bundle) {
-        HouseDetil.ViewDataBean bean = (HouseDetil.ViewDataBean) bundle.getSerializable("bean");
+       bean = (HouseDetil.ViewDataBean) bundle.getSerializable("bean");
         setMainText(bean.getCellName());
         setSmellText(bean.getCellAddress());
     }
