@@ -40,6 +40,7 @@
                     android:text="查看或修改个人资料"
                     style="@style/me_text_style" />
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/civ_icon"
                     android:layout_alignParentRight="true"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -118,6 +119,7 @@
                 android:id="@+id/rl_clean"
                 style="@style/me_item_rl_style">
                 <TextView
+                    android:id="@+id/tv_cache"
                     android:text="清除缓冲（0.0B）"
                     style="@style/me_text_style" />
                 <ImageView
@@ -145,6 +147,7 @@
             android:textSize="12sp"
             android:layout_height="wrap_content" />
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_icon"
             android:layout_width="20dp"
             app:cropStyle="circle"
             android:src="@drawable/settingicon"

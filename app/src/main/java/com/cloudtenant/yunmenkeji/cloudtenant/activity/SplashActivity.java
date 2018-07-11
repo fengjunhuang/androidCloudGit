@@ -1,13 +1,19 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 
 import org.androidannotations.annotations.EActivity;
@@ -38,7 +44,14 @@ public class SplashActivity extends YzsBaseActivity {
     protected void initView() {
         setListener();
         processLogic();
-
+        AndPermission.with(this)
+                .permission(Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_EXTERNAL_STORAGE,Permission.READ_CONTACTS)
+                .onDenied(new Action() {
+                    @Override
+                    public void onAction(Object data) {
+                        finish();
+                    }
+                }).start();
 
     }
     private void processLogic() {

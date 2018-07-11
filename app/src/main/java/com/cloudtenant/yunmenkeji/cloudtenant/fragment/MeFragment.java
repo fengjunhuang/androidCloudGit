@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,15 +25,24 @@ import com.cloudtenant.yunmenkeji.cloudtenant.activity.EditProFileActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MyFamilyActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.RequestActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.SettingActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserinfoBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.PreferencesUtils;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
+import com.squareup.picasso.Picasso;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class MeFragment extends BaseFragment implements View.OnClickListener {
 
     private boolean isLogin=false;
+    private TextView userName,tv_cache,tv_username;
+    private CircleImageView iv_icon,circleImageView;
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return null;
@@ -118,7 +128,11 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         view.findViewById(R.id.rl_setting).setOnClickListener(this);
         view.findViewById(R.id.rl_request).setOnClickListener(this);
         view.findViewById(R.id.rl_icon).setOnClickListener(this);
-        TextView userName=view.findViewById(R.id.userName);
+        userName=view.findViewById(R.id.userName);
+        tv_cache=view.findViewById(R.id.tv_cache);
+        tv_username=view.findViewById(R.id.tv_username);
+        iv_icon=view.findViewById(R.id.iv_icon);
+        circleImageView=view.findViewById(R.id.civ_icon);
         userName.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         final View me_topbar=view.findViewById(R.id.me_topbar);
         me_topbar.setAlpha(0);
@@ -148,10 +162,16 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         }
         return view;
     }
-
+    UserinfoBean userinfoBean;
     @Override
     protected void initView(View view) {
-
+        if (PreferencesUtils.getBoolean(getActivity(),"isLogin",false)) {
+            userinfoBean= UserLocalData.getUser(getActivity());
+            Picasso.with(getActivity()).load(userinfoBean.getUserIcon()).into(iv_icon);
+            Picasso.with(getActivity()).load(userinfoBean.getUserIcon()).into(circleImageView);
+            userName.setText(userinfoBean.getUserName());
+            tv_username.setText(userinfoBean.getUserName());
+        }
     }
 
     @Override

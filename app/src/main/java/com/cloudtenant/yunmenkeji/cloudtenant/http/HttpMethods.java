@@ -12,6 +12,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamily;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamilyData;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.NoticeHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
@@ -70,12 +71,17 @@ public class HttpMethods {
         return sinalInstance.instance;
     }
 
-    public void login(BaseObserver<String> observer,String aa){
+    public void login(BaseObserver<UserInfo> observer, String aa){
         apiService.login().subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
-
+    }
+    public void loginWithAuthorization(BaseObserver<UserInfo> observer, String aa){
+        apiService.loginWithAuthorization().subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
     public void homeData(BaseObserver<HouseDetil> observer, String aa){
         apiService.homeData().subscribeOn(Schedulers.io())

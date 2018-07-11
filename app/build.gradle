@@ -50,9 +50,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.0.1'
     compile 'com.jude:easyrecyclerview:4.2.6'
     compile 'com.youth.banner:banner:1.4.10'
-
-        compile 'com.google.vr:sdk-panowidget:1.80.0'
-
+    compile 'com.google.vr:sdk-panowidget:1.80.0'
     //最新版本
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
@@ -71,7 +69,6 @@ dependencies {
     //添加依赖
     compile 'com.github.yaozs:YzsLib:0.1.1'
     compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'
-
     compile 'io.reactivex.rxjava2:rxjava:2.0.7'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
@@ -93,15 +90,12 @@ dependencies {
     implementation 'com.github.yuzhiqiang1993:zxing:2.1.8'
     //权限获取
     implementation 'com.yanzhenjie:permission:2.0.0-rc11'
-
     compile 'com.shizhefei:ViewPagerIndicator:1.1.7'
     //腾讯地图
     compile 'com.tencent.map:tencent-map-vector-sdk:latest.release'
-
     compile 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.2.2'
     //全景图
     compile 'com.github.CN-ZPH:weibo360panorama:v1.0.1'
-
     compile 'com.alibaba:fastjson:1.2.47'
-
+    implementation files('libs/MobCommons-2018.0523.1925.jar')
 }
