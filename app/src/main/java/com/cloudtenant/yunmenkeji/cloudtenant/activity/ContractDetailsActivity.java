@@ -81,8 +81,8 @@ public class ContractDetailsActivity extends BaseActivity {
 
                 //details.setText(houseDetil.getContract().replace("/n", "\n"));
                 //Log.e("onSuccees",houseDetil.getViewData());
-                //Log.e("onSuccees",houseDetil.getContract());
                 aa=houseDetil.getContract().replace("/n", "\n");
+                Log.e("onSuccees",aa);
                 String a="%@";
                 ArrayList<Integer> list=new ArrayList<>();
                 ArrayList<Integer> indexList=new ArrayList<>();
@@ -105,7 +105,6 @@ public class ContractDetailsActivity extends BaseActivity {
                 ctList.add("1000");
                 ctList.add("壹仟");
                 ctList.add("1000");
-                ctList.add("50");
                 ctList.add("2019-07-10");
                 ctList.add("1000");
                 ctList.add("2020-07-10");
@@ -131,7 +130,7 @@ public class ContractDetailsActivity extends BaseActivity {
                 //设置字体大小（相对值,单位：像素） 参数表示为默认字体宽度的多少倍
                 //msp.setSpan(new ScaleXSpan(2.0f), 0, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); //2.0f表示默认字体宽度的两倍，即X轴方向放大为默认字体的两倍，而高度不变
 
-                msp.setSpan(new AbsoluteSizeSpan(20), 0, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                msp.setSpan(new AbsoluteSizeSpan(80), 0, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                 details.setText(msp);
 

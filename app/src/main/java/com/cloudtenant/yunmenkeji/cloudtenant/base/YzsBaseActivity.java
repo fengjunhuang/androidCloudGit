@@ -52,6 +52,8 @@ public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.Support
     public MLoadingDialog m_cProgressDialog;
     private View btn1;
     private View btn2;
+    private  TextView tv_1;
+    private  TextView tv_2;
     private ImageView iv_out;
     private  TextView tv_smell;
     private  TextView tv_main;
@@ -62,6 +64,14 @@ public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.Support
     public ImageView getTv_out() {
         iv_out=getTitleView().findViewById(R.id.out);
         return iv_out;
+    }
+    public TextView getTt_1(){
+        tv_1=getTitleView().findViewById(R.id.tv_tv1);
+        return tv_1;
+    }
+    public TextView getTt_2(){
+        tv_2=getTitleView().findViewById(R.id.tv_location);
+        return tv_2;
     }
 
     public TextView getTv_smell() {
@@ -164,7 +174,7 @@ public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.Support
 
     protected abstract void initLogic();
 
-    protected abstract void getBundleExtras(Bundle var1);
+    protected abstract void getBundleExtras(Bundle var1) throws Exception;
 
     protected void initTitle() {
        this.titleView.findViewById(R.id.out).setOnClickListener(new View.OnClickListener() {

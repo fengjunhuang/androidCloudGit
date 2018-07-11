@@ -54,27 +54,32 @@
             android:layout_centerVertical="true"
             />
     </LinearLayout>
-    <com.yzs.yzslibrary.view.StateButton
+
+    <LinearLayout
         android:id="@+id/btn_op1"
+
         android:layout_width="65dp"
-        android:layout_height="35dp"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/butten_background_black"
+        android:gravity="center"
         android:layout_alignParentRight="true"
-        android:drawableLeft="@drawable/image_navqr"
-        android:layout_centerVertical="true"
-        app:normalStrokeColor="@color/actionsheet_gray"
-        app:strokeDashWidth="3dp"
+        android:layout_height="30dp">
+        <ImageView
+            android:background="@drawable/image_navqr"
+            android:layout_width="12dp"
+            android:layout_height="12dp" />
+        <TextView
+            android:id="@+id/tv_tv1"
+            android:text="扫一扫"
+            android:textColor="@android:color/black"
+            android:textSize="11sp"
+            android:layout_marginLeft="3dp"
 
-        android:padding="5dp"
-        android:text="导 航 "
-        android:textColor="@android:color/darker_gray"
-        android:textSize="8sp"
-        app:normalBackgroundColor="@color/white"
-        app:pressedBackgroundColor="@color/colorPrimaryDark"
-        app:radius="6dp"
-        app:unableBackgroundColor="@android:color/holo_red_light"
-
-
-        />
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     <!--<com.yzs.yzslibrary.view.StateButton
         android:id="@+id/btn_op2"
         android:layout_width="55dp"
