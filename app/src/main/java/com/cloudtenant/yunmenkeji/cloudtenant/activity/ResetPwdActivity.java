@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.TimeCount;
 import com.gersion.library.base.BaseActivity;
 
 
@@ -24,8 +25,8 @@ public class ResetPwdActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_pwd);
 
-        time = new TimeCount(60000, 1000);
         btnGetcode = findViewById(R.id.btn_get_message);
+        time = new TimeCount(60000, 1000,btnGetcode);
         btnGetcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,27 +48,6 @@ public class ResetPwdActivity extends BaseActivity {
     }
 
 
-    class TimeCount extends CountDownTimer {
 
-        public TimeCount(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-            btnGetcode.setBackgroundColor(R.drawable.selector_btn_gray);
-            btnGetcode.setClickable(false);
-            btnGetcode.setText("(" + millisUntilFinished / 1000 + ") 秒后可重新发送");
-        }
-
-        @Override
-        public void onFinish() {
-            btnGetcode.setText("重新获取验证码");
-            btnGetcode.setClickable(true);
-            btnGetcode.setBackgroundColor(R.drawable.selector_btn_green);
-
-        }
-
-    }
 
 }

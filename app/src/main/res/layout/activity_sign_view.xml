@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:background="@color/gren_cut_clorr"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            style="@style/click"
+            android:id="@+id/out"
+            android:layout_marginLeft="10dp"
+            android:text="返回"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_width="40dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/title"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:text="请在白色区域手写签名\n  并以正楷，工整书写"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/clear"
+            style="@style/click"
+            android:text="清除"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/white"
+            android:layout_width="40dp"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <com.cloudtenant.yunmenkeji.cloudtenant.view.HandWriteView
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            app:paintMaxWidth="20px"
+            app:paintMinWidth="10px"
+            app:paintColor="#FF0000"
+            android:layout_height="match_parent"
+            />
+        <TextView
+            android:id="@+id/tips"
+            android:text="请在白色区域手写签名：正楷，工整书写"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/commit"
+        style="@style/click"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@color/gren_cut_clorr"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+</LinearLayout>

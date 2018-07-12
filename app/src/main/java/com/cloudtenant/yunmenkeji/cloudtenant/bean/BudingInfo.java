@@ -2,6 +2,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.bean;
 
 import com.alibaba.fastjson.JSON;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.AESOperator;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -43,8 +44,8 @@ public class BudingInfo extends BaseBean{
         this.maxPage = maxPage;
     }
 
-    public String getContract() {
-        return contract;
+    public String getContract() throws Exception {
+        return AESOperator.getInstance().decrypt(contract);
     }
 
     public void setContract(String contract) {
