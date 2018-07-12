@@ -6,25 +6,26 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
-import android.text.style.ScaleXSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.BuildingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.gersion.library.base.BaseActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -62,8 +63,7 @@ public class ContractDetailsActivity extends BaseActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(ContractDetailsActivity.this, TestNoticeActivity.class);
-                intent.putExtra("aa",aa);
+                Intent intent=new Intent(ContractDetailsActivity.this, CommitIdActivity.class);
                 startActivity(intent);
             }
         });
@@ -84,31 +84,49 @@ public class ContractDetailsActivity extends BaseActivity {
                 aa=houseDetil.getContract().replace("/n", "\n");
                 Log.e("onSuccees",aa);
                 String a="%@";
-                ArrayList<Integer> list=new ArrayList<>();
                 ArrayList<Integer> indexList=new ArrayList<>();
                 ArrayList<Integer> indexSizeList=new ArrayList<>();
-                /*int index=0;
-                for (int i=0;aa.indexOf(a,index)!=-1;i++){
-                    list.add(aa.indexOf(a,index));
-                    index=aa.indexOf(a,index)+1;
-                }
-                    Log.e("onSuccees","aaIndexOf长度="+list.size());
-                for (Integer integer : list) {
-                    Log.e("onSuccees","aaIndexOf="+integer);
-                }*/
+
                 List<String> ctList=new ArrayList<>();
+                //cellAddress
                 ctList.add("明珠公寓301");
+                //roomSquare
                 ctList.add("30");
+                //固定
                 ctList.add("12");
-                ctList.add("2018-07-10");
-                ctList.add("2019-07-10");
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+                String now = sdf.format(new Date());
+                //当前日期
+                ctList.add(now);
+
+                Date date = new Date();
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);//设置起时间
+                //System.out.println("111111111::::"+cal.getTime());
+                cal.add(Calendar.YEAR, 1);//增加一年
+                String nowPlus1=sdf.format(cal.getTime());
+                cal.add(Calendar.YEAR, 1);//增加一年
+                String nowPlus2=sdf.format(cal.getTime());
+                //当前日期加一年
+                ctList.add(nowPlus1);
+                //roomMoney
                 ctList.add("1000");
+                //roomMoney大写
                 ctList.add("壹仟");
+                //roomMoney
                 ctList.add("1000");
-                ctList.add("2019-07-10");
+                //当前日期
+                ctList.add(now);
+                //roomMoney
                 ctList.add("1000");
-                ctList.add("2020-07-10");
+                //当前日期加一年
+                ctList.add(nowPlus1);
+                //当前日期加2年
+                ctList.add(nowPlus2);
+                //roomMoney+50
                 ctList.add("1050");
+                //固定
                 ctList.add("12");
 
                 int ctIndex=0;
@@ -127,9 +145,7 @@ public class ContractDetailsActivity extends BaseActivity {
                 msp.setSpan(new UnderlineSpan(), indexList.get(i),indexList.get(i)+indexSizeList.get(i), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                 }
-                //设置字体大小（相对值,单位：像素） 参数表示为默认字体宽度的多少倍
-                //msp.setSpan(new ScaleXSpan(2.0f), 0, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); //2.0f表示默认字体宽度的两倍，即X轴方向放大为默认字体的两倍，而高度不变
-
+                //设置字体大小（相对值,单位：像素） 参数表示为多少像素
                 msp.setSpan(new AbsoluteSizeSpan(80), 0, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                 details.setText(msp);

@@ -65,10 +65,10 @@
                 android:id="@+id/rl_number"
                 style="@style/me_item_rl_style">
                 <TextView
-                    android:id="@+id/tv_number"
                     android:text="手机号绑定"
                     style="@style/me_text_style" />
                 <TextView
+                    android:id="@+id/tv_number"
                     android:text="15088113450"
                     android:layout_alignParentRight="true"
                     style="@style/me_text_style" />

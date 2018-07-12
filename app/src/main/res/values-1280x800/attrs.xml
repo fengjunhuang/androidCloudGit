@@ -3,4 +3,9 @@
     <declare-styleable name="swipelistviewstyle">    
         <attr name="right_width" format="dimension"></attr>  
     </declare-styleable>
+    <declare-styleable name="HandWriteView">
+        <attr name="paintColor" format="color"/>
+        <attr name="paintMaxWidth" format="dimension"/>
+        <attr name="paintMinWidth" format="dimension"/>
+    </declare-styleable>
 </resources>

@@ -40,7 +40,6 @@ public class SettingActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(SettingActivity.this, ResetPwdActivity.class);
                 //intent.putExtra("number",)
-
                 startActivity(intent);
             }
         });

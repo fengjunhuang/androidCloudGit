@@ -98,7 +98,12 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
                         goLogin();
                     }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
                         //获取验证码成功
-
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(LoginActivity.this,"已发送验证码！", Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }else if (event ==SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES){
                         //返回支持发送验证码的国家列表
                     }
