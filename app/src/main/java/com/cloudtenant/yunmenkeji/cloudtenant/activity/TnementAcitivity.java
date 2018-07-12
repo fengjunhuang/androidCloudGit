@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.squareup.picasso.Picasso;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 
@@ -57,12 +58,13 @@ public class TnementAcitivity extends YzsBaseActivity {
     TextView tv_style;
     @Click(R.id.iv_cell_image)
 
+
    void onClick(){
       Bundle bundle =new Bundle();
       bundle.putSerializable("bean",bean);
        readyGo(OnlineVisitAcivity.class,bundle);
     }
-
+    private  HouseDetil.ViewDataBean houseDetil;
 
 
     private List<TextView> ss =new ArrayList<>();
@@ -78,7 +80,12 @@ public class TnementAcitivity extends YzsBaseActivity {
         findViewById(R.id.ll_details).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                readyGo(ContractDetailsActivity.class);
+
+                Bundle bundle =new Bundle();
+                bundle.putSerializable("bean",bean);
+                bundle.putSerializable("houseDetil",houseDetil);
+
+                readyGo(ContractDetailsActivity.class,bundle);
             }
         });
     }
@@ -106,6 +113,7 @@ public class TnementAcitivity extends YzsBaseActivity {
     @Override
     protected void getBundleExtras(Bundle var1) {
         bean = (BudingInfo.ViewDataBean.DataBean) var1.getSerializable("bean");
+        houseDetil= (HouseDetil.ViewDataBean) var1.getSerializable("houseDetil");
         Picasso.with(this).load(bean.getRoomSimpleImage()).fit().into(iv_cell);
         tv_cell_remain.setText(bean.getRoomNumber());
         tv_cell_cost.setText(bean.getRoomMoney());

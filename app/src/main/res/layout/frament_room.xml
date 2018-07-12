@@ -88,6 +88,7 @@
 
             >
             <TextView
+                android:id="@+id/tv_fangzu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
@@ -103,6 +104,7 @@
                 android:text=" + "
                 />
             <TextView
+                android:id="@+id/tv_shuifei"
                 android:textSize="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -118,6 +120,7 @@
                 android:textSize="10sp"
                 />
             <TextView
+                android:id="@+id/tv_dianfei"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
@@ -133,6 +136,7 @@
                 android:textSize="10sp"
                 />
             <TextView
+                android:id="@+id/tv_wangfei"
                 android:textSize="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -148,6 +152,7 @@
                 android:textSize="10sp"
                 />
             <TextView
+                android:id="@+id/tv_guanlifei"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
@@ -163,6 +168,7 @@
                 android:textSize="10sp"
                 />
             <TextView
+                android:id="@+id/tv_result"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                   android:background="@drawable/seletor_tv"

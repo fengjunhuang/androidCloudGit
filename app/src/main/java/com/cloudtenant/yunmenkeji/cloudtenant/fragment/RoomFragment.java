@@ -58,7 +58,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
     }
 
     @Override
-    protected void MyHolder(BaseViewHolder baseViewHolder, MyRoom.ViewDataBean.MyRoomSensorListBean myRoomSensorListBean) {
+    protected void MyHolder(final  BaseViewHolder baseViewHolder, final  MyRoom.ViewDataBean.MyRoomSensorListBean myRoomSensorListBean) {
         ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_name))).setText(myRoomSensorListBean.getSensorName());
         ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_sensorID))).setText(myRoomSensorListBean.getSensorID());
         if(myRoomSensorListBean.isSensorOn()){
@@ -83,6 +83,18 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
             ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_switch))).setText("关");
 
         }
+        baseViewHolder.convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_name))).setTextColor(Color.WHITE);
+                ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_sensorID))).setTextColor(Color.WHITE);
+                ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_sensorID))).setText(myRoomSensorListBean.getSensorID());
+                ((ImageView)(baseViewHolder.convertView.findViewById(R.id.iv_sign))).setImageResource(R.drawable.image_myroom_open);
+                ((ImageView)(baseViewHolder.convertView.findViewById(R.id.iv_senicon))).setImageResource(R.drawable.image_sensor_status_on);
+                baseViewHolder.convertView.setBackgroundResource((R.drawable.shape_corner_up));
+                ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_switch))).setText("开");
+            }
+        });
     }
 
     @Override
@@ -209,6 +221,9 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
         legend.setFormSize(13);
         mLineChart.setData(lineData);
         mLineChart.animateY(1000);
+
+
+
 
     }
     //向下弹出

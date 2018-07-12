@@ -66,6 +66,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
             public void onItemClick(int position) {
                 Bundle bundle =new Bundle();
                 bundle.putSerializable("bean",houseDetil.getData().get(position));
+                bundle.putSerializable("houseDetil",bean);
                 readyGo(TnementAcitivity_.class,bundle);
             }
         });

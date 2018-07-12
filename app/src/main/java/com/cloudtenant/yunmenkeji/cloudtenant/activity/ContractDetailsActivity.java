@@ -17,6 +17,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.gersion.library.base.BaseActivity;
 
@@ -35,6 +36,8 @@ public class ContractDetailsActivity extends BaseActivity {
 
     private TextView details,title;
     private Button button;
+    private BudingInfo.ViewDataBean.DataBean bean;
+    private HouseDetil.ViewDataBean houseDetil;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,16 +75,17 @@ public class ContractDetailsActivity extends BaseActivity {
     String aa;
     SpannableString msp = null;
     private void getData() {
-
+        houseDetil = ( HouseDetil.ViewDataBean) getIntent().getExtras().getSerializable("houseDetil");
+         bean= bean = (BudingInfo.ViewDataBean.DataBean) getIntent().getExtras().getSerializable("bean");
         HttpMethods.getInstance().BudingInfo(new BaseObserver<BudingInfo>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
-                BudingInfo houseDetil= (BudingInfo) t;
+                BudingInfo budingInfo= (BudingInfo) t;
                 //details.setText(model.);
 
                 //details.setText(houseDetil.getContract().replace("/n", "\n"));
                 //Log.e("onSuccees",houseDetil.getViewData());
-                aa=houseDetil.getContract().replace("/n", "\n");
+                aa=budingInfo.getContract().replace("/n", "\n");
                 Log.e("onSuccees",aa);
                 String a="%@";
                 ArrayList<Integer> indexList=new ArrayList<>();
@@ -89,9 +93,9 @@ public class ContractDetailsActivity extends BaseActivity {
 
                 List<String> ctList=new ArrayList<>();
                 //cellAddress
-                ctList.add("明珠公寓301");
+                ctList.add(houseDetil.getCellName()+bean.getRoomNumber());
                 //roomSquare
-                ctList.add("30");
+                ctList.add(bean.getRoomSquare());
                 //固定
                 ctList.add("12");
 

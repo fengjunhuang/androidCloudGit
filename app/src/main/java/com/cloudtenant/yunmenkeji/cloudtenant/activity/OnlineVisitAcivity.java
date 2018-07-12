@@ -5,6 +5,12 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
@@ -32,6 +38,7 @@ public class OnlineVisitAcivity extends YzsBaseActivity {
  BudingInfo.ViewDataBean.DataBean bean;
     private static final int SUCCESS = 1;
     private static final int FALL = 2;
+    private ViewPager viewPager;
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -62,11 +69,11 @@ public class OnlineVisitAcivity extends YzsBaseActivity {
 
     @Override
     protected void initView() {
-        mGLPanorama= (VrPanoramaView) findViewById(R.id.mVrPanoramaView);
+
         //传入你的全景图
 
 
-
+        viewPager=findViewById(R.id.viewPager);
      // mVrPanoramaView.setFullscreenButtonEnabled (false); //隐藏全屏模式按钮 mVrPanoramaView.setInfoButtonEnabled(false); 
      // 设置隐藏最左边信息的按钮 mVrPanoramaView.setStereoModeButtonEnabled(false); 
      // 设置隐藏立体模型的按钮 mVrPanoramaView.setEventListener(new ActivityEventListener()); //设置监听 //
@@ -77,7 +84,7 @@ public class OnlineVisitAcivity extends YzsBaseActivity {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-           loadImage(bean.getRoomMoreImageArr().get(0).getImageUrl());
+        viewPager.setAdapter(new ViewpagerAdapter());
 
     }
 
@@ -126,5 +133,47 @@ public class OnlineVisitAcivity extends YzsBaseActivity {
     @Override
     protected void onEventComing(EventCenter var1) {
 
+    }
+    class ViewpagerAdapter extends PagerAdapter {
+
+        @Override
+        public int getCount() {
+            return bean.getRoomMoreImageArr().size();
+        }
+
+        @Override
+        public boolean isViewFromObject(View arg0, Object arg1) {
+            return arg0 == arg1;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+//          if (object instanceof ScaleView) {
+//              ScaleView scaleView = (ScaleView) object;
+//              container.removeView(scaleView);
+//          }
+//            container.removeView(mScaleViews[position]);
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            if(position==0){
+                View  containView = LayoutInflater.from(OnlineVisitAcivity.this).inflate(R.layout.item_online_visit,null);
+                mGLPanorama= (VrPanoramaView) containView.findViewById(R.id.mVrPanoramaView);
+                loadImage(bean.getRoomMoreImageArr().get(0).getImageUrl());
+                container.addView(containView);
+
+                return  containView;
+
+            }else {
+                View  containView =LayoutInflater.from(OnlineVisitAcivity.this).inflate(R.layout.item_img_detil,null);
+
+               ImageView imageView= containView.findViewById(R.id.iv_pic);
+                Picasso.with(OnlineVisitAcivity.this).load(bean.getRoomMoreImageArr().get(position).getImageUrl()).fit().into(imageView);
+                container.addView(containView);
+                return  containView;
+            }
+
+        }
     }
 }
