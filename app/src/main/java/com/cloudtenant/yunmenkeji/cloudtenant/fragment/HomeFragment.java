@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.CityPickerActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.CommitIdActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.DisMapActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.HouseDetilActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
@@ -84,7 +85,7 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
                                 config.setReactColor(R.color.red1);//设置扫描框四个角的颜色 默认为淡蓝色
                                 //config.setFrameLineColor(R.color.white);//设置扫描框边框颜色 默认无色
                                 config.setFullScreenScan(false);//是否全屏扫描  默认为true  设为false则只会在扫描框中扫描
-                                config.setShowAlbum(false);
+                                config.setShowAlbum(true);
                                 intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
                                 startActivityForResult(intent, REQUEST_CODE_SCAN);
                             }
@@ -105,7 +106,7 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
                 startActivityForResult(intent, REQUEST_CODE_SCAN);*/
             }break;
             case R.id.btn_op2:{
-                startActivityForResult(new Intent(getActivity(),CityPickerActivity.class),GETCITY);
+                //startActivityForResult(new Intent(getActivity(),CommitIdActivity.class),GETCITY);
             }
 
 
@@ -167,7 +168,6 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
             public void onRefresh() {
 
                 requestData();
-
 
             }
         });

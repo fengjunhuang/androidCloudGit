@@ -33,6 +33,7 @@ public class IdCammerActivity extends AppCompatActivity implements View.OnClickL
             initView();
         }
         isFront=getIntent().getBooleanExtra("isFront",false);
+
     }
 
     private void initView() {
@@ -80,11 +81,11 @@ public class IdCammerActivity extends AppCompatActivity implements View.OnClickL
         String path;
         if (isFront) {
              path = Environment.getExternalStorageDirectory().getPath() + "/idFront.jpg";
+             Log.d("takePhoto","开始正面拍照》存于="+path);
         }else {
-
              path = Environment.getExternalStorageDirectory().getPath() + "/idServo.jpg";
+             Log.d("takePhoto","开始反面拍照》存于="+path);
         }
-        Log.d("takePhoto","开始拍照》存于="+path);
         camera.takePicture(path);
     }
 

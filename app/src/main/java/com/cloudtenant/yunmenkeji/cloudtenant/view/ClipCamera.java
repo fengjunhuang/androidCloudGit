@@ -1,13 +1,10 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.view;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.hardware.Camera;
-import android.net.Uri;
 import android.os.Environment;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -20,8 +17,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.IdCammerActivity;
-import com.cloudtenant.yunmenkeji.cloudtenant.activity.LoginActivity;
-import com.cloudtenant.yunmenkeji.cloudtenant.activity.PreView;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
