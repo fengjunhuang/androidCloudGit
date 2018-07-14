@@ -12,6 +12,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseHomeActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.fragment.HomeFragment;
 import com.cloudtenant.yunmenkeji.cloudtenant.fragment.MeFragment;
 import com.cloudtenant.yunmenkeji.cloudtenant.fragment.MessageFragment;
+import com.cloudtenant.yunmenkeji.cloudtenant.fragment.NewHomeFragment;
 import com.cloudtenant.yunmenkeji.cloudtenant.fragment.RoomFragment;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.CustomViewPager;
 import com.flyco.tablayout.widget.MsgView;

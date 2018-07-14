@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:layout_height="150dp">
+    <ImageView
+        android:id="@+id/iv"
+        android:src="@drawable/app_icon"
+        android:layout_width="0dp"
+        android:layout_weight="12"
+        android:layout_height="match_parent" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="8"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_cell_remain"
+            android:textSize="13sp"
+            android:text="云门验证·剩：3间"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_cell_name"
+            android:layout_marginTop="10dp"
+            android:text="明珠公寓"
+            android:textColor="@color/light_black"
+            android:textSize="21sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_cell_building_set"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="阳光好，临近地铁5号线，带空调热水器"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp" />
+
+        <TextView
+            android:id="@+id/tv_cell_cost"
+            android:textSize="16sp"
+            android:textColor="@color/gren_cut_clorr"
+            android:text="最低：￥280/月"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

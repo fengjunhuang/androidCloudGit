@@ -2,12 +2,18 @@ package com.cloudtenant.yunmenkeji.cloudtenant.fragment;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,13 +26,17 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.CityPickerActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.HouseDetilActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.adapter.HouseAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.AppUtils;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.SpacesItemDecoration;
+import com.daimajia.slider.library.SliderLayout;
 import com.jude.easyrecyclerview.EasyRecyclerView;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.squareup.picasso.Picasso;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
@@ -42,17 +52,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class NewHomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> implements View.OnClickListener {
+
+public class NewHomeFragment extends YzsBaseListFragment implements RecyclerArrayAdapter.OnLoadMoreListener,SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
 
     private static final int REQUEST_CODE_SCAN=77;
     private TextView tv_title,tv_location;
     public static final int GETCITY=9527;
-
+    public Context mContext;
     private     List<String> images=new ArrayList<>();
     private     List<HouseDetil.BannerDataBean> bannerDataBeans=new ArrayList<>();
     private Banner banner;
-
+    private HouseAdapter adapter;
+    private List<HouseDetil.ViewDataBean> viewDataBean;
+    int page=1;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -110,7 +123,7 @@ public class NewHomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.e("onActivityResult","requestCode="+requestCode+">>>>resultCode="+resultCode);
-        if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case GETCITY:
                     String city=data.getExtras().getString("city");
@@ -132,58 +145,79 @@ public class NewHomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean
     }
 
     private EasyRecyclerView recyclerView;
+
     @Override
     protected View initContentView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
        View view=layoutInflater.inflate(R.layout.fragment_house,viewGroup,false);
-        /*banner = (Banner)view. findViewById(R.id.banner);
-        tv_location =view. findViewById(R.id.tv_location);*/
+       mContext=getActivity();
+        banner = (Banner)view. findViewById(R.id.banner);
+        tv_location =view. findViewById(R.id.tv_location);
         view.findViewById(R.id.btn_op1).setOnClickListener(this);
         tv_title=view.findViewById(R.id.title);
         recyclerView=view.findViewById(R.id.recycler_view);
         //view.findViewById(R.id.btn_op2).setOnClickListener(this);
         //images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529230178291&di=71e9d9b4ad4deb6d8f21e90cf4ced6ac&imgtype=0&src=http%3A%2F%2Fpic15.nipic.com%2F20110708%2F7843095_103004548386_2.jpg");
        //images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529230293646&di=b367f393dc03c3c8d22d0ee923eb2f2d&imgtype=0&src=http%3A%2F%2Fpic3.16pic.com%2F00%2F04%2F28%2F16pic_428522_b.jpg");
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new HouseAdapter(getActivity());
+        adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Bundle bundle =new Bundle();
+                bundle.putSerializable("bean",viewDataBean.get(position));
+                //readyGo(HouseDetilActivity.class,bundle);
+            }
+        });
+        /*RecyclerArrayAdapter.ItemView headerView=new RecyclerArrayAdapter.ItemView() {
+            @Override
+            public View onCreateView(ViewGroup parent) {
+                View view=layoutInflater.inflate(R.layout.sliderlayout,parent,false);
+                mSliderLayout= (SliderLayout) view.findViewById(R.id.slider);
+                return view;
+            }
+            @Override
+            public void onBindView(View headerView) {
+                //headerView.setVisibility(View.VISIBLE);
+                initSlider();
+            }
+        };
+        adapter.addHeader(headerView);*/
 
+        adapter.setMore(R.layout.view_more, this);
+
+        adapter.setNoMore(R.layout.view_nomore, new RecyclerArrayAdapter.OnNoMoreListener() {
+            @Override
+            public void onNoMoreShow() {
+                adapter.resumeMore();
+            }
+
+            @Override
+            public void onNoMoreClick() {
+                recyclerView.scrollToPosition(0);
+            }
+        });
+        adapter.setError(R.layout.view_error, new RecyclerArrayAdapter.OnErrorListener() {
+            @Override
+            public void onErrorShow() {
+                adapter.resumeMore();
+            }
+
+            @Override
+            public void onErrorClick() {
+                adapter.resumeMore();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        LoadMore();
+                    }
+                }, 3000);
+            }
+        });
+        recyclerView.setRefreshListener(this);
+        recyclerView.setAdapter(adapter);
 
         return view;
     }
-
-    @Override
-    protected void initView(View view) {
-        super.initView(view);
-
-
-        getData();
-    }
-
-    @Override
-    protected void initItemLayout() {
-        setLayoutResId(R.layout.item_house_detil);
-        setListType(LINEAR_LAYOUT_MANAGER, true);
-
-    }
-
-    @Override
-    protected void MyHolder(BaseViewHolder baseViewHolder, HouseDetil.ViewDataBean viewDataBean) {
-        ImageView iv_cell_image=baseViewHolder.convertView.findViewById(R.id.iv_cell_image);
-        TextView cellCost=baseViewHolder.convertView.findViewById(R.id.tv_cell_cost);
-        TextView cellRemain=baseViewHolder.convertView.findViewById(R.id.tv_cell_remain);
-        TextView cellBuildingSet=baseViewHolder.convertView.findViewById(R.id.tv_cell_building_set);
-        TextView cellName=baseViewHolder.convertView.findViewById(R.id.tv_cell_name);
-        cellBuildingSet.setText(viewDataBean.getCellBuildingSet());
-        cellName.setText(viewDataBean.getCellName());
-        cellRemain.setText("已经验证.剩"+viewDataBean.getCellRemain()+"间");
-        cellCost.setText("$"+viewDataBean.getCellCost());
-        Picasso.with(getActivity()).load(viewDataBean.getCellImage()).into(iv_cell_image);
-        baseViewHolder.convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                readyGo(HouseDetilActivity.class);
-            }
-        });
-    }
-
-
 
 
 
@@ -203,6 +237,16 @@ public class NewHomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean
     }
 
 
+    private void LoadMore() {
+        page++;
+        getData();
+    }
+
+
+
+
+
+
     public void getData() {
        requestData();
     }
@@ -220,7 +264,8 @@ public class NewHomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean
                     images.add(bannerDataBeans.get(i).getBannerImage());
                 }
                 banner.setImages(images).setImageLoader(new BannerPicassoImageLoader()).start();
-                mAdapter.addData(houseDetil.getViewDataX());
+                viewDataBean=houseDetil.getViewDataX();
+                adapter.addAll(viewDataBean);
 
             }
 
@@ -229,5 +274,46 @@ public class NewHomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean
 
             }
         },"");
+    }
+
+
+    private Handler handler = new Handler();
+    @Override
+    public void onLoadMore() {
+        //Toast.makeText(mContext, "onLoadMore", Toast.LENGTH_SHORT).show();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                LoadMore();
+            }
+        }, 2000);
+    }
+
+    @Override
+    public void onRefresh() {
+        page = 1;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //刷新
+                if (!AppUtils.isNetworkAvailable(mContext)) {
+                    adapter.pauseMore();
+                    return;
+                }
+                //okData();
+                //page=1;
+            }
+        }, 2000);
+    }
+
+
+    @Override
+    protected void initItemLayout() {
+
+    }
+
+    @Override
+    protected void MyHolder(BaseViewHolder baseViewHolder, Object o) {
+
     }
 }

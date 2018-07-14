@@ -207,8 +207,6 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
             public void onClick(View view) {
                 Bundle bundle =new Bundle();
                 bundle.putSerializable("bean",viewDataBean);
-
-
                 readyGo(HouseDetilActivity.class,bundle);
             }
         });
