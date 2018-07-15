@@ -56,7 +56,6 @@
     <com.jude.easyrecyclerview.EasyRecyclerView
         android:id="@+id/recycler_view"
         android:scrollbars="none"
-        app:layout_empty="@layout/view_empty"
         app:layout_progress="@layout/view_progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

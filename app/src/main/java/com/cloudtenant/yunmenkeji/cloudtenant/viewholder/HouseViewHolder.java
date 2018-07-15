@@ -35,6 +35,7 @@ public class HouseViewHolder extends BaseViewHolder<HouseDetil.ViewDataBean> {
     private ImageView imageView;
 
     public HouseViewHolder(ViewGroup parent) {
+
         super(parent, R.layout.activity_awt);
         tv_cell_name = $(R.id.tv_cell_name);
         tv_cell_cost = $(R.id.tv_cell_cost);
@@ -46,38 +47,21 @@ public class HouseViewHolder extends BaseViewHolder<HouseDetil.ViewDataBean> {
 
     @Override
     public void setData(final HouseDetil.ViewDataBean person){
-
-        tv_cell_name.setText(person.getCellName());
-        tv_cell_building_set.setText(person.getCellBuildingSet());
-        tv_cell_remain.setText("云门验证·剩："+person.getCellRemain()+"间");
-        SpannableString msp = new SpannableString("最低：￥"+person.getCellCost()+"/月");
-        msp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 3, 7, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  //粗体
-        tv_cell_cost.setText(msp);
-        tv_cell_name .setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-        Picasso.with(getContext()).load(person.getCellImage()).fit().into(imageView);
-       /* name.setText(person.getContractName());
-        time.setText(person.getContractEndTime());
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
-        String now = sdf.format(new Date());
-        try {
-            Date bt=sdf.parse(now);
-            Date et=sdf.parse(person.getContractEndTime());
-            if (!bt.before(et)) {
-                time.setTextColor(Color.RED);
-            }else {
-                time.setTextColor(Color.GREEN);
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        stute_ing.setVisibility(View.GONE);
-        stute_confirm.setVisibility(View.GONE);
-        if (person.getContractType()==1) {
-            stute_ing.setVisibility(View.VISIBLE);
+        if (person.getCellCost()==null){
+            tv_cell_name.setVisibility(View.GONE);
+            tv_cell_cost.setVisibility(View.GONE);
+            tv_cell_building_set.setVisibility(View.GONE);
+            tv_cell_remain.setVisibility(View.GONE);
+            imageView.setVisibility(View.GONE);
         }else {
-            stute_confirm.setVisibility(View.VISIBLE);
-        }*/
-        //name.setText(person.getName());
+            tv_cell_name.setText(person.getCellName());
+            tv_cell_building_set.setText(person.getCellBuildingSet());
+            tv_cell_remain.setText("云门验证·剩：" + person.getCellRemain() + "间");
+            SpannableString msp = new SpannableString("最低：￥" + person.getCellCost() + "/月");
+            msp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 3, 7, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  //粗体
+            tv_cell_cost.setText(msp);
+            tv_cell_name.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+            Picasso.with(getContext()).load(person.getCellImage()).fit().into(imageView);
+        }
     }
 }

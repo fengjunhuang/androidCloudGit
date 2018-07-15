@@ -42,12 +42,12 @@ import java.util.List;
  */
 
 public class DisMapActivity extends YzsBaseActivity  implements TencentLocationListener{
-    private HouseDetil houseDetil;
     MapView mapview=null;
-   private  boolean isFist =true;
     TencentMap tencentMap;
+    private HouseDetil houseDetil;
     private TencentLocationManager locationManager;
     private TencentLocationRequest locationRequest;
+    private  boolean isFist =true;
     private Marker myLocation;
     private Circle accuracy;
     private MapView mapView;
@@ -63,17 +63,12 @@ public class DisMapActivity extends YzsBaseActivity  implements TencentLocationL
     protected void initView() {
 
         mapview=(MapView)findViewById(R.id.map);
-//获取TencentMap实例
+        //获取TencentMap实例
         tencentMap = mapview.getMap();
-
-
-
-//设置实时路况开启
+         //设置实时路况开启
         tencentMap.setTrafficEnabled(true);
-
         tencentMap.setZoom(13);
-
-//移动地图
+        //移动地图
 
 
 
@@ -83,10 +78,6 @@ public class DisMapActivity extends YzsBaseActivity  implements TencentLocationL
 
         locationManager = TencentLocationManager.getInstance(this);
         locationRequest = TencentLocationRequest.create();
-
-
-
-
         bindListener();
 
 
@@ -167,31 +158,28 @@ public class DisMapActivity extends YzsBaseActivity  implements TencentLocationL
         List<HouseDetil.ViewDataBean>  list= houseDetil.getViewDataX();
 
         tencentMap.setInfoWindowAdapter(new TencentMap.InfoWindowAdapter() {
-
             //infoWindow关闭后调用，用户回收View
             @Override
             public void onInfoWindowDettached(Marker arg0, View arg1) {
                 // TODO Auto-generated method stub
-
             }
             //infoWindow弹出前调用，返回的view将作为弹出的infoWindow
             @Override
             public View getInfoWindow(Marker arg0) {
                 // TODO Auto-generated method stub
-           View view=     LayoutInflater.from(DisMapActivity.this).inflate(R.layout.item_map_info,null);
-        ImageView iv_pic= view.findViewById(R.id.iv_pic);
-         TextView tv_shengxia= view.findViewById(R.id.tv_shengxia);
+                    View view=     LayoutInflater.from(DisMapActivity.this).inflate(R.layout.item_map_info,null);
+                    ImageView iv_pic= view.findViewById(R.id.iv_pic);
+                    TextView tv_shengxia= view.findViewById(R.id.tv_shengxia);
 
-                TextView tv_name= view.findViewById(R.id.tv_name);
-                TextView tv_pay= view.findViewById(R.id.tv_pay);
-                TextView tv_desc= view.findViewById(R.id.tv_desc);
-                HouseDetil.ViewDataBean bean = (HouseDetil.ViewDataBean) arg0.getTag();
-                tv_name.setText(bean.getCellName());
-                tv_pay.setText(bean.getCellCost());
+                    TextView tv_name= view.findViewById(R.id.tv_name);
+                    TextView tv_pay= view.findViewById(R.id.tv_pay);
+                    TextView tv_desc= view.findViewById(R.id.tv_desc);
+                    HouseDetil.ViewDataBean bean = (HouseDetil.ViewDataBean) arg0.getTag();
+                    tv_name.setText(bean.getCellName());
+                    tv_pay.setText(bean.getCellCost());
 
-                Picasso.with(DisMapActivity.this).load(bean.getCellImage()).fit().into(iv_pic);
-                tv_shengxia.setText("剩:"+bean.getCellRemain()+"间");
-
+                    Picasso.with(DisMapActivity.this).load(bean.getCellImage()).fit().into(iv_pic);
+                    tv_shengxia.setText("剩:"+bean.getCellRemain()+"间");
                 return view;
             }
         });
@@ -204,10 +192,6 @@ public class DisMapActivity extends YzsBaseActivity  implements TencentLocationL
 
             marker.setTag(bean);
             markers.add(marker);
-
-
-
-
         }
     }
 

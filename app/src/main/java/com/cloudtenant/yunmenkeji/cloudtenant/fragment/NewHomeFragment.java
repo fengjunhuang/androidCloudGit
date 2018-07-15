@@ -6,11 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +29,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.CityPickerActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.DisMapActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.HouseDetilActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.HouseAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
@@ -35,11 +38,24 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.AppUtils;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.PreferencesUtils;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.SpacesItemDecoration;
 import com.daimajia.slider.library.SliderLayout;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.squareup.picasso.Picasso;
+import com.tencent.map.geolocation.TencentLocation;
+import com.tencent.map.geolocation.TencentLocationListener;
+import com.tencent.map.geolocation.TencentLocationManager;
+import com.tencent.map.geolocation.TencentLocationRequest;
+import com.tencent.mapsdk.raster.model.BitmapDescriptorFactory;
+import com.tencent.mapsdk.raster.model.Circle;
+import com.tencent.mapsdk.raster.model.CircleOptions;
+import com.tencent.mapsdk.raster.model.LatLng;
+import com.tencent.mapsdk.raster.model.Marker;
+import com.tencent.mapsdk.raster.model.MarkerOptions;
+import com.tencent.tencentmap.mapsdk.map.MapView;
+import com.tencent.tencentmap.mapsdk.map.TencentMap;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
@@ -55,7 +71,7 @@ import java.util.List;
 
 
 
-public class NewHomeFragment extends BaseFragment implements RecyclerArrayAdapter.OnLoadMoreListener,SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
+public class NewHomeFragment extends BaseFragment implements TencentLocationListener, RecyclerArrayAdapter.OnMoreListener,SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
 
     private static final int REQUEST_CODE_SCAN=77;
@@ -71,6 +87,11 @@ public class NewHomeFragment extends BaseFragment implements RecyclerArrayAdapte
     private RecyclerArrayAdapter.ItemView headerView;
     int page=1;
     boolean isFirst;
+    MapView mapview=null;
+    TencentMap tencentMap;
+    private TencentLocationManager locationManager;
+    private TencentLocationRequest locationRequest;
+    private  List<Marker> markers =new ArrayList<>();
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -156,6 +177,7 @@ public class NewHomeFragment extends BaseFragment implements RecyclerArrayAdapte
 
     @Override
     protected View initContentView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle bundle) {
+        PreferencesUtils.putBoolean(getActivity(),"isShow",true);
         View view=inflater.inflate(R.layout.fragment_house,container,false);
         mContext=getActivity();
         tv_location =view. findViewById(R.id.tv_location);
@@ -193,6 +215,7 @@ public class NewHomeFragment extends BaseFragment implements RecyclerArrayAdapte
                         tv_map.setBackgroundResource(R.drawable.butten_background_green);
                         tv_map.setTextColor(getResources().getColor(R.color.gren_cut_clorr));
 
+                        ShowList();
                     }
                 });
                 tv_map.setOnClickListener(new View.OnClickListener() {
@@ -202,14 +225,26 @@ public class NewHomeFragment extends BaseFragment implements RecyclerArrayAdapte
                         tv_map.setTextColor(getResources().getColor(R.color.white));
                         tv_common.setBackgroundResource(R.drawable.butten_background_green_l);
                         tv_common.setTextColor(getResources().getColor(R.color.gren_cut_clorr));
+                        initMyMap();
+                        HideList();
                     }
                 });
+                mapview=(MapView)view.findViewById(R.id.map);
+                //获取TencentMap实例
+
+                tencentMap = mapview.getMap();
+                //设置实时路况开启
+                tencentMap.setTrafficEnabled(true);
+                tencentMap.setZoom(13);
+                //移动地图
                 return view;
             }
             @Override
             public void onBindView(View headerView) {
                 //headerView.setVisibility(View.VISIBLE);
-
+                locationManager = TencentLocationManager.getInstance(getActivity());
+                locationRequest = TencentLocationRequest.create();
+                bindListener();
             }
         };
         //view.findViewById(R.id.btn_op2).setOnClickListener(this);
@@ -218,6 +253,90 @@ public class NewHomeFragment extends BaseFragment implements RecyclerArrayAdapte
         return view;
     }
 
+    private void ShowList() {
+        mapview.setVisibility(View.GONE);
+        adapter.clear();
+        PreferencesUtils.putBoolean(getActivity(),"isShow",true);
+        adapter.addAll(viewDataBean);
+        adapter.setMore(R.layout.view_more, this);
+    }
+
+    private void HideList() {
+        PreferencesUtils.putBoolean(getActivity(),"isShow",false);
+        mapview.setVisibility(View.VISIBLE);
+        adapter.clear();
+        adapter.add(new HouseDetil.ViewDataBean());
+        //adapter.setMore(null, (RecyclerArrayAdapter.OnMoreListener) null);
+    }
+
+
+    private void initMyMap() {
+
+        List<HouseDetil.ViewDataBean>  list= viewDataBean;
+
+        tencentMap.setInfoWindowAdapter(new TencentMap.InfoWindowAdapter() {
+            //infoWindow关闭后调用，用户回收View
+            @Override
+            public void onInfoWindowDettached(Marker arg0, View arg1) {
+                // TODO Auto-generated method stub
+            }
+            //infoWindow弹出前调用，返回的view将作为弹出的infoWindow
+            @Override
+            public View getInfoWindow(Marker arg0) {
+                // TODO Auto-generated method stub
+                View view=     LayoutInflater.from(mContext).inflate(R.layout.item_map_info,null);
+                ImageView iv_pic= view.findViewById(R.id.iv_pic);
+                TextView tv_shengxia= view.findViewById(R.id.tv_shengxia);
+
+                TextView tv_name= view.findViewById(R.id.tv_name);
+                TextView tv_pay= view.findViewById(R.id.tv_pay);
+                TextView tv_desc= view.findViewById(R.id.tv_desc);
+                HouseDetil.ViewDataBean bean = (HouseDetil.ViewDataBean) arg0.getTag();
+                tv_name.setText(bean.getCellName());
+                tv_pay.setText(bean.getCellCost());
+
+                Picasso.with(mContext).load(bean.getCellImage()).fit().into(iv_pic);
+                tv_shengxia.setText("剩:"+bean.getCellRemain()+"间");
+                return view;
+            }
+        });
+        for(HouseDetil.ViewDataBean bean :list){
+            LatLng latLng = new LatLng(Double.valueOf(bean.getCellLatitude()),Double.valueOf(bean.getCellLongitude()));
+            final Marker marker = tencentMap.addMarker(new MarkerOptions().
+                    position(latLng).
+                    title(bean.getCellName()).
+                    snippet(bean.getCellAddress()));
+
+            marker.setTag(bean);
+            markers.add(marker);
+        }
+    }
+
+    protected void bindListener() {
+
+        // TODO Auto-generated method stub
+        int error = locationManager.requestLocationUpdates(
+                locationRequest,this);
+        switch (error) {
+            case 0:
+                Log.e("location", "成功注册监听器");
+                break;
+            case 1:
+                Log.e("location", "设备缺少使用腾讯定位服务需要的基本条件");
+                break;
+            case 2:
+                Log.e("location", "manifest 中配置的 key 不正确");
+                break;
+            case 3:
+                Log.e("location", "自动加载libtencentloc.so失败");
+                break;
+
+            default:
+                break;
+        }
+
+
+    }
     @Override
     protected void initView(View view) {
         Log.e("getData","进入initView");
@@ -290,7 +409,7 @@ public class NewHomeFragment extends BaseFragment implements RecyclerArrayAdapte
                     isFirst=false;
                 }
                 if (page==1) {
-                    adapter.clear();
+                    adapter.removeAll();
                 }
                 System.out.println(houseDetil.getViewDataX().size()+"");
                 Log.e("getData",houseDetil.getViewDataX().get(0).toString());
@@ -307,21 +426,56 @@ public class NewHomeFragment extends BaseFragment implements RecyclerArrayAdapte
         },"");
     }
 
+
+
+
+    private  boolean isFist =true;
+    private Marker myLocation;
+    private Circle accuracy;
+    @Override
+    public void onLocationChanged(TencentLocation arg0, int arg1, String s) {
+        if (arg1 == TencentLocation.ERROR_OK) {
+            LatLng latLng = new LatLng(arg0.getLatitude(), arg0.getLongitude());
+            if (myLocation == null) {
+                myLocation = tencentMap.addMarker(new MarkerOptions().
+                        position(latLng).
+                        icon(BitmapDescriptorFactory.fromResource(R.mipmap.navigation)).
+
+                        anchor(0.5f, 0.5f));
+            }
+            if(isFist){
+                tencentMap.setCenter(latLng);
+                isFist=false;
+            }
+
+            if (accuracy == null) {
+                accuracy = tencentMap.addCircle(new CircleOptions().
+                        center(latLng).
+                        radius((double)arg0.getAccuracy()).
+                        fillColor(0x440000ff).
+                        strokeWidth(0f));
+            }
+            myLocation.setPosition(latLng);
+            myLocation.setRotation(arg0.getBearing()); //仅当定位来源于gps有效，或者使用方向传感器
+            accuracy.setCenter(latLng);
+            accuracy.setRadius(arg0.getAccuracy());
+
+        } else {
+
+        }
+    }
+
+    @Override
+    public void onStatusUpdate(String s, int i, String s1) {
+
+    }
+
     private void LoadMore() {
         page++;
         requestData();
     }
     private Handler handler = new Handler();
-    @Override
-    public void onLoadMore() {
-        //Toast.makeText(mContext, "onLoadMore", Toast.LENGTH_SHORT).show();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                LoadMore();
-            }
-        }, 2000);
-    }
+
 
     @Override
     public void onRefresh() {
@@ -354,4 +508,55 @@ public class NewHomeFragment extends BaseFragment implements RecyclerArrayAdapte
 
     }
 
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapview.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mapview!=null) {
+            mapview.onResume();
+        }
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mapview.onStop();
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapview.onDestroy();
+    }
+
+    @Override
+    public void onMoreShow() {
+        if (PreferencesUtils.getBoolean(getActivity(),"isShow")) {
+
+        }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                LoadMore();
+            }
+        }, 2000);
+    }
+
+    @Override
+    public void onMoreClick() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                LoadMore();
+            }
+        }, 2000);
+    }
 }
