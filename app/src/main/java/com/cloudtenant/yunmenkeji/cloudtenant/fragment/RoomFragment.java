@@ -69,10 +69,13 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
             ((ImageView)(baseViewHolder.convertView.findViewById(R.id.iv_senicon))).setImageResource(R.drawable.image_sensor_status_on);
             baseViewHolder.convertView.setBackgroundResource((R.drawable.shape_corner_up));
         ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_switch))).setText("开");
+
             baseViewHolder.convertView.findViewById(R.id.iv_sign).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    readyGo(SensorActivity.class);
+                    Bundle bundle =new Bundle();
+                    bundle.putBoolean("isOn",true);
+                    readyGo(SensorActivity.class,bundle);
                 }
             });
         }
@@ -81,6 +84,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
             ((ImageView)(baseViewHolder.convertView.findViewById(R.id.iv_senicon))).setImageResource(R.drawable.image_sensor_status_off);
             baseViewHolder.convertView.setBackground(getResources().getDrawable(R.drawable.shape_corner_down));
             ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_switch))).setText("关");
+
 
         }
         baseViewHolder.convertView.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +102,9 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
         baseViewHolder.convertView.findViewById(R.id.iv_sign).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                readyGo(SensorActivity.class);
+                Bundle bundle =new Bundle();
+                bundle.putBoolean("isOn",false);
+                readyGo(SensorActivity.class,bundle);
             }
         });
     }

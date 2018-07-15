@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
@@ -29,6 +32,10 @@ public class SensorActivity extends YzsBaseActivity implements View.OnClickListe
 
     private EasyRecyclerView recyclerView;
     private SensorAdapter adapter;
+    private RelativeLayout rela_bg;
+    private  boolean isSenOpen=true;
+    private ImageView iv_senr;
+    private TextView tv_tip;
     //private OkHttpHelper ok=OkHttpHelper.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +61,43 @@ public class SensorActivity extends YzsBaseActivity implements View.OnClickListe
         });
         recyclerView= (EasyRecyclerView)findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        tv_tip=findViewById(R.id.tv_tip);
+        iv_senr=findViewById(R.id.iv_senr);
         recyclerView.addItemDecoration(new DividerDecoration(Color.parseColor("#aaaaaa"), 1));
         adapter = new SensorAdapter(this);
         recyclerView.setAdapter(adapter);
+        rela_bg=findViewById(R.id.rela_bg);
+        isSenOpen=getIntent().getExtras().getBoolean("isOn");
+
+        if(!isSenOpen){
+            isSenOpen=false;
+            tv_tip.setText("关");
+            iv_senr.setImageResource(R.drawable.image_sensor_status_off);
+            rela_bg.setBackgroundColor(Color.GRAY);}
+        else {
+            tv_tip.setText("开");
+            isSenOpen=true;
+            iv_senr.setImageResource(R.drawable.image_sensor_status_on);
+            rela_bg.setBackgroundResource(R.drawable.image_onoffimage);
+        }
         //getData();
         AddData();
+        rela_bg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isSenOpen){
+                    isSenOpen=false;
+                    tv_tip.setText("关");
+                    iv_senr.setImageResource(R.drawable.image_sensor_status_off);
+                rela_bg.setBackgroundColor(Color.GRAY);}
+                else {
+                    tv_tip.setText("开");
+                    isSenOpen=true;
+                    iv_senr.setImageResource(R.drawable.image_sensor_status_on);
+                    rela_bg.setBackgroundResource(R.drawable.image_onoffimage);
+                }
+            }
+        });
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -84,6 +123,7 @@ public class SensorActivity extends YzsBaseActivity implements View.OnClickListe
 
     @Override
     protected void onEventComing(EventCenter var1) {
+
 
     }
 

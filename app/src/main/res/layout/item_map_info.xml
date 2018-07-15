@@ -35,11 +35,20 @@
         app:layout_constraintStart_toEndOf="@+id/iv_pic"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:src="@mipmap/right_return"
+        app:layout_constraintLeft_toRightOf="@+id/tv_shengxia"
+   />
     <TextView
         android:id="@+id/tv_name"
         style="@style/head_title_style"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+
 
 
 
@@ -57,10 +66,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="阳光好，临近地铁8号线,\n带空调热水器"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
     <TextView

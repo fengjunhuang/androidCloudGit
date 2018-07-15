@@ -40,6 +40,7 @@ public class ShareActivity extends YzsBaseActivity {
         recyclerView.setAdapter(messageAdapter);
         iv_pic=findViewById(R.id.iv_pic);
         addData();
+
     }
 
     private void addData() {

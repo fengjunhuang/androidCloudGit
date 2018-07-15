@@ -165,7 +165,18 @@ public class DisMapActivity extends YzsBaseActivity  implements TencentLocationL
     protected void getBundleExtras(Bundle var1) throws Exception {
         houseDetil= (HouseDetil) var1.getSerializable("bean");
         List<HouseDetil.ViewDataBean>  list= houseDetil.getViewDataX();
+        tencentMap.setOnMarkerClickListener(new TencentMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
 
+                for(Marker marker1:markers){
+                    marker1.hideInfoWindow();
+
+                }
+                marker.showInfoWindow();
+                return false;
+            }
+        });
         tencentMap.setInfoWindowAdapter(new TencentMap.InfoWindowAdapter() {
 
             //infoWindow关闭后调用，用户回收View
