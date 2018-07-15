@@ -1,6 +1,7 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
@@ -18,6 +19,7 @@ public class HouseAdapter extends RecyclerArrayAdapter<HouseDetil.ViewDataBean> 
 
     @Override
     public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.d("getData","新建Adapter进入OnCreateViewHolder");
         return new HouseViewHolder(parent);
     }
 

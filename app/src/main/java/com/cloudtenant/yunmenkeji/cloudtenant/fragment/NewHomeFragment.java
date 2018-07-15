@@ -4,6 +4,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,7 +55,7 @@ import java.util.List;
 
 
 
-public class NewHomeFragment extends YzsBaseListFragment implements RecyclerArrayAdapter.OnLoadMoreListener,SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
+public class NewHomeFragment extends BaseFragment implements RecyclerArrayAdapter.OnLoadMoreListener,SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
 
     private static final int REQUEST_CODE_SCAN=77;
@@ -65,7 +67,10 @@ public class NewHomeFragment extends YzsBaseListFragment implements RecyclerArra
     private Banner banner;
     private HouseAdapter adapter;
     private List<HouseDetil.ViewDataBean> viewDataBean;
+    private EasyRecyclerView recyclerView;
+    private RecyclerArrayAdapter.ItemView headerView;
     int page=1;
+    boolean isFirst;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -143,48 +148,95 @@ public class NewHomeFragment extends YzsBaseListFragment implements RecyclerArra
             }
         }
     }
+    @Override
+    public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-    private EasyRecyclerView recyclerView;
+      return  null;
+    }
 
     @Override
-    protected View initContentView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
-       View view=layoutInflater.inflate(R.layout.fragment_house,viewGroup,false);
-       mContext=getActivity();
-        banner = (Banner)view. findViewById(R.id.banner);
+    protected View initContentView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle bundle) {
+        View view=inflater.inflate(R.layout.fragment_house,container,false);
+        mContext=getActivity();
         tv_location =view. findViewById(R.id.tv_location);
         view.findViewById(R.id.btn_op1).setOnClickListener(this);
         tv_title=view.findViewById(R.id.title);
+        tv_title .setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         recyclerView=view.findViewById(R.id.recycler_view);
-        //view.findViewById(R.id.btn_op2).setOnClickListener(this);
-        //images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529230178291&di=71e9d9b4ad4deb6d8f21e90cf4ced6ac&imgtype=0&src=http%3A%2F%2Fpic15.nipic.com%2F20110708%2F7843095_103004548386_2.jpg");
-       //images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529230293646&di=b367f393dc03c3c8d22d0ee923eb2f2d&imgtype=0&src=http%3A%2F%2Fpic3.16pic.com%2F00%2F04%2F28%2F16pic_428522_b.jpg");
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new HouseAdapter(getActivity());
-        adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onItemClick(int position) {
-                Bundle bundle =new Bundle();
-                bundle.putSerializable("bean",viewDataBean.get(position));
-                //readyGo(HouseDetilActivity.class,bundle);
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                Log.e("getData","onScrollStateChanged》》newState="+newState);
+
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                Log.e("getData","onScrolled》》dy="+dy);
             }
         });
-        /*RecyclerArrayAdapter.ItemView headerView=new RecyclerArrayAdapter.ItemView() {
+        headerView=new RecyclerArrayAdapter.ItemView() {
             @Override
             public View onCreateView(ViewGroup parent) {
-                View view=layoutInflater.inflate(R.layout.sliderlayout,parent,false);
-                mSliderLayout= (SliderLayout) view.findViewById(R.id.slider);
+                View view=inflater.inflate(R.layout.house_header,parent,false);
+                banner = view. findViewById(R.id.banner);
+                final TextView tv_common=view.findViewById(R.id.tv_common);
+                final TextView tv_map=view.findViewById(R.id.tv_map);
+                tv_common.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        tv_common.setBackgroundResource(R.drawable.butten_background_green_solid);
+                        tv_common.setTextColor(getResources().getColor(R.color.white));
+                        tv_map.setBackgroundResource(R.drawable.butten_background_green);
+                        tv_map.setTextColor(getResources().getColor(R.color.gren_cut_clorr));
+
+                    }
+                });
+                tv_map.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        tv_map.setBackgroundResource(R.drawable.butten_background_green_solid_r);
+                        tv_map.setTextColor(getResources().getColor(R.color.white));
+                        tv_common.setBackgroundResource(R.drawable.butten_background_green_l);
+                        tv_common.setTextColor(getResources().getColor(R.color.gren_cut_clorr));
+                    }
+                });
                 return view;
             }
             @Override
             public void onBindView(View headerView) {
                 //headerView.setVisibility(View.VISIBLE);
-                initSlider();
+
             }
         };
-        adapter.addHeader(headerView);*/
+        //view.findViewById(R.id.btn_op2).setOnClickListener(this);
+        adapter = new HouseAdapter(getActivity());
+        Log.e("getData","进入initContentView");
+        return view;
+    }
 
+    @Override
+    protected void initView(View view) {
+        Log.e("getData","进入initView");
+        getData();
+    }
+
+    @Override
+    public void init() {
+        Log.e("getData","进入init");
+
+
+
+    }
+    public void getData() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
+        adapter.addHeader(headerView);
         adapter.setMore(R.layout.view_more, this);
-
         adapter.setNoMore(R.layout.view_nomore, new RecyclerArrayAdapter.OnNoMoreListener() {
             @Override
             public void onNoMoreShow() {
@@ -215,39 +267,15 @@ public class NewHomeFragment extends YzsBaseListFragment implements RecyclerArra
         });
         recyclerView.setRefreshListener(this);
         recyclerView.setAdapter(adapter);
-
-        return view;
-    }
-
-
-
-    @Override
-    protected void initLogic() {
-
-    }
-
-    @Override
-    protected void getBundleExtras(Bundle bundle) {
-
-    }
-
-    @Override
-    protected void onEventComing(EventCenter eventCenter) {
-
-    }
-
-
-    private void LoadMore() {
-        page++;
-        getData();
-    }
-
-
-
-
-
-
-    public void getData() {
+        adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Bundle bundle =new Bundle();
+                bundle.putSerializable("bean",viewDataBean.get(position));
+                readyGo(HouseDetilActivity.class,bundle);
+            }
+        });
+        isFirst=true;
        requestData();
     }
 
@@ -257,18 +285,25 @@ public class NewHomeFragment extends YzsBaseListFragment implements RecyclerArra
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
                 HouseDetil houseDetil= (HouseDetil) t;
+                if (isFirst) {
+                    adapter.clear();
+                    bannerDataBeans=houseDetil.getBannerData();
+                    for (int i = 0; i < bannerDataBeans.size(); i++) {
+                        images.add(bannerDataBeans.get(i).getBannerImage());
+                    }
+                    banner.setImages(images).setImageLoader(new BannerPicassoImageLoader()).start();
+                }
+                if (page==1) {
+                    adapter.clear();
+                }
                 System.out.println(houseDetil.getViewDataX().size()+"");
                 Log.e("getData",houseDetil.getViewDataX().get(0).toString());
-                bannerDataBeans=houseDetil.getBannerData();
-                for (int i = 0; i < bannerDataBeans.size(); i++) {
-                    images.add(bannerDataBeans.get(i).getBannerImage());
-                }
-                banner.setImages(images).setImageLoader(new BannerPicassoImageLoader()).start();
+                Log.e("getData",houseDetil.getViewDataX().size()+"条信息");
+
                 viewDataBean=houseDetil.getViewDataX();
                 adapter.addAll(viewDataBean);
 
             }
-
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
@@ -276,7 +311,10 @@ public class NewHomeFragment extends YzsBaseListFragment implements RecyclerArra
         },"");
     }
 
-
+    private void LoadMore() {
+        page++;
+        requestData();
+    }
     private Handler handler = new Handler();
     @Override
     public void onLoadMore() {
@@ -300,20 +338,24 @@ public class NewHomeFragment extends YzsBaseListFragment implements RecyclerArra
                     adapter.pauseMore();
                     return;
                 }
-                //okData();
+                requestData();
                 //page=1;
             }
         }, 2000);
     }
 
+    @Override
+    protected void initLogic() {
+    }
 
     @Override
-    protected void initItemLayout() {
+    protected void getBundleExtras(Bundle bundle) {
 
     }
 
     @Override
-    protected void MyHolder(BaseViewHolder baseViewHolder, Object o) {
+    protected void onEventComing(EventCenter eventCenter) {
 
     }
+
 }

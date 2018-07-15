@@ -1,6 +1,10 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.viewholder;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -44,11 +48,13 @@ public class HouseViewHolder extends BaseViewHolder<HouseDetil.ViewDataBean> {
     public void setData(final HouseDetil.ViewDataBean person){
 
         tv_cell_name.setText(person.getCellName());
-        tv_cell_cost.setText(person.getCellCost());
         tv_cell_building_set.setText(person.getCellBuildingSet());
         tv_cell_remain.setText("云门验证·剩："+person.getCellRemain()+"间");
-
-        Picasso.with(getContext()).load(person.getCellImage()).into(imageView);
+        SpannableString msp = new SpannableString("最低：￥"+person.getCellCost()+"/月");
+        msp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 3, 7, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  //粗体
+        tv_cell_cost.setText(msp);
+        tv_cell_name .setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        Picasso.with(getContext()).load(person.getCellImage()).fit().into(imageView);
        /* name.setText(person.getContractName());
         time.setText(person.getContractEndTime());
 

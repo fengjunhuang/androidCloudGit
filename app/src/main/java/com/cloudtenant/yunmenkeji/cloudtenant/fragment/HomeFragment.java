@@ -93,7 +93,7 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
                         .onDenied(new Action() {
                             @Override
                             public void onAction(Object data) {
-                                Uri packageURI = Uri.parse("package:" + getActivity().getPackageName());
+                                   Uri packageURI = Uri.parse("package:" + getActivity().getPackageName());
                                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -148,12 +148,6 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
         tv_location =view. findViewById(R.id.tv_location);
         view.findViewById(R.id.btn_op1).setOnClickListener(this);
         view.findViewById(R.id.btn_op2).setOnClickListener(this);
-        //images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529230178291&di=71e9d9b4ad4deb6d8f21e90cf4ced6ac&imgtype=0&src=http%3A%2F%2Fpic15.nipic.com%2F20110708%2F7843095_103004548386_2.jpg");
-       //images.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529230293646&di=b367f393dc03c3c8d22d0ee923eb2f2d&imgtype=0&src=http%3A%2F%2Fpic3.16pic.com%2F00%2F04%2F28%2F16pic_428522_b.jpg");
-
-
-
-
         return view;
     }
 
@@ -241,6 +235,8 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
         HttpMethods.getInstance().homeData(new BaseObserver<HouseDetil>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
+                mAdapter.getData().clear();
+                images.clear();
                  houseDetil= (HouseDetil) t;
                 System.out.println(houseDetil.getViewDataX().size()+"");
                 Log.e("getData",houseDetil.getViewDataX().get(0).toString());

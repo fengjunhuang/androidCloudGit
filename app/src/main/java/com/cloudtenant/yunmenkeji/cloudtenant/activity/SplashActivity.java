@@ -45,7 +45,7 @@ public class SplashActivity extends YzsBaseActivity {
         setListener();
         processLogic();
         AndPermission.with(this)
-                .permission(Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_EXTERNAL_STORAGE,Permission.READ_CONTACTS)
+                .permission(Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_EXTERNAL_STORAGE,Permission.READ_CONTACTS,Permission.ACCESS_COARSE_LOCATION,Permission.ACCESS_FINE_LOCATION)
                 .onDenied(new Action() {
                     @Override
                     public void onAction(Object data) {
