@@ -184,6 +184,7 @@ public class DisMapActivity extends YzsBaseActivity  implements TencentLocationL
 
                 TextView tv_name= view.findViewById(R.id.tv_name);
                 TextView tv_pay= view.findViewById(R.id.tv_pay);
+                TextView tv_desc= view.findViewById(R.id.tv_desc);
                 HouseDetil.ViewDataBean bean = (HouseDetil.ViewDataBean) arg0.getTag();
                 tv_name.setText(bean.getCellName());
                 tv_pay.setText(bean.getCellCost());

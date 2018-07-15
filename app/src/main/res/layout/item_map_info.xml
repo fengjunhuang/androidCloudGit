@@ -26,10 +26,11 @@
         android:layout_marginStart="8dp"
 
 
-        android:layout_marginTop="16dp"
         android:text="剩:3间"
         android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="0.162"
         app:layout_constraintLeft_toLeftOf="@+id/iv_pic"
         app:layout_constraintStart_toEndOf="@+id/iv_pic"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,26 +40,42 @@
         style="@style/head_title_style"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        app:layout_constraintLeft_toLeftOf="@+id/iv_pic"
-        android:layout_marginLeft="5dp"
-        android:textSize="15sp"
+
+
+
 
 
         android:text="致和公寓"
-        app:layout_constraintEnd_toEndOf="parent"
+
+        android:textSize="15sp"
+       app:layout_constraintLeft_toLeftOf="@+id/tv_shengxia"
         app:layout_constraintTop_toBottomOf="@+id/tv_shengxia" />
 
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="阳光好，临近地铁8号线,\n带空调热水器"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
     <TextView
         android:id="@+id/textView2"
         style="@style/head_title_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
 
         android:layout_marginEnd="8dp"
         android:layout_marginStart="4dp"
         android:text="最低: "
         android:textColor="@color/red"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/tv_pay"
+      app:layout_constraintTop_toBottomOf="@+id/tv_desc"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.141"
@@ -66,7 +83,7 @@
 
     <TextView
 
-
+        android:layout_marginTop="10dp"
         android:id="@+id/tv_pay"
         style="@style/head_title_style"
         app:layout_constraintLeft_toRightOf=" @+id/textView2"
@@ -74,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-
+        app:layout_constraintTop_toBottomOf="@+id/tv_desc"
 
 
 
@@ -82,5 +99,5 @@
 
 
 
-        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+      />
 </android.support.constraint.ConstraintLayout>
