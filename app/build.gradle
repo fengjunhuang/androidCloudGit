@@ -113,7 +113,7 @@ dependencies {
     compile 'com.github.CN-ZPH:weibo360panorama:v1.0.1'
     compile 'com.alibaba:fastjson:1.2.47'
     compile 'com.github.d-max:spots-dialog:0.4@aar'
-    implementation files('libs/MobCommons-2018.0523.1925.jar')
+//    implementation files('libs/MobCommons-2018.0523.1925.jar')
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
     implementation files('libs/TencentMapSDK_Raster_v_1.2.8.1.c02ec64.jar')

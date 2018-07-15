@@ -228,13 +228,9 @@ public class NewHomeFragment extends BaseFragment implements RecyclerArrayAdapte
     public void init() {
         Log.e("getData","进入init");
 
-
-
     }
     public void getData() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-
         adapter.addHeader(headerView);
         adapter.setMore(R.layout.view_more, this);
         adapter.setNoMore(R.layout.view_nomore, new RecyclerArrayAdapter.OnNoMoreListener() {
@@ -280,7 +276,6 @@ public class NewHomeFragment extends BaseFragment implements RecyclerArrayAdapte
     }
 
     private void requestData() {
-
         HttpMethods.getInstance().homeData(new BaseObserver<HouseDetil>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
@@ -292,6 +287,7 @@ public class NewHomeFragment extends BaseFragment implements RecyclerArrayAdapte
                         images.add(bannerDataBeans.get(i).getBannerImage());
                     }
                     banner.setImages(images).setImageLoader(new BannerPicassoImageLoader()).start();
+                    isFirst=false;
                 }
                 if (page==1) {
                     adapter.clear();

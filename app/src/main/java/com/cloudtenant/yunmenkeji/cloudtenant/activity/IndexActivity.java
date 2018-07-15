@@ -95,8 +95,8 @@ public class IndexActivity extends YzsBaseHomeActivity {
 
     @Override
     protected void initTab() {
-        setmFragments(new YzsBaseFragment[]{new HomeFragment(),new RoomFragment(),new MessageFragment(), new MeFragment()});
-        //setmFragments(new YzsBaseFragment[]{new NewHomeFragment(),new RoomFragment(),new MessageFragment(), new MeFragment()});
+        //setmFragments(new YzsBaseFragment[]{new HomeFragment(),new RoomFragment(),new MessageFragment(), new MeFragment()});
+        setmFragments(new YzsBaseFragment[]{new NewHomeFragment(),new RoomFragment(),new MessageFragment(), new MeFragment()});
         setmIconSelectIds(mIconSelectIds);
         setmIconUnSelectIds(mIconUnselectIds);
         setmTitles(mTitles);
