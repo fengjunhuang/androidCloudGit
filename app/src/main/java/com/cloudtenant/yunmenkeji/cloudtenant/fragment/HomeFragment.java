@@ -32,6 +32,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.PicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.SpacesItemDecoration;
+import com.cloudtenant.yunmenkeji.cloudtenant.view.SimpleSwipeRefreshLayout;
 import com.squareup.picasso.Picasso;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
@@ -59,9 +60,10 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
     private     List<String> images=new ArrayList<>();
     private     List<HouseDetil.BannerDataBean> bannerDataBeans=new ArrayList<>();
     private Banner banner;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private SimpleSwipeRefreshLayout  swipeRefreshLayout;
     private LinearLayout ll_tuijian;
     private  HouseDetil houseDetil;
+    private  boolean isfirst=true;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -162,12 +164,15 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
         super.initView(view);
         int space = 8;
         mRecyclerView.addItemDecoration(new SpacesItemDecoration(space));
+        mRecyclerView.setNestedScrollingEnabled(false);
         swipeRefreshLayout=view.findViewById(R.id.sw_refesh);
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 
                 requestData();
+
 
             }
         });
@@ -243,6 +248,10 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
         HttpMethods.getInstance().homeData(new BaseObserver<HouseDetil>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
+
+                mAdapter.getData().clear();
+                images.clear();
+                banner.destroyDrawingCache();
                  houseDetil= (HouseDetil) t;
                 System.out.println(houseDetil.getViewDataX().size()+"");
                 Log.e("getData",houseDetil.getViewDataX().get(0).toString());
@@ -250,7 +259,14 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
                 for (int i = 0; i < bannerDataBeans.size(); i++) {
                     images.add(bannerDataBeans.get(i).getBannerImage());
                 }
-                banner.setImages(images).setImageLoader(new BannerPicassoImageLoader()).start();
+             if(isfirst){
+                 banner.setImages(images).setImageLoader(new BannerPicassoImageLoader()).start();
+             }else {
+
+                 isfirst=false;
+             }
+
+
                 mAdapter.addData(houseDetil.getViewDataX());
                 swipeRefreshLayout.setRefreshing(false);
             }

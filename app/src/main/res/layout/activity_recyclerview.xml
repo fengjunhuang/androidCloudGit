@@ -140,7 +140,7 @@
             android:layout_alignParentBottom="true"
             style="@style/match_line"/>
     </RelativeLayout>
-<android.support.v4.widget.SwipeRefreshLayout
+<com.cloudtenant.yunmenkeji.cloudtenant.view.SimpleSwipeRefreshLayout
     android:id="@+id/sw_refesh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -225,5 +225,5 @@
 </LinearLayout>
  </LinearLayout>
     </ScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.cloudtenant.yunmenkeji.cloudtenant.view.SimpleSwipeRefreshLayout>
 </LinearLayout>
