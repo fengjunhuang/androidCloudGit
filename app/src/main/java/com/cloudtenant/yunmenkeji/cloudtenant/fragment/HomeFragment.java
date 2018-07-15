@@ -242,8 +242,6 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
             protected void onSuccees(BaseBean t) throws Exception {
                 mAdapter.getData().clear();
                 images.clear();
-                mAdapter.getData().clear();
-                images.clear();
                 banner.destroyDrawingCache();
                  houseDetil= (HouseDetil) t;
                 System.out.println(houseDetil.getViewDataX().size()+"");
