@@ -1,5 +1,6 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,7 @@ import java.util.List;
 public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataBean> {
     private List<BudingInfo.ViewDataBean> viewDataX;
     HouseDetil.ViewDataBean bean;
+    private String lat,longitude;
     @Override
     protected void initItemLayout() {
 
@@ -94,7 +96,14 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
         (getBtn1()).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                readyGo(RoutingActivity.class);
+                /*Bundle bundle =new Bundle();
+                bundle.putSerializable("bean",bean);
+                readyGo(RoutingActivity.class,bundle);*/
+                Intent intent=new Intent(HouseDetilActivity.this,RoutingActivity.class);
+                intent.putExtra("lat",bean.getCellLatitude());
+                intent.putExtra("longitude",bean.getCellLongitude());
+                startActivity(intent);
+
             }
         });
         requset();
@@ -126,6 +135,8 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
        bean = (HouseDetil.ViewDataBean) bundle.getSerializable("bean");
         setMainText(bean.getCellName());
         setSmellText(bean.getCellAddress());
+        lat=bean.getCellLatitude();
+        longitude=bean.getCellLongitude();
     }
 
     @Override

@@ -190,7 +190,6 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 Log.e("getData","onScrollStateChanged》》newState="+newState);
-
             }
 
             @Override
@@ -214,7 +213,6 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                         tv_common.setTextColor(getResources().getColor(R.color.white));
                         tv_map.setBackgroundResource(R.drawable.butten_background_green);
                         tv_map.setTextColor(getResources().getColor(R.color.gren_cut_clorr));
-
                         ShowList();
                     }
                 });
@@ -229,7 +227,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                         HideList();
                     }
                 });
-                mapview=(MapView)view.findViewById(R.id.map);
+                mapview=view.findViewById(R.id.map);
                 //获取TencentMap实例
 
                 tencentMap = mapview.getMap();
@@ -258,7 +256,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
         adapter.clear();
         PreferencesUtils.putBoolean(getActivity(),"isShow",true);
         adapter.addAll(viewDataBean);
-        adapter.setMore(R.layout.view_more, this);
+        //adapter.setMore(R.layout.view_more, this);
     }
 
     private void HideList() {
@@ -539,9 +537,6 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
 
     @Override
     public void onMoreShow() {
-        if (PreferencesUtils.getBoolean(getActivity(),"isShow")) {
-
-        }
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -35,7 +35,6 @@ public class HouseViewHolder extends BaseViewHolder<HouseDetil.ViewDataBean> {
     private ImageView imageView;
 
     public HouseViewHolder(ViewGroup parent) {
-
         super(parent, R.layout.activity_awt);
         tv_cell_name = $(R.id.tv_cell_name);
         tv_cell_cost = $(R.id.tv_cell_cost);

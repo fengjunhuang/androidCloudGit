@@ -40,7 +40,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/black</item>
     </style>
-    <style name="head_title_style">
+    <style name="head_title_style" parent="click">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/black</item>

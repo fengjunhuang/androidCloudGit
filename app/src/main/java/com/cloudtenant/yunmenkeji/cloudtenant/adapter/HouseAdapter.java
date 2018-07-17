@@ -23,7 +23,7 @@ public class HouseAdapter extends RecyclerArrayAdapter<HouseDetil.ViewDataBean> 
 
     @Override
     public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-        if (isShow) {
+        if (true) {
             viewHolder=new HouseViewHolder(parent);
             return viewHolder;
         }else {
