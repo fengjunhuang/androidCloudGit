@@ -75,6 +75,11 @@ public class RoutingActivity extends YzsBaseActivity  implements TencentLocation
                         WalkingResultObject walkObj = (WalkingResultObject) obj;
                         List<WalkingResultObject.Route> walkRoutes = walkObj.result.routes;
                         drawSolidLine(walkRoutes.get(0).polyline);
+
+                        Log.e("searchdemo", "plan>direction="+walkRoutes.get(0).direction);
+                        Log.e("searchdemo", "plan>mode="+walkRoutes.get(0).mode);
+                        Log.e("searchdemo", "plan》=distance"+walkRoutes.get(0).distance);
+                        Log.e("searchdemo", "plan》=duration"+walkRoutes.get(0).duration);
                     } else if (obj instanceof DrivingResultObject) {
                         DrivingResultObject drivingObj = (DrivingResultObject) obj;
                         List<DrivingResultObject.Route> driveRoutes = drivingObj.result.routes;
@@ -97,8 +102,8 @@ public class RoutingActivity extends YzsBaseActivity  implements TencentLocation
                 @Override
                 public void onFailure(int arg0, String arg1, Throwable arg2) {
                     // TODO Auto-generated method stub
-                    Log.e("searchdemo", "plan 失败");
-                    Toast.makeText(RoutingActivity.this, arg1, Toast.LENGTH_SHORT).show();
+                    Log.e("searchdemo", "plan 失败>>"+arg1);
+                    Toast.makeText(RoutingActivity.this, "未找到该路线！！"+arg1, Toast.LENGTH_SHORT).show();
                 }
             };
     @Override

@@ -92,6 +92,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
     private TencentLocationManager locationManager;
     private TencentLocationRequest locationRequest;
     private  List<Marker> markers =new ArrayList<>();
+    boolean isMapMode=false;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -257,9 +258,11 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
         PreferencesUtils.putBoolean(getActivity(),"isShow",true);
         adapter.addAll(viewDataBean);
         //adapter.setMore(R.layout.view_more, this);
+        isMapMode=false;
     }
 
     private void HideList() {
+        isMapMode=true;
         PreferencesUtils.putBoolean(getActivity(),"isShow",false);
         mapview.setVisibility(View.VISIBLE);
         adapter.clear();
@@ -413,8 +416,11 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                 Log.e("getData",houseDetil.getViewDataX().get(0).toString());
                 Log.e("getData",houseDetil.getViewDataX().size()+"条信息");
 
+
                 viewDataBean=houseDetil.getViewDataX();
-                adapter.addAll(viewDataBean);
+                if (!isMapMode) {
+                    adapter.addAll(viewDataBean);
+                }
 
             }
             @Override
