@@ -3,6 +3,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.model;
 import com.alibaba.fastjson.JSON;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -481,7 +482,7 @@ public class MyRoom extends  BaseBean {
             this.myRoomPowerArrQuarter = myRoomPowerArrQuarter;
         }
 
-        public static class MyRoomSensorListBean {
+        public static class MyRoomSensorListBean  implements Serializable{
             /**
              * sensorName : 传感器1
              * sensorOn : false

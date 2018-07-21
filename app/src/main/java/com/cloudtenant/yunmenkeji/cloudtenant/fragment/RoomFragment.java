@@ -40,6 +40,8 @@ import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 import com.yzs.yzsbaseactivitylib.fragment.YzsBaseListFragment;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +76,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
                 @Override
                 public void onClick(View view) {
                     Bundle bundle =new Bundle();
-                    bundle.putBoolean("isOn",true);
+                    bundle.putSerializable("isOn", myRoomSensorListBean);
                     readyGo(SensorActivity.class,bundle);
                 }
             });
@@ -97,13 +99,14 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
                 ((ImageView)(baseViewHolder.convertView.findViewById(R.id.iv_senicon))).setImageResource(R.drawable.image_sensor_status_on);
                 baseViewHolder.convertView.setBackgroundResource((R.drawable.shape_corner_up));
                 ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_switch))).setText("开");
+                myRoomSensorListBean.setSensorOn(true);
             }
         });
         baseViewHolder.convertView.findViewById(R.id.iv_sign).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle =new Bundle();
-                bundle.putBoolean("isOn",false);
+                bundle.putSerializable("isOn", myRoomSensorListBean);
                 readyGo(SensorActivity.class,bundle);
             }
         });
@@ -120,6 +123,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
 
     @Override
     protected void initLogic() {
+        EventBus.getDefault().register(this);
         mLineChart = (LineChart) view.findViewById(R.id.lineChart);
         iv_select= ((ImageView)(view.findViewById(R.id.out)));
         iv_select.setImageResource(R.drawable.room_security);
@@ -343,6 +347,21 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
 
     @Override
     protected void onEventComing(EventCenter eventCenter) {
+        int postion=0;
+       if( eventCenter.getEventCode()==200){
+           MyRoom.ViewDataBean.MyRoomSensorListBean bean = (MyRoom.ViewDataBean.MyRoomSensorListBean) eventCenter.getData();
+           for(MyRoom.ViewDataBean.MyRoomSensorListBean myRoomSensorListBean:mAdapter.getData()){
+               if(myRoomSensorListBean.getSensorID().equals(bean.getSensorID())){
+                   postion=mAdapter.getData().indexOf(myRoomSensorListBean);
+
+
+               }
+           }
+
+            mAdapter.setData(postion,bean);
+
+       }
+
 
     }
 
