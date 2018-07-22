@@ -25,6 +25,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.CommonPopupWindow;
+import com.cloudtenant.yunmenkeji.cloudtenant.view.LoadingLayout;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
@@ -52,6 +53,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
     private  MyRoom myRoom;
     private ImageView iv_select;
     private  CommonPopupWindow popupWindow;
+    private LoadingLayout mLoading;
     @Override
     protected void initItemLayout() {
         setLayoutResId(R.layout.item_safe_sensor);
@@ -117,6 +119,9 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
 
         View view=layoutInflater.inflate(R.layout.frament_room,viewGroup,false);
          myScrollView = view.findViewById(R.id.my_scrollview);
+        mLoading = (LoadingLayout) view.findViewById(R.id.loading_layout);
+        mLoading.showContent(myScrollView);
+        mLoading.showLoading();
 
         return view;
     }
@@ -155,10 +160,12 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
                 }
                 initMpChat(entries,entries1);
                 mAdapter.addData(myRoom.getViewDataX().get(0).getMyRoomSensorList());
+                mLoading.dimssDoading();
             }
 
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                mLoading.showState();
 
             }
         },"");

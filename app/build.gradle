@@ -117,4 +117,5 @@ dependencies {
     implementation files('libs/TencentLocationSDK_v5.0.1_r251203_170116_1729.jar')
     compile 'com.github.recruit-lifestyle:WaveSwipeRefreshLayout:1.6'
     implementation files('libs/TencentMapSearch_v1.1.7.1.3e04ee1.jar')
+    compile 'com.pnikosis:materialish-progress:1.7'
 }

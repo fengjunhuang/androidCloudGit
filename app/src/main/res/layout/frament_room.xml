@@ -15,9 +15,17 @@
         android:id="@+id/my_scrollview"
         android:layout_width="1dp"
         android:layout_height="1dp"/>
+    <com.cloudtenant.yunmenkeji.cloudtenant.view.LoadingLayout
 
+        android:id="@+id/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+
+        ></com.cloudtenant.yunmenkeji.cloudtenant.view.LoadingLayout>
 <ScrollView
     android:scrollbars="none"
+    android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <android.support.constraint.ConstraintLayout
