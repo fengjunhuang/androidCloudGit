@@ -249,6 +249,10 @@
 
     <color name="text_gray">#AAAAAA</color>
     <color name="gren_cut_clorr">#00A79B</color>
+    <color name="sensor_green_cut_clorr">#6EBA43</color>
+    <color name="orange_cut_clorr">#ed6f55</color>
+    <color name="red_cut_clorr">#CF2326</color>
+    <color name="gray_cut_clorr">#afafaf</color>
 
 
     <color name="background">#FFFFFF</color>

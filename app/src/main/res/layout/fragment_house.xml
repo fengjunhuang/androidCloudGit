@@ -4,15 +4,15 @@
     android:orientation="vertical"
     android:background="@android:color/white"
     android:layout_width="match_parent"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
+    android:paddingLeft="@dimen/x17"
+    android:paddingRight="@dimen/x17"
     android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/ll_top_bar"
         android:background="@android:color/white"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="60dp">
 
         <TextView
             android:id="@+id/title"
@@ -22,16 +22,16 @@
             android:textColor="@color/light_black"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:textSize="23sp"
+            android:textSize="19sp"
             android:layout_height="wrap_content" />
         <LinearLayout
             android:id="@+id/btn_op1"
-            android:layout_width="65dp"
+            android:layout_width="60dp"
             android:layout_centerInParent="true"
             android:background="@drawable/butten_background_black"
             android:gravity="center"
             android:layout_alignParentRight="true"
-            android:layout_height="30dp">
+            android:layout_height="25dp">
             <ImageView
                 android:background="@drawable/image_navqr"
                 android:layout_width="12dp"
@@ -50,13 +50,13 @@
     </LinearLayout>
 
     <View
-        android:layout_marginTop="20dp"
         style="@style/match_line"/>
 
     <com.jude.easyrecyclerview.EasyRecyclerView
         android:id="@+id/recycler_view"
-        android:scrollbars="none"
+        android:scrollbarThumbVertical="@drawable/butten_background_green_solid"
         app:layout_progress="@layout/view_progress"
+        app:layout_empty="@layout/view_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </com.jude.easyrecyclerview.EasyRecyclerView>
