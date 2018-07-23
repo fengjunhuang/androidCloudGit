@@ -14,6 +14,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.LoginBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 
 import io.reactivex.Observable;
@@ -49,7 +50,7 @@ public interface ApiService {
 //    @POST ("buoy/getBuoyHistorysById")
 //    Observable<BuoyHistoryList> getBuoyHistorysById(@Body HistoryParmerBean userBean);
        @POST("Login")
-       Observable<UserInfo> login();
+       Observable<UserInfo> login(@Body LoginBean loginBean);
        @POST("LoginWithAuthorization")
        Observable<UserInfo> loginWithAuthorization();
        @POST("HomeData")
