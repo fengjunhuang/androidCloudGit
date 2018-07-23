@@ -15,12 +15,16 @@ import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.SensorAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.Sensor;
+import com.cloudtenant.yunmenkeji.cloudtenant.event.SensorFinshEvent;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.gersion.library.base.BaseActivity;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +40,7 @@ public class SensorActivity extends YzsBaseActivity implements View.OnClickListe
     private  boolean isSenOpen=true;
     private ImageView iv_senr;
     private TextView tv_tip;
+    MyRoom.ViewDataBean.MyRoomSensorListBean bean;
     //private OkHttpHelper ok=OkHttpHelper.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,17 +74,7 @@ public class SensorActivity extends YzsBaseActivity implements View.OnClickListe
         rela_bg=findViewById(R.id.rela_bg);
         isSenOpen=getIntent().getExtras().getBoolean("isOn");
 
-        if(!isSenOpen){
-            isSenOpen=false;
-            tv_tip.setText("关");
-            iv_senr.setImageResource(R.drawable.image_sensor_status_off);
-            rela_bg.setBackgroundColor(Color.GRAY);}
-        else {
-            tv_tip.setText("开");
-            isSenOpen=true;
-            iv_senr.setImageResource(R.drawable.image_sensor_status_on);
-            rela_bg.setBackgroundResource(R.drawable.image_onoffimage);
-        }
+
         //getData();
         AddData();
         rela_bg.setOnClickListener(new View.OnClickListener() {
@@ -88,10 +83,12 @@ public class SensorActivity extends YzsBaseActivity implements View.OnClickListe
                 if(isSenOpen){
                     isSenOpen=false;
                     tv_tip.setText("关");
+                    bean.setSensorOn(false);
                     iv_senr.setImageResource(R.drawable.image_sensor_status_off);
                 rela_bg.setBackgroundColor(Color.GRAY);}
                 else {
                     tv_tip.setText("开");
+                    bean.setSensorOn(true);
                     isSenOpen=true;
                     iv_senr.setImageResource(R.drawable.image_sensor_status_on);
                     rela_bg.setBackgroundResource(R.drawable.image_onoffimage);
@@ -104,6 +101,21 @@ public class SensorActivity extends YzsBaseActivity implements View.OnClickListe
                 startActivity(new Intent(SensorActivity.this, SensorAddActivity.class));
             }
         });
+        getBundleExtras(getIntent().getExtras());
+        isSenOpen=bean.isSensorOn();
+        if(!isSenOpen){
+            isSenOpen=false;
+
+            tv_tip.setText("关");
+            iv_senr.setImageResource(R.drawable.image_sensor_status_off);
+            rela_bg.setBackgroundColor(Color.GRAY);}
+        else {
+
+            tv_tip.setText("开");
+            isSenOpen=true;
+            iv_senr.setImageResource(R.drawable.image_sensor_status_on);
+            rela_bg.setBackgroundResource(R.drawable.image_onoffimage);
+        }
     }
 
     @Override
@@ -118,11 +130,22 @@ public class SensorActivity extends YzsBaseActivity implements View.OnClickListe
 
     @Override
     protected void getBundleExtras(Bundle var1) {
+      bean= (MyRoom.ViewDataBean.MyRoomSensorListBean) var1.getSerializable("isOn");
 
     }
 
     @Override
     protected void onEventComing(EventCenter var1) {
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventCenter eventCenter =new EventCenter(200,bean);
+        EventBus.getDefault().post(eventCenter);
+        super.onDestroy();
+
 
 
     }

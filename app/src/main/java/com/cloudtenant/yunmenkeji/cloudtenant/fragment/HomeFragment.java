@@ -32,6 +32,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.PicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.SpacesItemDecoration;
+import com.cloudtenant.yunmenkeji.cloudtenant.view.LoadingLayout;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SimpleSwipeRefreshLayout;
 import com.squareup.picasso.Picasso;
 import com.yanzhenjie.permission.Action;
@@ -56,7 +57,7 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
     private static final int REQUEST_CODE_SCAN=77;
     private TextView tv_location;
     public static final int GETCITY=9527;
-
+    private LoadingLayout mLoading;
     private     List<String> images=new ArrayList<>();
     private     List<HouseDetil.BannerDataBean> bannerDataBeans=new ArrayList<>();
     private Banner banner;
@@ -146,10 +147,15 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
     @Override
     protected View initContentView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
        View view=layoutInflater.inflate(R.layout.activity_recyclerview,viewGroup,false);
+        mLoading = (LoadingLayout) view.findViewById(R.id.loading_layout);
+
         banner = (Banner)view. findViewById(R.id.banner);
         tv_location =view. findViewById(R.id.tv_location);
         view.findViewById(R.id.btn_op1).setOnClickListener(this);
         view.findViewById(R.id.btn_op2).setOnClickListener(this);
+
+        mLoading.showLoading();
+
         return view;
     }
 
@@ -264,6 +270,7 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
 
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                mLoading.showEmpty();
 
             }
         },"");

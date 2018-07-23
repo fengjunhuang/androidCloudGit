@@ -86,7 +86,11 @@
 
 
     </style>
-
+    <declare-styleable name="LoadingLayout">
+    <attr name="loadingView" format="reference" />
+    <attr name="stateView" format="reference" />
+    <attr name="emptyView" format="reference" />
+</declare-styleable>
     <style name="AnimDown" parent="@android:style/Animation">
 
         <item name="android:windowEnterAnimation">@anim/push_scale_in</item>
