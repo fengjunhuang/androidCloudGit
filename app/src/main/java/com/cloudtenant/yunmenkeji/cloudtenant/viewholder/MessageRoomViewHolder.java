@@ -37,16 +37,16 @@ public class MessageRoomViewHolder extends BaseViewHolder<MessageSave.ViewDataBe
     public void setData(final MessageSave.ViewDataBean.MessageArrayBean person){
         if (getAdapterPosition()==0) {
             iv_icon.setImageResource(R.drawable.image_message_notice);
-            tv_type.setTextColor(Color.GREEN);
+            tv_type.setTextColor(getContext().getResources().getColor(R.color.gren_cut_clorr));
             tv_type.setText("公告");
         }else {
             if (person.getMessageWarningStatus()!=0){
                 iv_icon.setImageResource(R.drawable.demoimage);
-                tv_type.setTextColor(Color.GREEN);
+                tv_type.setTextColor(getContext().getResources().getColor(R.color.gren_cut_clorr));
                 tv_type.setText("安全");
             }else {
                 iv_icon.setImageResource(R.drawable.image_message_warning);
-                tv_type.setTextColor(Color.RED);
+                tv_type.setTextColor(getContext().getResources().getColor(R.color.red_cut_clorr));
                 tv_type.setText("危險");
 
             }

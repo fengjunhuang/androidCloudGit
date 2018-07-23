@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -86,13 +87,16 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
     private EasyRecyclerView recyclerView;
     private RecyclerArrayAdapter.ItemView headerView;
     int page=1;
-    boolean isFirst;
+    boolean isFirst=true;
     MapView mapview=null;
     TencentMap tencentMap;
     private TencentLocationManager locationManager;
     private TencentLocationRequest locationRequest;
     private  List<Marker> markers =new ArrayList<>();
-    boolean isMapMode=false;
+    public static boolean isMapMode=false;
+    private LinearLayout ll_tor_bar;
+    private LinearLayout.LayoutParams linearParams;
+    private int scrolledDistance = 0;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -179,25 +183,40 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
     @Override
     protected View initContentView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle bundle) {
         PreferencesUtils.putBoolean(getActivity(),"isShow",true);
+
         View view=inflater.inflate(R.layout.fragment_house,container,false);
         mContext=getActivity();
         tv_location =view. findViewById(R.id.tv_location);
+        ll_tor_bar =view. findViewById(R.id.ll_top_bar);
+        linearParams= (LinearLayout.LayoutParams) ll_tor_bar.getLayoutParams();
         view.findViewById(R.id.btn_op1).setOnClickListener(this);
         tv_title=view.findViewById(R.id.title);
         tv_title .setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         recyclerView=view.findViewById(R.id.recycler_view);
+        recyclerView.setScrollBarStyle(RecyclerView.SCROLLBAR_POSITION_DEFAULT);
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                Log.e("getData","onScrollStateChanged》》newState="+newState);
+                Log.e("getData","onScrollStateChanged》》scrolledDistance="+scrolledDistance);
             }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                scrolledDistance=scrolledDistance+dy;
+                int search_layout_max_margin= ll_tor_bar.getMeasuredHeight();
 
-                Log.e("getData","onScrolled》》dy="+dy);
+                int newTopMargin = search_layout_max_margin - dy;
+                Log.e("getData","onScrolled》》dy="+dy+">>>search_layout_max_margin="+search_layout_max_margin);
+                if (scrolledDistance<180) {
+                    if (newTopMargin > 80 && newTopMargin < 180) {
+                        linearParams.height = newTopMargin;
+                        ll_tor_bar.setLayoutParams(linearParams);
+                    }
+                }
+
+                Log.e("getData","onScrolled》》dy="+dy+">>>newTopMargin="+newTopMargin);
             }
         });
         headerView=new RecyclerArrayAdapter.ItemView() {
@@ -213,7 +232,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                         tv_common.setBackgroundResource(R.drawable.butten_background_green_solid);
                         tv_common.setTextColor(getResources().getColor(R.color.white));
                         tv_map.setBackgroundResource(R.drawable.butten_background_green);
-                        tv_map.setTextColor(getResources().getColor(R.color.gren_cut_clorr));
+                        tv_map.setTextColor(getResources().getColor(R.color.orange_cut_clorr));
                         ShowList();
                     }
                 });
@@ -223,8 +242,11 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                         tv_map.setBackgroundResource(R.drawable.butten_background_green_solid_r);
                         tv_map.setTextColor(getResources().getColor(R.color.white));
                         tv_common.setBackgroundResource(R.drawable.butten_background_green_l);
-                        tv_common.setTextColor(getResources().getColor(R.color.gren_cut_clorr));
-                        initMyMap();
+                        tv_common.setTextColor(getResources().getColor(R.color.orange_cut_clorr));
+
+                        if (isFirst) {
+                            initMyMap();
+                        }
                         HideList();
                     }
                 });
@@ -248,25 +270,29 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
         };
         //view.findViewById(R.id.btn_op2).setOnClickListener(this);
         adapter = new HouseAdapter(getActivity());
+        adapter.addHeader(headerView);
         Log.e("getData","进入initContentView");
         return view;
     }
 
     private void ShowList() {
+        PreferencesUtils.putBoolean(getActivity(),"isShow",true);
+        isMapMode=false;
         mapview.setVisibility(View.GONE);
         adapter.clear();
-        PreferencesUtils.putBoolean(getActivity(),"isShow",true);
+        adapter.removeAll();
         adapter.addAll(viewDataBean);
         //adapter.setMore(R.layout.view_more, this);
-        isMapMode=false;
     }
 
     private void HideList() {
-        isMapMode=true;
         PreferencesUtils.putBoolean(getActivity(),"isShow",false);
+        isMapMode=true;
+
         mapview.setVisibility(View.VISIBLE);
         adapter.clear();
-        adapter.add(new HouseDetil.ViewDataBean());
+        adapter.removeAll();
+        adapter.add(this);
         //adapter.setMore(null, (RecyclerArrayAdapter.OnMoreListener) null);
     }
 
@@ -351,7 +377,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
     }
     public void getData() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter.addHeader(headerView);
+        //adapter.addHeader(headerView);
         adapter.setMore(R.layout.view_more, this);
         adapter.setNoMore(R.layout.view_nomore, new RecyclerArrayAdapter.OnNoMoreListener() {
             @Override

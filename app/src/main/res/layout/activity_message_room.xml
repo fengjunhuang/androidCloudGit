@@ -4,14 +4,16 @@
     android:orientation="vertical"
     android:background="@android:color/white"
     android:layout_width="match_parent"
-    android:padding="20dp"
+
+    android:paddingTop="@dimen/x20"
     android:layout_height="match_parent">
     <LinearLayout
         android:background="@android:color/white"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="@dimen/x30">
         <ImageView
+            android:layout_marginLeft="@dimen/x20"
             style="@style/click"
             android:id="@+id/out"
             android:src="@mipmap/leftback"
@@ -35,8 +37,7 @@
             android:layout_height="wrap_content">
 
         </Spinner>
-        <LinearLayout
-            android:id="@+id/ll_phone"
+        <!--<LinearLayout
             android:layout_width="70dp"
             android:background="@drawable/butten_background_black"
             android:gravity="center"
@@ -53,7 +54,7 @@
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </LinearLayout>
+        </LinearLayout>-->
 
     </LinearLayout>
 
@@ -62,10 +63,26 @@
         style="@style/match_line"/>
 
     <com.jude.easyrecyclerview.EasyRecyclerView
+        android:paddingRight="@dimen/x20"
+        android:paddingLeft="@dimen/x20"
         android:id="@+id/recycler_view"
         app:layout_empty="@layout/view_empty"
         app:layout_progress="@layout/view_progress"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_weight="1"
+        android:layout_height="0dp">
     </com.jude.easyrecyclerview.EasyRecyclerView>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_marginTop="1dp"
+        android:id="@+id/ll_phone"
+        android:background="@color/orange_cut_clorr"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40">
+        <TextView
+            android:text="联系房东"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </LinearLayout>
