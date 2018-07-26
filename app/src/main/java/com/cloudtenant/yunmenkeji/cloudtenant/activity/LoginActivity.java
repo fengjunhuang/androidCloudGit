@@ -20,6 +20,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserinfoBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.LoginBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.AESOperator;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.JSONUtil;
@@ -51,7 +52,7 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
     void login(){
         mDialog.show();
         SMSSDK.submitVerificationCode("86",phone,et_code.getText().toString().trim());
-        //goLogin();
+//        goLogin();
 
     }
     @Click(R.id.btn_visitor)
@@ -169,7 +170,7 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },"");
+        },new LoginBean("aaaa","aaaaaaaaaaa"));
     }
 
     private String phone;

@@ -5,12 +5,22 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserinfoBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.LoginBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.JSONUtil;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.PreferencesUtils;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
@@ -71,7 +81,28 @@ public class SplashActivity extends YzsBaseActivity {
 
     @Override
     protected void initLogic() {
+        HttpMethods.getInstance().login(new BaseObserver<UserInfo>() {
+            @Override
+            protected void onSuccees(BaseBean t) throws Exception {
+//                mDialog.dismiss();
+//                UserInfo houseDetil= (UserInfo) t;
+//                Log.d("onSuccees",houseDetil.getUserinfo());
+//
+//                UserinfoBean userinfoBean= JSONUtil.fromJson(houseDetil.getUserinfo(),UserinfoBean.class);
+//                Log.d("onSuccees",userinfoBean.getUserName());
+//
+//                UserLocalData.putUser(LoginActivity.this,userinfoBean);
+//                PreferencesUtils.putBoolean(LoginActivity.this,"isLogin",true);
+//                readyGo(IndexActivity_.class);
+//                LoginActivity.this.finish();
 
+
+            }
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+            }
+        },new LoginBean("aaaa","aaaaaaaaaaa"));
     }
 
     @Override

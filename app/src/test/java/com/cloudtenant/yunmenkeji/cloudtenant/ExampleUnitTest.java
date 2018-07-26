@@ -25,6 +25,7 @@ public class ExampleUnitTest {
     String sss="u2OpTRuGQLNF99AaWK70E3KjZK3cU+9+R+Dk9KcUaRrZoyESV6o1UO/NegzQXUp1gG7tJH76spvgpNGqEoe9iSXcy8MD3vKkrd0r6Yej9zaGo8YF/HswmPRu3md0Jpr9uiY7Gs+3q6EObyQux4Q8baPb1WineyNP6yt/vuRAhWI=";
   String s1111="u2OpTRuGQLNF99AaWK70E3KjZK3cU+9+R+Dk9KcUaRpte4Nbyb+pO7+TEiqakE3EK5LfeEq8g/b88GCuFeIDeBaQGFyO187tpwSx230l5O62Ge07ply0QcxXK97S5J7xxBeXocBqL/H0QppEGZnMe4wHR6wSN+S5s85AyfW9m1+swJmnOFBR1Woa/R/M85KA";
     String ss= AESOperator.getInstance().decrypt(s1111);
+    String system=  AESOperator.getInstance().encrypt("{page :5}");
    System.out.print("");
     }
 
