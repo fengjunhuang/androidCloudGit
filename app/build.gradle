@@ -13,7 +13,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
-            abiFilters 'armeabi','armeabi-v7a'
+            abiFilters 'armeabi', 'armeabi-v7a'
         }
     }
     sourceSets {
@@ -25,7 +25,7 @@ android {
         abi {
             enable true
             reset()
-            include 'x86', 'armeabi-v7a','armeabi'
+            include 'x86', 'armeabi-v7a', 'armeabi'
             universalApk true
         }
     }
@@ -35,14 +35,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }*/
     }
-
-        dexOptions {
-            javaMaxHeapSize "4g"
-        }
-
-
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
     android.defaultConfig.vectorDrawables.useSupportLibrary = true
-
+    buildToolsVersion '26.0.2'
 }
 
 

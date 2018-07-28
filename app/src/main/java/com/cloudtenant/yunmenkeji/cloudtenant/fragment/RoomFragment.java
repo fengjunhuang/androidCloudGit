@@ -240,8 +240,10 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
         sets.add(new LineDataSet(entries1, "水费"));
         LineData lineData = new LineData(sets);
         Legend legend = mLineChart.getLegend();
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         legend.setTextSize(18f);
         legend.setFormSize(13);
+        legend.setXEntrySpace(30f);
         mLineChart.setData(lineData);
         mLineChart.animateY(1000);
 
@@ -289,7 +291,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
             public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
 
                 // 按下
-                readyGo(MpChartActivity.class);
+
             }
 
             @Override
@@ -328,6 +330,12 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
             @Override
             public void onChartTranslate(MotionEvent me, float dX, float dY) {
                 // 移动
+            }
+        });
+        view.findViewById(R.id.iv_detil).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                readyGo(MpChartActivity.class);
             }
         });
         iv_select.setOnClickListener(new View.OnClickListener() {

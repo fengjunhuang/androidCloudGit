@@ -95,27 +95,29 @@ public class MpChartActivity extends YzsBaseActivity {
 
           }
       });
-
+      mPieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);// 设置pieChart图表展示动画效果
       //模拟数据
       ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
-      entries.add(new PieEntry(10, "水费"));
-      entries.add(new PieEntry(249, "电费"));
-      entries.add(new PieEntry(6, "管理费"));
-      entries.add(new PieEntry(50, "网费"));
-      entries.add(new PieEntry(800, "房租"));
+      entries.add(new PieEntry(10, "水费10元"));
+      entries.add(new PieEntry(249, "电费249元"));
+      entries.add(new PieEntry(6, "管理费6元"));
+      entries.add(new PieEntry(50, "网费50元"));
+      entries.add(new PieEntry(800, "房租800元"));
       //设置数据
       setData(entries,mPieChart);
 
       mPieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
 
       Legend l = mPieChart.getLegend();
-      l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-      l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-      l.setOrientation(Legend.LegendOrientation.VERTICAL);
+      l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+      l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+      l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
       l.setDrawInside(false);
       l.setXEntrySpace(7f);
-      l.setYEntrySpace(0f);
+      l.setYEntrySpace(8f);
       l.setYOffset(0f);
+
+
 
       return mPieChart;
   }
