@@ -206,7 +206,6 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                 super.onScrolled(recyclerView, dx, dy);
                 scrolledDistance=scrolledDistance+dy;
                 int search_layout_max_margin= ll_tor_bar.getMeasuredHeight();
-
                 int newTopMargin = search_layout_max_margin - dy;
                 Log.e("getData","onScrolled》》dy="+dy+">>>search_layout_max_margin="+search_layout_max_margin);
                 if (scrolledDistance<180) {

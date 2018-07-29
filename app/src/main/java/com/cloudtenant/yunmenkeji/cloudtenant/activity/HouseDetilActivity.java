@@ -59,10 +59,9 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
         recyclerView.setLayoutManager(ms);  //给RecyClerView 添加设置好的布局样式
 
 
-
         HouseDetilAdater houseDetilAdater =new HouseDetilAdater(this);
         recyclerView.setAdapter(houseDetilAdater);
-       houseDetilAdater.addAll(houseDetil.getData());
+        houseDetilAdater.addAll(houseDetil.getData());
         houseDetilAdater.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -82,15 +81,14 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
 
     }
 
-
-
     @Override
     protected void initLogic() {
 
-
         getBtn1();
         getBtn2();
-
+        getTv_smell().setVisibility(View.GONE);
+        getIv_lift().setImageResource(R.drawable.image_navnav);
+        getIv_right().setImageResource(R.drawable.image_navshare);
         findViewById(R.id.out).setVisibility(View.VISIBLE);
         (getTt_1()).setText("导航");
         (getBtn1()).setOnClickListener(new View.OnClickListener() {
@@ -103,7 +101,6 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
                 intent.putExtra("lat",bean.getCellLatitude());
                 intent.putExtra("longitude",bean.getCellLongitude());
                 startActivity(intent);
-
             }
         });
         requset();
@@ -134,7 +131,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
     protected void getBundleExtras(Bundle bundle) {
        bean = (HouseDetil.ViewDataBean) bundle.getSerializable("bean");
         setMainText(bean.getCellName());
-        setSmellText(bean.getCellAddress());
+        //setSmellText(bean.getCellAddress());
         lat=bean.getCellLatitude();
         longitude=bean.getCellLongitude();
     }

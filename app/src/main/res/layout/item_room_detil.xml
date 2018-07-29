@@ -4,8 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="@dimen/x5"
-
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    >
 
 <android.support.v7.widget.CardView
     android:layout_width="match_parent"
@@ -13,127 +12,83 @@
     android:background="@color/white"
     >
 
-
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/x5"
-
-
-    >
-    <ImageView
-        android:id="@+id/iv_cell_image"
-        android:layout_width="@dimen/x120"
-        android:layout_height="@dimen/y80"
-        android:src="@mipmap/zufang"
-        android:layout_marginRight="@dimen/x20"
-
-        />
- <LinearLayout
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:orientation="vertical"
-
-
-     >
-     <LinearLayout
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:orientation="horizontal"
-
-
-         >
-     <TextView
-         android:layout_width="@dimen/y20"
-         android:layout_height="@dimen/x15"
-           android:background="@drawable/textview_round_border"
-         android:textColor="@color/white"
-         android:gravity="center"
-         android:text="空房"
-         android:textSize="10sp"
-         android:textStyle="bold"
-
-         />
-     <TextView
-
-         android:layout_marginLeft="@dimen/x5"
-         android:layout_height="wrap_content"
-         android:layout_width="wrap_content"
-         android:textColor="@color/black"
-
-         android:textStyle="bold"
-         android:id="@+id/tv_cell_remain"
-         android:text="已经验证.剩3间"
-         android:textSize="11sp"
-
-
-
-         />
-         <TextView
-             android:id="@+id/tv_seeTimes"
-
-             android:layout_marginLeft="@dimen/x5"
+    <LinearLayout
+        android:layout_marginBottom="@dimen/x12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/x5"
+        >
+        <ImageView
+            android:id="@+id/iv_cell_image"
+            android:layout_width="@dimen/x200"
+            android:layout_height="@dimen/y100"
+            android:src="@mipmap/zufang"
+            />
+        <LinearLayout
+            android:layout_marginTop="@dimen/x8"
+             android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:layout_width="wrap_content"
-             android:textColor="#B8B8B8"
+             android:orientation="vertical"
+             >
+             <LinearLayout
+                 android:gravity="center_vertical"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal"
+                 >
+                 <TextView
+                     android:layout_width="@dimen/x33"
+                     android:layout_height="@dimen/x15"
+                     android:background="@drawable/butten_background_black"
+                     android:gravity="center"
+                     android:textColor="@color/black"
+                     android:text="待租"
+                     android:textSize="12sp"
+                     android:textStyle="bold"
+                     />
+                 <TextView
+                     android:layout_marginLeft="@dimen/x5"
+                     android:layout_height="wrap_content"
+                     android:layout_width="0dp"
+                     android:layout_weight="1"
+                     android:textColor="@color/black"
+                     android:textStyle="bold"
+                     android:id="@+id/tv_cell_remain"
+                     android:text="已经验证.剩3间"
+                     android:textSize="19sp"
+                     />
+                 <ImageView
+                     android:src="@drawable/browse"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content" />
+                 <TextView
+                     android:id="@+id/tv_seeTimes"
+                     android:layout_marginLeft="@dimen/x5"
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:textColor="@color/gray_cut_clorr"
+                     android:text="10次"
+                     android:textSize="11sp"
+                     />
+             </LinearLayout>
 
-             android:textStyle="bold"
-
-             android:text="浏览次数：10次"
-             android:textSize="11sp"
-
-
-
-             />
-     </LinearLayout>
-
-
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:orientation="horizontal"
-         >
-     <TextView
-         android:layout_marginTop="@dimen/x5"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text="$  "
-         android:textColor="@color/red"
-
-         android:textSize="10sp"
-         />
-         <TextView
-             android:id="@+id/tv_cell_cost"
-             android:layout_marginTop="@dimen/x5"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="280"
-             android:textColor="@color/black"
-             android:textStyle="bold"
-
-             android:textSize="10sp"
-             />
-         <TextView
-             android:layout_marginTop="@dimen/x5"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="/月"
-
-
-             android:textSize="10sp"
-             />
- </LinearLayout>
-<TextView
-    android:id="@+id/tv_style"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="@color/red"
-    android:textSize="11sp"
-    android:text="一房一厅"
-    />
- </LinearLayout>
-</LinearLayout>
+             <TextView
+                 android:textSize="11sp"
+                 android:id="@+id/tv_style"
+                 android:textColor="@color/gray"
+                 android:text="一按一租 | 一房一厅 | 全景看房"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="@dimen/x8"
+                android:id="@+id/tv_cell_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red_cut_clorr"
+                />
+        </LinearLayout>
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>
 </LinearLayout>

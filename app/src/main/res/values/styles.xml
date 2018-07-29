@@ -13,6 +13,11 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
     </style>
+    <style name="match_line_dp">
+        <item name="android:background">@android:color/black</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+    </style>
 
     <style name="me_item_rl_style" parent="click">
         <item name="android:layout_width">match_parent</item>
@@ -175,5 +180,12 @@
         <!-- 字体颜色 -->
         <!--<item name="android:textColor">@color/blue</item>
         <item name="android:editTextColor">@color/blue</item>-->
+    </style>
+
+    <style name="tnement_image_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">@dimen/x30</item>
+        <item name="android:padding">5dp</item>
     </style>
 </resources>
