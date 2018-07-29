@@ -193,6 +193,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
         tv_title=view.findViewById(R.id.title);
         tv_title .setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         recyclerView=view.findViewById(R.id.recycler_view);
+
         recyclerView.setScrollBarStyle(RecyclerView.SCROLLBAR_POSITION_DEFAULT);
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
