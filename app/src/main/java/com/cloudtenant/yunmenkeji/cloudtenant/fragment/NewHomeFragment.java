@@ -362,7 +362,17 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             default:
                 break;
         }
+        tencentMap.setOnMarkerClickListener(new TencentMap.OnMarkerClickListener() {
 
+            @Override
+            public boolean onMarkerClick(Marker arg0) {
+                // TODO Auto-generated method stub
+                Bundle bundle =new Bundle();
+                bundle.putSerializable("bean",(HouseDetil.ViewDataBean)arg0.getTag());
+                readyGo(HouseDetilActivity.class,bundle);
+                return false;
+            }
+        });
 
     }
     @Override
