@@ -6,22 +6,26 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MpChartActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.PayActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.SensorActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.PowWindowAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.ImageText;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.CommonPopupWindow;
@@ -54,6 +58,9 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
     private ImageView iv_select;
     private  CommonPopupWindow popupWindow;
     private LoadingLayout mLoading;
+    private PopupWindow      mPopWindow;
+    RecyclerView recyclerView;
+    PowWindowAdapter powWindowAdapter;
     @Override
     protected void initItemLayout() {
         setLayoutResId(R.layout.item_safe_sensor);
@@ -132,6 +139,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
         mLineChart = (LineChart) view.findViewById(R.id.lineChart);
         iv_select= ((ImageView)(view.findViewById(R.id.out)));
         iv_select.setImageResource(R.drawable.room_security);
+
         iv_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,6 +148,10 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
         });
         setListener();
         request();
+     recyclerView = view.findViewById(R.id.recy_pow);
+ powWindowAdapter=new PowWindowAdapter(getActivity());
+        recyclerView.setAdapter(powWindowAdapter);
+//        showPopupWindow(iv_select);
 
     }
 
@@ -152,6 +164,13 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
 
                 List<Entry> entries=new ArrayList<>();
                 List<Entry> entries1=new ArrayList<>();
+                for(MyRoom.ViewDataBean viewDataBean :((MyRoom) t).getViewDataX()){
+                    if(((MyRoom) t).getViewDataX().indexOf(viewDataBean)==0){
+                        powWindowAdapter.add(new ImageText(viewDataBean.getMyRoomName(),true));
+                    }else {
+                    powWindowAdapter.add(new ImageText(viewDataBean.getMyRoomName(),false));}
+
+                }
                 for(Integer water:((MyRoom) t).getViewDataX().get(0).getMyRoomWaterArr()){
                     entries.add(new Entry(((MyRoom) t).getViewDataX().get(0).getMyRoomWaterArr().indexOf(water),water.floatValue()));
                 }
@@ -160,7 +179,9 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
                 }
                 initMpChat(entries,entries1);
                 mAdapter.addData(myRoom.getViewDataX().get(0).getMyRoomSensorList());
+                powWindowAdapter.notifyDataSetChanged();
                 mLoading.dimssDoading();
+
             }
 
             @Override
@@ -270,22 +291,38 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
                 .setOutsideTouchable(true)
 
                 .create();
-        RecyclerView recyclerView = popupWindow.getContentView().findViewById(R.id.recy_pow);
-        PowWindowAdapter powWindowAdapter=new PowWindowAdapter(getActivity());
-        recyclerView.setAdapter(powWindowAdapter);
 
-        popupWindow.showAsDropDown(view);
 
-        //得到button的左上角坐标
 
-//        int[] positions = new int[2];
 
-//        view.getLocationOnScreen(positions);
 
-//        popupWindow.showAtLocation(findViewById(android.R.id.content), Gravity.NO_GRAVITY, 0, positions[1] + view.getHeight());
+        int[] positions = new int[2];
+
+        view.getLocationOnScreen(positions);
+
+        popupWindow.showAtLocation(this.view.findViewById(android.R.id.content), Gravity.NO_GRAVITY, 0, positions[1] + view.getHeight());
+
+    }
+    private void showPopupWindow(View view) {
+        //设置contentView
+        View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pow_layout, null);
+        PopupWindow      mPopWindow = new PopupWindow(contentView,
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        //设置各个控件的点击响应
+
+
+        //显示PopupWindow
+
+        mPopWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
 
     }
     private void setListener() {
+        view.findViewById(R.id.tv_result).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                readyGo(PayActivity.class);
+            }
+        });
         mLineChart.setOnChartGestureListener(new OnChartGestureListener() { // 手势监听器
             @Override
             public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {

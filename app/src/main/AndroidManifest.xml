@@ -109,6 +109,12 @@
             android:screenOrientation="portrait"
 
             />
+        <activity android:name=".activity.PayActivity"
+
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"
+
+            />
 
         <activity android:name=".activity.RoutingActivity"
 
