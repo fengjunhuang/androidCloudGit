@@ -52,18 +52,31 @@ public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.Support
     public MLoadingDialog m_cProgressDialog;
     private View btn1;
     private View btn2;
+    private View line;
     private  TextView tv_1;
     private  TextView tv_2;
-    private ImageView iv_out;
+    private ImageView iv_out,iv_right,iv_lift;
     private  TextView tv_smell;
     private  TextView tv_main;
     public View getBtn1() {
         btn1.setVisibility(View.VISIBLE);
         return btn1;
     }
+    public View hideLine() {
+        line.setVisibility(View.GONE);
+        return line;
+    }
     public ImageView getTv_out() {
         iv_out=getTitleView().findViewById(R.id.out);
         return iv_out;
+    }
+    public ImageView getIv_lift() {
+        iv_lift=getTitleView().findViewById(R.id.iv_lift);
+        return iv_lift;
+    }
+    public ImageView getIv_right() {
+        iv_right=getTitleView().findViewById(R.id.iv_right);
+        return iv_right;
     }
     public TextView getTt_1(){
         tv_1=getTitleView().findViewById(R.id.tv_tv1);
@@ -186,6 +199,7 @@ public abstract class YzsBaseActivity extends me.yokeyword.fragmentation.Support
        });
       btn1=  this.titleView.findViewById(R.id.btn_op1);
         btn2=  this.titleView.findViewById(R.id.btn_op2);
+        line=  this.titleView.findViewById(R.id.view);
     }
     public void setBtn1Vis(){
 

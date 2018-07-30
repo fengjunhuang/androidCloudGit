@@ -2,6 +2,9 @@ package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StyleSpan;
 import android.view.View;
 
 import android.widget.ImageView;
@@ -84,7 +87,6 @@ public class TnementAcitivity extends YzsBaseActivity {
                 Bundle bundle =new Bundle();
                 bundle.putSerializable("bean",bean);
                 bundle.putSerializable("houseDetil",houseDetil);
-
                 readyGo(ContractDetailsActivity.class,bundle);
             }
         });
@@ -101,13 +103,12 @@ public class TnementAcitivity extends YzsBaseActivity {
         ss.add(tv_xiyiji);
         ss.add(tv_tianranqi);
         ss.add(tv_dianshiji);
-        setSmellText("组这间？");
-       getBundleExtras(getIntent().getExtras());
+        getBundleExtras(getIntent().getExtras());
         getBtn1().setVisibility(View.INVISIBLE);
         getBtn2().setVisibility(View.INVISIBLE);
         getTv_out().setVisibility(View.VISIBLE);
 
-
+        hideLine();
     }
 
     @Override
@@ -116,24 +117,36 @@ public class TnementAcitivity extends YzsBaseActivity {
         houseDetil= (HouseDetil.ViewDataBean) var1.getSerializable("houseDetil");
         Picasso.with(this).load(bean.getRoomSimpleImage()).fit().into(iv_cell);
         tv_cell_remain.setText(bean.getRoomNumber());
-        tv_cell_cost.setText(bean.getRoomMoney());
+        SpannableString msp = new SpannableString("￥" + bean.getRoomMoney() + "/月");
+        msp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  //粗体
+        tv_cell_cost.setText(msp);
         tv_style.setText(bean.getRoomStyle());
+
         getTv_smell().setTextColor(Color.BLACK);
       String[] s=  bean.getRoomSet().split(" ");
-     for(int i=0;i<s.length;i++){
-            String str=s[i];
-       for(TextView textView :ss){
+             /*for(int i=0;i<s.length;i++){
+                    String str=s[i];
 
-           if(textView.getText().equals(str)){
-               textView.setTextColor(Color.parseColor("#0DADA2"));
+               for(TextView textView :ss){
 
+                   if(textView.getText().equals(str)){
+                       textView.setTextColor(Color.parseColor("#0DADA2"));
+                   }
 
-           }
-
-       }
-         }
-
-
+               }
+                 }*/
+        if (bean.getRoomSet().contains("床")) {
+            tv_chuang.setBackgroundResource(R.drawable.image_bed);
+        }
+        if (bean.getRoomSet().contains("热水器")) {
+            tv_reshuiqi.setBackgroundResource(R.drawable.image_heater);
+        }
+        if (bean.getRoomSet().contains("空调")) {
+            tv_kongtiao.setBackgroundResource(R.drawable.image_aircondition);
+        }
+        if (bean.getRoomSet().contains("宽带")) {
+            tv_huangdai.setBackgroundResource(R.drawable.image_web);
+        }
      }
 
 
