@@ -40,6 +40,16 @@ public class MpChartActivity extends YzsBaseActivity {
 
     ViewPager mViewPager;
     MpChartAdapter mpChartAdapter;
+   public static final int[] PIE_COLORS = {
+           Color.rgb(75, 208, 250),
+           Color.rgb(141, 207, 109),
+           Color.rgb(115, 120, 204),
+           Color.rgb(252, 114, 86),
+           Color.rgb(255, 184, 96)
+   };
+
+
+
     @Override
     protected void initContentView(Bundle var1) {
 
@@ -56,25 +66,26 @@ public class MpChartActivity extends YzsBaseActivity {
       //饼状图
       PieChart mPieChart = (PieChart)  view.findViewById(R.id.mPieChart);
       mPieChart.setUsePercentValues(true);
+      mPieChart.setDrawEntryLabels(false);
       mPieChart.getDescription().setEnabled(false);
       mPieChart.setExtraOffsets(5, 10, 5, 5);
-
+      mPieChart.setUsePercentValues(true);
       mPieChart.setDragDecelerationFrictionCoef(0.95f);
       //设置中间文件
 //      mPieChart.setCenterText(generateCenterSpannableText());
-
+      mPieChart.setDrawSliceText(false);//设置隐藏饼图上
       mPieChart.setDrawHoleEnabled(true);
       mPieChart.setHoleColor(Color.WHITE);
 
       mPieChart.setTransparentCircleColor(Color.WHITE);
       mPieChart.setTransparentCircleAlpha(110);
       mPieChart.getLegend().setFormSize(14);
-      mPieChart.setDrawSliceText(true);
-      //设置图列标识文字的大小
-      mPieChart.getLegend().setTextSize(14);
 
-      mPieChart.setHoleRadius(58f);
-      mPieChart.setTransparentCircleRadius(61f);
+      //设置图列标识文字的大小
+      mPieChart.getLegend().setTextSize(12);
+
+
+      mPieChart.setTransparentCircleRadius(28f);
       mPieChart.animateX(1400);
       mPieChart.setDrawCenterText(true);
 
@@ -114,6 +125,7 @@ public class MpChartActivity extends YzsBaseActivity {
       l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
       l.setDrawInside(false);
       l.setXEntrySpace(7f);
+      l.setFormSize(10);
       l.setYEntrySpace(8f);
       l.setYOffset(0f);
 
@@ -127,21 +139,27 @@ public class MpChartActivity extends YzsBaseActivity {
         PieDataSet dataSet = new PieDataSet(entries, "金额");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
+        dataSet.setValueLinePart1OffsetPercentage(100f);//数据连接线距图形片内部边界的距离，为百分数
+        dataSet.setValueLinePart1Length(0.3f);
+        dataSet.setValueLinePart2Length(0.4f);
+
+        dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
 
         //数据和颜色
-        ArrayList<Integer> colors = new ArrayList<Integer>();
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-        colors.add(ColorTemplate.getHoloBlue());
-        dataSet.setColors(colors);
+//        ArrayList<Integer> colors = new ArrayList<Integer>();
+//        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+//            colors.add(c);
+//        for (int c : ColorTemplate.JOYFUL_COLORS)
+//            colors.add(c);
+//        for (int c : ColorTemplate.COLORFUL_COLORS)
+//            colors.add(c);
+//        for (int c : ColorTemplate.LIBERTY_COLORS)
+//            colors.add(c);
+//        for (int c : ColorTemplate.PASTEL_COLORS)
+//            colors.add(c);
+//        colors.add(ColorTemplate.getHoloBlue());
+        dataSet.setColors(PIE_COLORS);//设置饼块的颜色
+
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(15f);
