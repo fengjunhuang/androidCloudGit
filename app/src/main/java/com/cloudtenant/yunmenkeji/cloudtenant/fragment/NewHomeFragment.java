@@ -120,7 +120,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                                 config.setReactColor(R.color.red1);//设置扫描框四个角的颜色 默认为淡蓝色
                                 //config.setFrameLineColor(R.color.white);//设置扫描框边框颜色 默认无色
                                 config.setFullScreenScan(false);//是否全屏扫描  默认为true  设为false则只会在扫描框中扫描
-                                config.setShowAlbum(false);
+                                config.setShowAlbum(true);
                                 intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
                                 startActivityForResult(intent, REQUEST_CODE_SCAN);
                             }
@@ -171,6 +171,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
 
                 String content = data.getStringExtra(Constant.CODED_CONTENT);
                 Toast.makeText(getContext(), "扫描结果为：" + content, Toast.LENGTH_LONG).show();
+                Log.e("getData","扫描结果为="+content);
             }
         }
     }

@@ -59,9 +59,9 @@
                      android:textSize="19sp"
                      />
                  <ImageView
-                     android:src="@drawable/browse"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content" />
+                     android:src="@drawable/image_blowse"
+                     android:layout_width="@dimen/x18"
+                     android:layout_height="@dimen/x18" />
                  <TextView
                      android:id="@+id/tv_seeTimes"
                      android:layout_marginLeft="@dimen/x5"

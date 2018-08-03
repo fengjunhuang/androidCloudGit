@@ -181,6 +181,9 @@
             android:name=".activity.CommitIdActivity" />
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".activity.IdCammerActivity" />
+
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.QrCodeActivity" />
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="landscape"
             android:name=".activity.SignViewActivity" />
