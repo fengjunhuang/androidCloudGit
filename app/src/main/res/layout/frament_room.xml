@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,21 +11,16 @@
 
     <View
         android:id="@+id/line"
-
         android:layout_width="1dp"
         android:layout_height="1dp"/>
     <com.cloudtenant.yunmenkeji.cloudtenant.view.LoadingLayout
-
         android:id="@+id/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-
-        ></com.cloudtenant.yunmenkeji.cloudtenant.view.LoadingLayout>
+        />
 <ScrollView
     android:scrollbars="none"
     android:id="@+id/my_scrollview"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <android.support.constraint.ConstraintLayout
