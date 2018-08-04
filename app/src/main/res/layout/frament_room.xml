@@ -171,28 +171,14 @@
                 android:text=" + "
                 android:textSize="10sp"
                 />
+
+
             <TextView
-                android:id="@+id/tv_wangfei"
-                android:textSize="10sp"
+                android:id="@+id/tv_qita"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/lineChart"
-                android:text="网费\n  50"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                app:layout_constraintTop_toBottomOf="@+id/lineChart"
-                android:text=" + "
-                android:textSize="10sp"
-                />
-            <TextView
-                android:id="@+id/tv_guanlifei"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/lineChart"
-                android:text="管理费\n  50"
+                android:text="其他\n  50"
                 android:textSize="10sp"
                 />
             <TextView

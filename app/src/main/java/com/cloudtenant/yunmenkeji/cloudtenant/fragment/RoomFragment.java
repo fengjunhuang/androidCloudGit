@@ -61,6 +61,12 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
     private PopupWindow      mPopWindow;
     RecyclerView recyclerView;
     PowWindowAdapter powWindowAdapter;
+    ArrayList<Entry> entries=new ArrayList<>();
+    ArrayList<Entry> entries1=new ArrayList<>();
+    private  TextView tv_fangzu;
+    private  TextView tv_shuifei;
+    private  TextView tv_dianfei;
+    private  TextView tv_qita;
     @Override
     protected void initItemLayout() {
         setLayoutResId(R.layout.item_safe_sensor);
@@ -129,7 +135,11 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
         mLoading = (LoadingLayout) view.findViewById(R.id.loading_layout);
         mLoading.showContent(myScrollView);
         mLoading.showLoading();
-
+        tv_dianfei=view.findViewById(R.id.tv_dianfei);
+        tv_shuifei=view.findViewById(R.id.tv_shuifei);
+        tv_fangzu=view.findViewById(R.id.tv_fangzu);
+        tv_qita=view.findViewById(R.id.tv_qita);
+      
         return view;
     }
 
@@ -161,9 +171,8 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
                  myRoom=(MyRoom)t;
+                  initRoomData(myRoom.getViewDataX().get(0));
 
-                List<Entry> entries=new ArrayList<>();
-                List<Entry> entries1=new ArrayList<>();
                 for(MyRoom.ViewDataBean viewDataBean :((MyRoom) t).getViewDataX()){
                     if(((MyRoom) t).getViewDataX().indexOf(viewDataBean)==0){
                         powWindowAdapter.add(new ImageText(viewDataBean.getMyRoomName(),true));
@@ -177,10 +186,15 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
                 for(Integer power:((MyRoom) t).getViewDataX().get(0).getMyRoomPowerArr()){
                     entries1.add(new Entry(((MyRoom) t).getViewDataX().get(0).getMyRoomPowerArr().indexOf(power),power.floatValue()));
                 }
-                initMpChat(entries,entries1);
+                initMpChat(entries,entries1,6);
                 mAdapter.addData(myRoom.getViewDataX().get(0).getMyRoomSensorList());
                 powWindowAdapter.notifyDataSetChanged();
                 mLoading.dimssDoading();
+
+            }
+
+            private void initRoomData(MyRoom.ViewDataBean viewDataBean) {
+
 
             }
 
@@ -192,26 +206,21 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
         },"");
     }
 
-    private void initMpChat( List<Entry> entries,List<Entry> entries1) {
+    private void initMpChat( List<Entry> entries,List<Entry> entries1,int size) {
 
-
+        List<Entry> mentries=  entries.subList(0,size);
+        List<Entry>  mentries1=  entries1.subList(0,size);
         //显示边界
         mLineChart.setDrawBorders(true);
         //设置数据
 
         final List<String> mlistX =new ArrayList<>();
-        mlistX.add("1月");
-        mlistX.add("2月");
-        mlistX.add("3月");
-        mlistX.add("4月");
-        mlistX.add("5月");
-        mlistX.add("6月");
-        mlistX.add("7月");
-        mlistX.add("8月");
-        mlistX.add("9月");
-        mlistX.add("10月");
-        mlistX.add("11月");
-        mlistX.add("12月");
+
+        for(Entry entry:mentries){
+            mlistX.add((int) entry.getX()+1+"月");
+
+        }
+
        /* entries.add(new Entry(0, 30f));
         entries.add(new Entry(1, 50f));
         entries.add(new Entry(2, 81f));
@@ -248,17 +257,17 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
                 return mlistX.get((int) value);
             }
         });
-
+        xAxis.setLabelCount(size, true);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextSize(18);
 
         List<ILineDataSet> sets = new ArrayList<>();
-        LineDataSet  lineDataSet=     new LineDataSet(entries, "电费");
+        LineDataSet  lineDataSet=     new LineDataSet(mentries, "电费");
 
         lineDataSet.setColor(Color.GREEN);
         sets.add(lineDataSet);
 
-        sets.add(new LineDataSet(entries1, "水费"));
+        sets.add(new LineDataSet(mentries1, "水费"));
         LineData lineData = new LineData(sets);
         Legend legend = mLineChart.getLegend();
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
@@ -372,7 +381,10 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
         view.findViewById(R.id.iv_detil).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                readyGo(MpChartActivity.class);
+                Bundle bundle =new Bundle();
+                bundle.putParcelableArrayList("entries",entries);
+                bundle.putParcelableArrayList("entries1",entries1);
+                readyGo(MpChartActivity.class,bundle);
             }
         });
         iv_select.setOnClickListener(new View.OnClickListener() {

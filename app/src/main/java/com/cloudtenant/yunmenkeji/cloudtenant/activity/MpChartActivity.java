@@ -40,6 +40,8 @@ public class MpChartActivity extends YzsBaseActivity {
 
     ViewPager mViewPager;
     MpChartAdapter mpChartAdapter;
+    ArrayList<Entry> entries;
+    ArrayList<Entry> entries1;
    public static final int[] PIE_COLORS = {
            Color.rgb(75, 208, 250),
            Color.rgb(141, 207, 109),
@@ -55,6 +57,7 @@ public class MpChartActivity extends YzsBaseActivity {
 
 
         setContentView(R.layout.activity_mp_chart);
+        getBundleExtras(getIntent().getExtras());
         mViewPager=findViewById(R.id.slidebar_viewPager);
       mpChartAdapter = new MpChartAdapter();
         mViewPager.setAdapter(new MpChartAdapter());
@@ -173,48 +176,27 @@ public class MpChartActivity extends YzsBaseActivity {
 
         LineChart mLineChart=  view.findViewById(R.id.lineChart);
         //显示边界
+     initMpChat(entries,entries1,12,mLineChart);
+        return mLineChart;
+
+    }
+
+    private void initMpChat( List<Entry> entries,List<Entry> entries1,int size, LineChart mLineChart) {
+
+        entries=  entries.subList(0,size);
+        entries1=  entries1.subList(0,size);
+        //显示边界
         mLineChart.setDrawBorders(true);
         //设置数据
-        List<Entry> entries = new ArrayList<>();
-        List<Entry> entries1 = new ArrayList<>();
+
         final List<String> mlistX =new ArrayList<>();
-        mlistX.add("1月");
-        mlistX.add("2月");
-        mlistX.add("3月");
-        mlistX.add("4月");
-        mlistX.add("5月");
-        mlistX.add("6月");
-        mlistX.add("7月");
-        mlistX.add("8月");
-        mlistX.add("9月");
-        mlistX.add("10月");
-        mlistX.add("11月");
-        mlistX.add("12月");
-        entries.add(new Entry(0, 30f));
-        entries.add(new Entry(1, 50f));
-        entries.add(new Entry(2, 81f));
-        entries.add(new Entry(3, 46f));
-        entries.add(new Entry(4, 204f));
-        entries.add(new Entry(5, 290f));
-        entries.add(new Entry(6, 310f));
-        entries.add(new Entry(7, 259f));
-        entries.add(new Entry(8, 530f));
-        entries.add(new Entry(9, 430f));
-        entries.add(new Entry(10, 498f));
-        entries.add(new Entry(11, 431f));
-        entries1.add(new Entry(0, 14f));
-        entries1.add(new Entry(1, 16f));
-        entries1.add(new Entry(2, 11f));
-        entries1.add(new Entry(3, 12f));
-        entries1.add(new Entry(4, 18f));
-        entries1.add(new Entry(5, 10f));
-        entries1.add(new Entry(6, 21f));
-        entries1.add(new Entry(7, 32f));
-        entries1.add(new Entry(8, 17f));
-        entries1.add(new Entry(9, 12f));
-        entries1.add(new Entry(10, 17f));
-        entries1.add(new Entry(11, 19f));
-        //一个LineDataSet就是一条线
+
+        for(Entry entry:entries){
+            mlistX.add((int) entry.getX()+1+"月");
+
+        }
+
+
         XAxis xAxis = mLineChart.getXAxis();
 
         xAxis.setValueFormatter(new IAxisValueFormatter() {
@@ -226,12 +208,12 @@ public class MpChartActivity extends YzsBaseActivity {
                 return mlistX.get((int) value);
             }
         });
-
+        xAxis.setLabelCount(size, true);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextSize(18);
 
         List<ILineDataSet> sets = new ArrayList<>();
-        LineDataSet lineDataSet=     new LineDataSet(entries, "电费");
+        LineDataSet  lineDataSet=     new LineDataSet(entries, "电费");
 
         lineDataSet.setColor(Color.GREEN);
         sets.add(lineDataSet);
@@ -239,15 +221,17 @@ public class MpChartActivity extends YzsBaseActivity {
         sets.add(new LineDataSet(entries1, "水费"));
         LineData lineData = new LineData(sets);
         Legend legend = mLineChart.getLegend();
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         legend.setTextSize(18f);
         legend.setFormSize(13);
+        legend.setXEntrySpace(30f);
         mLineChart.setData(lineData);
         mLineChart.animateY(1000);
-        return mLineChart;
+
+
+
 
     }
-
-
     @Override
     protected void initView() {
 
@@ -260,6 +244,9 @@ public class MpChartActivity extends YzsBaseActivity {
 
     @Override
     protected void getBundleExtras(Bundle var1) {
+
+     entries=  var1.getParcelableArrayList("entries");
+      entries1=  var1.getParcelableArrayList("entries1");
 
     }
 
