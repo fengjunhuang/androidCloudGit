@@ -1,5 +1,6 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.viewholder;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -17,14 +18,14 @@ public class NoticeViewHolder extends BaseViewHolder<NoticeHistory.ViewDataBean>
     private TextView name;
     private TextView time;
     private TextView textView;
+    private TextView tv_type;
 
     public NoticeViewHolder(ViewGroup parent) {
-        super(parent, R.layout.item_notice);
-        name = $(R.id.messageInfo);
-        time = $(R.id.time);
-        textView = $(R.id.title);
+        super(parent, R.layout.item_message_room);
+        name = $(R.id.tv_message);
+        time = $(R.id.tv_time);
+        tv_type = $(R.id.tv_type);
 
-        textView .setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
     }
 
     @Override
@@ -32,6 +33,8 @@ public class NoticeViewHolder extends BaseViewHolder<NoticeHistory.ViewDataBean>
 
 
         name.setText(person.getMessageInfo());
+        tv_type.setTextColor(getContext().getResources().getColor(R.color.gren_cut_clorr));
         time.setText(person.getMessageTime());
+        time.setTextColor(Color.BLACK);
     }
 }

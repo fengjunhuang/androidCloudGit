@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
@@ -45,12 +46,8 @@ public class MessageTraceActivity extends BaseActivity implements View.OnClickLi
                 finish();
             }
         });
-        findViewById(R.id.title).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        ((TextView)findViewById(R.id.title)).setText("安全日志");
+        findViewById(R.id.line).setVisibility(View.GONE);
         recyclerView= (EasyRecyclerView)findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //recyclerView.addItemDecoration(new DividerDecoration(Color.parseColor("#aaaaaa"), 1));

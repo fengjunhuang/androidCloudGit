@@ -57,6 +57,7 @@ public class MyFamilyActivity extends BaseActivity {
                 Intent intent=new Intent(MyFamilyActivity.this, ManageActivity.class);
                 intent.putExtra("RoomName",viewDataBeanList.get(position).getRoomName());
                 intent.putExtra("isAdmin",viewDataBeanList.get(position).isIsAdmin());
+                intent.putExtra("familyID",viewDataBeanList.get(position).getFamilyID());
                 intent.putExtra("familyName",viewDataBeanList.get(position).getFamilyName());
                 startActivity(intent);
             }

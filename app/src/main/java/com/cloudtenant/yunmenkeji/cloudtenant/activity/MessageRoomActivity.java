@@ -129,7 +129,6 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
                 }
                 else{
                     startActivity(new Intent(MessageRoomActivity.this, NoticeActivity.class));
-
                 }
 
             }
@@ -154,6 +153,7 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
         for (int i = 0; i < viewDataBeanList.size(); i++) {
             map = new HashMap<String, Object>();
             map.put("tvAreaItem", viewDataBeanList.get(i).getMessageRoomName());
+            //红色图标是否显示
             if (i==tag) {
                 map.put("tvAreaNo", true);
             }else {

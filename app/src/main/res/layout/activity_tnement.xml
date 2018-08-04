@@ -15,9 +15,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-
-
-
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -40,7 +37,6 @@
                             android:src="@mipmap/zufang"
                             />
                         <ImageView
-                            android:layout_marginTop="@dimen/y8"
                             android:layout_marginRight="@dimen/x8"
                             android:layout_alignParentRight="true"
                             android:src="@drawable/image_vr"
@@ -51,14 +47,14 @@
                             android:textColor="@color/black"
                             android:text="5"
                             android:gravity="center"
-                            android:textSize="9sp"
+                            android:textSize="10sp"
                             android:background="@drawable/oval_background_white"
                             android:layout_marginRight="@dimen/x8"
                             android:layout_marginBottom="@dimen/y8"
                             android:layout_alignParentBottom="true"
                             android:layout_alignParentRight="true"
-                            android:layout_width="@dimen/x12"
-                            android:layout_height="@dimen/x12" />
+                            android:layout_width="@dimen/x15"
+                            android:layout_height="@dimen/x15" />
                     </RelativeLayout>
 
                     <LinearLayout
@@ -67,7 +63,7 @@
                         android:orientation="vertical"
                         >
                         <LinearLayout
-                            android:layout_marginTop="@dimen/x8"
+                            android:layout_marginTop="@dimen/x12"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -115,9 +111,9 @@
                             </LinearLayout>
 
                             <TextView
-                                android:textSize="21sp"
+                                android:textSize="19sp"
                                 android:id="@+id/tv_style"
-                                android:textColor="@color/gray"
+                                android:textColor="@color/bg_gray"
                                 android:text="一按一租 | 一房一厅 | 全景看房"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
@@ -127,14 +123,12 @@
                          android:layout_marginTop="10dp"
                          style="@style/match_line_dp"/>
                      <LinearLayout
-                         android:layout_marginTop="@dimen/x5"
+                         android:layout_marginTop="@dimen/x2"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:orientation="vertical">
                          <LinearLayout
-                             android:layout_width="match_parent"
-                             android:layout_height="wrap_content"
-                             android:orientation="horizontal"
+                             style="@style/tenment_icon_ll_style"
                              android:layout_marginTop="@dimen/x5"
                              >
                              <TextView
@@ -156,14 +150,15 @@
                                  android:id="@+id/tv_xiyiji"
                                  android:background="@drawable/image_washer_gray"
                                  />
-
-
                          </LinearLayout>
                          <LinearLayout
-                             android:layout_width="match_parent"
-                             android:layout_height="wrap_content"
-                             android:orientation="horizontal"
+                             style="@style/tenment_icon_ll_style"
                              android:layout_marginTop="5dp">
+                             <TextView
+                                 style="@style/tnement_image_style"
+                                 android:id="@+id/tv_shafa"
+                                 android:background="@drawable/image_sofa_gray"
+                                 />
                              <TextView
                                  style="@style/tnement_image_style"
                                  android:id="@+id/tv_dianshiji"
@@ -176,20 +171,12 @@
                                  />
                              <TextView
                                  style="@style/tnement_image_style"
-                                 android:id="@+id/tv_yigui"
-                                 android:background="@drawable/image_closet_gray"
-                                 />
-                             <TextView
-                                 style="@style/tnement_image_style"
-                                 android:id="@+id/tv_shafa"
-                                 android:background="@drawable/image_sofa_gray"
+                                 android:id="@+id/tv_tianranqi"
+                                 android:background="@drawable/image_gas_gray"
                                  />
                          </LinearLayout>
                          <LinearLayout
-                             android:layout_width="match_parent"
-                             android:layout_height="wrap_content"
-                             android:orientation="horizontal"
-                             >
+                             style="@style/tenment_icon_ll_style">
                              <TextView
                                  style="@style/tnement_image_style"
                                  android:id="@+id/tv_huangdai"
@@ -197,8 +184,8 @@
                                  />
                              <TextView
                                  style="@style/tnement_image_style"
-                                 android:id="@+id/tv_tianranqi"
-                                 android:background="@drawable/image_gas_gray"
+                                 android:id="@+id/tv_yigui"
+                                 android:background="@drawable/image_closet_gray"
                                  />
                              <TextView
                                  style="@style/tnement_image_style"
@@ -212,8 +199,6 @@
                      <View
                          android:layout_marginTop="@dimen/x5"
                          style="@style/match_line_dp"/>
-
-
                     </LinearLayout>
                 </LinearLayout>
 
@@ -222,21 +207,28 @@
 
 
 
-        <View
-            style="@style/match_line_dp"
-            />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y35"
+            android:layout_height="@dimen/y32"
             android:id="@+id/ll_hetong"
             >
-            <TextView
+            <LinearLayout
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_width="0dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:id="@+id/tv_cell_cost"
-                android:layout_height="match_parent" />
+                android:orientation="vertical"
+                android:layout_width="0dp">
+                <View
+                    style="@style/match_line"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/tv_cell_cost"
+                    />
+            </LinearLayout>
             <TextView
                 android:layout_weight="1"
                 android:layout_width="0dp"

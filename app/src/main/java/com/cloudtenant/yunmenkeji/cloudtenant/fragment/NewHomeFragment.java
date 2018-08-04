@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,12 +34,15 @@ import com.cloudtenant.yunmenkeji.cloudtenant.activity.CityPickerActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.DisMapActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.HouseDetilActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.HouseAdapter;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.Qr;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.AppUtils;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.JSONUtil;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.PreferencesUtils;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.SpacesItemDecoration;
 import com.daimajia.slider.library.SliderLayout;
@@ -97,6 +101,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
     private LinearLayout ll_tor_bar;
     private LinearLayout.LayoutParams linearParams;
     private int scrolledDistance = 0;
+    private Button tv_common, tv_map;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -131,9 +136,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                                 Uri packageURI = Uri.parse("package:" + getActivity().getPackageName());
                                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
                                 startActivity(intent);
-
                                 Toast.makeText(getContext(), "没有权限无法扫描呦", Toast.LENGTH_LONG).show();
                             }
                         }).start();
@@ -143,9 +146,30 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             case R.id.btn_op2:{
                 startActivityForResult(new Intent(getActivity(),CityPickerActivity.class),GETCITY);
             }
-
-
             break;
+
+            case R.id.tv_map:{
+                if (!isMapMode) {
+                    tv_map.setBackgroundResource(R.drawable.butten_background_green_solid_r);
+                    tv_map.setTextColor(getResources().getColor(R.color.white));
+                    tv_common.setBackgroundResource(R.drawable.butten_background_green_l);
+                    tv_common.setTextColor(getResources().getColor(R.color.orange_cut_clorr));
+                    if (isFirst) {
+                        initMyMap();
+                    }
+                    HideList();
+                }
+            }break;
+            case R.id.tv_common:{
+                if (isMapMode) {
+                    tv_common.setBackgroundResource(R.drawable.butten_background_green_solid);
+                    tv_common.setTextColor(getResources().getColor(R.color.white));
+                    tv_map.setBackgroundResource(R.drawable.butten_background_green);
+                    tv_map.setTextColor(getResources().getColor(R.color.orange_cut_clorr));
+                    ShowList();
+                }
+            }break;
+
         }
     }
 
@@ -168,9 +192,25 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
         // 扫描二维码/条码回传
         if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
             if (data != null) {
-
+                final String join="1";
+                final String roominfo="2";
                 String content = data.getStringExtra(Constant.CODED_CONTENT);
-                Toast.makeText(getContext(), "扫描结果为：" + content, Toast.LENGTH_LONG).show();
+                if (content.contains("qrType")) {
+                    Qr qr= JSONUtil.fromJson(content,Qr.class);
+                        Log.e("getData","解析成功qrtype="+qr.getQrType());
+                    switch (qr.getQrType()) {
+                        case join:{
+                        Log.e("getData","解析成功qrtype=1>>>开始执行joinFamily方法");
+
+                            joinFamily();
+                        }break;
+                        case roominfo:{
+
+                        }break;
+                    }
+                }else {
+                    Toast.makeText(getContext(), "二维码解析失败！！！请重试" + content, Toast.LENGTH_LONG).show();
+                }
                 Log.e("getData","扫描结果为="+content);
             }
         }
@@ -216,7 +256,6 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                         ll_tor_bar.setLayoutParams(linearParams);
                     }
                 }
-
                 Log.e("getData","onScrolled》》dy="+dy+">>>newTopMargin="+newTopMargin);
             }
         });
@@ -225,32 +264,10 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             public View onCreateView(ViewGroup parent) {
                 View view=inflater.inflate(R.layout.house_header,parent,false);
                 banner = view. findViewById(R.id.banner);
-                final TextView tv_common=view.findViewById(R.id.tv_common);
-                final TextView tv_map=view.findViewById(R.id.tv_map);
-                tv_common.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        tv_common.setBackgroundResource(R.drawable.butten_background_green_solid);
-                        tv_common.setTextColor(getResources().getColor(R.color.white));
-                        tv_map.setBackgroundResource(R.drawable.butten_background_green);
-                        tv_map.setTextColor(getResources().getColor(R.color.orange_cut_clorr));
-                        ShowList();
-                    }
-                });
-                tv_map.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        tv_map.setBackgroundResource(R.drawable.butten_background_green_solid_r);
-                        tv_map.setTextColor(getResources().getColor(R.color.white));
-                        tv_common.setBackgroundResource(R.drawable.butten_background_green_l);
-                        tv_common.setTextColor(getResources().getColor(R.color.orange_cut_clorr));
-
-                        if (isFirst) {
-                            initMyMap();
-                        }
-                        HideList();
-                    }
-                });
+                tv_common=view.findViewById(R.id.tv_common);
+                tv_map=view.findViewById(R.id.tv_map);
+                tv_common.setOnClickListener(NewHomeFragment.this);
+                tv_map.setOnClickListener(NewHomeFragment.this);
                 mapview=view.findViewById(R.id.map);
                 //获取TencentMap实例
 
@@ -299,7 +316,6 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
 
 
     private void initMyMap() {
-
         List<HouseDetil.ViewDataBean>  list= viewDataBean;
 
         tencentMap.setInfoWindowAdapter(new TencentMap.InfoWindowAdapter() {
@@ -328,16 +344,19 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                 return view;
             }
         });
-        for(HouseDetil.ViewDataBean bean :list){
-            LatLng latLng = new LatLng(Double.valueOf(bean.getCellLatitude()),Double.valueOf(bean.getCellLongitude()));
-            final Marker marker = tencentMap.addMarker(new MarkerOptions().
-                    position(latLng).
-                    title(bean.getCellName()).
-                    snippet(bean.getCellAddress()));
+        if (list!=null) {
+            for(HouseDetil.ViewDataBean bean :list){
+                LatLng latLng = new LatLng(Double.valueOf(bean.getCellLatitude()),Double.valueOf(bean.getCellLongitude()));
+                final Marker marker = tencentMap.addMarker(new MarkerOptions().
+                        position(latLng).
+                        title(bean.getCellName()).
+                        snippet(bean.getCellAddress()));
 
-            marker.setTag(bean);
-            markers.add(marker);
+                marker.setTag(bean);
+                markers.add(marker);
+            }
         }
+
     }
 
     protected void bindListener() {
@@ -453,7 +472,6 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                 Log.e("getData",houseDetil.getViewDataX().get(0).toString());
                 Log.e("getData",houseDetil.getViewDataX().size()+"条信息");
 
-
                 viewDataBean=houseDetil.getViewDataX();
                 if (!isMapMode) {
                     adapter.addAll(viewDataBean);
@@ -466,7 +484,23 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             }
         },"");
     }
+    private void joinFamily() {
+        HttpMethods.getInstance().joinFamily(new BaseObserver<BrokenUp>() {
+            @Override
+            protected void onSuccees(BaseBean t) throws Exception {
+                BrokenUp houseDetil= (BrokenUp) t;
+                Log.e("getData","执行joinFamily方法返回"+houseDetil.getMessage());
+                System.out.println(t.getMessage()+"");
+                Toast.makeText(getActivity(), houseDetil.getMessage(), Toast.LENGTH_SHORT).show();
+                //adapter.addAll(viewDataBeanList);
+            }
 
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+            }
+        },"");
+    }
 
 
 
@@ -520,6 +554,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
 
     @Override
     public void onRefresh() {
+        final boolean aa=isMapMode;
         page = 1;
         handler.postDelayed(new Runnable() {
             @Override
@@ -530,6 +565,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                     return;
                 }
                 requestData();
+                isMapMode=aa;
                 //page=1;
             }
         }, 2000);

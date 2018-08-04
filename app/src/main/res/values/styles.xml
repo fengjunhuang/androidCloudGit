@@ -30,8 +30,9 @@
 
     <style name="me_text_style">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:textSize">17sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
     </style>
     <style name="edit_pro_text_style">
         <item name="android:textColor">@color/txt_black</item>
@@ -186,6 +187,21 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">@dimen/x30</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginRight">@dimen/x5</item>
+    </style>
+
+    <style name="tenment_icon_ll_style">
+        <item name="android:paddingRight">@dimen/x18</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="commit_id_tv_style">
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:textColor">@color/light_black</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 </resources>

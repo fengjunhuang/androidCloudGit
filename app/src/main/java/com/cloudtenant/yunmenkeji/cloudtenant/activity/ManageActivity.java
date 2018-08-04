@@ -21,7 +21,7 @@ import com.gersion.library.base.BaseActivity;
  * Created by tlol20 on 2017/6/14
  */
 public class ManageActivity extends BaseActivity {
-    private String content;
+    private String content, familyID;
     private ImageView iv_qr_code;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,10 @@ public class ManageActivity extends BaseActivity {
         findViewById(R.id.rl_qr_code).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ManageActivity.this,QrCodeActivity.class));
+                Intent intent=
+                        new Intent(ManageActivity.this,QrCodeActivity.class);
+                intent.putExtra("familyID",familyID);
+                startActivity(intent);
             }
         });
         findViewById(R.id.title).setOnClickListener(new View.OnClickListener() {
@@ -57,6 +60,7 @@ public class ManageActivity extends BaseActivity {
         Intent intent=getIntent();
         String familyName=intent.getStringExtra("familyName");
         String roomName=intent.getStringExtra("RoomName");
+        familyID=intent.getStringExtra("familyID");
         boolean isAdmin=intent.getBooleanExtra("isAdmin",false);
         tvFamilyName.setText(familyName);
         tvRoomName.setText(roomName);
@@ -66,16 +70,17 @@ public class ManageActivity extends BaseActivity {
             tv_permission.setText("成员");
         }
          iv_qr_code=findViewById(R.id.iv_qr_code);
-         content="{\n" +
-                "\t\"qrType\": \"1\",\n" +
-                "\t\"cellRoomID\": "+roomName+",\n" +
-                "\t\"cellName\": "+roomName+",\n" +
+
+        content="{\n" +
                 "\t\"cellCost\": \"\",\n" +
-                "\t\"cellAddress\": "+familyName+",\n" +
-                "\t\"cellRemain\": \"\",\n" +
-                "\t\"cellImage\": \"\",\n" +
                 "\t\"cellBuildID\": \"\",\n" +
-                "\t\"familyID\": \"98989898\"\n" +
+                "\t\"cellImage\": \"\",\n" +
+                "\t\"qrType\": \"1\",\n" +
+                "\t\"familyID\": \""+familyID+"\",\n" +
+                "\t\"cellName\": \"\",\n" +
+                "\t\"cellRemain\": \"\",\n" +
+                "\t\"cellRoomID\": \"\",\n" +
+                "\t\"cellAddress\": \"\"\n" +
                 "}";
 
         Log.d("getData","width="+iv_qr_code.getWidth()+">>>>>height="+iv_qr_code.getHeight());

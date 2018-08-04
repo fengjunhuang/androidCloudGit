@@ -4,13 +4,13 @@
     android:orientation="vertical"
     android:background="@android:color/white"
     android:layout_width="match_parent"
-    android:paddingLeft="@dimen/x17"
-    android:paddingRight="@dimen/x17"
     android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/ll_top_bar"
         android:background="@android:color/white"
         android:gravity="center_vertical"
+        android:paddingLeft="@dimen/x17"
+        android:paddingRight="@dimen/x17"
         android:layout_width="match_parent"
         android:layout_height="60dp">
 
@@ -53,10 +53,11 @@
         style="@style/match_line"/>
 
     <com.jude.easyrecyclerview.EasyRecyclerView
+        android:paddingLeft="@dimen/x17"
+        android:paddingRight="@dimen/x17"
         android:id="@+id/recycler_view"
         android:scrollbarThumbVertical="@drawable/butten_background_green_solid"
         app:layout_progress="@layout/view_progress"
-        app:layout_empty="@layout/view_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </com.jude.easyrecyclerview.EasyRecyclerView>

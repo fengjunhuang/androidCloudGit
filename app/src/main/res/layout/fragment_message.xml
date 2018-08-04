@@ -4,9 +4,9 @@
     android:orientation="vertical"
     android:background="@android:color/white"
     android:layout_width="match_parent"
-    android:padding="20dp"
     android:layout_height="match_parent">
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:background="@android:color/white"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
@@ -21,6 +21,7 @@
             android:id="@+id/title"
             android:gravity="center"
             android:text="消息"
+            android:textStyle="bold"
             android:textColor="@android:color/black"
             android:layout_width="match_parent"
             android:textSize="19sp"
@@ -48,12 +49,14 @@
     </LinearLayout>
 
     <View
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         style="@style/match_line"/>
 
     <com.jude.easyrecyclerview.EasyRecyclerView
         android:id="@+id/recycler_view"
         app:layout_empty="@layout/view_empty"
+        android:paddingLeft="@dimen/x20"
+        android:paddingRight="@dimen/x20"
         app:layout_progress="@layout/view_progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
