@@ -49,9 +49,9 @@ public class ContractViewHolder extends BaseViewHolder<MyContract.ViewDataBean> 
             Date bt=sdf.parse(now);
             Date et=sdf.parse(person.getContractEndTime());
             if (!bt.before(et)) {
-                time.setTextColor(Color.RED);
+                time.setTextColor(getContext().getResources().getColor(R.color.red_cut_clorr));
             }else {
-                time.setTextColor(Color.GREEN);
+                time.setTextColor(getContext().getResources().getColor(R.color.gren_cut_clorr));
             }
         } catch (ParseException e) {
             e.printStackTrace();

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:id="@+id/out"
+        style="@style/click"
+        android:layout_height="40dp">
+        <ImageView
+            android:src="@mipmap/leftback"
+            android:layout_width="40dp"
+            android:padding="10dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/title"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="家庭二维码"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_qr_code"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/app_icon"
+        android:layout_marginTop="80dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <!--<TextView
+    android:layout_marginTop="10dp"
+    android:textSize="16sp"
+    android:textColor="@android:color/black"
+    android:text="云门租客"
+    android:layout_gravity="center_horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="3dp"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:text="V0.9.25"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />-->
+
+    <TextView
+        android:layout_marginTop="23dp"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:text="让你的家人打开云门租客"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:text="进入主界面-点击右上角扫一扫按钮"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:text="扫描此二维码，加入此家庭"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+
+
+</LinearLayout>

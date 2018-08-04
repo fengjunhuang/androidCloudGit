@@ -3,18 +3,26 @@ package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
+import com.cloudtenant.yunmenkeji.cloudtenant.adapter.ListRiskAreaListsDemoAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MessageOtherAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MessageRoomAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
@@ -27,6 +35,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
+import com.cloudtenant.yunmenkeji.cloudtenant.view.Solve7PopupWindow;
 import com.gersion.library.base.BaseActivity;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -36,7 +45,9 @@ import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by tlol20 on 2017/6/14
@@ -49,8 +60,15 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
     private Spinner spinner;
     private String telephone="tel:10086";
     private List<String> list=new ArrayList<>();
-
+    //private TextView tvAllArea;
     //private OkHttpHelper ok=OkHttpHelper.getInstance();
+    //菜单显示PopupWindow
+    private PopupWindow mPopWindow;
+    private View tvRiskArea;
+    private TextView tvTitle;
+    private ImageView mImageView;
+    private List<Map<String, Object>> riskAreaList = null;
+    private int tag=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,23 +96,26 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
                         .onDenied(new Action() {
                             @Override
                             public void onAction(Object data) {
-                                /*Uri packageURI = Uri.parse("package:" + getActivity().getPackageName());
-                                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                                startActivity(intent);*/
-
                                 Toast.makeText(MessageRoomActivity.this, "没有权限打电话哦", Toast.LENGTH_LONG).show();
                             }
                         }).start();
             }
         });
         spinner=findViewById(R.id.room_spinner);
+        mImageView=findViewById(R.id.tvAllArea);
+        tvRiskArea=findViewById(R.id.tvRiskArea);
+        tvTitle=findViewById(R.id.tvTitle);
+
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("onClick","点击了下拉按钮");
+                showRiskAreaPopupWindow();
+            }
+        });
 
 
-
-
-        recyclerView= (EasyRecyclerView)findViewById(R.id.recycler_view);
+        recyclerView= findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerDecoration(Color.parseColor("#aaaaaa"), 1));
         adapter = new MessageRoomAdapter(this);
@@ -115,14 +136,54 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
         });
     }
 
-    /*
+    //PopupWindow菜单详细内容显示
+    private void showRiskAreaPopupWindow() {
+        //设置contentView
+        View contentView = LayoutInflater.from(MessageRoomActivity.this).inflate(R.layout.newpages_activity_risk_area_popup_demo, null);
+        //适配7.0版本
+        mPopWindow = new Solve7PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+//        mPopWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+        mPopWindow.setContentView(contentView);
+        //获取实例，设置各个控件的点击响应
+        //注意：PopupWindow中各个控件的所在的布局是contentView，而不是在Activity中，所以，要在findViewById(R.id.tv)前指定根布局
+        //TextView tvAllArea = (TextView)contentView.findViewById(R.id.tvAllArea);
+        ListView lvRiskArea = (ListView)contentView.findViewById(R.id.lvRiskArea);
+        //区域列表加载
+        riskAreaList = new ArrayList<Map<String, Object>>();
+        Map<String,Object> map ;
+        for (int i = 0; i < viewDataBeanList.size(); i++) {
+            map = new HashMap<String, Object>();
+            map.put("tvAreaItem", viewDataBeanList.get(i).getMessageRoomName());
+            if (i==tag) {
+                map.put("tvAreaNo", true);
+            }else {
+                map.put("tvAreaNo", false);
+            }
+            riskAreaList.add(map);
+        }
 
-    private void AddData1() {
-        List<MessageRoom> dataList=new ArrayList<>();
-        dataList.add(new MessageRoom("夏天到了，我請大家去大保健","2018年6月20日 17:26:00"));
-        dataList.add(new MessageRoom("你的房間沒有任何情況","2018年6月20日 17:26:00"));
-        adapter.addAll(dataList);
-    }*/
+        ListRiskAreaListsDemoAdapter listRiskAreaListsDemoAdapter = new ListRiskAreaListsDemoAdapter(MessageRoomActivity.this, riskAreaList,
+                R.layout.spinner_item, new String[] { "tvAreaItem","tvAreaNo"}, new int[] { R.id.tv,R.id.iv});
+        lvRiskArea.setAdapter(listRiskAreaListsDemoAdapter);
+
+        /*tvAllArea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MessageRoomActivity.this, "直接绑定点击事件", Toast.LENGTH_SHORT).show();
+                mPopWindow.dismiss();
+            }
+        });*/
+
+        //解决5.0以下版本点击外部不消失问题
+        mPopWindow.setOutsideTouchable(true);
+        mPopWindow.setBackgroundDrawable(new BitmapDrawable());
+        //显示方式
+        mPopWindow.showAsDropDown(tvRiskArea);
+
+    }
+
+
+
 
 
     @Override
@@ -149,6 +210,7 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
                 viewDataBeanList=houseDetil.getViewDataX();
 
                 Log.e("viewDataBeanList",viewDataBeanList.get(0).getMessageRoomName());
+                tvTitle.setText(viewDataBeanList.get(0).getMessageRoomName());
                 banData(houseDetil.getViewDataX());
             }
 

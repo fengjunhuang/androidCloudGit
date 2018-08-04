@@ -50,10 +50,13 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
     private SpotsDialog mDialog;
     @Click(R.id.btn_login)
     void login(){
+        if (checkPhoneNum(et_number.getText().toString().trim(),"86")) {
+
+
         mDialog.show();
         SMSSDK.submitVerificationCode("86",phone,et_code.getText().toString().trim());
 //        goLogin();
-
+        }
     }
     @Click(R.id.btn_visitor)
     void visitor(){
