@@ -2,6 +2,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.viewholder;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
@@ -15,7 +16,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 public class TextViewHolder extends BaseViewHolder<ImageText> {
 private TextView tv_text;
 
-    private TextView iv_icon;
+    private ImageView iv_icon;
     public TextViewHolder(ViewGroup parent) {
         super(parent, R.layout.item_pow_room);
         tv_text= $(R.id.tv_text);
@@ -25,7 +26,7 @@ private TextView tv_text;
 
     @Override
     public void setData(ImageText data) {
-        super.setData(data);
+
         if(data.isSelect()){
             iv_icon.setVisibility(itemView.VISIBLE);
         }else {

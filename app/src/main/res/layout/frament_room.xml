@@ -45,7 +45,7 @@
                 android:text="东圃明珠新村6栋201"
                 android:layout_marginLeft="15dp"
                 android:textColor="@android:color/black"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:textSize="19sp"
                 android:layout_height="wrap_content" />

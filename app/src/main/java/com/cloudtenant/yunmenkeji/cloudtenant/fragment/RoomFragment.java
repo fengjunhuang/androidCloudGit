@@ -3,8 +3,10 @@ package com.cloudtenant.yunmenkeji.cloudtenant.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
@@ -13,15 +15,20 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.MessageRoomActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MpChartActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.PayActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.SensorActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.adapter.ListRiskAreaListsDemoAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.PowWindowAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
@@ -31,6 +38,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.CommonPopupWindow;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.LoadingLayout;
+import com.cloudtenant.yunmenkeji.cloudtenant.view.Solve7PopupWindow;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
@@ -43,16 +51,19 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 import com.yzs.yzsbaseactivitylib.fragment.YzsBaseListFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoomSensorListBean> implements CommonPopupWindow.ViewInterface{
-
+    private Spinner spinner;
     LineChart mLineChart;
     View myScrollView;
     private  MyRoom myRoom;
@@ -68,6 +79,8 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
     private  TextView tv_shuifei;
     private  TextView tv_dianfei;
     private  TextView tv_qita;
+    private  TextView  tv_title;
+    private List<Map<String, Object>> riskAreaList = null;
     @Override
     protected void initItemLayout() {
         setLayoutResId(R.layout.item_safe_sensor);
@@ -140,7 +153,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
         tv_shuifei=view.findViewById(R.id.tv_shuifei);
         tv_fangzu=view.findViewById(R.id.tv_fangzu);
         tv_qita=view.findViewById(R.id.tv_qita);
-      
+        tv_title=view.findViewById(R.id.title);
         return view;
     }
 
@@ -151,16 +164,12 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
         iv_select= ((ImageView)(view.findViewById(R.id.out)));
         iv_select.setImageResource(R.drawable.room_security);
 
-        iv_select.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("onClick","点击了下拉按钮");
-                showDownPop(view);
-            }
-        });
+
         setListener();
         request();
      recyclerView = view.findViewById(R.id.recy_pow);
+        spinner= view.findViewById(R.id.room_spinner);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
  powWindowAdapter=new PowWindowAdapter(getActivity());
         recyclerView.setAdapter(powWindowAdapter);
 //        showPopupWindow(iv_select);
@@ -175,13 +184,6 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
                  myRoom=(MyRoom)t;
                   initRoomData(myRoom.getViewDataX().get(0));
 
-                for(MyRoom.ViewDataBean viewDataBean :((MyRoom) t).getViewDataX()){
-                    if(((MyRoom) t).getViewDataX().indexOf(viewDataBean)==0){
-                        powWindowAdapter.add(new ImageText(viewDataBean.getMyRoomName(),true));
-                    }else {
-                    powWindowAdapter.add(new ImageText(viewDataBean.getMyRoomName(),false));}
-
-                }
                 for(Integer water:((MyRoom) t).getViewDataX().get(0).getMyRoomWaterArr()){
                     entries.add(new Entry(((MyRoom) t).getViewDataX().get(0).getMyRoomWaterArr().indexOf(water),water.floatValue()));
                 }
@@ -189,9 +191,10 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
                     entries1.add(new Entry(((MyRoom) t).getViewDataX().get(0).getMyRoomPowerArr().indexOf(power),power.floatValue()));
                 }
                 initMpChat(entries,entries1,6);
+
                 mAdapter.addData(myRoom.getViewDataX().get(0).getMyRoomSensorList());
-                powWindowAdapter.notifyDataSetChanged();
                 mLoading.dimssDoading();
+
 
             }
 
@@ -283,48 +286,61 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
 
 
     }
-    //向下弹出
 
-    public void showDownPop(View view) {
-
-        if (popupWindow != null && popupWindow.isShowing()) return;
-
-        popupWindow = new CommonPopupWindow.Builder(getActivity())
-
-                .setView(R.layout.pow_layout)
-
-                .setWidthAndHeight(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-
-                .setAnimationStyle(R.style.AnimDown)
-
-                .setViewOnclickListener(this)
-
-                .setOutsideTouchable(true)
-
-                .create();
-
-
-
-
-
-        int[] positions = new int[2];
-
-        view.getLocationOnScreen(positions);
-
-        popupWindow.showAtLocation(this.view.findViewById(android.R.id.content), Gravity.NO_GRAVITY, 0, positions[1] + view.getHeight());
-
-    }
-    private void showPopupWindow(View view) {
+    private void showPopupWindow(View view,MyRoom t) throws Exception {
         //设置contentView
         View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pow_layout, null);
-        PopupWindow      mPopWindow = new PopupWindow(contentView,
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        mPopWindow = new Solve7PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         //设置各个控件的点击响应
+        recyclerView=contentView.findViewById(R.id.recy_pow);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        powWindowAdapter=new PowWindowAdapter(getActivity());
+        recyclerView.setAdapter(powWindowAdapter);
+        List<ImageText> imageTexts=new ArrayList<>();
+        for(int i=0;i< t.getViewDataX().size();i++) {
+            if (i == 0) {
+                imageTexts.add(new ImageText(((MyRoom) t).getViewDataX().get(i).getMyRoomName(), true));
 
+            } else {
+                imageTexts.add(new ImageText(((MyRoom) t).getViewDataX().get(i).getMyRoomName(), false));
 
+            }
+
+        }
+        powWindowAdapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+               try{
+                   entries=new ArrayList<>();
+                   entries1=new ArrayList<>();
+                   for(Integer water:((MyRoom) myRoom).getViewDataX().get(position).getMyRoomWaterArr()){
+                       entries.add(new Entry(((MyRoom)  myRoom).getViewDataX().get(position).getMyRoomWaterArr().indexOf(water),water.floatValue()));
+                   }
+                   for(Integer power:((MyRoom)  myRoom).getViewDataX().get(position).getMyRoomPowerArr()){
+                       entries1.add(new Entry(((MyRoom)  myRoom).getViewDataX().get(position).getMyRoomPowerArr().indexOf(power),power.floatValue()));
+                   }
+                   mLineChart.notifyDataSetChanged();
+
+                   mAdapter.getData().clear();
+                   mAdapter.addData(myRoom.getViewDataX().get(position).getMyRoomSensorList());
+                   tv_title.setText(myRoom.getViewDataX().get(position).getMyRoomName());
+                   initMpChat(entries,entries1,6);
+                   mPopWindow.dismiss();
+
+               }catch (Exception e){
+                   e.printStackTrace();
+               }
+
+            }
+        });
         //显示PopupWindow
+        powWindowAdapter.addAll(imageTexts);
+        //解决5.0以下版本点击外部不消失问题
+        mPopWindow.setOutsideTouchable(true);
+        mPopWindow.setBackgroundDrawable(new BitmapDrawable());
+        //显示方式
+        mPopWindow.showAsDropDown(view);
 
-        mPopWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
 
     }
     private void setListener() {
@@ -392,10 +408,19 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
         iv_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("onClick","点击了下拉按钮");
 
+
+                try {
+
+                    showPopupWindow(view,myRoom);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
+    //PopupWindow菜单详细内容显示
 
 
     @Override
