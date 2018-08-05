@@ -22,6 +22,7 @@ public class QrCodeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_code);
+        String familyID=getIntent().getStringExtra("familyID");
         findViewById(R.id.out).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,18 +30,18 @@ public class QrCodeActivity extends BaseActivity {
             }
         });
          iv_qr_code=findViewById(R.id.iv_qr_code);
-         content="{\n" +
-                "\t\"qrType\": \"1\",\n" +
-                "\t\"cellRoomID\": "+",\n" +
-                "\t\"cellName\": "+",\n" +
-                "\t\"cellCost\": \"\",\n" +
-                "\t\"cellAddress\": "+",\n" +
-                "\t\"cellRemain\": \"\",\n" +
-                "\t\"cellImage\": \"\",\n" +
-                "\t\"cellBuildID\": \"\",\n" +
-                "\t\"familyID\": \"98989898\"\n" +
-                "}";
 
+            content="{\n" +
+                    "\t\"cellCost\": \"\",\n" +
+                    "\t\"cellBuildID\": \"\",\n" +
+                    "\t\"cellImage\": \"\",\n" +
+                    "\t\"qrType\": \"1\",\n" +
+                    "\t\"familyID\": \""+familyID+"\",\n" +
+                    "\t\"cellName\": \"\",\n" +
+                    "\t\"cellRemain\": \"\",\n" +
+                    "\t\"cellRoomID\": \"\",\n" +
+                    "\t\"cellAddress\": \"\"\n" +
+                    "}";
         Log.d("getData","width="+iv_qr_code.getWidth()+">>>>>height="+iv_qr_code.getHeight());
 
         int w = View.MeasureSpec.makeMeasureSpec(0,

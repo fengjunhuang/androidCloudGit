@@ -150,7 +150,7 @@ public class ContractDetailsActivity extends BaseActivity {
 
                 }
                 //设置字体大小（相对值,单位：像素） 参数表示为多少像素
-                msp.setSpan(new AbsoluteSizeSpan(80), 0, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //msp.setSpan(new AbsoluteSizeSpan(80), 0, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                 details.setText(msp);
 

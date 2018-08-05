@@ -154,6 +154,12 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+    public void joinFamily(BaseObserver<BrokenUp> observer, String aa){
+        apiService.joinFamily().subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
     public void otherMessage(BaseObserver<MessageOther> observer, String aa){
         apiService.otherMessage().subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

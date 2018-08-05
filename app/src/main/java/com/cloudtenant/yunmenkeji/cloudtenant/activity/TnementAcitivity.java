@@ -1,10 +1,16 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 
+import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
+import android.content.res.XmlResourceParser;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.text.style.TextAppearanceSpan;
 import android.view.View;
 
 import android.widget.ImageView;
@@ -22,7 +28,9 @@ import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,28 +121,24 @@ public class TnementAcitivity extends YzsBaseActivity {
 
     @Override
     protected void getBundleExtras(Bundle var1) {
+        int start=0;
+        int end=4;
+
         bean = (BudingInfo.ViewDataBean.DataBean) var1.getSerializable("bean");
         houseDetil= (HouseDetil.ViewDataBean) var1.getSerializable("houseDetil");
         Picasso.with(this).load(bean.getRoomSimpleImage()).fit().into(iv_cell);
         tv_cell_remain.setText(bean.getRoomNumber());
         SpannableString msp = new SpannableString("￥" + bean.getRoomMoney() + "/月");
-        msp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  //粗体
+        msp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  //粗体
+        //给限定字符之间的字符着色
+        msp.setSpan(new ForegroundColorSpan(Color.BLACK), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //设置字体大小  单位：dp
+        msp.setSpan(new AbsoluteSizeSpan(11, true), end, end+2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tv_cell_cost.setText(msp);
         tv_style.setText(bean.getRoomStyle());
 
         getTv_smell().setTextColor(Color.BLACK);
-      String[] s=  bean.getRoomSet().split(" ");
-             /*for(int i=0;i<s.length;i++){
-                    String str=s[i];
 
-               for(TextView textView :ss){
-
-                   if(textView.getText().equals(str)){
-                       textView.setTextColor(Color.parseColor("#0DADA2"));
-                   }
-
-               }
-                 }*/
         if (bean.getRoomSet().contains("床")) {
             tv_chuang.setBackgroundResource(R.drawable.image_bed);
         }

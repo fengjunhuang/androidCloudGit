@@ -77,6 +77,8 @@ public interface ApiService {
        Observable<BrokenUp> brokenUp();
        @POST("BuildingInfo")
        Observable<BuildingInfo> buildingInfo();
+       @POST("JoinFamily")
+       Observable<BrokenUp> joinFamily();
 
 
 

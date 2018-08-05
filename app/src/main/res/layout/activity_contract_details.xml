@@ -5,6 +5,7 @@
     android:background="@android:color/white"
     android:layout_width="match_parent"
     android:padding="20dp"
+    android:paddingBottom="1dp"
     android:layout_height="match_parent">
         <LinearLayout
             android:background="@android:color/white"
@@ -22,7 +23,7 @@
                 android:id="@+id/title"
                 android:layout_gravity="center_vertical"
                 android:text="合同详情"
-                android:layout_marginLeft="40dp"
+                android:layout_marginRight="30dp"
                 android:textColor="@color/light_black"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -48,13 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-            <Button
-                android:id="@+id/button"
-                android:enabled="false"
-                android:text="签 约"
-                android:layout_width="70dp"
-                android:background="@drawable/butten_background_black"
-                android:layout_height="32dp" />
+
 
         </LinearLayout>
     <ScrollView
@@ -66,19 +61,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                android:paddingBottom="@dimen/x5"
+                android:paddingTop="@dimen/x10"
+                android:textColor="@color/black"
                 android:id="@+id/details"
-                android:background="@color/c"
+                android:background="@color/gray_cut_clorr"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <CheckedTextView
-                android:padding="20dp"
-                android:id="@+id/ctv_terms"
-                android:text="@string/contract_terms"
-                android:drawableLeft="?android:attr/listChoiceIndicatorSingle"
+            <LinearLayout
+                android:gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+                <CheckedTextView
+                    android:padding="10dp"
+                    android:id="@+id/ctv_terms"
+                    android:text="@string/contract_terms"
+                    android:drawableLeft="?android:attr/listChoiceIndicatorSingle"
+                    android:layout_width="0dp"
+                    android:textSize="11sp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/button"
+                    android:enabled="false"
+                    android:text="签 约"
+                    android:layout_width="70dp"
+                    android:background="@drawable/butten_background_black"
+                    android:layout_height="25dp" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </ScrollView>

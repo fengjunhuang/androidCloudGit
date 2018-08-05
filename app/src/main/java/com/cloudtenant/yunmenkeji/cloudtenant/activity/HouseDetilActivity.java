@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -52,7 +53,8 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
     protected void MyHolder(BaseViewHolder baseViewHolder, final BudingInfo.ViewDataBean houseDetil) {
         RecyclerView recyclerView =baseViewHolder.convertView.findViewById(R.id.recy_floor);
         TextView tv_floor= baseViewHolder.convertView.findViewById(R.id.tv_floor);
-        tv_floor.setText(houseDetil.getFloor());
+        tv_floor.setText(houseDetil.getFloor()+"楼房间·待租"+houseDetil.getData().size()+"间");
+        Log.d("MyHolder","Floor="+houseDetil.getFloor()+">>>>"+houseDetil.getData().size());
         LinearLayoutManager ms= new LinearLayoutManager(this);
         ms.setOrientation(LinearLayoutManager.HORIZONTAL);// 设置 recyclerview 布局方式为横向布局
         //     LinearLayoutManager 种 含有3 种布局样式  第一个就是最常用的 1.横向 , 2. 竖向,3.偏移
@@ -114,8 +116,6 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
                 BudingInfo budingInfo= (BudingInfo) t;
                viewDataX = budingInfo.getViewDataX();
                mAdapter.addData(viewDataX);
-
-
                 System.out.print("");
 
             }
