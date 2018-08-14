@@ -63,7 +63,6 @@ import java.util.List;
 import java.util.Map;
 
 public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoomSensorListBean> implements CommonPopupWindow.ViewInterface{
-    private Spinner spinner;
     LineChart mLineChart;
     View myScrollView;
     private  MyRoom myRoom;
@@ -168,7 +167,6 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
         setListener();
         request();
      recyclerView = view.findViewById(R.id.recy_pow);
-        spinner= view.findViewById(R.id.room_spinner);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
  powWindowAdapter=new PowWindowAdapter(getActivity());
         recyclerView.setAdapter(powWindowAdapter);
