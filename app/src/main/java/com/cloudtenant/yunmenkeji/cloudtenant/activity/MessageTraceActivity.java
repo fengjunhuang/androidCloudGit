@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
@@ -45,12 +46,8 @@ public class MessageTraceActivity extends BaseActivity implements View.OnClickLi
                 finish();
             }
         });
-        findViewById(R.id.title).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        ((TextView)findViewById(R.id.title)).setText("安全日志");
+        findViewById(R.id.line).setVisibility(View.GONE);
         recyclerView= (EasyRecyclerView)findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //recyclerView.addItemDecoration(new DividerDecoration(Color.parseColor("#aaaaaa"), 1));
@@ -81,7 +78,7 @@ public class MessageTraceActivity extends BaseActivity implements View.OnClickLi
                 }
                 adapter = new TraceListAdapter (MessageTraceActivity.this,traceList);
                 recyclerView.setAdapter(adapter);
-                //banData(houseDetil.getViewDataX());
+
             }
 
             @Override
@@ -90,17 +87,7 @@ public class MessageTraceActivity extends BaseActivity implements View.OnClickLi
             }
         },"");
     }
-    /*private void AddData() {
-        // 模拟一些假的数据
-        traceList.add(new Trace("2016-05-25 13:01:04", "[沈阳市] 快件到达 [沈阳和平五部]"));
-        traceList.add(new Trace("2016-05-25 12:19:47", "[沈阳市] 快件离开 [沈阳中转]已发往[沈阳和平五部]"));
-        traceList.add(new Trace("2016-05-25 11:12:44", "[沈阳市] 快件到达 [沈阳中转]"));
-        traceList.add(new Trace("2016-05-24 03:12:12", "[嘉兴市] 快件离开 [杭州中转部]已发往[沈阳中转]"));
-        traceList.add(new Trace("2016-05-23 21:06:46", "[杭州市] 快件到达 [杭州汽运部]"));
-        traceList.add(new Trace("2016-05-23 18:59:41", "[杭州市] 快件离开 [杭州乔司区]已发往[沈阳]"));
-        traceList.add(new Trace("2016-05-23 18:35:32", "[杭州市] [杭州乔司区]的市场部已收件 电话:18358xxxxxx"));
-        //
-    }*/
+
 
 
     SelectPicPopupWindow mPopWindow;

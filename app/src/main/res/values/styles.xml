@@ -13,6 +13,11 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
     </style>
+    <style name="match_line_dp">
+        <item name="android:background">@android:color/black</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+    </style>
 
     <style name="me_item_rl_style" parent="click">
         <item name="android:layout_width">match_parent</item>
@@ -25,8 +30,9 @@
 
     <style name="me_text_style">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:textSize">17sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
     </style>
     <style name="edit_pro_text_style">
         <item name="android:textColor">@color/txt_black</item>
@@ -40,7 +46,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/black</item>
     </style>
-    <style name="head_title_style">
+    <style name="head_title_style" parent="click">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/black</item>
@@ -86,7 +92,11 @@
 
 
     </style>
-
+    <declare-styleable name="LoadingLayout">
+    <attr name="loadingView" format="reference" />
+    <attr name="stateView" format="reference" />
+    <attr name="emptyView" format="reference" />
+</declare-styleable>
     <style name="AnimDown" parent="@android:style/Animation">
 
         <item name="android:windowEnterAnimation">@anim/push_scale_in</item>
@@ -171,5 +181,27 @@
         <!-- 字体颜色 -->
         <!--<item name="android:textColor">@color/blue</item>
         <item name="android:editTextColor">@color/blue</item>-->
+    </style>
+
+    <style name="tnement_image_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">@dimen/x30</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginRight">@dimen/x5</item>
+    </style>
+
+    <style name="tenment_icon_ll_style">
+        <item name="android:paddingRight">@dimen/x18</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="commit_id_tv_style">
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:textColor">@color/light_black</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 </resources>

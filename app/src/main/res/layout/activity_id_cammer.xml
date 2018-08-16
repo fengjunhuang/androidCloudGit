@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    >
+
+
+    <com.cloudtenant.yunmenkeji.cloudtenant.view.ClipCamera
+        android:id="@+id/surface_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center" />
+
+    <com.cloudtenant.yunmenkeji.cloudtenant.view.shadow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请把身份证放入取景框,水平拍摄"
+        android:textColor="#fff"
+        android:rotation="90"
+        android:layout_centerInParent="true"
+        />
+
+
+    <Button
+        android:id="@+id/btn_cancle"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/image_close_white"
+        />
+    <Button
+        android:id="@+id/btn_light"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_centerInParent="true"
+        android:layout_width="30dp"
+        android:visibility="invisible"
+        android:rotation="90"
+        android:layout_height="30dp"
+        android:background="@drawable/light"
+        />
+
+    <Button
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btn_shoot"
+        android:layout_width="70dp"
+        android:background="@drawable/sure_wite"
+        android:layout_height="70dp" />
+
+
+</RelativeLayout>

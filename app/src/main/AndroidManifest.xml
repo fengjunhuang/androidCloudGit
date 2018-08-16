@@ -48,7 +48,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <application
         android:allowBackup="true"
-        android:name="com.mob.MobApplication"
+
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -104,6 +104,12 @@
 
             />
         <activity android:name=".activity.DisMapActivity"
+
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"
+
+            />
+        <activity android:name=".activity.PayActivity"
 
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"
@@ -173,6 +179,11 @@
             android:name=".activity.TestNoticeActivity" />
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".activity.CommitIdActivity" />
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.IdCammerActivity" />
+
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.QrCodeActivity" />
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="landscape"
             android:name=".activity.SignViewActivity" />

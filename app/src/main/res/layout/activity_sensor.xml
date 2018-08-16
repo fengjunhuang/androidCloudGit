@@ -7,6 +7,7 @@
     <RelativeLayout
         android:layout_weight="1"
         android:background="@drawable/image_onoffimage"
+        android:id="@+id/rela_bg"
         android:layout_width="match_parent"
         android:layout_height="0dp">
         <ImageView
@@ -41,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:id="@+id/iv_senr"
                     android:src="@drawable/image_sensor_status_on"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -52,6 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/tv_tip"
                     android:text="已开启"
                     style="@style/sensor_text_style" />
             </LinearLayout>

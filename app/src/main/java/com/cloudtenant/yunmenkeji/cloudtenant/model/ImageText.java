@@ -8,6 +8,11 @@ public class ImageText {
     private String text;
     private boolean isSelect;
 
+    public ImageText(String text, boolean isSelect) {
+        this.text = text;
+        this.isSelect = isSelect;
+    }
+
     public String getText() {
         return text;
     }

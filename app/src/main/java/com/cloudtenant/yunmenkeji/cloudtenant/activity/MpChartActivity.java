@@ -40,11 +40,24 @@ public class MpChartActivity extends YzsBaseActivity {
 
     ViewPager mViewPager;
     MpChartAdapter mpChartAdapter;
+    ArrayList<Entry> entries;
+    ArrayList<Entry> entries1;
+   public static final int[] PIE_COLORS = {
+           Color.rgb(75, 208, 250),
+           Color.rgb(141, 207, 109),
+           Color.rgb(115, 120, 204),
+           Color.rgb(252, 114, 86),
+           Color.rgb(255, 184, 96)
+   };
+
+
+
     @Override
     protected void initContentView(Bundle var1) {
 
 
         setContentView(R.layout.activity_mp_chart);
+        getBundleExtras(getIntent().getExtras());
         mViewPager=findViewById(R.id.slidebar_viewPager);
       mpChartAdapter = new MpChartAdapter();
         mViewPager.setAdapter(new MpChartAdapter());
@@ -56,25 +69,26 @@ public class MpChartActivity extends YzsBaseActivity {
       //饼状图
       PieChart mPieChart = (PieChart)  view.findViewById(R.id.mPieChart);
       mPieChart.setUsePercentValues(true);
+      mPieChart.setDrawEntryLabels(false);
       mPieChart.getDescription().setEnabled(false);
       mPieChart.setExtraOffsets(5, 10, 5, 5);
-
+      mPieChart.setUsePercentValues(true);
       mPieChart.setDragDecelerationFrictionCoef(0.95f);
       //设置中间文件
 //      mPieChart.setCenterText(generateCenterSpannableText());
-
+      mPieChart.setDrawSliceText(false);//设置隐藏饼图上
       mPieChart.setDrawHoleEnabled(true);
       mPieChart.setHoleColor(Color.WHITE);
 
       mPieChart.setTransparentCircleColor(Color.WHITE);
       mPieChart.setTransparentCircleAlpha(110);
       mPieChart.getLegend().setFormSize(14);
-      mPieChart.setDrawSliceText(true);
-      //设置图列标识文字的大小
-      mPieChart.getLegend().setTextSize(14);
 
-      mPieChart.setHoleRadius(58f);
-      mPieChart.setTransparentCircleRadius(61f);
+      //设置图列标识文字的大小
+      mPieChart.getLegend().setTextSize(12);
+
+
+      mPieChart.setTransparentCircleRadius(28f);
       mPieChart.animateX(1400);
       mPieChart.setDrawCenterText(true);
 
@@ -95,27 +109,30 @@ public class MpChartActivity extends YzsBaseActivity {
 
           }
       });
-
+      mPieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);// 设置pieChart图表展示动画效果
       //模拟数据
       ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
-      entries.add(new PieEntry(10, "水费"));
-      entries.add(new PieEntry(249, "电费"));
-      entries.add(new PieEntry(6, "管理费"));
-      entries.add(new PieEntry(50, "网费"));
-      entries.add(new PieEntry(800, "房租"));
+      entries.add(new PieEntry(10, "水费10元"));
+      entries.add(new PieEntry(249, "电费249元"));
+      entries.add(new PieEntry(6, "管理费6元"));
+      entries.add(new PieEntry(50, "网费50元"));
+      entries.add(new PieEntry(800, "房租800元"));
       //设置数据
       setData(entries,mPieChart);
 
       mPieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
 
       Legend l = mPieChart.getLegend();
-      l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-      l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-      l.setOrientation(Legend.LegendOrientation.VERTICAL);
+      l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+      l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+      l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
       l.setDrawInside(false);
       l.setXEntrySpace(7f);
-      l.setYEntrySpace(0f);
+      l.setFormSize(10);
+      l.setYEntrySpace(8f);
       l.setYOffset(0f);
+
+
 
       return mPieChart;
   }
@@ -125,21 +142,27 @@ public class MpChartActivity extends YzsBaseActivity {
         PieDataSet dataSet = new PieDataSet(entries, "金额");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
+        dataSet.setValueLinePart1OffsetPercentage(100f);//数据连接线距图形片内部边界的距离，为百分数
+        dataSet.setValueLinePart1Length(0.3f);
+        dataSet.setValueLinePart2Length(0.4f);
+
+        dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
 
         //数据和颜色
-        ArrayList<Integer> colors = new ArrayList<Integer>();
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-        colors.add(ColorTemplate.getHoloBlue());
-        dataSet.setColors(colors);
+//        ArrayList<Integer> colors = new ArrayList<Integer>();
+//        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+//            colors.add(c);
+//        for (int c : ColorTemplate.JOYFUL_COLORS)
+//            colors.add(c);
+//        for (int c : ColorTemplate.COLORFUL_COLORS)
+//            colors.add(c);
+//        for (int c : ColorTemplate.LIBERTY_COLORS)
+//            colors.add(c);
+//        for (int c : ColorTemplate.PASTEL_COLORS)
+//            colors.add(c);
+//        colors.add(ColorTemplate.getHoloBlue());
+        dataSet.setColors(PIE_COLORS);//设置饼块的颜色
+
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(15f);
@@ -153,48 +176,27 @@ public class MpChartActivity extends YzsBaseActivity {
 
         LineChart mLineChart=  view.findViewById(R.id.lineChart);
         //显示边界
+     initMpChat(entries,entries1,12,mLineChart);
+        return mLineChart;
+
+    }
+
+    private void initMpChat( List<Entry> entries,List<Entry> entries1,int size, LineChart mLineChart) {
+
+        entries=  entries.subList(0,size);
+        entries1=  entries1.subList(0,size);
+        //显示边界
         mLineChart.setDrawBorders(true);
         //设置数据
-        List<Entry> entries = new ArrayList<>();
-        List<Entry> entries1 = new ArrayList<>();
+
         final List<String> mlistX =new ArrayList<>();
-        mlistX.add("1月");
-        mlistX.add("2月");
-        mlistX.add("3月");
-        mlistX.add("4月");
-        mlistX.add("5月");
-        mlistX.add("6月");
-        mlistX.add("7月");
-        mlistX.add("8月");
-        mlistX.add("9月");
-        mlistX.add("10月");
-        mlistX.add("11月");
-        mlistX.add("12月");
-        entries.add(new Entry(0, 30f));
-        entries.add(new Entry(1, 50f));
-        entries.add(new Entry(2, 81f));
-        entries.add(new Entry(3, 46f));
-        entries.add(new Entry(4, 204f));
-        entries.add(new Entry(5, 290f));
-        entries.add(new Entry(6, 310f));
-        entries.add(new Entry(7, 259f));
-        entries.add(new Entry(8, 530f));
-        entries.add(new Entry(9, 430f));
-        entries.add(new Entry(10, 498f));
-        entries.add(new Entry(11, 431f));
-        entries1.add(new Entry(0, 14f));
-        entries1.add(new Entry(1, 16f));
-        entries1.add(new Entry(2, 11f));
-        entries1.add(new Entry(3, 12f));
-        entries1.add(new Entry(4, 18f));
-        entries1.add(new Entry(5, 10f));
-        entries1.add(new Entry(6, 21f));
-        entries1.add(new Entry(7, 32f));
-        entries1.add(new Entry(8, 17f));
-        entries1.add(new Entry(9, 12f));
-        entries1.add(new Entry(10, 17f));
-        entries1.add(new Entry(11, 19f));
-        //一个LineDataSet就是一条线
+
+        for(Entry entry:entries){
+            mlistX.add((int) entry.getX()+1+"月");
+
+        }
+
+
         XAxis xAxis = mLineChart.getXAxis();
 
         xAxis.setValueFormatter(new IAxisValueFormatter() {
@@ -206,12 +208,12 @@ public class MpChartActivity extends YzsBaseActivity {
                 return mlistX.get((int) value);
             }
         });
-
+        xAxis.setLabelCount(size, true);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextSize(18);
 
         List<ILineDataSet> sets = new ArrayList<>();
-        LineDataSet lineDataSet=     new LineDataSet(entries, "电费");
+        LineDataSet  lineDataSet=     new LineDataSet(entries, "电费");
 
         lineDataSet.setColor(Color.GREEN);
         sets.add(lineDataSet);
@@ -219,15 +221,17 @@ public class MpChartActivity extends YzsBaseActivity {
         sets.add(new LineDataSet(entries1, "水费"));
         LineData lineData = new LineData(sets);
         Legend legend = mLineChart.getLegend();
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         legend.setTextSize(18f);
         legend.setFormSize(13);
+        legend.setXEntrySpace(30f);
         mLineChart.setData(lineData);
         mLineChart.animateY(1000);
-        return mLineChart;
+
+
+
 
     }
-
-
     @Override
     protected void initView() {
 
@@ -240,6 +244,9 @@ public class MpChartActivity extends YzsBaseActivity {
 
     @Override
     protected void getBundleExtras(Bundle var1) {
+
+     entries=  var1.getParcelableArrayList("entries");
+      entries1=  var1.getParcelableArrayList("entries1");
 
     }
 

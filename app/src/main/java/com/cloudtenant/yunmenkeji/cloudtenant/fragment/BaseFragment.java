@@ -14,11 +14,9 @@ public abstract class BaseFragment extends YzsBaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
        super.onCreateView(inflater,container,savedInstanceState);
         showLoadingDialog();
         return view;
-
 
     }
 

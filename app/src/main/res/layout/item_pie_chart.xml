@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.github.mikephil.charting.charts.PieChart
 
         android:id="@+id/mPieChart"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="@dimen/x300"
+        android:layout_height="@dimen/y180"
+
         android:layout_centerInParent="true"
-      android:layout_margin="@dimen/x10"
+
 
         />
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

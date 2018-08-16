@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:layout_marginTop="8dp"
+    style="@style/click"
+    android:layout_height="130dp">
+    <ImageView
+        android:id="@+id/iv"
+        android:src="@drawable/app_icon"
+        android:layout_width="0dp"
+        android:layout_weight="21"
+        android:layout_height="match_parent" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="19"
+        android:orientation="vertical"
+        android:layout_marginLeft="3dp"
+        android:padding="4dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_cell_name"
+            android:text="明珠公寓"
+            android:textColor="@color/light_black"
+            android:textSize="19sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textColor="@color/gray"
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_cell_remain"
+            android:textSize="13sp"
+            android:text="云门验证·剩3间"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:id="@+id/tv_cell_building_set"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textColor="@color/light_black"
+            android:text="阳光好，临近地铁5号线，带空调热水器"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp" />
+
+        <TextView
+            android:id="@+id/tv_cell_cost"
+            android:textSize="16sp"
+            android:textColor="@color/orange_cut_clorr"
+            android:text="最低：￥280/月"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

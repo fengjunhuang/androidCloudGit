@@ -13,7 +13,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
-            abiFilters 'armeabi','armeabi-v7a'
+            abiFilters 'armeabi', 'armeabi-v7a'
         }
     }
     sourceSets {
@@ -25,7 +25,7 @@ android {
         abi {
             enable true
             reset()
-            include 'x86', 'armeabi-v7a','armeabi'
+            include 'x86', 'armeabi-v7a', 'armeabi'
             universalApk true
         }
     }
@@ -35,8 +35,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }*/
     }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
     android.defaultConfig.vectorDrawables.useSupportLibrary = true
-
+    buildToolsVersion '26.0.2'
 }
 
 
@@ -98,19 +101,18 @@ dependencies {
     //权限获取
     implementation 'com.yanzhenjie:permission:2.0.0-rc11'
     compile 'com.shizhefei:ViewPagerIndicator:1.1.7'
-
     //腾讯地图
     compile 'com.tencent.map:tencent-map-vector-sdk:latest.release'
-
     compile 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.2.2'
     //全景图
     compile 'com.github.CN-ZPH:weibo360panorama:v1.0.1'
     compile 'com.alibaba:fastjson:1.2.47'
-
-    implementation files('libs/MobCommons-2018.0523.1925.jar')
-
+    compile 'com.github.d-max:spots-dialog:0.4@aar'
+    //    implementation files('libs/MobCommons-2018.0523.1925.jar')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     implementation files('libs/TencentMapSDK_Raster_v_1.2.8.1.c02ec64.jar')
     implementation files('libs/TencentLocationSDK_v5.0.1_r251203_170116_1729.jar')
-
+    compile 'com.github.recruit-lifestyle:WaveSwipeRefreshLayout:1.6'
+    implementation files('libs/TencentMapSearch_v1.1.7.1.3e04ee1.jar')
+    compile 'com.pnikosis:materialish-progress:1.7'
 }

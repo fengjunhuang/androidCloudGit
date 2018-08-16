@@ -26,11 +26,11 @@
             android:background="@drawable/timelline_dot_normal" />
 
         <TextView
-            android:layout_width="0.5dp"
+            android:layout_width="2dp"
             android:layout_height="match_parent"
             android:layout_below="@id/tvDot"
             android:layout_centerHorizontal="true"
-            android:background="#999" />
+            android:background="@color/gray_cut_clorr" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -55,9 +55,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvAcceptTime"
             android:layout_marginTop="5dp"
+            android:textStyle="bold"
             android:text="快件在 深圳 ,准备送往下一站 深圳集散中心 [深圳市]"
             android:textColor="#999"
-            android:textSize="12sp" />
+            android:textSize="17sp" />
     </RelativeLayout>
 </LinearLayout>
 

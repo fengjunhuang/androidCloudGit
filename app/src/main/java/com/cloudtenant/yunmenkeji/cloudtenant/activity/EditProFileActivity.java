@@ -223,23 +223,7 @@ public class EditProFileActivity extends BaseActivity implements View.OnClickLis
         interestList.add("篮球");
         interestList.add("篮球");
         interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
+
         interestList.add("英雄联盟");
         interestDatePicker = new CustomSinglePicker(this, interestHandler,interestList,"选择兴趣"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         interestDatePicker.setIsLoop(false); // 允许循环滚动

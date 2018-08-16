@@ -6,34 +6,36 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:layout_height="match_parent">
-    <ImageView
-        style="@style/click"
-        android:id="@+id/out"
-        android:src="@mipmap/leftback"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp"
-        android:layout_width="40dp"
-        android:layout_height="40dp" />
+
     <LinearLayout
         android:background="@android:color/white"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="40dp">
-
+        <ImageView
+            style="@style/click"
+            android:id="@+id/out"
+            android:src="@mipmap/leftback"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
         <TextView
             android:text="提交相关材料"
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:id="@+id/tv_opinion"
+            android:textStyle="bold"
             android:textColor="@android:color/black"
-            android:textSize="23sp"
+            android:textSize="17sp"
             android:layout_height="wrap_content" />
         <LinearLayout
             android:layout_width="60dp"
             android:background="@drawable/butten_background_black"
             android:gravity="center"
-            android:layout_height="32dp">
+            android:layout_height="25dp">
             <!--<ImageView
                 android:background="@drawable/image_me_add"
                 android:layout_width="12dp"
@@ -51,30 +53,27 @@
     </LinearLayout>
 
     <TextView
-        android:layout_marginTop="40dp"
-        android:text="填写手机"
-        android:textColor="@color/light_black"
+        android:layout_marginTop="20dp"
+        android:text="填写手机号码"
+        android:textColor="@color/gray_cut_clorr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <EditText
         android:background="@null"
         android:layout_marginTop="10dp"
-        android:textColor="@color/greenyellow"
+        android:textSize="11sp"
+        android:textColor="@color/gren_cut_clorr"
+        android:inputType="phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <View
-        android:layout_marginTop="10dp"
         style="@style/match_line"/>
 
-
-
     <TextView
-        android:layout_marginTop="20dp"
-        android:textColor="@color/light_black"
-        android:text="上传身份证"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/commit_id_tv_style"
+        android:text="上传签约人身份证"
+         />
 
     <LinearLayout
         android:layout_marginTop="15dp"
@@ -86,15 +85,18 @@
             android:layout_width="0dp"
             android:layout_height="80dp">
             <ImageView
+                android:id="@+id/iv_front"
                 android:background="@color/gray1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <LinearLayout
+                android:id="@+id/front"
                 android:orientation="vertical"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:visibility="gone"
                     android:layout_gravity="center"
                     android:id="@+id/iv_plus"
                     android:src="@drawable/image_nav_plus"
@@ -114,15 +116,18 @@
             android:layout_width="0dp"
             android:layout_height="80dp">
             <ImageView
+                android:id="@+id/iv_verso"
                 android:background="@color/gray1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <LinearLayout
+                android:id="@+id/verso"
                 android:orientation="vertical"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:visibility="gone"
                     android:layout_gravity="center"
                     android:id="@+id/iv_plus1"
                     android:src="@drawable/image_nav_plus"
@@ -139,20 +144,79 @@
     </LinearLayout>
 
     <View
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         style="@style/match_line"/>
-
     <TextView
-        android:layout_marginTop="20dp"
-        android:textColor="@color/light_black"
+        style="@style/commit_id_tv_style"
+        android:text="上传签约人身份证"
+        />
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="80dp">
+            <ImageView
+                android:id="@+id/iv_other"
+                android:background="@color/gray1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_gravity="center"
+                    android:src="@drawable/image_nav_plus"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:visibility="invisible"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="80dp">
+            <ImageView
+                android:background="@color/gray1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:src="@drawable/image_nav_plus"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+                <TextView
+                    android:layout_marginTop="3dp"
+                    android:text="反 面"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_marginTop="10dp"
+        style="@style/match_line"/>
+    <TextView
         android:text="上传签名"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/commit_id_tv_style" />
     <ImageView
         android:id="@+id/iv_sign"
         android:layout_marginTop="15dp"
         android:layout_marginRight="20dp"
-        android:src="@drawable/image_nav_plus"
         android:padding="30dp"
         android:background="@color/gray1"
         android:layout_width="match_parent"

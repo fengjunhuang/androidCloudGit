@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
+        android:layout_marginTop="@dimen/x10"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x130" />
+    <LinearLayout
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/ll_tuijian"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/head_title_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="为您推荐"
+                android:textSize="19sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="为您精选优质房源"
+                android:textStyle="bold"
+                android:textColor="@color/light_black"
+                android:textSize="15sp"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:gravity="center"
+            android:paddingBottom="11dp"
+            android:paddingTop="11dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <Button
+                android:gravity="center"
+                android:id="@+id/tv_common"
+                android:text="列表"
+                android:textSize="11sp"
+                android:textColor="@color/white"
+                android:background="@drawable/butten_background_green_solid"
+                android:layout_width="40dp"
+                android:layout_height="match_parent" />
+            <Button
+                android:gravity="center"
+                android:textSize="11sp"
+                android:id="@+id/tv_map"
+                android:text="地图"
+                android:textColor="@color/orange_cut_clorr"
+                android:background="@drawable/butten_background_green"
+                android:layout_width="40dp"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </LinearLayout>
+    <com.tencent.tencentmap.mapsdk.map.MapView
+        android:id="@+id/map"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x240" />
+
+</LinearLayout>

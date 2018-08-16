@@ -86,21 +86,42 @@
             <View style="@style/match_line"/>
 
 
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:id="@+id/rl_qr_code"
                 style="@style/me_item_rl_style">
                 <TextView
                     android:text="家庭二维码"
                     style="@style/me_text_style" />
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:id="@+id/iv_qr_code"
+                    android:src="@mipmap/icon"
+                    android:layout_toLeftOf="@id/re"
+                    android:layout_width="@dimen/x40"
+                    android:layout_height="@dimen/y40" />
                 <ImageView
+                    android:id="@+id/re"
                     android:src="@mipmap/right_return"
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-            </RelativeLayout>
+            </RelativeLayout>-->
+            <LinearLayout
+                android:id="@+id/rl_qr_code"
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="家庭二维码"
+                    android:layout_weight="1"
+                    style="@style/me_text_style" />
+                <ImageView
+                    android:id="@+id/iv_qr_code"
+                    android:src="@mipmap/icon"
+                    android:layout_width="@dimen/x40"
+                    android:layout_height="@dimen/y40" />
+                <ImageView
+                    android:src="@mipmap/right_return"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
             <View style="@style/match_line"/>
 
 

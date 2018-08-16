@@ -20,6 +20,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserinfoBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.LoginBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.AESOperator;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.JSONUtil;
@@ -38,6 +39,7 @@ import java.util.regex.Pattern;
 import cn.smssdk.EventHandler;
 import cn.smssdk.OnSendMessageHandler;
 import cn.smssdk.SMSSDK;
+import dmax.dialog.SpotsDialog;
 
 
 /**
@@ -45,11 +47,16 @@ import cn.smssdk.SMSSDK;
  */
 @EActivity
 public class LoginActivity extends YzsBaseActivity implements View.OnClickListener {
+    private SpotsDialog mDialog;
     @Click(R.id.btn_login)
     void login(){
-        SMSSDK.submitVerificationCode("86",phone,et_code.getText().toString().trim());
-        //goLogin();
+        if (checkPhoneNum(et_number.getText().toString().trim(),"86")) {
 
+
+        mDialog.show();
+        SMSSDK.submitVerificationCode("86",phone,et_code.getText().toString().trim());
+//        goLogin();
+        }
     }
     @Click(R.id.btn_visitor)
     void visitor(){
@@ -65,6 +72,7 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
     @Override
     protected void initContentView(Bundle var1) {
         setContentView(R.layout.activity_login);
+        mDialog=new SpotsDialog(this);
         pwd_login=findViewById(R.id.pwd_login);
         et_number=findViewById(R.id.et_number);
         et_code=findViewById(R.id.et_code);
@@ -147,6 +155,7 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
         HttpMethods.getInstance().login(new BaseObserver<UserInfo>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
+                mDialog.dismiss();
                 UserInfo houseDetil= (UserInfo) t;
                     Log.d("onSuccees",houseDetil.getUserinfo());
 
@@ -164,7 +173,7 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },"");
+        },new LoginBean("aaaa","aaaaaaaaaaa"));
     }
 
     private String phone;

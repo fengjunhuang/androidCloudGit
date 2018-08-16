@@ -3,21 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/white"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-
     >
-
     <RelativeLayout
-
         android:layout_width="match_parent"
         android:layout_height="100dp"
-
         >
-
         <ImageView
             style="@style/click"
             android:id="@+id/out"
@@ -31,10 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/x5"
-
             android:orientation="vertical">
             <TextView
-
                 android:id="@+id/tv_main"
                 style="@style/head_title_style"
                 android:layout_width="wrap_content"
@@ -51,7 +43,6 @@
                 android:text="东圃明珠新村5号"
                 android:layout_marginLeft="20dp"
                 android:visibility="invisible"
-
                 android:layout_centerVertical="true"
                 />
         </LinearLayout>
@@ -80,23 +71,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-        <!--<com.yzs.yzslibrary.view.StateButton
-            android:id="@+id/btn_op2"
-            android:layout_width="55dp"
-            android:layout_height="35dp"
-            android:layout_toLeftOf="@+id/btn_op1"
-            android:drawableLeft="@mipmap/image_navshare"
-            android:layout_marginRight="20dp"
-            android:layout_centerVertical="true"
-            android:padding="2dp"
-            android:text="分 享"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="8sp"
-            app:strokeDashWidth="3dp"
-            app:normalBackgroundColor="@color/white"
-            app:pressedBackgroundColor="@color/colorPrimaryDark"
-            app:radius="6dp"
-            app:unableBackgroundColor="@android:color/holo_red_light" />-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -144,86 +118,86 @@
     android:id="@+id/sw_refesh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     >
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
- <LinearLayout
-     android:layout_width="match_parent"
-     android:layout_height="match_parent"
-     android:orientation="vertical"
-     >
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:orientation="vertical"
-      android:focusable="true"
-      android:focusableInTouchMode="true"
+    <com.cloudtenant.yunmenkeji.cloudtenant.view.LoadingLayout
 
-      >
-
-
-    <com.youth.banner.Banner
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/banner"
-        android:layout_margin="@dimen/x10"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/x80" />
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-
-          android:id="@+id/ll_tuijian"
-          android:orientation="horizontal">
-
-          <LinearLayout
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:orientation="vertical">
-
-              <TextView
-                  style="@style/head_title_style"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginLeft="20dp"
-                  android:text="为你推荐"
-                  android:textSize="16sp"
-
-                  />
-
-              <TextView
-                  style="@style/head_title_style"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginLeft="20dp"
-                  android:text="经过现场精选验证的优质小区"
-                  android:textColor="@color/text_gray"
-                  android:textSize="13sp"
-
-                  />
-          </LinearLayout>
-          <ImageView
-              android:layout_width="40dp"
-              android:layout_height="40dp"
-              android:layout_gravity="center"
-              android:layout_marginRight="@dimen/x10"
-
-              android:src="@drawable/settingicon"
-
-              />
-      </LinearLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@id/yzs_base_list"
-
-        android:layout_marginTop="20dp"
+        android:id="@+id/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        tools:listitem="@layout/item_recy_house_detil" />
-</LinearLayout>
- </LinearLayout>
+
+        ></com.cloudtenant.yunmenkeji.cloudtenant.view.LoadingLayout>
+    <ScrollView
+        android:id="@+id/sv_lo"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical"
+             >
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  android:focusable="true"
+                  android:focusableInTouchMode="true"
+                  >
+                    <com.youth.banner.Banner
+                        android:id="@+id/banner"
+                        android:layout_margin="@dimen/x10"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/x80" />
+                    <LinearLayout
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:id="@+id/ll_tuijian"
+                              android:orientation="horizontal">
+
+                                  <LinearLayout
+                                      android:layout_width="wrap_content"
+                                      android:layout_height="wrap_content"
+                                      android:layout_weight="1"
+                                      android:orientation="vertical">
+
+                                      <TextView
+                                          style="@style/head_title_style"
+                                          android:layout_width="wrap_content"
+                                          android:layout_height="wrap_content"
+                                          android:layout_marginLeft="20dp"
+                                          android:text="为你推荐"
+                                          android:textSize="16sp"
+                                          />
+
+                                      <TextView
+                                          style="@style/head_title_style"
+                                          android:layout_width="wrap_content"
+                                          android:layout_height="wrap_content"
+                                          android:layout_marginLeft="20dp"
+                                          android:text="经过现场精选验证的优质小区"
+                                          android:textColor="@color/text_gray"
+                                          android:textSize="13sp"
+                                          />
+                                  </LinearLayout>
+
+                          <ImageView
+                              android:layout_width="40dp"
+                              android:layout_height="40dp"
+                              android:layout_gravity="center"
+                              android:layout_marginRight="@dimen/x10"
+                              android:src="@drawable/settingicon"
+                              />
+                </LinearLayout>
+                    <android.support.v7.widget.RecyclerView
+                    android:id="@id/yzs_base_list"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1000dp"
+                    tools:listitem="@layout/item_recy_house_detil" />
+               </LinearLayout>
+         </LinearLayout>
     </ScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
