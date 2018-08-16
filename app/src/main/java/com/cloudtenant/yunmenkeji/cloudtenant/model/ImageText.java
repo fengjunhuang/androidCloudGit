@@ -16,6 +16,11 @@ public class ImageText {
         this.text = text;
     }
 
+    public ImageText(String text, boolean isSelect) {
+        this.text = text;
+        this.isSelect = isSelect;
+    }
+
     public boolean isSelect() {
         return isSelect;
     }

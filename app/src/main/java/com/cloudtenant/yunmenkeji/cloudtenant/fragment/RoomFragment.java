@@ -22,6 +22,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.adapter.PowWindowAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.ImageText;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.CommonPopupWindow;
@@ -111,15 +112,16 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
         mLineChart = (LineChart) view.findViewById(R.id.lineChart);
         iv_select= ((ImageView)(view.findViewById(R.id.out)));
         iv_select.setImageResource(R.drawable.room_security);
+
         iv_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDownPop(view);
+
             }
         });
         setListener();
         request();
-
+        showDownPop(iv_select);
     }
 
     private void request() {
@@ -248,7 +250,8 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
         RecyclerView recyclerView = popupWindow.getContentView().findViewById(R.id.recy_pow);
         PowWindowAdapter powWindowAdapter=new PowWindowAdapter(getActivity());
         recyclerView.setAdapter(powWindowAdapter);
-
+      powWindowAdapter.add(new ImageText("啊啊啊啊",false));
+        powWindowAdapter.add(new ImageText("啊啊啊啊",true));
         popupWindow.showAsDropDown(view);
 
         //得到button的左上角坐标
