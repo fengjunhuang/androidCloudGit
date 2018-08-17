@@ -79,6 +79,8 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
     private  TextView tv_dianfei;
     private  TextView tv_qita;
     private  TextView  tv_title;
+    private  LinearLayout ll_yijian;
+    private  View view1;
     private List<Map<String, Object>> riskAreaList = null;
     @Override
     protected void initItemLayout() {
@@ -153,6 +155,8 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
         tv_fangzu=view.findViewById(R.id.tv_fangzu);
         tv_qita=view.findViewById(R.id.tv_qita);
         tv_title=view.findViewById(R.id.title);
+        ll_yijian=view.findViewById(R.id.ll_yijian);
+        view1=view.findViewById(R.id.view);
         return view;
     }
 
@@ -411,7 +415,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
 
                 try {
 
-                    showPopupWindow(view,myRoom);
+                    showPopupWindow(view1,myRoom);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

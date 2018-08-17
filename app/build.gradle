@@ -15,6 +15,8 @@ android {
         ndk {
             abiFilters 'armeabi', 'armeabi-v7a'
         }
+
+
     }
     sourceSets {
         main {
@@ -115,4 +117,5 @@ dependencies {
     compile 'com.github.recruit-lifestyle:WaveSwipeRefreshLayout:1.6'
     implementation files('libs/TencentMapSearch_v1.1.7.1.3e04ee1.jar')
     compile 'com.pnikosis:materialish-progress:1.7'
+
 }

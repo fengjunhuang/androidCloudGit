@@ -12,12 +12,17 @@ import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.FgMessage;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import com.squareup.picasso.Picasso;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+//import me.shaohui.shareutil.ShareUtil;
+//import me.shaohui.shareutil.share.ShareListener;
+//import me.shaohui.shareutil.share.SharePlatform;
 
 public class ShareActivity extends YzsBaseActivity {
 
@@ -53,6 +58,32 @@ public class ShareActivity extends YzsBaseActivity {
 
         messageAdapter.addAll(list);
         getBundleExtras(getIntent().getExtras());
+        messageAdapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+            if(position==2){
+//                ShareUtil.shareImage(ShareActivity.this
+//                        , SharePlatform.QQ, "http://image.com", new ShareListener() {
+//                    @Override
+//                    public void shareSuccess() {
+//                        showLongToast("成功");
+//
+//                    }
+//
+//                    @Override
+//                    public void shareFailure(Exception e) {
+//                        showLongToast("失败");
+//                    }
+//
+//                    @Override
+//                    public void shareCancel() {
+//
+//                    }
+//                });
+
+            }
+            }
+        });
     }
 
     @Override
