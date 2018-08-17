@@ -81,6 +81,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
     private  TextView  tv_title;
     private  LinearLayout ll_yijian;
     private  View view1;
+    private  int index;
     private List<Map<String, Object>> riskAreaList = null;
     @Override
     protected void initItemLayout() {
@@ -313,6 +314,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
             @Override
             public void onItemClick(int position) {
                try{
+                   index =position;
                    entries=new ArrayList<>();
                    entries1=new ArrayList<>();
                    for(Integer water:((MyRoom) myRoom).getViewDataX().get(position).getMyRoomWaterArr()){
@@ -398,13 +400,22 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
                 // 移动
             }
         });
-        view.findViewById(R.id.iv_detil).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.iv_detil)
+        .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle =new Bundle();
-                bundle.putParcelableArrayList("entries",entries);
-                bundle.putParcelableArrayList("entries1",entries1);
-                readyGo(MpChartActivity.class,bundle);
+                try {
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("entries", entries);
+                bundle.putParcelableArrayList("entries1", entries1);
+
+
+                    bundle.putSerializable("viewDataBean", myRoom.getViewDataX().get(index));
+                    readyGo(MpChartActivity.class, bundle);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         });
         iv_select.setOnClickListener(new View.OnClickListener() {
