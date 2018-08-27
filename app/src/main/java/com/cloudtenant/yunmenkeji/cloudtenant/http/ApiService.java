@@ -10,6 +10,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamily;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamilyData;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.NoticeHistory;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
@@ -79,6 +80,8 @@ public interface ApiService {
        Observable<BuildingInfo> buildingInfo();
        @POST("JoinFamily")
        Observable<BrokenUp> joinFamily();
+       @POST("RoomInfo")
+       Observable<RoomInfo> roomInfo();
 
 
 

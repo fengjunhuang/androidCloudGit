@@ -11,6 +11,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamily;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamilyData;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.NoticeHistory;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
@@ -89,7 +90,12 @@ public class HttpMethods {
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
-
+    }
+    public void roomInfo(BaseObserver<RoomInfo> observer, String aa){
+        apiService.roomInfo().subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
     public void messageSave(BaseObserver<MessageSave> observer, String aa){
         apiService.messageSave().subscribeOn(Schedulers.io())

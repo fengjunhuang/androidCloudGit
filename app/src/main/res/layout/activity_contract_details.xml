@@ -65,7 +65,7 @@
                 android:paddingTop="@dimen/x10"
                 android:textColor="@color/black"
                 android:id="@+id/details"
-                android:background="@color/gray_cut_clorr"
+                android:background="@color/bg_gray"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

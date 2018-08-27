@@ -2,7 +2,9 @@ package com.cloudtenant.yunmenkeji.cloudtenant.bean;
 
 import com.alibaba.fastjson.JSON;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.AESOperator;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -30,23 +32,26 @@ public class RoomInfo extends BaseBean{
         this.id = id;
     }
 
-    public String getContract() {
-        return contract;
+
+
+    public String getContract() throws Exception {
+        return AESOperator.getInstance().decrypt(contract);
     }
 
     public void setContract(String contract) {
         this.contract = contract;
     }
 
-    public List<RoomInfo.ViewDataBean> getViewDataX() {
-        return viewDataX;
+
+    public List<RoomInfo.ViewDataBean> getViewDataX() throws Exception {
+       return this.viewDataX=JSON.parseArray(getViewData(),RoomInfo.ViewDataBean.class);
     }
 
-    public void setViewDataX(List<BudingInfo.ViewDataBean> viewDataX) throws Exception {
-        this.viewDataX = JSON.parseArray(getViewData(),RoomInfo.ViewDataBean.class);
+    public void setViewDataX(List<RoomInfo.ViewDataBean> viewDataX) throws Exception {
+        this.viewDataX = viewDataX;
     }
 
-    public static class ViewDataBean {
+    public static class ViewDataBean implements Serializable {
         /**
          * roomSquare : 20
          * roomMoney : 280
