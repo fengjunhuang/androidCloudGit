@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
 
+import com.cloudtenant.yunmenkeji.cloudtenant.view.CharPicPopupWindow;
+import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.gersion.library.base.BaseActivity;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -42,6 +44,7 @@ public class MpChartActivity extends YzsBaseActivity {
     MpChartAdapter mpChartAdapter;
     ArrayList<Entry> entries;
     ArrayList<Entry> entries1;
+    CharPicPopupWindow mPopWindow;
    public static final int[] PIE_COLORS = {
            Color.rgb(75, 208, 250),
            Color.rgb(141, 207, 109),
@@ -50,7 +53,17 @@ public class MpChartActivity extends YzsBaseActivity {
            Color.rgb(255, 184, 96)
    };
 
+    private void showPopupWindow() {
+        //设置contentView
+        mPopWindow = new CharPicPopupWindow(this, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        }, 2);
+        mPopWindow.showAsDropDown(LayoutInflater.from(this).inflate(R.layout.activity_mp_chart, null));
+
+    }
 
     @Override
     protected void initContentView(Bundle var1) {
@@ -281,11 +294,25 @@ public class MpChartActivity extends YzsBaseActivity {
             if(position==0){
             View  containView =LayoutInflater.from(MpChartActivity.this).inflate(R.layout.item_mp_chart,null);
             MpinitMpChat(containView);
+            containView.findViewById(R.id.iv_refesh).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showPopupWindow();
+                }
+            });
            container.addView(containView);
                 return  containView;
 
             }else {
                 View  containView =LayoutInflater.from(MpChartActivity.this).inflate(R.layout.item_pie_chart,null);
+
+                containView.findViewById(R.id.iv_refesh).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showPopupWindow();
+
+                    }
+                });
                 pieMpChat(containView);
                 container.addView(containView);
                 return  containView;

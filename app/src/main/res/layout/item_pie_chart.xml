@@ -1,8 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/image_close"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="q全年支出占比图"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+
+
+            />
+
+        <ImageView
+            android:layout_marginRight="20dp"
+            android:layout_gravity="center"
+            android:id="@+id/iv_refesh"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/image_close"
+            />
+    </LinearLayout>
     <com.github.mikephil.charting.charts.PieChart
 
         android:id="@+id/mPieChart"
@@ -14,4 +49,4 @@
 
         />
 
-</RelativeLayout>
+</LinearLayout>
