@@ -2,6 +2,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
 import android.graphics.Color;
@@ -13,6 +14,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TextAppearanceSpan;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import android.widget.ImageView;
@@ -100,7 +102,7 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
     private  HouseDetil.ViewDataBean houseDetil;
     int start=0;
     int end=4;
-
+    Context mContext=this;
     private List<TextView> ss =new ArrayList<>();
     BudingInfo.ViewDataBean.DataBean bean ;
     TnementBean tnementBean=new TnementBean();
@@ -133,7 +135,11 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
         ss.add(tv_xiyiji);
         ss.add(tv_tianranqi);
         ss.add(tv_dianshiji);
-        getBundleExtras(getIntent().getExtras());
+        try {
+            getBundleExtras(getIntent().getExtras());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         getBtn1().setVisibility(View.INVISIBLE);
         getBtn2().setVisibility(View.INVISIBLE);
         getTv_out().setVisibility(View.VISIBLE);
@@ -167,9 +173,17 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
             @Override
             public boolean onMarkerClick(Marker arg0) {
                 // TODO Auto-generated method stub
-                Bundle bundle =new Bundle();
+               /* Bundle bundle =new Bundle();
                 bundle.putSerializable("bean",(HouseDetil.ViewDataBean)arg0.getTag());
-                readyGo(HouseDetilActivity.class,bundle);
+                readyGo(HouseDetilActivity.class,bundle);*/
+                Intent intent=new Intent(mContext,RoutingActivity.class);
+                try {
+                    intent.putExtra("lat",bean1.getViewDataX().get(0).getRoomLat());
+                    intent.putExtra("longitude",bean1.getViewDataX().get(0).getRoomLng());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                startActivity(intent);
                 return false;
             }
         });
@@ -180,7 +194,7 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
     private TencentLocationRequest locationRequest;
     private  List<Marker> markers =new ArrayList<>();
     @Override
-    protected void getBundleExtras(Bundle var1) {
+    protected void getBundleExtras(Bundle var1) throws Exception {
 
 
         if (var1.getBoolean("isMap")) {
@@ -192,7 +206,9 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
             tencentMap.setZoom(13);
             locationManager = TencentLocationManager.getInstance(this);
             locationRequest = TencentLocationRequest.create();
+
             bindListener();
+
         }else {
             bean = (BudingInfo.ViewDataBean.DataBean) var1.getSerializable("bean");
             houseDetil= (HouseDetil.ViewDataBean) var1.getSerializable("houseDetil");
@@ -302,9 +318,51 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
         if (bean1.getViewDataX().get(0).getRoomSet().contains("宽带")) {
             tv_huangdai.setBackgroundResource(R.drawable.image_web);
         }
+        initMyMap();
     }
 
+    private void initMyMap() throws Exception {
+        //List<HouseDetil.ViewDataBean>  list= viewDataBean;
+        RoomInfo.ViewDataBean viewDataBean=bean1.getViewDataX().get(0);
+        Log.d("initMyMap","初始化map");
+        tencentMap.setInfoWindowAdapter(new TencentMap.InfoWindowAdapter() {
+            //infoWindow关闭后调用，用户回收View
+            @Override
+            public void onInfoWindowDettached(Marker arg0, View arg1) {
+                // TODO Auto-generated method stub
+            }
+            //infoWindow弹出前调用，返回的view将作为弹出的infoWindow
+            @Override
+            public View getInfoWindow(Marker arg0) {
+                // TODO Auto-generated method stub
+                View view=     LayoutInflater.from(mContext).inflate(R.layout.item_map_info,null);
+                ImageView iv_pic= view.findViewById(R.id.iv_pic);
+                TextView tv_shengxia= view.findViewById(R.id.tv_shengxia);
 
+                TextView tv_name= view.findViewById(R.id.tv_name);
+                TextView tv_pay= view.findViewById(R.id.tv_pay);
+                TextView tv_desc= view.findViewById(R.id.tv_desc);
+                //HouseDetil.ViewDataBean bean = (HouseDetil.ViewDataBean) arg0.getTag();
+                /*tv_name.setText(bean1.getCellName());
+                tv_pay.setText(bean1.getCellCost());
+
+                Picasso.with(mContext).load(bean1.getCellImage()).fit().into(iv_pic);
+                tv_shengxia.setText("剩:"+viewDataBean.get+"间");*/
+                return null;
+            }
+        });
+
+        LatLng latLng = new LatLng(Double.valueOf(viewDataBean.getRoomLat()),Double.valueOf(viewDataBean.getRoomLng()));
+        final Marker marker = tencentMap.addMarker(new MarkerOptions().
+                position(latLng).
+                title("点击查看路线"));
+
+        marker.setTag(bean);
+        marker.showInfoWindow();// 设置默认显示一个infoWindow
+
+        markers.add(marker);
+
+    }
     private  boolean isFist =true;
     private Marker myLocation;
     private Circle accuracy;

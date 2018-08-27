@@ -309,6 +309,8 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
         adapter.clear();
         adapter.removeAll();
         adapter.addAll(viewDataBean);
+        recyclerView.scrollToPosition(0);
+
         //adapter.setMore(R.layout.view_more, this);
     }
 
@@ -364,6 +366,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                 markers.add(marker);
             }
         }
+        
 
     }
 
