@@ -306,7 +306,6 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
     private void HideList() {
         PreferencesUtils.putBoolean(getActivity(),"isShow",false);
         isMapMode=true;
-
         mapview.setVisibility(View.VISIBLE);
         adapter.clear();
         adapter.removeAll();

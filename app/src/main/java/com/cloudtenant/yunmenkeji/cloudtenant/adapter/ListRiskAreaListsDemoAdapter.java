@@ -1,6 +1,7 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MessageRoomActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.OnItemClickLitener;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +22,7 @@ import java.util.Map;
  */
 
 public class ListRiskAreaListsDemoAdapter extends BaseAdapter {
-
+    private OnItemClickLitener mOnItemClickLitener;
     private Context mContext;
     //单行的布局
     private int mResource;
@@ -49,6 +51,10 @@ public class ListRiskAreaListsDemoAdapter extends BaseAdapter {
         mResource = resource;
         mFrom = from;
         mTo = to;
+    }
+    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener)
+    {
+        this.mOnItemClickLitener = mOnItemClickLitener;
     }
 
     @Override
@@ -87,6 +93,21 @@ public class ListRiskAreaListsDemoAdapter extends BaseAdapter {
         }else{
             holder = (ListRiskAreaListsDemoAdapter.ViewHolder) convertView.getTag();
         }
+        final View view=convertView;
+
+        int iTag = 0;
+        int flag=0;
+        for (int i = 0; i < mData.size(); i++) {
+            if (i==0){
+                iTag=(Integer)mData.get(i).get(mFrom[1]);
+            }else {
+                int newInt=(Integer) mData.get(i).get(mFrom[1]);
+                if( newInt > iTag){
+                    flag=i;
+                }
+            }
+        }
+
         //设置数据
         final Map<String, ?> dataSet = mData.get(position);
         if (dataSet == null) {
@@ -94,16 +115,36 @@ public class ListRiskAreaListsDemoAdapter extends BaseAdapter {
         }
         //获取该行数据
         final Object tvAreaItem = dataSet.get(mFrom[0]);
-        Boolean tvAreaNo = (Boolean)dataSet.get(mFrom[1]);
 
         holder.tvAreaItem.setText(tvAreaItem.toString());
-        if (tvAreaNo) {
+        if (position==flag) {
             holder.tvAreaNo.setVisibility(View.VISIBLE);
         }else {
             holder.tvAreaNo.setVisibility(View.INVISIBLE);
         }
+        // 如果设置了回调，则设置点击事件
+        if (mOnItemClickLitener != null)
+        {
+            convertView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    mOnItemClickLitener.onItemClick(view, position);
+                }
+            });
 
-        return convertView;
+            convertView.setOnLongClickListener(new View.OnLongClickListener()
+            {
+                @Override
+                public boolean onLongClick(View v)
+                {
+                    mOnItemClickLitener.onItemLongClick(view, position);
+                    return false;
+                }
+            });
+        }
+        return view;
     }
 
     /**

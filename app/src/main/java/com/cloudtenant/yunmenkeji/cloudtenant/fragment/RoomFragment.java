@@ -64,7 +64,6 @@ import java.util.List;
 import java.util.Map;
 
 public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoomSensorListBean> implements CommonPopupWindow.ViewInterface{
-    private Spinner spinner;
     LineChart mLineChart;
     View myScrollView;
     private  MyRoom myRoom;
@@ -81,6 +80,9 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
     private  TextView tv_dianfei;
     private  TextView tv_qita;
     private  TextView  tv_title;
+    private  LinearLayout ll_yijian;
+    private  View view1;
+    private  int index;
     private List<Map<String, Object>> riskAreaList = null;
 
     @Override
@@ -156,6 +158,8 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
         tv_fangzu=view.findViewById(R.id.tv_fangzu);
         tv_qita=view.findViewById(R.id.tv_qita);
         tv_title=view.findViewById(R.id.title);
+        ll_yijian=view.findViewById(R.id.ll_yijian);
+        view1=view.findViewById(R.id.view);
         return view;
     }
 
@@ -170,7 +174,6 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
         setListener();
         request();
      recyclerView = view.findViewById(R.id.recy_pow);
-        spinner= view.findViewById(R.id.room_spinner);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
  powWindowAdapter=new PowWindowAdapter(getActivity());
         recyclerView.setAdapter(powWindowAdapter);
@@ -313,6 +316,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
             @Override
             public void onItemClick(int position) {
                try{
+                   index =position;
                    entries=new ArrayList<>();
                    entries1=new ArrayList<>();
                    for(Integer water:((MyRoom) myRoom).getViewDataX().get(position).getMyRoomWaterArr()){
@@ -398,13 +402,22 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
                 // 移动
             }
         });
-        view.findViewById(R.id.iv_detil).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.iv_detil)
+        .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle =new Bundle();
-                bundle.putParcelableArrayList("entries",entries);
-                bundle.putParcelableArrayList("entries1",entries1);
-                readyGo(MpChartActivity.class,bundle);
+                try {
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("entries", entries);
+                bundle.putParcelableArrayList("entries1", entries1);
+
+
+                    bundle.putSerializable("viewDataBean", myRoom.getViewDataX().get(index));
+                    readyGo(MpChartActivity.class, bundle);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         });
         iv_select.setOnClickListener(new View.OnClickListener() {
@@ -415,7 +428,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
 
                 try {
 
-                    showPopupWindow(view,myRoom);
+                    showPopupWindow(view1,myRoom);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

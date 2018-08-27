@@ -34,6 +34,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.OnItemClickLitener;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.Solve7PopupWindow;
 import com.gersion.library.base.BaseActivity;
@@ -148,29 +149,33 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
         //TextView tvAllArea = (TextView)contentView.findViewById(R.id.tvAllArea);
         ListView lvRiskArea = (ListView)contentView.findViewById(R.id.lvRiskArea);
         //区域列表加载
-        riskAreaList = new ArrayList<Map<String, Object>>();
-        Map<String,Object> map ;
-        for (int i = 0; i < viewDataBeanList.size(); i++) {
-            map = new HashMap<String, Object>();
-            map.put("tvAreaItem", viewDataBeanList.get(i).getMessageRoomName());
-            //红色图标是否显示
-            if (i==tag) {
-                map.put("tvAreaNo", true);
-            }else {
-                map.put("tvAreaNo", false);
-            }
-            riskAreaList.add(map);
-        }
 
-        ListRiskAreaListsDemoAdapter listRiskAreaListsDemoAdapter = new ListRiskAreaListsDemoAdapter(MessageRoomActivity.this, riskAreaList,
+
+        ListRiskAreaListsDemoAdapter listRiskAreaListsDemoAdapter = new ListRiskAreaListsDemoAdapter(
+                MessageRoomActivity.this, riskAreaList,
                 R.layout.spinner_item, new String[] { "tvAreaItem","tvAreaNo"}, new int[] { R.id.tv,R.id.iv});
         lvRiskArea.setAdapter(listRiskAreaListsDemoAdapter);
+        listRiskAreaListsDemoAdapter.setOnItemClickLitener(new OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                int iTag= (int) riskAreaList.get(position).get("tvAreaNo");
+                riskAreaList.get(position).put("tvAreaNo",iTag+2);
+                tvTitle.setText(viewDataBeanList.get(position).getMessageRoomName());
+                adapter.removeAll();
+                adapter.addAll(viewDataBeanList.get(position).getMessageArray());
+                telephone="tel:"+viewDataBeanList.get(position).getMessageLandlordPhone();
+                mPopWindow.dismiss();
+            }
 
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        });
         /*tvAllArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MessageRoomActivity.this, "直接绑定点击事件", Toast.LENGTH_SHORT).show();
-                mPopWindow.dismiss();
+
             }
         });*/
 
@@ -189,9 +194,7 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         spinner.setSelection(i);
-        adapter.removeAll();
-        adapter.addAll(viewDataBeanList.get(i).getMessageArray());
-        telephone="tel:"+viewDataBeanList.get(i).getMessageLandlordPhone();
+
     }
 
     @Override
@@ -211,6 +214,19 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
 
                 Log.e("viewDataBeanList",viewDataBeanList.get(0).getMessageRoomName());
                 tvTitle.setText(viewDataBeanList.get(0).getMessageRoomName());
+                riskAreaList = new ArrayList<Map<String, Object>>();
+                Map<String,Object> map ;
+                for (int i = 0; i < viewDataBeanList.size(); i++) {
+                    map = new HashMap<String, Object>();
+                    map.put("tvAreaItem", viewDataBeanList.get(i).getMessageRoomName());
+                    //红色图标是否显示
+                    if (i==tag) {
+                        map.put("tvAreaNo", tag+1);
+                    }else {
+                        map.put("tvAreaNo", tag);
+                    }
+                    riskAreaList.add(map);
+                }
                 banData(houseDetil.getViewDataX());
             }
 
@@ -222,7 +238,9 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
     }
 
     private void banData(List<MessageSave.ViewDataBean> houseDetil) {
-
+        adapter.removeAll();
+        adapter.addAll(viewDataBeanList.get(0).getMessageArray());
+        telephone="tel:"+viewDataBeanList.get(0).getMessageLandlordPhone();
         for (int i = 0; i < houseDetil.size(); i++) {
             list.add(houseDetil.get(i).getMessageRoomName());
         }

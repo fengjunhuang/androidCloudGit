@@ -21,6 +21,7 @@ public class ImageText {
         this.text = text;
     }
 
+
     public boolean isSelect() {
         return isSelect;
     }

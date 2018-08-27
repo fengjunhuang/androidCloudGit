@@ -27,11 +27,15 @@ import com.cloudtenant.yunmenkeji.cloudtenant.R;
  */
 public class CharPicPopupWindow extends PopupWindow {
 
-	private Button takePhotoBtn, pickPhotoBtn, cancelBtn;
+	private Button takePhotoBtn, pickPhotoBtn, cancelBtn,btnpickP;
 	private ImageView imageView;
 	private View mMenuView;
+
+	public interface OnClickListen{
+	void	onClick(View view ,int pos);
+	}
 	@SuppressLint("InflateParams")
-	public CharPicPopupWindow(Context context, OnClickListener itemsOnClick, int type) {
+	public CharPicPopupWindow(Context context,  final OnClickListen onClickListen, int type) {
 		super(context);
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -39,11 +43,33 @@ public class CharPicPopupWindow extends PopupWindow {
 		takePhotoBtn = (Button) mMenuView.findViewById(R.id.takePhotoBtn);
 		pickPhotoBtn = (Button) mMenuView.findViewById(R.id.pickPhotoBtn);
 		cancelBtn = (Button) mMenuView.findViewById(R.id.cancelBtn);
+		btnpickP=(Button)mMenuView.findViewById(R.id.pickP);
 		imageView= (ImageView) mMenuView.findViewById(R.id.image);
 		// 设置按钮监听
-		cancelBtn.setOnClickListener(itemsOnClick);
-		pickPhotoBtn.setOnClickListener(itemsOnClick);
-		takePhotoBtn.setOnClickListener(itemsOnClick);
+		cancelBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				onClickListen.onClick(view,3);
+			}
+		});
+		pickPhotoBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				onClickListen.onClick(view,1);
+			}
+		});
+		takePhotoBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				onClickListen.onClick(view,0);
+			}
+		});
+		btnpickP.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				onClickListen.onClick(view,2);
+			}
+		});
 
 
 		if (type==1) {
