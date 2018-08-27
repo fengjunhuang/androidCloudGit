@@ -37,7 +37,7 @@ public class MyRoom extends  BaseBean {
         this.viewDataX = viewDataX;
     }
 
-    public static class ViewDataBean {
+    public static class ViewDataBean  implements Serializable{
         /**
          * myRoomLandLoardPhone : 13800138000
          * myRoomMan : 6

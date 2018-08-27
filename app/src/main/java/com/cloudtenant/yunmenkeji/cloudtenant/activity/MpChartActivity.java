@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
 
+import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 import com.gersion.library.base.BaseActivity;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -42,6 +43,7 @@ public class MpChartActivity extends YzsBaseActivity {
     MpChartAdapter mpChartAdapter;
     ArrayList<Entry> entries;
     ArrayList<Entry> entries1;
+    MyRoom.ViewDataBean viewDataBean;
    public static final int[] PIE_COLORS = {
            Color.rgb(75, 208, 250),
            Color.rgb(141, 207, 109),
@@ -65,7 +67,7 @@ public class MpChartActivity extends YzsBaseActivity {
 
 
     }
-  private  View pieMpChat(View view){
+  private  View pieMpChat(View view, ArrayList<PieEntry> entries,int rep){
       //饼状图
       PieChart mPieChart = (PieChart)  view.findViewById(R.id.mPieChart);
       mPieChart.setUsePercentValues(true);
@@ -111,12 +113,7 @@ public class MpChartActivity extends YzsBaseActivity {
       });
       mPieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);// 设置pieChart图表展示动画效果
       //模拟数据
-      ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
-      entries.add(new PieEntry(10, "水费10元"));
-      entries.add(new PieEntry(249, "电费249元"));
-      entries.add(new PieEntry(6, "管理费6元"));
-      entries.add(new PieEntry(50, "网费50元"));
-      entries.add(new PieEntry(800, "房租800元"));
+
       //设置数据
       setData(entries,mPieChart);
 
@@ -247,6 +244,7 @@ public class MpChartActivity extends YzsBaseActivity {
 
      entries=  var1.getParcelableArrayList("entries");
       entries1=  var1.getParcelableArrayList("entries1");
+        viewDataBean = (MyRoom.ViewDataBean) var1.getSerializable("viewDataBean");
 
     }
 
@@ -286,7 +284,14 @@ public class MpChartActivity extends YzsBaseActivity {
 
             }else {
                 View  containView =LayoutInflater.from(MpChartActivity.this).inflate(R.layout.item_pie_chart,null);
-                pieMpChat(containView);
+                ArrayList<PieEntry>       entries = new ArrayList<PieEntry>();
+                entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomWater()), "水费"+viewDataBean.getMyRoomWater()+"元"));
+                entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomPower()), "电费"+viewDataBean.getMyRoomPower()+"元"));
+                entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomMan()), "管理费"+viewDataBean.getMyRoomMan()+"元"));
+                entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomNet()), "网费"+viewDataBean.getMyRoomNet()+"元"));
+                entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomTotal()), "房租"+viewDataBean.getMyRoomTotal()+"元"));
+
+                pieMpChat(containView,entries,1);
                 container.addView(containView);
                 return  containView;
             }
