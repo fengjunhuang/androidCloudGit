@@ -38,6 +38,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.CommonPopupWindow;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.LoadingLayout;
+import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.Solve7PopupWindow;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -83,6 +84,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
     private  View view1;
     private  int index;
     private List<Map<String, Object>> riskAreaList = null;
+
     @Override
     protected void initItemLayout() {
         setLayoutResId(R.layout.item_safe_sensor);
