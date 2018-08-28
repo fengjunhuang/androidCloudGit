@@ -67,7 +67,7 @@ public class MpChartActivity extends YzsBaseActivity {
 
 
     }
-  private  View pieMpChat(View view, ArrayList<PieEntry> entries,int rep){
+  private  View pieMpChat(View view, ArrayList<PieEntry> entries){
       //饼状图
       PieChart mPieChart = (PieChart)  view.findViewById(R.id.mPieChart);
       mPieChart.setUsePercentValues(true);
@@ -284,20 +284,46 @@ public class MpChartActivity extends YzsBaseActivity {
 
             }else {
                 View  containView =LayoutInflater.from(MpChartActivity.this).inflate(R.layout.item_pie_chart,null);
-                ArrayList<PieEntry>       entries = new ArrayList<PieEntry>();
+
                 entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomWater()), "水费"+viewDataBean.getMyRoomWater()+"元"));
                 entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomPower()), "电费"+viewDataBean.getMyRoomPower()+"元"));
                 entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomMan()), "管理费"+viewDataBean.getMyRoomMan()+"元"));
                 entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomNet()), "网费"+viewDataBean.getMyRoomNet()+"元"));
                 entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomTotal()), "房租"+viewDataBean.getMyRoomTotal()+"元"));
 
-                pieMpChat(containView,entries,1);
+                pieMpChat(containView,  getEnties(1));
                 container.addView(containView);
                 return  containView;
             }
 
             }
+
+
+ }
+
+    private ArrayList<PieEntry> getEnties(int i) {
+        ArrayList<PieEntry>       entries = new ArrayList<PieEntry>();
+        if (i == 0) {
+            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomWater()), "水费"+viewDataBean.getMyRoomWater()+"元"));
+            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomPower()), "电费"+viewDataBean.getMyRoomPower()+"元"));
+            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomMan()), "管理费"+viewDataBean.getMyRoomMan()+"元"));
+            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomNet()), "网费"+viewDataBean.getMyRoomNet()+"元"));
+            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomRent()), "房租"+viewDataBean.getMyRoomRent()+"元"));
         }
-
-
+        else  if(i==2){
+            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomWaterTotalHalf()), "水费"+viewDataBean.getMyRoomWaterTotalHalf()+"元"));
+            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomPowerTotalHalf()), "电费"+viewDataBean.getMyRoomPowerTotalHalf()+"元"));
+            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomManTotalHalf()), "管理费"+viewDataBean.getMyRoomManTotalHalf()+"元"));
+            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomNetTotalHalf()), "网费"+viewDataBean.getMyRoomNetTotalHalf()+"元"));
+            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomRentTotalHalf()), "房租"+viewDataBean.getMyRoomRentTotalHalf()+"元"));
+        }
+        else if(i==4){
+            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomWaterTotalQuarter()), "水费"+viewDataBean.getMyRoomWaterTotalQuarter()+"元"));
+            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomPowerTotalQuarter()), "电费"+viewDataBean.getMyRoomWaterTotalQuarter()+"元"));
+            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomManTotalQuarter()), "管理费"+viewDataBean.getMyRoomManTotalQuarter()+"元"));
+            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomNetTotalQuarter()), "网费"+viewDataBean.getMyRoomNetTotalQuarter()+"元"));
+            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomRentTotalQuarter()), "房租"+viewDataBean.getMyRoomRentTotalQuarter()+"元"));
+        }
+         return  entries;
+    }
 }

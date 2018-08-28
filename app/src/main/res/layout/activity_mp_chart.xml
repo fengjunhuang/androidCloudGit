@@ -2,13 +2,62 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
   >
 <!--    <com.shizhefei.view.indicator.FixedIndicatorView
         android:id="@+id/slidebar_indicator"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#fff" />-->
+    <LinearLayout
+        android:paddingLeft="@dimen/x17"
+        android:paddingRight="@dimen/x17"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <ImageView
+            style="@style/click"
+            android:id="@+id/out"
+            android:src="@mipmap/leftback"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+        <TextView
+            android:id="@+id/title"
+            android:text="其他消息"
+            android:gravity="center"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content" />
 
+        <!--<LinearLayout
+            android:layout_width="70dp"
+            android:background="@drawable/butten_background_black"
+            android:gravity="center"
+            android:layout_height="32dp">
+            <ImageView
+                android:background="@drawable/image_me_add"
+                android:layout_width="12dp"
+                android:layout_height="12dp" />
+            <TextView
+                android:text="创 建"
+                android:textColor="@android:color/black"
+                android:textSize="11sp"
+                android:layout_marginLeft="3dp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>-->
+
+    </LinearLayout>
+    <View android:id="@+id/line"
+        android:layout_marginTop="@dimen/x7"
+        style="@style/match_line"/>
     <android.support.v4.view.ViewPager
         android:id="@+id/slidebar_viewPager"
         android:layout_width="match_parent"
