@@ -33,6 +33,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.PicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.SpacesItemDecoration;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.LoadingLayout;
+import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SimpleSwipeRefreshLayout;
 import com.squareup.picasso.Picasso;
 import com.yanzhenjie.permission.Action;
@@ -64,6 +65,7 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
     private SimpleSwipeRefreshLayout  swipeRefreshLayout;
     private LinearLayout ll_tuijian;
     private  HouseDetil houseDetil;
+
     private  boolean isfirst=true;
     @Override
     public void onClick(View v) {

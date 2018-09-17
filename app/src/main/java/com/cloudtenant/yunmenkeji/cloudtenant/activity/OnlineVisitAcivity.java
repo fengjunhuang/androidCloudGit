@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.TnementBean;
 import com.google.vr.sdk.widgets.pano.VrPanoramaView;
 import com.squareup.picasso.Picasso;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
@@ -35,7 +36,7 @@ import okhttp3.Response;
 
 public class OnlineVisitAcivity extends YzsBaseActivity {
    private VrPanoramaView mGLPanorama;
- BudingInfo.ViewDataBean.DataBean bean;
+    TnementBean bean;
     private static final int SUCCESS = 1;
     private static final int FALL = 2;
     private ViewPager viewPager;
@@ -126,7 +127,7 @@ public class OnlineVisitAcivity extends YzsBaseActivity {
     @Override
     protected void getBundleExtras(Bundle var1) {
 
-     bean = (BudingInfo.ViewDataBean.DataBean) var1.getSerializable("bean");
+     bean = (TnementBean) var1.getSerializable("bean");
 
     }
 

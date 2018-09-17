@@ -70,6 +70,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
                 Bundle bundle =new Bundle();
                 bundle.putSerializable("bean",houseDetil.getData().get(position));
                 bundle.putSerializable("houseDetil",bean);
+                bundle.putString("contract",con);
                 readyGo(TnementAcitivity_.class,bundle);
             }
         });
@@ -108,15 +109,16 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
         requset();
         getBundleExtras(getIntent().getExtras());
     }
-
+    String con;
     private void requset() {
         HttpMethods.getInstance().BudingInfo(new BaseObserver<BudingInfo>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
                 BudingInfo budingInfo= (BudingInfo) t;
+                con=budingInfo.getContract();
                viewDataX = budingInfo.getViewDataX();
                mAdapter.addData(viewDataX);
-                System.out.print("");
+
 
             }
 

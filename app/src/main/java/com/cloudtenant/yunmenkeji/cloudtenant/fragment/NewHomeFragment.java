@@ -33,9 +33,11 @@ import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.CityPickerActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.DisMapActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.HouseDetilActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.TnementAcitivity_;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.HouseAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.Qr;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
@@ -205,7 +207,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                             joinFamily();
                         }break;
                         case roominfo:{
-
+                            openActivity();
                         }break;
                     }
                 }else {
@@ -215,6 +217,13 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             }
         }
     }
+
+    private void openActivity() {
+        Bundle bundle =new Bundle();
+        bundle.putBoolean("isMap",true);
+        readyGo(TnementAcitivity_.class,bundle);
+    }
+
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -300,6 +309,8 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
         adapter.clear();
         adapter.removeAll();
         adapter.addAll(viewDataBean);
+        recyclerView.scrollToPosition(0);
+
         //adapter.setMore(R.layout.view_more, this);
     }
 
@@ -355,6 +366,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                 markers.add(marker);
             }
         }
+        
 
     }
 
@@ -483,6 +495,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             }
         },"");
     }
+
     private void joinFamily() {
         HttpMethods.getInstance().joinFamily(new BaseObserver<BrokenUp>() {
             @Override

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.TnementBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
@@ -36,8 +37,8 @@ public class ContractDetailsActivity extends BaseActivity {
 
     private TextView details,title;
     private Button button;
-    private BudingInfo.ViewDataBean.DataBean bean;
-    private HouseDetil.ViewDataBean houseDetil;
+    private TnementBean bean;
+    //private HouseDetil.ViewDataBean houseDetil;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,8 +76,76 @@ public class ContractDetailsActivity extends BaseActivity {
     String aa;
     SpannableString msp = null;
     private void getData() {
-        houseDetil = ( HouseDetil.ViewDataBean) getIntent().getExtras().getSerializable("houseDetil");
-         bean= bean = (BudingInfo.ViewDataBean.DataBean) getIntent().getExtras().getSerializable("bean");
+        //houseDetil = ( HouseDetil.ViewDataBean) getIntent().getExtras().getSerializable("houseDetil");
+         bean = (TnementBean) getIntent().getExtras().getSerializable("bean");
+        aa=bean.getContract().replace("/n", "\n");
+        Log.e("onSuccees",aa);
+        String a="%@";
+        ArrayList<Integer> indexList=new ArrayList<>();
+        ArrayList<Integer> indexSizeList=new ArrayList<>();
+
+        List<String> ctList=new ArrayList<>();
+        //cellAddress
+        ctList.add(bean.getCellName()+bean.getRoomNumber());
+        //roomSquare
+        ctList.add(bean.getRoomSquare());
+        //固定
+        ctList.add("12");
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+        String now = sdf.format(new Date());
+        //当前日期
+        ctList.add(now);
+
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);//设置起时间
+        //System.out.println("111111111::::"+cal.getTime());
+        cal.add(Calendar.YEAR, 1);//增加一年
+        String nowPlus1=sdf.format(cal.getTime());
+        cal.add(Calendar.YEAR, 1);//增加一年
+        String nowPlus2=sdf.format(cal.getTime());
+        //当前日期加一年
+        ctList.add(nowPlus1);
+        //roomMoney
+        ctList.add("1000");
+        //roomMoney大写
+        ctList.add("壹仟");
+        //roomMoney
+        ctList.add("1000");
+        //当前日期
+        ctList.add(now);
+        //roomMoney
+        ctList.add("1000");
+        //当前日期加一年
+        ctList.add(nowPlus1);
+        //当前日期加2年
+        ctList.add(nowPlus2);
+        //roomMoney+50
+        ctList.add("1050");
+        //固定
+        ctList.add("12");
+
+        int ctIndex=0;
+        for (String s : ctList) {
+            aa=aa.replaceFirst(a,s);
+            indexList.add(aa.indexOf(s,ctIndex));
+            ctIndex=aa.indexOf(s,ctIndex);
+            indexSizeList.add(s.length());
+        }
+        msp = new SpannableString(aa);
+        //设置下划线
+        msp.setSpan(new UnderlineSpan(), 0, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        for (int i = 0; i < indexSizeList.size(); i++) {
+
+            msp.setSpan(new UnderlineSpan(), indexList.get(i),indexList.get(i)+indexSizeList.get(i), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        }
+        //设置字体大小（相对值,单位：像素） 参数表示为多少像素
+        //msp.setSpan(new AbsoluteSizeSpan(80), 0, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        details.setText(msp);
         HttpMethods.getInstance().BudingInfo(new BaseObserver<BudingInfo>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
@@ -85,74 +154,7 @@ public class ContractDetailsActivity extends BaseActivity {
 
                 //details.setText(houseDetil.getContract().replace("/n", "\n"));
                 //Log.e("onSuccees",houseDetil.getViewData());
-                aa=budingInfo.getContract().replace("/n", "\n");
-                Log.e("onSuccees",aa);
-                String a="%@";
-                ArrayList<Integer> indexList=new ArrayList<>();
-                ArrayList<Integer> indexSizeList=new ArrayList<>();
 
-                List<String> ctList=new ArrayList<>();
-                //cellAddress
-                ctList.add(houseDetil.getCellName()+bean.getRoomNumber());
-                //roomSquare
-                ctList.add(bean.getRoomSquare());
-                //固定
-                ctList.add("12");
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
-                String now = sdf.format(new Date());
-                //当前日期
-                ctList.add(now);
-
-                Date date = new Date();
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(date);//设置起时间
-                //System.out.println("111111111::::"+cal.getTime());
-                cal.add(Calendar.YEAR, 1);//增加一年
-                String nowPlus1=sdf.format(cal.getTime());
-                cal.add(Calendar.YEAR, 1);//增加一年
-                String nowPlus2=sdf.format(cal.getTime());
-                //当前日期加一年
-                ctList.add(nowPlus1);
-                //roomMoney
-                ctList.add("1000");
-                //roomMoney大写
-                ctList.add("壹仟");
-                //roomMoney
-                ctList.add("1000");
-                //当前日期
-                ctList.add(now);
-                //roomMoney
-                ctList.add("1000");
-                //当前日期加一年
-                ctList.add(nowPlus1);
-                //当前日期加2年
-                ctList.add(nowPlus2);
-                //roomMoney+50
-                ctList.add("1050");
-                //固定
-                ctList.add("12");
-
-                int ctIndex=0;
-                for (String s : ctList) {
-                    aa=aa.replaceFirst(a,s);
-                    indexList.add(aa.indexOf(s,ctIndex));
-                    ctIndex=aa.indexOf(s,ctIndex);
-                    indexSizeList.add(s.length());
-                }
-                msp = new SpannableString(aa);
-                //设置下划线
-                msp.setSpan(new UnderlineSpan(), 0, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                for (int i = 0; i < indexSizeList.size(); i++) {
-
-                msp.setSpan(new UnderlineSpan(), indexList.get(i),indexList.get(i)+indexSizeList.get(i), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                }
-                //设置字体大小（相对值,单位：像素） 参数表示为多少像素
-                //msp.setSpan(new AbsoluteSizeSpan(80), 0, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                details.setText(msp);
 
             }
 

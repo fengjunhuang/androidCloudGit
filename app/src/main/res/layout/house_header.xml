@@ -74,6 +74,6 @@
         android:visibility="gone"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x240" />
+        android:layout_height="@dimen/y370" />
 
 </LinearLayout>

@@ -12,6 +12,8 @@ import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
+import com.cloudtenant.yunmenkeji.cloudtenant.view.CharPicPopupWindow;
+import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.gersion.library.base.BaseActivity;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -42,8 +44,12 @@ public class MpChartActivity extends YzsBaseActivity {
     ViewPager mViewPager;
     MpChartAdapter mpChartAdapter;
     ArrayList<Entry> entries;
+    ArrayList<PieEntry> pieEntrys;
     ArrayList<Entry> entries1;
     MyRoom.ViewDataBean viewDataBean;
+    CharPicPopupWindow mPopWindow;
+    LineChart mLineChart;
+    View  containView;
    public static final int[] PIE_COLORS = {
            Color.rgb(75, 208, 250),
            Color.rgb(141, 207, 109),
@@ -52,7 +58,28 @@ public class MpChartActivity extends YzsBaseActivity {
            Color.rgb(255, 184, 96)
    };
 
+    private void showPopupWindow() {
+        //设置contentView
+        mPopWindow = new CharPicPopupWindow(this, new CharPicPopupWindow.OnClickListen() {
+            @Override
+            public void onClick(View view, int pos) {
+                if(pos==0){
+                    initMpChat(entries,entries1,12);
 
+                }else if(pos==1){
+                    MpinitMpChat(containView,6);
+                }else  if(pos ==2){
+                    initMpChat(entries,entries1,3);
+                }else if(pos==3){
+
+
+                }
+                mPopWindow.dismiss();
+            }
+        }, 2);
+        mPopWindow.showAsDropDown(LayoutInflater.from(this).inflate(R.layout.activity_mp_chart, null));
+
+    }
 
     @Override
     protected void initContentView(Bundle var1) {
@@ -64,8 +91,18 @@ public class MpChartActivity extends YzsBaseActivity {
       mpChartAdapter = new MpChartAdapter();
         mViewPager.setAdapter(new MpChartAdapter());
         mpChartAdapter.notifyDataSetChanged();
-
-
+    findViewById(R.id.iv_refesh).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopupWindow();
+            }
+        });
+        findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
   private  View pieMpChat(View view, ArrayList<PieEntry> entries){
       //饼状图
@@ -169,53 +206,81 @@ public class MpChartActivity extends YzsBaseActivity {
         //刷新
         mPieChart.invalidate();
     }
-    private  View MpinitMpChat(View view) {
-
-        LineChart mLineChart=  view.findViewById(R.id.lineChart);
+    private  View MpinitMpChat(View view,int pos) {
+ if(mLineChart!=null){
+     mLineChart.invalidate();
+ }
+      mLineChart=  view.findViewById(R.id.lineChart);
         //显示边界
-     initMpChat(entries,entries1,12,mLineChart);
+     initMpChat(entries,entries1,pos);
         return mLineChart;
 
     }
+    private void initMpChat( List<Entry> entries,List<Entry> entries1,int size) {
 
-    private void initMpChat( List<Entry> entries,List<Entry> entries1,int size, LineChart mLineChart) {
 
-        entries=  entries.subList(0,size);
-        entries1=  entries1.subList(0,size);
+        List<Entry> mentries=  entries.subList(0,size);
+        List<Entry>  mentries1=  entries1.subList(0,size);
         //显示边界
         mLineChart.setDrawBorders(true);
         //设置数据
 
         final List<String> mlistX =new ArrayList<>();
 
-        for(Entry entry:entries){
+        for(Entry entry:mentries){
             mlistX.add((int) entry.getX()+1+"月");
 
         }
 
+       /* entries.add(new Entry(0, 30f));
+        entries.add(new Entry(1, 50f));
+        entries.add(new Entry(2, 81f));
+        entries.add(new Entry(3, 46f));
+        entries.add(new Entry(4, 204f));
+        entries.add(new Entry(5, 290f));
+        entries.add(new Entry(6, 310f));
+        entries.add(new Entry(7, 259f));
+        entries.add(new Entry(8, 530f));
+        entries.add(new Entry(9, 430f));
+        entries.add(new Entry(10, 498f));
+        entries.add(new Entry(11, 431f));
+        entries1.add(new Entry(0, 14f));
+        entries1.add(new Entry(1, 16f));
+        entries1.add(new Entry(2, 11f));
+        entries1.add(new Entry(3, 12f));
+        entries1.add(new Entry(4, 18f));
+        entries1.add(new Entry(5, 10f));
+        entries1.add(new Entry(6, 21f));
+        entries1.add(new Entry(7, 32f));
+        entries1.add(new Entry(8, 17f));
+        entries1.add(new Entry(9, 12f));
+        entries1.add(new Entry(10, 17f));
+        entries1.add(new Entry(11, 19f));*/
+        //一个LineDataSet就是一条线\
 
         XAxis xAxis = mLineChart.getXAxis();
 
-        xAxis.setValueFormatter(new IAxisValueFormatter() {
-
-
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-
-                return mlistX.get((int) value);
-            }
-        });
         xAxis.setLabelCount(size, true);
+//        xAxis.setValueFormatter(new IAxisValueFormatter() {
+//
+//
+//            @Override
+//            public String getFormattedValue(float value, AxisBase axis) {
+//
+//                return mlistX.get((int) value);
+//            }
+//        });
+
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextSize(18);
 
         List<ILineDataSet> sets = new ArrayList<>();
-        LineDataSet  lineDataSet=     new LineDataSet(entries, "电费");
+        LineDataSet  lineDataSet=     new LineDataSet(mentries, "电费");
 
         lineDataSet.setColor(Color.GREEN);
         sets.add(lineDataSet);
 
-        sets.add(new LineDataSet(entries1, "水费"));
+        sets.add(new LineDataSet(mentries1, "水费"));
         LineData lineData = new LineData(sets);
         Legend legend = mLineChart.getLegend();
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
@@ -277,8 +342,9 @@ public class MpChartActivity extends YzsBaseActivity {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             if(position==0){
-            View  containView =LayoutInflater.from(MpChartActivity.this).inflate(R.layout.item_mp_chart,null);
-            MpinitMpChat(containView);
+            containView =LayoutInflater.from(MpChartActivity.this).inflate(R.layout.item_mp_chart,null);
+            MpinitMpChat(containView,12);
+
            container.addView(containView);
                 return  containView;
 
@@ -292,6 +358,7 @@ public class MpChartActivity extends YzsBaseActivity {
                 entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomTotal()), "房租"+viewDataBean.getMyRoomTotal()+"元"));
 
                 pieMpChat(containView,  getEnties(1));
+
                 container.addView(containView);
                 return  containView;
             }
