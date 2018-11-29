@@ -81,7 +81,7 @@ public class SplashActivity extends YzsBaseActivity {
 
     @Override
     protected void initLogic() {
-        HttpMethods.getInstance().login(new BaseObserver<UserInfo>() {
+        /*HttpMethods.getInstance().login(new BaseObserver<UserInfo>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
 //                mDialog.dismiss();
@@ -102,7 +102,7 @@ public class SplashActivity extends YzsBaseActivity {
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },new LoginBean("aaaa","aaaaaaaaaaa"));
+        },new LoginBean("aaaa","aaaaaaaaaaa"));*/
     }
 
     @Override

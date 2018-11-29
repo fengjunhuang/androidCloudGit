@@ -16,6 +16,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.ListBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.LoginBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
@@ -35,7 +36,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HttpMethods {
 
-    private static final String BASE_URL = "http://5ae10bf1ee98370014cf2455.mockapi.io/";
+    private static final String BASE_URL1 = "http://5ae10bf1ee98370014cf2455.mockapi.io/";
+    private static final String BASE_URL = "http://123.207.91.208:80/";
     private static final int TIME_OUT=4;
     private Retrofit retrofit;
     private ApiService apiService;
@@ -85,8 +87,8 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void homeData(BaseObserver<HouseDetil> observer, String aa){
-        apiService.homeData().subscribeOn(Schedulers.io())
+    public void homeData(BaseObserver<HouseDetil> observer, ListBean listBean){
+        apiService.homeData(listBean).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

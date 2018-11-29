@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-
- android:padding="10dp"
+    android:padding="10dp"
     >
     <include
         android:id="@+id/include_title"
@@ -240,8 +240,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-
-
         android:background="@drawable/selector_btn_green"
         android:padding="8dp"
         android:text="支付:1165.00元"

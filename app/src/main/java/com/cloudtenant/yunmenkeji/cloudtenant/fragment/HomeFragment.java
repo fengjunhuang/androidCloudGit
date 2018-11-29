@@ -28,6 +28,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.ListBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.PicassoImageLoader;
@@ -245,7 +246,7 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
 
     private void requestData() {
 
-        HttpMethods.getInstance().homeData(new BaseObserver<HouseDetil>() {
+        /*HttpMethods.getInstance().homeData(new BaseObserver<HouseDetil>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
                 mAdapter.getData().clear();
@@ -275,6 +276,6 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
                 mLoading.showEmpty();
 
             }
-        },"");
+        },new ListBean(page+"",row+"",longitude+"",latitude+""));*/
     }
 }
