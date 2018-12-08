@@ -41,6 +41,8 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.ListBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.LoginBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.AppUtils;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
@@ -93,6 +95,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
     private EasyRecyclerView recyclerView;
     private RecyclerArrayAdapter.ItemView headerView;
     int page=1;
+    int row=20;
     boolean isFirst=true;
     MapView mapview=null;
     TencentMap tencentMap;
@@ -109,7 +112,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
         switch (v.getId()) {
             case R.id.btn_op1: {
                 AndPermission.with(this)
-                        .permission(Permission.CAMERA, Permission.READ_EXTERNAL_STORAGE)
+                        .permission(Permission.CAMERA, Permission.READ_EXTERNAL_STORAGE,Permission.READ_PHONE_STATE)
                         .onGranted(new Action() {
                             @Override
                             public void onAction(Object data) {
@@ -151,18 +154,20 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             break;
 
             case R.id.tv_map:{
+                Log.d("onclick","点击了地图");
                 if (!isMapMode) {
                     tv_map.setBackgroundResource(R.drawable.butten_background_green_solid_r);
                     tv_map.setTextColor(getResources().getColor(R.color.white));
                     tv_common.setBackgroundResource(R.drawable.butten_background_green_l);
                     tv_common.setTextColor(getResources().getColor(R.color.orange_cut_clorr));
                     if (isFirst) {
-                        initMyMap();
                     }
+                    initMyMap();
                     HideList();
                 }
             }break;
             case R.id.tv_common:{
+                Log.d("onclick","点击了点击了列表");
                 if (isMapMode) {
                     tv_common.setBackgroundResource(R.drawable.butten_background_green_solid);
                     tv_common.setTextColor(getResources().getColor(R.color.white));
@@ -326,6 +331,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
 
 
     private void initMyMap() {
+        Log.d("initMyMap","initMyMap！！");
         List<HouseDetil.ViewDataBean>  list= viewDataBean;
 
         tencentMap.setInfoWindowAdapter(new TencentMap.InfoWindowAdapter() {
@@ -333,10 +339,12 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             @Override
             public void onInfoWindowDettached(Marker arg0, View arg1) {
                 // TODO Auto-generated method stub
+                Log.d("WindowAdapter","onInfoWindowDettached！！");
             }
             //infoWindow弹出前调用，返回的view将作为弹出的infoWindow
             @Override
-            public View getInfoWindow(Marker arg0) {
+            public View getInfoWindow(final Marker arg0) {
+                Log.d("WindowAdapter","getInfoWindow！！");
                 // TODO Auto-generated method stub
                 View view=     LayoutInflater.from(mContext).inflate(R.layout.item_map_info,null);
                 ImageView iv_pic= view.findViewById(R.id.iv_pic);
@@ -351,12 +359,23 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
 
                 Picasso.with(mContext).load(bean.getCellImage()).fit().into(iv_pic);
                 tv_shengxia.setText("剩:"+bean.getCellRemain()+"间");
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("onclick","点击了地图上的弹框");
+                        Bundle bundle =new Bundle();
+                        bundle.putSerializable("bean",(HouseDetil.ViewDataBean)arg0.getTag());
+                        readyGo(HouseDetilActivity.class,bundle);
+                    }
+                });
                 return view;
             }
         });
         if (list!=null) {
             for(HouseDetil.ViewDataBean bean :list){
                 LatLng latLng = new LatLng(Double.valueOf(bean.getCellLatitude()),Double.valueOf(bean.getCellLongitude()));
+                Log.d("initMyMap","lat="+bean.getCellLongitude()+">>>long="+bean.getCellLongitude());
+                Log.d("initMyMap","getCellName="+bean.getCellName()+">>>getCellAddress="+bean.getCellAddress());
                 final Marker marker = tencentMap.addMarker(new MarkerOptions().
                         position(latLng).
                         title(bean.getCellName()).
@@ -365,9 +384,24 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                 marker.setTag(bean);
                 markers.add(marker);
             }
+        }else {
+            Log.d("initMyMap","list为空！！");
         }
-        
 
+        tencentMap.setOnMarkerClickListener(new TencentMap.OnMarkerClickListener() {
+
+            @Override
+            public boolean onMarkerClick(Marker arg0) {
+                // TODO Auto-generated method stub
+                Log.d("onclick","点击了地图上的小标点");
+                arg0.hideInfoWindow();
+                arg0.showInfoWindow();
+                /*Bundle bundle =new Bundle();
+                bundle.putSerializable("bean",(HouseDetil.ViewDataBean)arg0.getTag());
+                readyGo(HouseDetilActivity.class,bundle);*/
+                return false;
+            }
+        });
     }
 
     protected void bindListener() {
@@ -392,17 +426,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             default:
                 break;
         }
-        tencentMap.setOnMarkerClickListener(new TencentMap.OnMarkerClickListener() {
 
-            @Override
-            public boolean onMarkerClick(Marker arg0) {
-                // TODO Auto-generated method stub
-                Bundle bundle =new Bundle();
-                bundle.putSerializable("bean",(HouseDetil.ViewDataBean)arg0.getTag());
-                readyGo(HouseDetilActivity.class,bundle);
-                return false;
-            }
-        });
 
     }
     @Override
@@ -480,8 +504,8 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                     adapter.removeAll();
                 }
                 System.out.println(houseDetil.getViewDataX().size()+"");
-                Log.e("getData",houseDetil.getViewDataX().get(0).toString());
-                Log.e("getData",houseDetil.getViewDataX().size()+"条信息");
+                Log.e("requestData",houseDetil.getViewDataX().get(0).toString());
+                Log.e("requestData",houseDetil.getViewDataX().size()+"条信息");
 
                 viewDataBean=houseDetil.getViewDataX();
                 if (!isMapMode) {
@@ -491,9 +515,9 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             }
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-
+                Log.e("requestData","网络状态》》"+isNetWorkError+"!!"+e.getMessage());
             }
-        },"");
+        },new ListBean(page+"",row+"",longitude+"",latitude+""));
     }
 
     private void joinFamily() {
@@ -519,8 +543,11 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
     private  boolean isFist =true;
     private Marker myLocation;
     private Circle accuracy;
+    private double longitude=113.27324,latitude=23.15792;
     @Override
     public void onLocationChanged(TencentLocation arg0, int arg1, String s) {
+        longitude=arg0.getLongitude();
+        latitude=arg0.getLatitude();
         if (arg1 == TencentLocation.ERROR_OK) {
             LatLng latLng = new LatLng(arg0.getLatitude(), arg0.getLongitude());
             if (myLocation == null) {

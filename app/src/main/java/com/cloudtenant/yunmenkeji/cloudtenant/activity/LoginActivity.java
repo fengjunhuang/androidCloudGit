@@ -50,13 +50,13 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
     private SpotsDialog mDialog;
     @Click(R.id.btn_login)
     void login(){
-        if (checkPhoneNum(et_number.getText().toString().trim(),"86")) {
 
-
+        goLogin();
+        /*if (checkPhoneNum(et_number.getText().toString().trim(),"86")) {
         mDialog.show();
         SMSSDK.submitVerificationCode("86",phone,et_code.getText().toString().trim());
-//        goLogin();
-        }
+        goLogin();
+        }*/
     }
     @Click(R.id.btn_visitor)
     void visitor(){
@@ -171,9 +171,10 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
             }
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                    Log.d("goLogin","网络状态》》"+isNetWorkError+"!!"+e.getMessage());
 
             }
-        },new LoginBean("aaaa","aaaaaaaaaaa"));
+        },new LoginBean(phone,"1"));
     }
 
     private String phone;

@@ -6,7 +6,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.model;
 
 public class LoginBean {
     private String userPhone;
-    private String  userPassword;
+    private String  type ;
 
     public String getUserPhone() {
         return userPhone;
@@ -16,16 +16,29 @@ public class LoginBean {
         this.userPhone = userPhone;
     }
 
-    public String getUserPassword() {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+
+
+    /*public String getUserPassword() {
         return userPassword;
     }
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
-    }
+    }*/
 
-    public LoginBean(String userPhone, String userPassword) {
+    public LoginBean(String userPhone, String type) {
         this.userPhone = userPhone;
-        this.userPassword = userPassword;
+        this.type = type;
+    }
+    public LoginBean(String type) {
+        this.type = type;
     }
 }

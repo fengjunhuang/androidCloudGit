@@ -1,7 +1,5 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -9,26 +7,20 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
-import com.cloudtenant.yunmenkeji.cloudtenant.activity.MessageRoomActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MpChartActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.PayActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.SensorActivity;
-import com.cloudtenant.yunmenkeji.cloudtenant.adapter.ListRiskAreaListsDemoAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.PowWindowAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;

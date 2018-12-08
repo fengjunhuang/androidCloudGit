@@ -18,7 +18,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <!--腾讯地图 SDK 要求的权限(结束)-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- 访问WiFi状态，需要WiFi信息用于网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
