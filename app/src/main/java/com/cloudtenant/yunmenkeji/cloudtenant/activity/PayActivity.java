@@ -10,8 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.alipay.sdk.app.EnvUtils;
-import com.alipay.sdk.app.PayTask;
+//import com.alipay.sdk.app.EnvUtils;
+//import com.alipay.sdk.app.PayTask;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.AuthResult;
@@ -81,7 +81,7 @@ public class PayActivity extends YzsBaseActivity {
     };
     @Override
     protected void initContentView(Bundle var1) {
-        EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
+//        EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
         setContentView(R.layout.activity_pay);
     }
 
@@ -120,14 +120,14 @@ public class PayActivity extends YzsBaseActivity {
 
                     @Override
                     public void run() {
-                        PayTask alipay = new PayTask(PayActivity.this);
-                        Map<String, String> result = alipay.payV2(orderInfo, true);
-                        Log.i("msp", result.toString());
-
-                        Message msg = new Message();
-                        msg.what = SDK_PAY_FLAG;
-                        msg.obj = result;
-                        mHandler.sendMessage(msg);
+//                        PayTask alipay = new PayTask(PayActivity.this);
+//                        Map<String, String> result = alipay.payV2(orderInfo, true);
+//                        Log.i("msp", result.toString());
+//
+//                        Message msg = new Message();
+//                        msg.what = SDK_PAY_FLAG;
+//                        msg.obj = result;
+//                        mHandler.sendMessage(msg);
                     }
                 };
 
