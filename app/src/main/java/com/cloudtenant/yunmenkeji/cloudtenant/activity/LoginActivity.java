@@ -152,14 +152,19 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
     }
 
     private void goLogin() {
+        phone=et_number.getText().toString();
+        Log.d("goLogin","电话号码=="+phone);
         HttpMethods.getInstance().login(new BaseObserver<UserInfo>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
                 mDialog.dismiss();
                 UserInfo houseDetil= (UserInfo) t;
-                    Log.d("onSuccees",houseDetil.getUserinfo());
+                    Log.d("onSuccess",houseDetil.getUserinfo());
+                String s=houseDetil.getUserinfo().substring(1,houseDetil.getUserinfo().length());
+                String s1=s.substring(0,s.length()-1);
 
-                UserinfoBean userinfoBean= JSONUtil.fromJson(houseDetil.getUserinfo(),UserinfoBean.class);
+                    Log.d("onSuccess","截取后的字段="+s1);
+                UserinfoBean userinfoBean= JSONUtil.fromJson(s1,UserinfoBean.class);
                     Log.d("onSuccees",userinfoBean.getUserName());
 
                     UserLocalData.putUser(LoginActivity.this,userinfoBean);
@@ -174,7 +179,7 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
                     Log.d("goLogin","网络状态》》"+isNetWorkError+"!!"+e.getMessage());
 
             }
-        },new LoginBean(phone,"1"));
+        },1+"",phone);
     }
 
     private String phone;

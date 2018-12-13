@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
+import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.PreferencesUtils;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
@@ -51,10 +52,13 @@ public class HouseViewHolder extends BaseViewHolder<HouseDetil.ViewDataBean> {
         tv_cell_building_set.setText(person.getCellBuildingSet());
         tv_cell_remain.setText("云门验证·剩" + person.getCellRemain() + "间");
         SpannableString msp = new SpannableString("￥" + person.getCellCost() + "/月");
-        msp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  //粗体
+        int size=person.getCellCost().length()+1;
+        msp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, size, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  //粗体
         tv_cell_cost.setText(msp);
         tv_cell_name.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-        Picasso.with(getContext()).load(person.getCellImage()).fit().into(imageView);
+        String image= "http://123.207.91.208:80/"+person.getCellImage();
+        //Picasso.with(getContext()).load(person.getCellImage()).fit().into(imageView);
+        Picasso.with(getContext()).load(image).fit().into(imageView);
         /*if (!PreferencesUtils.getBoolean(getContext(),"isShow")){
             tv_cell_name.setVisibility(View.GONE);
             tv_cell_cost.setVisibility(View.GONE);
