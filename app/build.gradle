@@ -118,7 +118,7 @@ dependencies {
     implementation files('libs/TencentMapSearch_v1.1.7.1.3e04ee1.jar')
     compile 'com.pnikosis:materialish-progress:1.7'
 
-    // 支付宝
-    compile (name: 'alipaySdk-15.5.7-20181023110917', ext: 'aar')
+//    // 支付宝
+//    compile (ame: 'alipaySdk-15.5.7-20181023110917', ext: 'aar')
 
 }
