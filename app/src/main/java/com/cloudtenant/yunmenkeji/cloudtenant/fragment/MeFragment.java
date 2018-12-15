@@ -167,8 +167,9 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     protected void initView(View view) {
         if (PreferencesUtils.getBoolean(getActivity(),"isLogin",false)) {
             userinfoBean= UserLocalData.getUser(getActivity());
-            Picasso.with(getActivity()).load(userinfoBean.getUserIcon()).into(iv_icon);
-            Picasso.with(getActivity()).load(userinfoBean.getUserIcon()).into(circleImageView);
+            String iconUrl="http://123.207.91.208:80"+userinfoBean.getUserIcon();
+            Picasso.with(getActivity()).load(iconUrl).into(iv_icon);
+            Picasso.with(getActivity()).load(iconUrl).into(circleImageView);
             userName.setText(userinfoBean.getUserName());
             tv_username.setText(userinfoBean.getUserName());
         }

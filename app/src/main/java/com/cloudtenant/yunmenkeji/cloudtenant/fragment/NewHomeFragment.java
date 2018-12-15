@@ -41,6 +41,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil1;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.ListBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.LoginBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.AppUtils;
@@ -503,7 +504,9 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                 if (page==1) {
                     adapter.removeAll();
                 }
-                System.out.println(houseDetil.getViewDataX().size()+"");
+                System.out.println(houseDetil.getViewData());
+                System.out.println(houseDetil.getMaxPage());
+                System.out.println(houseDetil.getBannerData().get(0).getBannerTitle());
                 Log.e("requestData",houseDetil.getViewDataX().get(0).toString());
                 Log.e("requestData",houseDetil.getViewDataX().size()+"条信息");
 
@@ -517,7 +520,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
                 Log.e("requestData","网络状态》》"+isNetWorkError+"!!"+e.getMessage());
             }
-        },new ListBean(page+"",row+"",longitude+"",latitude+""));
+        },page+"",row+"",longitude+"",latitude+"");
     }
 
     private void joinFamily() {

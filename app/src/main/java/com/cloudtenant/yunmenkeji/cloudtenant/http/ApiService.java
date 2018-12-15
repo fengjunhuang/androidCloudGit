@@ -15,13 +15,18 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil1;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.ListBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.LoginBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by zt on 2017/3/10.
@@ -52,11 +57,12 @@ public interface ApiService {
 //    @POST ("buoy/getBuoyHistorysById")
 //    Observable<BuoyHistoryList> getBuoyHistorysById(@Body HistoryParmerBean userBean);
        @POST("chl/tenant/account/addAccountInfo?")
-       Observable<UserInfo> login(@Body LoginBean loginBean);
+       Observable<UserInfo> login(@Query("type") String type, @Query("userPhone") String userPhone);
        @POST("LoginWithAuthorization")
        Observable<UserInfo> loginWithAuthorization();
-       @POST("HomeData")
-       Observable<HouseDetil> homeData();
+
+       @POST("/chl/buildings/getBuilding")
+       Observable<HouseDetil> homeData(@Query("page") String page, @Query("row") String rows, @Query("longitdue") String longitdue, @Query("latitude") String latitude);
        @POST("MessageSave")
        Observable<MessageSave> messageSave();
        @POST("OtherMessage")
