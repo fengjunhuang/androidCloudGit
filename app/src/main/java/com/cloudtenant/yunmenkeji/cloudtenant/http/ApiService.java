@@ -55,8 +55,8 @@ public interface ApiService {
        Observable<UserInfo> login(@Body LoginBean loginBean);
        @POST("LoginWithAuthorization")
        Observable<UserInfo> loginWithAuthorization();
-       @POST("/chl/buildings/getBuilding")
-       Observable<HouseDetil> homeData(@Body ListBean listBean);
+       @POST("HomeData")
+       Observable<HouseDetil> homeData();
        @POST("MessageSave")
        Observable<MessageSave> messageSave();
        @POST("OtherMessage")
