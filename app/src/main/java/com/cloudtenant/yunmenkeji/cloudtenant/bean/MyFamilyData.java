@@ -5,7 +5,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 
 import java.util.List;
 
-public class MyFamilyData extends BaseBean{
+public class MyFamilyData extends BaseBeanC{
 
 
     /**

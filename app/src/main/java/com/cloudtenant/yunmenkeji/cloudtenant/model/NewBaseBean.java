@@ -1,14 +1,12 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.model;
 
-import com.cloudtenant.yunmenkeji.cloudtenant.util.AESOperator;
-
 import java.io.Serializable;
 
 /**
  * Created by feng on 2017/12/19.
  */
 
-public class BaseBean implements Serializable {
+public class NewBaseBean  extends  BaseBean implements Serializable {
 
 
     /**
@@ -18,6 +16,8 @@ public class BaseBean implements Serializable {
 
     private String result;
     private String message;
+
+
 
 
     public String getResult() {

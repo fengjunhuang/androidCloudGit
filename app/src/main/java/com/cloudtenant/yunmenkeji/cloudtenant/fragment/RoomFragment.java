@@ -22,12 +22,15 @@ import com.cloudtenant.yunmenkeji.cloudtenant.activity.MpChartActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.PayActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.SensorActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.PowWindowAdapter;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.ImageText;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.NewBaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.NewBaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.CommonPopupWindow;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.LoadingLayout;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
@@ -55,10 +58,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoomSensorListBean> implements CommonPopupWindow.ViewInterface{
+public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.MyRoomSensorListBean> implements CommonPopupWindow.ViewInterface{
     LineChart mLineChart;
     View myScrollView;
-    private  MyRoom myRoom;
+
     private ImageView iv_select;
     private  CommonPopupWindow popupWindow;
     private LoadingLayout mLoading;
@@ -75,6 +78,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
     private  LinearLayout ll_yijian;
     private  View view1;
     private  int index;
+    private  RoomModel roomModel;
     private List<Map<String, Object>> riskAreaList = null;
 
     @Override
@@ -85,17 +89,17 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
     }
 
     @Override
-    protected void MyHolder(final  BaseViewHolder baseViewHolder, final  MyRoom.ViewDataBean.MyRoomSensorListBean myRoomSensorListBean) {
+    protected void MyHolder(final BaseViewHolder baseViewHolder, final RoomModel.ViewDataBean.MyRoomSensorListBean myRoomSensorListBean) {
         ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_name))).setText(myRoomSensorListBean.getSensorName());
         ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_sensorID))).setText(myRoomSensorListBean.getSensorID());
-        if(myRoomSensorListBean.isSensorOn()){
+        if(myRoomSensorListBean.getSensorOn().equals("true")){
             ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_name))).setTextColor(Color.WHITE);
             ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_sensorID))).setTextColor(Color.WHITE);
             ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_sensorID))).setText(myRoomSensorListBean.getSensorID());
             ((ImageView)(baseViewHolder.convertView.findViewById(R.id.iv_sign))).setImageResource(R.drawable.image_myroom_open);
             ((ImageView)(baseViewHolder.convertView.findViewById(R.id.iv_senicon))).setImageResource(R.drawable.image_sensor_status_on);
             baseViewHolder.convertView.setBackgroundResource((R.drawable.shape_corner_up));
-        ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_switch))).setText("开");
+            ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_switch))).setText("开");
 
             baseViewHolder.convertView.findViewById(R.id.iv_sign).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -124,7 +128,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
                 ((ImageView)(baseViewHolder.convertView.findViewById(R.id.iv_senicon))).setImageResource(R.drawable.image_sensor_status_on);
                 baseViewHolder.convertView.setBackgroundResource((R.drawable.shape_corner_up));
                 ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_switch))).setText("开");
-                myRoomSensorListBean.setSensorOn(true);
+                myRoomSensorListBean.setSensorOn("true");
             }
         });
         baseViewHolder.convertView.findViewById(R.id.iv_sign).setOnClickListener(new View.OnClickListener() {
@@ -136,6 +140,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
             }
         });
     }
+
 
     @Override
     protected View initContentView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
@@ -174,38 +179,63 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
     }
 
     private void request() {
-
-        HttpMethods.getInstance().myRoom(new BaseObserver<MyRoom>() {
+        HttpMethods.getInstance().findRoomMessageByPhone(new BaseObserver<RoomModel>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
-                 myRoom=(MyRoom)t;
-                  initRoomData(myRoom.getViewDataX().get(0));
+                roomModel=(RoomModel) t;
 
-                for(Integer water:((MyRoom) t).getViewDataX().get(0).getMyRoomWaterArr()){
-                    entries.add(new Entry(((MyRoom) t).getViewDataX().get(0).getMyRoomWaterArr().indexOf(water),water.floatValue()));
+
+
+                for(Double water:((RoomModel) t).getViewData().get(0).getMyRoomWaterArr()){
+                    entries.add(new Entry(((RoomModel) t).getViewData().get(0).getMyRoomWaterArr().indexOf(water),water.floatValue()));
                 }
-                for(Integer power:((MyRoom) t).getViewDataX().get(0).getMyRoomPowerArr()){
-                    entries1.add(new Entry(((MyRoom) t).getViewDataX().get(0).getMyRoomPowerArr().indexOf(power),power.floatValue()));
+                for(Double power:((RoomModel) t).getViewData().get(0).getMyRoomPowerArr()){
+                    entries1.add(new Entry(((RoomModel) t).getViewData().get(0).getMyRoomPowerArr().indexOf(power),power.floatValue()));
                 }
                 initMpChat(entries,entries1,6);
 
-                mAdapter.addData(myRoom.getViewDataX().get(0).getMyRoomSensorList());
+                mAdapter.addData(roomModel.getViewData().get(0).getMyRoomSensorList());
                 mLoading.dimssDoading();
-
-
-            }
-
-            private void initRoomData(MyRoom.ViewDataBean viewDataBean) {
-
-
             }
 
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mLoading.showState();
+
+                e.printStackTrace();
 
             }
-        },"");
+        },"13068893276");
+//        HttpMethods.getInstance().myRoom(new BaseObserver<MyRoom>() {
+//            @Override
+//            protected void onSuccees(BaseBean t) throws Exception {
+//                 myRoom=(MyRoom)t;
+//                  initRoomData(myRoom.getViewDataX().get(0));
+//
+//                for(Integer water:((MyRoom) t).getViewDataX().get(0).getMyRoomWaterArr()){
+//                    entries.add(new Entry(((MyRoom) t).getViewDataX().get(0).getMyRoomWaterArr().indexOf(water),water.floatValue()));
+//                }
+//                for(Integer power:((MyRoom) t).getViewDataX().get(0).getMyRoomPowerArr()){
+//                    entries1.add(new Entry(((MyRoom) t).getViewDataX().get(0).getMyRoomPowerArr().indexOf(power),power.floatValue()));
+//                }
+//                initMpChat(entries,entries1,6);
+//
+//                mAdapter.addData(myRoom.getViewDataX().get(0).getMyRoomSensorList());
+//                mLoading.dimssDoading();
+//
+//
+//            }
+//
+//            private void initRoomData(MyRoom.ViewDataBean viewDataBean) {
+//
+//
+//            }
+//
+//            @Override
+//            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+//                mLoading.showState();
+//
+//            }
+//        },"");
     }
 
     private void initMpChat( List<Entry> entries,List<Entry> entries1,int size) {
@@ -256,7 +286,8 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
 
-                return mlistX.get((int) value);
+//                return mlistX.get((int) value-1);
+                return "1";
             }
         });
         xAxis.setLabelCount(size, true);
@@ -284,7 +315,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
 
     }
 
-    private void showPopupWindow(View view,MyRoom t) throws Exception {
+    private void showPopupWindow(View view,RoomModel t) throws Exception {
         //设置contentView
         View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pow_layout, null);
         mPopWindow = new Solve7PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
@@ -294,12 +325,13 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
         powWindowAdapter=new PowWindowAdapter(getActivity());
         recyclerView.setAdapter(powWindowAdapter);
         List<ImageText> imageTexts=new ArrayList<>();
-        for(int i=0;i< t.getViewDataX().size();i++) {
+
+        for(int i=0;i<   t.getViewData().size();i++) {
             if (i == 0) {
-                imageTexts.add(new ImageText(((MyRoom) t).getViewDataX().get(i).getMyRoomName(), true));
+                imageTexts.add(new ImageText(t.getViewData().get(i).getMyRoomName(), true));
 
             } else {
-                imageTexts.add(new ImageText(((MyRoom) t).getViewDataX().get(i).getMyRoomName(), false));
+                imageTexts.add(new ImageText(t.getViewData().get(i).getMyRoomName(), false));
 
             }
 
@@ -311,17 +343,17 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
                    index =position;
                    entries=new ArrayList<>();
                    entries1=new ArrayList<>();
-                   for(Integer water:((MyRoom) myRoom).getViewDataX().get(position).getMyRoomWaterArr()){
-                       entries.add(new Entry(((MyRoom)  myRoom).getViewDataX().get(position).getMyRoomWaterArr().indexOf(water),water.floatValue()));
+                   for(Double water:((RoomModel) roomModel).getViewData().get(position).getMyRoomWaterArr()){
+                       entries.add(new Entry(((RoomModel) roomModel).getViewData().get(position).getMyRoomWaterArr().indexOf(water),water.floatValue()));
                    }
-                   for(Integer power:((MyRoom)  myRoom).getViewDataX().get(position).getMyRoomPowerArr()){
-                       entries1.add(new Entry(((MyRoom)  myRoom).getViewDataX().get(position).getMyRoomPowerArr().indexOf(power),power.floatValue()));
+                   for(Double power:((RoomModel) roomModel).getViewData().get(position).getMyRoomPowerArr()){
+                       entries1.add(new Entry(((RoomModel) roomModel).getViewData().get(position).getMyRoomPowerArr().indexOf(power),power.floatValue()));
                    }
                    mLineChart.notifyDataSetChanged();
 
                    mAdapter.getData().clear();
-                   mAdapter.addData(myRoom.getViewDataX().get(position).getMyRoomSensorList());
-                   tv_title.setText(myRoom.getViewDataX().get(position).getMyRoomName());
+                   mAdapter.addData(roomModel.getViewData().get(position).getMyRoomSensorList());
+                   tv_title.setText(roomModel.getViewData().get(position).getMyRoomName());
                    initMpChat(entries,entries1,6);
                    mPopWindow.dismiss();
 
@@ -404,7 +436,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
                 bundle.putParcelableArrayList("entries1", entries1);
 
 
-                    bundle.putSerializable("viewDataBean", myRoom.getViewDataX().get(index));
+                    bundle.putSerializable("viewDataBean", roomModel.getViewData().get(index));
                     readyGo(MpChartActivity.class, bundle);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -420,7 +452,7 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
 
                 try {
 
-                    showPopupWindow(view1,myRoom);
+                    showPopupWindow(view1,roomModel);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -446,19 +478,19 @@ public class RoomFragment extends YzsBaseListFragment< MyRoom.ViewDataBean.MyRoo
     @Override
     protected void onEventComing(EventCenter eventCenter) {
         int postion=0;
-       if( eventCenter.getEventCode()==200){
-           MyRoom.ViewDataBean.MyRoomSensorListBean bean = (MyRoom.ViewDataBean.MyRoomSensorListBean) eventCenter.getData();
-           for(MyRoom.ViewDataBean.MyRoomSensorListBean myRoomSensorListBean:mAdapter.getData()){
-               if(myRoomSensorListBean.getSensorID().equals(bean.getSensorID())){
-                   postion=mAdapter.getData().indexOf(myRoomSensorListBean);
-
-
-               }
-           }
-
-            mAdapter.setData(postion,bean);
-
-       }
+//       if( eventCenter.getEventCode()==200){
+//           MyRoom.ViewDataBean.MyRoomSensorListBean bean = (MyRoom.ViewDataBean.MyRoomSensorListBean) eventCenter.getData();
+//           for(MyRoom.ViewDataBean.MyRoomSensorListBean myRoomSensorListBean:mAdapter.getData()){
+//               if(myRoomSensorListBean.getSensorID().equals(bean.getSensorID())){
+//                   postion=mAdapter.getData().indexOf(myRoomSensorListBean);
+//
+//
+//               }
+//           }
+//
+//            mAdapter.setData(postion,bean);
+//
+//       }
 
 
     }

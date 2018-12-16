@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MyFamily extends BaseBean{
+public class MyFamily extends BaseBeanC{
 
     /**
      * id : 1

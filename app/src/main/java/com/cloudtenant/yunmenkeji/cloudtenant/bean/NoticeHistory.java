@@ -5,7 +5,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 
 import java.util.List;
 
-public class NoticeHistory extends BaseBean{
+public class NoticeHistory extends BaseBeanC{
 
 
     /**

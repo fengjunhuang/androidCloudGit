@@ -507,8 +507,8 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                 System.out.println(houseDetil.getViewData());
                 System.out.println(houseDetil.getMaxPage());
                 System.out.println(houseDetil.getBannerData().get(0).getBannerTitle());
-                Log.e("requestData",houseDetil.getViewDataX().get(0).toString());
-                Log.e("requestData",houseDetil.getViewDataX().size()+"条信息");
+//                Log.e("requestData",houseDetil.getViewDataX().get(0).toString());
+//                Log.e("requestData",houseDetil.getViewDataX().size()+"条信息");
 
                 viewDataBean=houseDetil.getViewDataX();
                 if (!isMapMode) {
