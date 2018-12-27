@@ -186,12 +186,17 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
 
 
 
-                for(Double water:((RoomModel) t).getViewData().get(0).getMyRoomWaterArr()){
-                    entries.add(new Entry(((RoomModel) t).getViewData().get(0).getMyRoomWaterArr().indexOf(water),water.floatValue()));
+//                for(Double water:((RoomModel) t).getViewData().get(0).getMyRoomWaterArr()){
+//                    entries.add(new Entry(((RoomModel) t).getViewData().get(0).getMyRoomWaterArr().indexOf(water),water.floatValue()));
+//                }
+                for(int i=0;i<((RoomModel) t).getViewData().get(0).getMyRoomWaterArr().size();i++){
+                    entries.add(new Entry(i,((RoomModel) t).getViewData().get(0).getMyRoomWaterArr().get(i).floatValue()));
                 }
-                for(Double power:((RoomModel) t).getViewData().get(0).getMyRoomPowerArr()){
-                    entries1.add(new Entry(((RoomModel) t).getViewData().get(0).getMyRoomPowerArr().indexOf(power),power.floatValue()));
+
+                for(int i=0;i<((RoomModel) t).getViewData().get(0).getMyRoomPowerArr().size();i++){
+                    entries1.add(new Entry(i,((RoomModel) t).getViewData().get(0).getMyRoomPowerArr().get(i).floatValue()));
                 }
+               
                 initMpChat(entries,entries1,6);
 
                 mAdapter.addData(roomModel.getViewData().get(0).getMyRoomSensorList());
@@ -238,9 +243,9 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
 //        },"");
     }
 
-    private void initMpChat( List<Entry> entries,List<Entry> entries1,int size) {
+    private void initMpChat(List<Entry> entries, List<Entry> entries1, final int size) {
 
-        List<Entry> mentries=  entries.subList(0,size);
+        final List<Entry> mentries=  entries.subList(0,size);
         List<Entry>  mentries1=  entries1.subList(0,size);
         //显示边界
         mLineChart.setDrawBorders(true);
@@ -248,9 +253,12 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
 
         final List<String> mlistX =new ArrayList<>();
 
-        for(Entry entry:mentries){
-            mlistX.add((int) entry.getX()+1+"月");
-
+//        for(Entry entry:mentries){
+//
+//            mlistX.add(mentries.indexOf(entry)+1+"月");
+//        }
+        for(int i=0;i<size;i++){
+            mlistX.add(i+1+"月");
         }
 
        /* entries.add(new Entry(0, 30f));
@@ -279,15 +287,22 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
         entries1.add(new Entry(11, 19f));*/
         //一个LineDataSet就是一条线
         XAxis xAxis = mLineChart.getXAxis();
+   int i=0;
 
         xAxis.setValueFormatter(new IAxisValueFormatter() {
-
 
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
 
-//                return mlistX.get((int) value-1);
-                return "1";
+                int index = (int) value;
+                if(index >= 0 && index < size ){
+                    return mlistX.get(index);
+                }else {
+                    return "";
+                }
+
+
+
             }
         });
         xAxis.setLabelCount(size, true);
