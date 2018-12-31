@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
 
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.CharPicPopupWindow;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
@@ -46,7 +47,7 @@ public class MpChartActivity extends YzsBaseActivity {
     ArrayList<Entry> entries;
     ArrayList<PieEntry> pieEntrys;
     ArrayList<Entry> entries1;
-    MyRoom.ViewDataBean viewDataBean;
+    RoomModel.ViewDataBean viewDataBean;
     CharPicPopupWindow mPopWindow;
     LineChart mLineChart;
     View  containView;
@@ -306,10 +307,11 @@ public class MpChartActivity extends YzsBaseActivity {
 
     @Override
     protected void getBundleExtras(Bundle var1) {
-
+    var1=getIntent().getExtras();
      entries=  var1.getParcelableArrayList("entries");
       entries1=  var1.getParcelableArrayList("entries1");
-        viewDataBean = (MyRoom.ViewDataBean) var1.getSerializable("viewDataBean");
+        viewDataBean = (RoomModel.ViewDataBean) var1.getSerializable("viewDataBean");
+        System.out.print("");
 
     }
 
@@ -377,20 +379,20 @@ public class MpChartActivity extends YzsBaseActivity {
             entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomNet()), "网费"+viewDataBean.getMyRoomNet()+"元"));
             entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomRent()), "房租"+viewDataBean.getMyRoomRent()+"元"));
         }
-        else  if(i==2){
-            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomWaterTotalHalf()), "水费"+viewDataBean.getMyRoomWaterTotalHalf()+"元"));
-            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomPowerTotalHalf()), "电费"+viewDataBean.getMyRoomPowerTotalHalf()+"元"));
-            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomManTotalHalf()), "管理费"+viewDataBean.getMyRoomManTotalHalf()+"元"));
-            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomNetTotalHalf()), "网费"+viewDataBean.getMyRoomNetTotalHalf()+"元"));
-            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomRentTotalHalf()), "房租"+viewDataBean.getMyRoomRentTotalHalf()+"元"));
-        }
-        else if(i==4){
-            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomWaterTotalQuarter()), "水费"+viewDataBean.getMyRoomWaterTotalQuarter()+"元"));
-            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomPowerTotalQuarter()), "电费"+viewDataBean.getMyRoomWaterTotalQuarter()+"元"));
-            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomManTotalQuarter()), "管理费"+viewDataBean.getMyRoomManTotalQuarter()+"元"));
-            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomNetTotalQuarter()), "网费"+viewDataBean.getMyRoomNetTotalQuarter()+"元"));
-            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomRentTotalQuarter()), "房租"+viewDataBean.getMyRoomRentTotalQuarter()+"元"));
-        }
+//        else  if(i==2){
+//            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomWaterTotalHalf()), "水费"+viewDataBean.getMyRoomWaterTotalHalf()+"元"));
+//            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomPowerTotalHalf()), "电费"+viewDataBean.getMyRoomPowerTotalHalf()+"元"));
+//            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomManTotalHalf()), "管理费"+viewDataBean.getMyRoomManTotalHalf()+"元"));
+//            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomNetTotalHalf()), "网费"+viewDataBean.getMyRoomNetTotalHalf()+"元"));
+//            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomRentTotalHalf()), "房租"+viewDataBean.getMyRoomRentTotalHalf()+"元"));
+//        }
+//        else if(i==4){
+//            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomWaterTotalQuarter()), "水费"+viewDataBean.getMyRoomWaterTotalQuarter()+"元"));
+//            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomPowerTotalQuarter()), "电费"+viewDataBean.getMyRoomWaterTotalQuarter()+"元"));
+//            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomManTotalQuarter()), "管理费"+viewDataBean.getMyRoomManTotalQuarter()+"元"));
+//            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomNetTotalQuarter()), "网费"+viewDataBean.getMyRoomNetTotalQuarter()+"元"));
+//            entries.add(new PieEntry(Float.valueOf(viewDataBean.getMyRoomRentTotalQuarter()), "房租"+viewDataBean.getMyRoomRentTotalQuarter()+"元"));
+//        }
          return  entries;
     }
 }

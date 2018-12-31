@@ -358,11 +358,12 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
                    index =position;
                    entries=new ArrayList<>();
                    entries1=new ArrayList<>();
-                   for(Double water:((RoomModel) roomModel).getViewData().get(position).getMyRoomWaterArr()){
-                       entries.add(new Entry(((RoomModel) roomModel).getViewData().get(position).getMyRoomWaterArr().indexOf(water),water.floatValue()));
+                   for(int i=0;i<roomModel.getViewData().get(0).getMyRoomWaterArr().size();i++){
+                       entries.add(new Entry(i,(roomModel.getViewData().get(0).getMyRoomWaterArr().get(i).floatValue())));
                    }
-                   for(Double power:((RoomModel) roomModel).getViewData().get(position).getMyRoomPowerArr()){
-                       entries1.add(new Entry(((RoomModel) roomModel).getViewData().get(position).getMyRoomPowerArr().indexOf(power),power.floatValue()));
+
+                   for(int i=0;i<(roomModel.getViewData().get(0).getMyRoomPowerArr().size());i++){
+                       entries1.add(new Entry(i,(roomModel).getViewData().get(0).getMyRoomPowerArr().get(i).floatValue()));
                    }
                    mLineChart.notifyDataSetChanged();
 
