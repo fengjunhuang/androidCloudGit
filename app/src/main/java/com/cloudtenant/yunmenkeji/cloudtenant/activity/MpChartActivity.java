@@ -65,7 +65,7 @@ public class MpChartActivity extends YzsBaseActivity {
             @Override
             public void onClick(View view, int pos) {
                 if(pos==0){
-                    initMpChat(entries,entries1,12);
+                    initMpChat(entries,entries1,6);
 
                 }else if(pos==1){
                     MpinitMpChat(containView,6);
@@ -345,7 +345,7 @@ public class MpChartActivity extends YzsBaseActivity {
         public Object instantiateItem(ViewGroup container, int position) {
             if(position==0){
             containView =LayoutInflater.from(MpChartActivity.this).inflate(R.layout.item_mp_chart,null);
-            MpinitMpChat(containView,12);
+            MpinitMpChat(containView,6);
 
            container.addView(containView);
                 return  containView;
