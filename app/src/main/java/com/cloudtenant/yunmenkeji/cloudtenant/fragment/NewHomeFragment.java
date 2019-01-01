@@ -94,7 +94,9 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
     private HouseAdapter adapter;
     private List<HouseDetil.ViewDataBean> viewDataBean;
     private EasyRecyclerView recyclerView;
-    private RecyclerArrayAdapter.ItemView headerView;
+    private RecyclerArrayAdapter.ItemView headerViewButten;
+    private RecyclerArrayAdapter.ItemView headerViewBanner;
+    private RecyclerArrayAdapter.ItemView headerViewMap;
     int page=1;
     int row=20;
     boolean isFirst=true;
@@ -274,15 +276,25 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                 Log.e("getData","onScrolled》》dy="+dy+">>>newTopMargin="+newTopMargin);
             }
         });
-        headerView=new RecyclerArrayAdapter.ItemView() {
+        headerViewButten=new RecyclerArrayAdapter.ItemView() {
             @Override
             public View onCreateView(ViewGroup parent) {
                 View view=inflater.inflate(R.layout.house_header,parent,false);
-                banner = view. findViewById(R.id.banner);
                 tv_common=view.findViewById(R.id.tv_common);
                 tv_map=view.findViewById(R.id.tv_map);
                 tv_common.setOnClickListener(NewHomeFragment.this);
                 tv_map.setOnClickListener(NewHomeFragment.this);
+
+                return view;
+            }
+            @Override
+            public void onBindView(View headerView) {
+            }
+        };
+        headerViewMap=new RecyclerArrayAdapter.ItemView() {
+            @Override
+            public View onCreateView(ViewGroup parent) {
+                View view=inflater.inflate(R.layout.house_header2,parent,false);
                 mapview=view.findViewById(R.id.map);
                 //获取TencentMap实例
 
@@ -301,9 +313,22 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                 bindListener();
             }
         };
+        headerViewBanner=new RecyclerArrayAdapter.ItemView() {
+            @Override
+            public View onCreateView(ViewGroup parent) {
+                View view=inflater.inflate(R.layout.house_header1,parent,false);
+                banner = view. findViewById(R.id.banner);
+                return view;
+            }
+            @Override
+            public void onBindView(View headerView) {
+            }
+        };
         //view.findViewById(R.id.btn_op2).setOnClickListener(this);
         adapter = new HouseAdapter(getActivity());
-        adapter.addHeader(headerView);
+        adapter.addHeader(headerViewBanner);
+        adapter.addHeader(headerViewButten);
+        adapter.addHeader(headerViewMap);
         Log.e("getData","进入initContentView");
         return view;
     }
@@ -312,6 +337,8 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
         PreferencesUtils.putBoolean(getActivity(),"isShow",true);
         isMapMode=false;
         mapview.setVisibility(View.GONE);
+        banner.setVisibility(View.VISIBLE);
+
         adapter.clear();
         adapter.removeAll();
         adapter.addAll(viewDataBean);
@@ -324,10 +351,13 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
         PreferencesUtils.putBoolean(getActivity(),"isShow",false);
         isMapMode=true;
         mapview.setVisibility(View.VISIBLE);
+        banner.setVisibility(View.GONE);
         adapter.clear();
         adapter.removeAll();
         adapter.add(this);
+        adapter.stopMore();
         //adapter.setMore(null, (RecyclerArrayAdapter.OnMoreListener) null);
+        //recyclerView.scrollToPosition(3);
     }
 
 
@@ -505,15 +535,20 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                     adapter.removeAll();
                 }
                 System.out.println(houseDetil.getViewData());
-                System.out.println(houseDetil.getMaxPage());
-                System.out.println(houseDetil.getBannerData().get(0).getBannerTitle());
-                Log.e("requestData",houseDetil.getViewDataX().get(0).toString());
-                Log.e("requestData",houseDetil.getViewDataX().size()+"条信息");
+                if (houseDetil.getViewData().length()>3){
+                    System.out.println(houseDetil.getMaxPage());
+                    System.out.println(houseDetil.getBannerData().get(0).getBannerTitle());
+                    Log.e("requestData",houseDetil.getViewDataX().get(0).toString());
+                    Log.e("requestData",houseDetil.getViewDataX().size()+"条信息");
 
-                viewDataBean=houseDetil.getViewDataX();
-                if (!isMapMode) {
-                    adapter.addAll(viewDataBean);
+                    viewDataBean=houseDetil.getViewDataX();
+                    if (!isMapMode) {
+                        adapter.addAll(viewDataBean);
+                    }
+                }else {
+                    adapter.stopMore();
                 }
+
 
             }
             @Override
@@ -549,8 +584,17 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
     private double longitude=113.27324,latitude=23.15792;
     @Override
     public void onLocationChanged(TencentLocation arg0, int arg1, String s) {
-        longitude=arg0.getLongitude();
-        latitude=arg0.getLatitude();
+        if (longitude!=arg0.getLongitude()||latitude!=arg0.getLatitude()){
+            longitude=arg0.getLongitude();
+            latitude=arg0.getLatitude();
+            PreferencesUtils.putString(mContext,"longitude",longitude+"");
+            PreferencesUtils.putString(mContext,"latitude",latitude+"");
+        }
+
+        Log.e("onLocationChanged","longitude="+longitude);
+        Log.e("onLocationChanged","latitude="+latitude);
+
+        adapter.addAll(viewDataBean);
         if (arg1 == TencentLocation.ERROR_OK) {
             LatLng latLng = new LatLng(arg0.getLatitude(), arg0.getLongitude());
             if (myLocation == null) {
@@ -561,6 +605,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                         anchor(0.5f, 0.5f));
             }
             if(isFist){
+
                 tencentMap.setCenter(latLng);
                 isFist=false;
             }

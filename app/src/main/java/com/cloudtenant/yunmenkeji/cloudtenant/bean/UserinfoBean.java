@@ -155,6 +155,27 @@ public  class UserinfoBean {
         this.userBirthday = userBirthday;
     }
 
+    @Override
+    public String toString() {
+        return "UserinfoBean{" +
+                "userSex='" + userSex + '\'' +
+                ", tokenID='" + tokenID + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                ", userJob='" + userJob + '\'' +
+                ", userIsFirstLogin=" + userIsFirstLogin +
+                ", userFavourite='" + userFavourite + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userConstellation='" + userConstellation + '\'' +
+                ", weiboUID='" + weiboUID + '\'' +
+                ", alipayUID='" + alipayUID + '\'' +
+                ", userHadContract=" + userHadContract +
+                ", userIcon='" + userIcon + '\'' +
+                ", qqUID='" + qqUID + '\'' +
+                ", wechatUID='" + wechatUID + '\'' +
+                ", userBirthday='" + userBirthday + '\'' +
+                '}';
+    }
+
     /**
      * weiboUID : 1111111
      * wechatUID : 2222222

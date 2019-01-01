@@ -82,6 +82,12 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+    public void login(BaseObserver<UserInfo> observer, String type, String userPhone,String pwd){
+        apiService.login(type,userPhone,pwd).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
     public void loginWithAuthorization(BaseObserver<UserInfo> observer, String aa){
         apiService.loginWithAuthorization().subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -90,6 +96,17 @@ public class HttpMethods {
     }
     public void homeData(BaseObserver<HouseDetil> observer, String page, String row, String longitdue, String latitude){
         apiService.homeData(page,row,longitdue,latitude).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }public void updateMessage(BaseObserver<BrokenUp> observer, String name, String sex, String birthday, String constellation,String job,String userPhone,String favourite){
+        apiService.updateMessage(name,sex,birthday,constellation,job,userPhone,favourite).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void upImages(BaseObserver<BrokenUp> observer, String userPhone,String base64Pic){
+        apiService.upImages(userPhone,base64Pic).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

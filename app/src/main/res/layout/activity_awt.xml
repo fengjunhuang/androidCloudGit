@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_marginTop="8dp"
     style="@style/click"
-    android:layout_height="130dp">
+    android:layout_height="120dp">
     <ImageView
         android:id="@+id/iv"
         android:src="@drawable/app_icon"
@@ -43,14 +43,27 @@
             android:text="阳光好，临近地铁5号线，带空调热水器"
             android:layout_width="wrap_content"
             android:layout_height="0dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_cell_cost"
+                android:textSize="13sp"
+                android:textColor="@color/orange_cut_clorr"
+                android:text="最低：￥280/月"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_cell_juli"
+                android:textSize="13sp"
+                android:textColor="@color/gray_cut_clorr"
+                android:text="101.1KM"
+                android:lines="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_cell_cost"
-            android:textSize="16sp"
-            android:textColor="@color/orange_cut_clorr"
-            android:text="最低：￥280/月"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

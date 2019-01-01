@@ -47,17 +47,63 @@ import dmax.dialog.SpotsDialog;
  */
 @EActivity
 public class LoginActivity extends YzsBaseActivity implements View.OnClickListener {
+    private boolean isPwdLogin=false;
+    private String pwd;
     private SpotsDialog mDialog;
     @Click(R.id.btn_login)
     void login(){
 
-        goLogin();
-        /*if (checkPhoneNum(et_number.getText().toString().trim(),"86")) {
-        mDialog.show();
-        SMSSDK.submitVerificationCode("86",phone,et_code.getText().toString().trim());
-        goLogin();
-        }*/
+        //goLogin();
+        phone=et_number.getText().toString();
+        if (checkPhoneNum(phone,"86")) {
+            if (!isPwdLogin){
+                    mDialog.show();
+                    SMSSDK.submitVerificationCode("86",phone,et_code.getText().toString().trim());
+                    goLogin();
+            }else {
+                pwd=et_pwd.getText().toString().trim();
+                if (pwd!=null&&pwd!=""){
+                    pwdLogin();
+                }else {
+                    Toast.makeText(this, "密码不能为空！！", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+        /**/
     }
+
+    private void pwdLogin() {
+        HttpMethods.getInstance().login(new BaseObserver<UserInfo>() {
+            @Override
+            protected void onSuccees(BaseBean t) throws Exception {
+                Toast.makeText(LoginActivity.this, "登陆成功！！", Toast.LENGTH_SHORT).show();
+                mDialog.dismiss();
+                UserInfo houseDetil= (UserInfo) t;
+                Log.d("onSuccess","登陆成功");
+                Log.d("onSuccess",houseDetil.getUserinfo());
+                String s=houseDetil.getUserinfo().substring(1,houseDetil.getUserinfo().length());
+                String s1=s.substring(0,s.length()-1);
+
+                Log.d("onSuccess","截取后的字段="+s1);
+                UserinfoBean userinfoBean= JSONUtil.fromJson(s1,UserinfoBean.class);
+                Log.d("onSuccees",userinfoBean.getUserName());
+                Log.d("onSuccees",userinfoBean.toString());
+
+                UserLocalData.putUser(LoginActivity.this,userinfoBean);
+                PreferencesUtils.putBoolean(LoginActivity.this,"isLogin",true);
+                readyGo(IndexActivity_.class);
+                LoginActivity.this.finish();
+
+
+            }
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                Log.d("goLogin","网络状态》》"+isNetWorkError+"!!"+e.getMessage());
+
+            }
+        },1+"",phone,pwd);
+    }
+
     @Click(R.id.btn_visitor)
     void visitor(){
         readyGo(IndexActivity_.class);
@@ -68,13 +114,14 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
     private Button btnGetcode;
     private TimeCount timeCount;
     private EventHandler eventHandler;
-    private EditText et_number,et_code;
+    private EditText et_number,et_code,et_pwd;
     @Override
     protected void initContentView(Bundle var1) {
         setContentView(R.layout.activity_login);
         mDialog=new SpotsDialog(this);
         pwd_login=findViewById(R.id.pwd_login);
         et_number=findViewById(R.id.et_number);
+        et_pwd=findViewById(R.id.et_pwd);
         et_code=findViewById(R.id.et_code);
         findViewById(R.id.tx_fg_pwd).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,7 +199,7 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
     }
 
     private void goLogin() {
-        phone=et_number.getText().toString();
+
         Log.d("goLogin","电话号码=="+phone);
         HttpMethods.getInstance().login(new BaseObserver<UserInfo>() {
             @Override
@@ -242,10 +289,12 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
         switch (view.getId()){
 
             case R.id.msg_login:{
+                isPwdLogin=false;
                 ll_one.setVisibility(View.VISIBLE);
                 msg_login.setTextColor(getResources().getColor(R.color.gren_cut_clorr));
             }break;
             case R.id.pwd_login:{
+                isPwdLogin=true;
                 pwd_login.setTextColor(getResources().getColor(R.color.gren_cut_clorr));
                 ll_two.setVisibility(View.VISIBLE);
             }break;
