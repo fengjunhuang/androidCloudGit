@@ -129,6 +129,8 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
                 readyGo(ResetPwdActivity.class);
             }
         });
+        et_number.setText("130368893276");
+        et_code.setText("1213456");
         pwd_login.setOnClickListener(this);
         msg_login=findViewById(R.id.msg_login);
         msg_login.setOnClickListener(this);

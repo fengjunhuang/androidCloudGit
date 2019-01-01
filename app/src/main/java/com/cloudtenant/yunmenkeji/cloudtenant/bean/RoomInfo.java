@@ -11,7 +11,7 @@ import java.util.List;
  * Created by 72984 on 2018/7/4.
  */
 
-public class RoomInfo extends BaseBean{
+public class RoomInfo extends BaseBeanC{
 
     /**
      * id : 2

@@ -12,7 +12,7 @@ import java.util.List;
  * Created by 72984 on 2018/7/4.
  */
 
-public class BudingInfo extends BaseBean{
+public class BudingInfo extends BaseBeanC{
 
 
     /**

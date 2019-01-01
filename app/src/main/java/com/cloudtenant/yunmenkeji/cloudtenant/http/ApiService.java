@@ -12,6 +12,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamilyData;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.NoticeHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
@@ -78,6 +79,9 @@ public interface ApiService {
        Observable<BrokenUp> upImages(
                 @Query("userPhone") String userPhone,
                 @Query("base64Pic") String base64Pic);
+       @POST("/chl/tenant/account/updateMessage")
+       Observable<HouseDetil> updateMessage(@Query("page") String page, @Query("row") String rows, @Query("longitdue") String longitdue, @Query("latitude") String latitude);
+
        @POST("MessageSave")
        Observable<MessageSave> messageSave();
        @POST("OtherMessage")
@@ -104,7 +108,8 @@ public interface ApiService {
        Observable<BrokenUp> joinFamily();
        @POST("RoomInfo")
        Observable<RoomInfo> roomInfo();
-
+   @POST("/chl/room/findRoomMessageByPhone")
+   Observable<RoomModel> findRoomMessageByPhone(@Query("phone") String phone);
 
 
        @POST("MyRoom")

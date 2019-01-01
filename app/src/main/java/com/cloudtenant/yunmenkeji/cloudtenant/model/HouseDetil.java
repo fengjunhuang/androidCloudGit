@@ -3,6 +3,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.model;
 
 
 import com.alibaba.fastjson.JSON;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.BaseBeanC;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * Created by 72984 on 2018/6/17.
  */
 
-public class HouseDetil extends BaseBean {
+public class HouseDetil extends BaseBeanC {
 
 
     /**

@@ -535,6 +535,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                     adapter.removeAll();
                 }
                 System.out.println(houseDetil.getViewData());
+
                 if (houseDetil.getViewData().length()>3){
                     System.out.println(houseDetil.getMaxPage());
                     System.out.println(houseDetil.getBannerData().get(0).getBannerTitle());
@@ -544,18 +545,29 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                     viewDataBean=houseDetil.getViewDataX();
                     if (!isMapMode) {
                         adapter.addAll(viewDataBean);
+                    } else {
+                        adapter.stopMore();
                     }
-                }else {
-                    adapter.stopMore();
+                }
+                System.out.println(houseDetil.getMaxPage());
+                System.out.println(houseDetil.getBannerData().get(0).getBannerTitle());
+               Log.e("requestData",houseDetil.getViewDataX().get(0).toString());
+              Log.e("requestData",houseDetil.getViewDataX().size()+"条信息");
+
+                viewDataBean=houseDetil.getViewDataX();
+                if (!isMapMode) {
+                    adapter.addAll(viewDataBean);
+
                 }
 
+        }
 
-            }
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                Log.e("requestData","网络状态》》"+isNetWorkError+"!!"+e.getMessage());
             }
-        },page+"",row+"",longitude+"",latitude+"");
+
+
+            },page+"",row+"",longitude+"",latitude+"");
     }
 
     private void joinFamily() {
