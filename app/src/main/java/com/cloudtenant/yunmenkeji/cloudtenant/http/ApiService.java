@@ -59,13 +59,29 @@ public interface ApiService {
 //    Observable<BuoyHistoryList> getBuoyHistorysById(@Body HistoryParmerBean userBean);
        @POST("chl/tenant/account/addAccountInfo?")
        Observable<UserInfo> login(@Query("type") String type, @Query("userPhone") String userPhone);
+   @POST("chl/tenant/account/addAccountInfo?")
+   Observable<UserInfo> login(@Query("type") String type, @Query("userPhone") String userPhone, @Query("password") String pwd);
        @POST("LoginWithAuthorization")
        Observable<UserInfo> loginWithAuthorization();
 
        @POST("/chl/buildings/getBuilding")
        Observable<HouseDetil> homeData(@Query("page") String page, @Query("row") String rows, @Query("longitdue") String longitdue, @Query("latitude") String latitude);
+     @POST("/chl/tenant/account/updateMessage")
+       Observable<BrokenUp> updateMessage(
+                @Query("userName") String userName,
+                @Query("userSex") String userSex,
+                @Query("userBirthday") String userBirthday,
+                @Query("userConstellation") String userConstellation,
+                @Query("userJob") String userJob,
+                @Query("userPhone") String userPhone,
+                @Query("userFavourite") String userFavourite);
+     @POST("/chl/tenant/account/upImages")
+       Observable<BrokenUp> upImages(
+                @Query("userPhone") String userPhone,
+                @Query("base64Pic") String base64Pic);
        @POST("/chl/tenant/account/updateMessage")
        Observable<HouseDetil> updateMessage(@Query("page") String page, @Query("row") String rows, @Query("longitdue") String longitdue, @Query("latitude") String latitude);
+
        @POST("MessageSave")
        Observable<MessageSave> messageSave();
        @POST("OtherMessage")

@@ -1,22 +1,41 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MyFamliyAdapter;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserinfoBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.PreferencesUtils;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
 import com.cloudtenant.yunmenkeji.cloudtenant.widget.CustomDatePicker;
 import com.cloudtenant.yunmenkeji.cloudtenant.widget.CustomSinglePicker;
 import com.gersion.library.base.BaseActivity;
+import com.jph.takephoto.app.TakePhoto;
+import com.jph.takephoto.app.TakePhotoActivity;
+import com.jph.takephoto.compress.CompressConfig;
+import com.jph.takephoto.model.CropOptions;
+import com.jph.takephoto.model.TResult;
+import com.jph.takephoto.model.TakePhotoOptions;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,8 +46,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by tlol20 on 2017/6/14
  */
-public class EditProFileActivity extends BaseActivity implements View.OnClickListener{
+public class EditProFileActivity extends TakePhotoActivity implements View.OnClickListener{
     private EasyRecyclerView recyclerView;
+    private LinearLayout ll_commit;
     private MyFamliyAdapter adapter;
     //private OkHttpHelper ok=OkHttpHelper.getInstance();
     private CustomDatePicker customDatePicker1;
@@ -40,12 +60,14 @@ public class EditProFileActivity extends BaseActivity implements View.OnClickLis
         @Override
         public void handle(String time) { // 回调接口，获得选中的时间
             tv_job.setText(time);
+            userJob=time;
         }
     };
     private CustomSinglePicker.ResultHandler interestHandler=new CustomSinglePicker.ResultHandler() {
         @Override
         public void handle(String time) { // 回调接口，获得选中的时间
             tv_interest.setText(time);
+            userFavourite=time;
         }
     };
     private TextView currentDate,
@@ -55,6 +77,41 @@ public class EditProFileActivity extends BaseActivity implements View.OnClickLis
             tv_constellation;
     private CircleImageView civ_icon;
     private EditText et_nick_name;
+    private TakePhoto takePhoto;
+
+    private CropOptions getCropOptions(){
+        int height= 600;
+        int width= 600;
+        CropOptions.Builder builder=new CropOptions.Builder();
+        builder.setOutputX(width).setOutputY(height);
+        builder.setWithOwnCrop(true);
+        return builder.create();
+    }
+    //压缩处理
+    private void configCompress(TakePhoto takePhoto){
+        int maxSize= 102400;
+        int width= 600;
+        int height= 600;
+        //是否显示进度条
+        boolean showProgressBar=false;
+        //压缩后是否保存原图
+        boolean enableRawFile = true;
+        CompressConfig config;
+        //使用自带相册
+        config=new CompressConfig.Builder()
+                .setMaxSize(maxSize)
+                .setMaxPixel(width>=height? width:height)
+                .enableReserveRaw(enableRawFile)
+                .create();
+        takePhoto.onEnableCompress(config, showProgressBar);
+
+    }
+    private void configTakePhotoOption(TakePhoto takePhoto){
+        TakePhotoOptions.Builder builder=new TakePhotoOptions.Builder();
+        //使用自带相册
+        builder.setWithOwnGallery(false);
+        takePhoto.setTakePhotoOptions(builder.create());
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,10 +120,12 @@ public class EditProFileActivity extends BaseActivity implements View.OnClickLis
         tv_sex=findViewById(R.id.tv_sex);
         tv_constellation=findViewById(R.id.tv_constellation);
         tv_job=findViewById(R.id.tv_job);
+        ll_commit=findViewById(R.id.ll_commit);
         tv_interest=findViewById(R.id.tv_interest);
         civ_icon=findViewById(R.id.civ_icon);
         et_nick_name=findViewById(R.id.et_nick_name);
         tv_constellation=findViewById(R.id.tv_constellation);
+        takePhoto=getTakePhoto();
         initData();
         initDatePicker();
         findViewById(R.id.out).setOnClickListener(new View.OnClickListener() {
@@ -91,28 +150,127 @@ public class EditProFileActivity extends BaseActivity implements View.OnClickLis
         findViewById(R.id.civ_icon).setOnClickListener(this);
         //getData();
     }
+    private void getUserMessage() {
+        userName=et_nick_name.getText().toString().trim();
+    }
     UserinfoBean userinfoBean;
+    private String userName,userSex,userBirthday,userConstellation,userJob,userFavourite,userPhone;
     private void initData() {
-        if (PreferencesUtils.getBoolean(this,"isLogin",false)) {
+
             userinfoBean= UserLocalData.getUser(this);
-            Picasso.with(this).load(userinfoBean.getUserIcon()).into(civ_icon);
-            et_nick_name.setText(userinfoBean.getUserName());
-            tv_sex.setText(userinfoBean.getUserSex());
-            currentDate.setText(userinfoBean.getUserBirthday());
-            tv_constellation.setText(userinfoBean.getUserConstellation());
-            tv_job.setText(userinfoBean.getUserJob());
-            tv_interest.setText(userinfoBean.getUserFavourite());
+            assert userinfoBean != null;
+            String image= "http://123.207.91.208:80/"+userinfoBean.getUserIcon();
+        userPhone=userinfoBean.getUserPhone();
+        userName=userinfoBean.getUserName() ;
+        userSex=userinfoBean.getUserSex() ;
+        userBirthday=userinfoBean.getUserBirthday() ;
+        userConstellation=userinfoBean.getUserConstellation() ;
+        userJob=userinfoBean.getUserJob() ;
+        userFavourite=userinfoBean.getUserFavourite() ;
+            if (userinfoBean.getUserIcon()!=null) {
+                Picasso.with(this).load(image).into(civ_icon);
+            }
+            et_nick_name.setText(userName);
+            tv_sex.setText(userSex);
+            currentDate.setText(userBirthday);
+            tv_constellation.setText(userConstellation);
+            tv_job.setText(userJob);
+            tv_interest.setText(userFavourite);
+
+    }
+    private String frontPath;
+    private String basePic;
+    private String getImageToView(String filePhat) {
+        String headimage = null;
+
+        Bitmap photo = BitmapFactory.decodeFile(filePhat);
+
+        try {
+            /**
+             * 下面注释的方法是将裁剪之后的图片以Base64Coder的字符方式上
+             */
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+            photo.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] b = stream.toByteArray();
+            // 将图片流以字符串形式存储下来
+            headimage = Base64.encodeToString(b, Base64.DEFAULT);
+            // image = new String(Base64Coder.encodeLines(b));
+            //System.err.println(headimage);
+            stream.close();
+            // 这个地方给服务器上传图片的实现，直接把image直接上传就可以了，
+            // 如果下载到的服务器的数据还是以Base64Coder的形式的话，可以用以下方式转换
+            // 为我们可以用的图片类型
+            // Bitmap dBitmap = BitmapFactory.decodeFile(photo);
+            // drawable = new BitmapDrawable(dBitmap);
+            // //////////////////////////////////
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
         }
+        return headimage;
+    }
+    @Override
+    public void takeSuccess(TResult result) {
+        super.takeSuccess(result);
+        frontPath=result.getImage().getCompressPath();
+        Picasso.with(this).load(new File(frontPath)).into(civ_icon);
+        basePic=getImageToView(frontPath);
+        Log.d("takeSuccess","frontPath="+frontPath);
+        Log.d("takeSuccess","basePic="+basePic);
+        //Glide.with(this).load(new File(frontPath)).into(icon);
+    }
+    private void selectImage() {
+        String filepath="/temp/"+System.currentTimeMillis() + ".jpg";
+        File file=new File(Environment.getExternalStorageDirectory(),filepath);
+        if (!file.getParentFile().exists())file.getParentFile().mkdirs();
+        Uri imageUri = Uri.fromFile(file);
+        configCompress(takePhoto);
+        configTakePhotoOption(takePhoto);
+        takePhoto.onPickFromGalleryWithCrop(imageUri, getCropOptions());
     }
 
+    private void joinFamily() {
+        HttpMethods.getInstance().updateMessage(new BaseObserver<BrokenUp>() {
+            @Override
+            protected void onSuccees(BaseBean t) throws Exception {
+                BrokenUp houseDetil= (BrokenUp) t;
+                Log.e("getData","执行joinFamily方法返回"+houseDetil.getMessage());
+                System.out.println(t.getMessage()+"");
+                Toast.makeText(EditProFileActivity.this, houseDetil.getMessage(), Toast.LENGTH_SHORT).show();
+                userinfoBean.setUserName(userName);
+                userinfoBean.setUserBirthday(userBirthday);
+                userinfoBean.setUserConstellation(userConstellation);
+                userinfoBean.setUserJob(userJob);
+                userinfoBean.setUserFavourite(userFavourite);
+                userinfoBean.setUserSex(userSex);
+                UserLocalData.putUser(EditProFileActivity.this,userinfoBean);
+                finish();
+                //adapter.addAll(viewDataBeanList);
+            }
+
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+            }
+        },userName,userSex,userBirthday,userConstellation,userJob,userPhone,userFavourite);
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.rl_nick_name:{
 
             }break;
+            case R.id.ll_commit:{
+                getUserMessage();
+                /*if (basePic!=null) {
+                    upPic();
+                }else {
+                }*/
+                    joinFamily();
+            }break;
             case R.id.civ_icon:{
-
+                selectImage();
             }break;
             case R.id.rl_sex:{
                 sexPicker.show("女");
@@ -130,8 +288,38 @@ public class EditProFileActivity extends BaseActivity implements View.OnClickLis
             case R.id.rl_interest:{
                 interestDatePicker.show("篮球");
             }break;
+
         }
     }
+
+    private void upPic() {
+        HttpMethods.getInstance().upImages(new BaseObserver<BrokenUp>() {
+            @Override
+            protected void onSuccees(BaseBean t) throws Exception {
+                BrokenUp houseDetil= (BrokenUp) t;
+                Log.e("getData","执行joinFamily方法返回"+houseDetil.getMessage());
+                System.out.println(t.getMessage()+"");
+                Toast.makeText(EditProFileActivity.this, houseDetil.getMessage(), Toast.LENGTH_SHORT).show();
+                /*userinfoBean.setUserName(userName);
+                userinfoBean.setUserBirthday(userBirthday);
+                userinfoBean.setUserConstellation(userConstellation);
+                userinfoBean.setUserJob(userJob);
+                userinfoBean.setUserFavourite(userFavourite);
+                userinfoBean.setUserSex(userSex);
+                UserLocalData.putUser(EditProFileActivity.this,userinfoBean);
+                finish();*/
+                joinFamily();
+                //adapter.addAll(viewDataBeanList);
+            }
+
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+            }
+        },userPhone,basePic);
+    }
+
+
 
     /*private void getData() {
         Map<String,Object> params = new HashMap<>(2);
@@ -163,6 +351,9 @@ public class EditProFileActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void handle(String time) { // 回调接口，获得选中的时间
                 currentDate.setText(time.split(" ")[0]);
+                userBirthday=time.split(" ")[0];
+                Log.d("customDatePicker1","格式前="+time);
+                Log.d("customDatePicker1","格式后="+time.split(" ")[0]);
             }
         }, "1970-01-01 00:00", now,"请选择生日"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         customDatePicker1.showSpecificTime(false); // 不显示时和分
@@ -176,6 +367,7 @@ public class EditProFileActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void handle(String time) { // 回调接口，获得选中的时间
                 tv_sex.setText(time);
+                userSex=time;
             }
         },sexList,"选择性别"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         sexPicker.setIsLoop(false); // 允许循环滚动
@@ -197,6 +389,7 @@ public class EditProFileActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void handle(String time) { // 回调接口，获得选中的时间
                 tv_constellation.setText(time);
+                userConstellation=time;
             }
         },constellationList,"选择星座"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         constellationPicker.setIsLoop(false); // 允许循环滚动
