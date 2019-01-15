@@ -20,6 +20,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil1;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.ListBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.LoginBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.RequestModel;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -108,8 +109,9 @@ public interface ApiService {
        Observable<BrokenUp> joinFamily();
        @POST("RoomInfo")
        Observable<RoomInfo> roomInfo();
+    @FormUrlEncoded
    @POST("/chl/room/findRoomMessageByPhone")
-   Observable<RoomModel> findRoomMessageByPhone(@Query("phone") String phone);
+   Observable<RoomModel> findRoomMessageByPhone(@Body RequestModel requestModel);
 
 
        @POST("MyRoom")

@@ -29,6 +29,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.ImageText;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.NewBaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.RequestModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.NewBaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.CommonPopupWindow;
@@ -209,7 +210,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
                 e.printStackTrace();
 
             }
-        },"13068893276");
+        },new RequestModel("13068893276"));
 //        HttpMethods.getInstance().myRoom(new BaseObserver<MyRoom>() {
 //            @Override
 //            protected void onSuccees(BaseBean t) throws Exception {

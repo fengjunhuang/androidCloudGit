@@ -21,6 +21,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil1;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.ListBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.LoginBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.RequestModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.NewBaseObserver;
 
@@ -117,7 +118,7 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void findRoomMessageByPhone(BaseObserver<RoomModel> observer, String phone){
+    public void findRoomMessageByPhone(BaseObserver<RoomModel> observer,RequestModel phone){
         apiService.findRoomMessageByPhone(phone).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
