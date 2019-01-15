@@ -59,8 +59,12 @@ public interface ApiService {
 //    Observable<BuoyHistoryList> getBuoyHistorysById(@Body HistoryParmerBean userBean);
        @POST("chl/tenant/account/addAccountInfo?")
        Observable<UserInfo> login(@Query("type") String type, @Query("userPhone") String userPhone);
+   /*@POST("chl/tenant/account/addAccountInfo?")
+   Observable<UserInfo> login(@Body LoginBean loginBean );*/
    @POST("chl/tenant/account/addAccountInfo?")
-   Observable<UserInfo> login(@Query("type") String type, @Query("userPhone") String userPhone, @Query("password") String pwd);
+   Observable<UserInfo> login(@Query("type") String type, @Query("userPhone") String userPhone, @Query("password") String pwd, @Query("isLogin") boolean isLogin, @Query("registrationID") String registrationID);
+
+
        @POST("LoginWithAuthorization")
        Observable<UserInfo> loginWithAuthorization();
 
@@ -79,6 +83,19 @@ public interface ApiService {
        Observable<BrokenUp> upImages(
                 @Query("userPhone") String userPhone,
                 @Query("base64Pic") String base64Pic);
+     @POST("/chl/propelling/feedbackProblem")
+       Observable<BrokenUp> feedbackProblem(
+                @Query("phone") String phone,
+                @Query("content") String content);
+     @POST("/chl/jdpush/upStatus")
+       Observable<BrokenUp> upStatus(
+                @Query("phone") String phone,
+                @Query("status") String status,
+                @Query("type") String type);
+     @POST("/chl/tenant/account/updatePassword")
+       Observable<BrokenUp> updatePassword(
+                @Query("userPhone") String userPhone,
+                @Query("newPassword") String newPassword);
        @POST("/chl/tenant/account/updateMessage")
        Observable<HouseDetil> updateMessage(@Query("page") String page, @Query("row") String rows, @Query("longitdue") String longitdue, @Query("latitude") String latitude);
 
@@ -90,8 +107,8 @@ public interface ApiService {
        Observable<RoomMessageHistory> roomMessageHistory();
        @POST("BrokenUpDone")
        Observable<BaseBean> brokenUpDone();
-       @POST("MyContract")
-       Observable<MyContract> myContract();
+       @POST("/chl/sign/contract/getContractPic")
+       Observable<MyContract> myContract(@Query("phone") String phone);
        @POST("MyFamilyList")
        Observable<MyFamily> myFamilyList();
        @POST("FamilyMemberList")
@@ -106,8 +123,10 @@ public interface ApiService {
        Observable<BuildingInfo> buildingInfo();
        @POST("JoinFamily")
        Observable<BrokenUp> joinFamily();
-       @POST("RoomInfo")
-       Observable<RoomInfo> roomInfo();
+       @POST("chl/room/getRoomById")
+       Observable<RoomInfo> roomInfo(@Query("roomId") String roomId);
+       @POST("chl/room/getRoomById")
+       Observable<RoomInfo> roomInfo1(@Query("roomId") String roomId,@Query("phone") String phone);
    @POST("/chl/room/findRoomMessageByPhone")
    Observable<RoomModel> findRoomMessageByPhone(@Query("phone") String phone);
 
@@ -115,7 +134,7 @@ public interface ApiService {
        @POST("MyRoom")
        Observable<MyRoom> MyRoom();
 
-   @POST("BuildingInfo")
-   Observable<BudingInfo> BudingInfo();
+   @POST("/chl/room/getRoomList")
+   Observable<BudingInfo> BudingInfo(@Query("orderId") String orderId,@Query("page") String page,@Query("row") String row,@Query("phone") String phone);
 
 }

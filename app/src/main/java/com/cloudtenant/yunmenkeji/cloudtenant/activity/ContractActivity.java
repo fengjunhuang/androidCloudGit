@@ -21,6 +21,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.ImageDownloader;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.CompleteImageView;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.CustomDialog;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Created by tlol20 on 2017/6/14
@@ -44,7 +46,7 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
     private CustomDatePicker customDatePicker1;
     private EasyRecyclerView recyclerView;
     private ContractAdapter adapter;
-    private int contrractType;
+    private String contrractType;
     //private OkHttpHelper ok=OkHttpHelper.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +82,7 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
 
 
     SelectPicPopupWindow mPopWindow;
-    private void showPopupWindow(int contractType) {
+    private void showPopupWindow(String contractType) {
         this.contrractType=contractType;
         //设置contentView
         mPopWindow = new SelectPicPopupWindow(this,this,contractType);
@@ -108,7 +110,7 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.pickPhotoBtn:{
-                if (contrractType==1) {
+                if (contrractType.equals("1")) {
                     CancelBroken();
                 }else {
                     Broken();
@@ -119,8 +121,8 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
             }break;
             case R.id.takePhotoBtn:{
                 CompleteImageView completeImageView = new CompleteImageView(this, new FileDownLoader());
-                for (int i = 0; i < viewDataBeanList.size(); i++) {
-                    urls.add(viewDataBeanList.get(i).getContractUrl());
+                for (int i = 0; i < 2; i++) {
+                    urls.add("http://123.207.91.208:80/"+viewDataBeanList.get(i).getContractUrl());
                 }
                 completeImageView.setUrls(urls, 0);
                 completeImageView.create();
@@ -190,12 +192,18 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
     List<String> urls=new ArrayList<>();
     List<MyContract.ViewDataBean> viewDataBeanList;
     private void AddData() {
+        String phone= Objects.requireNonNull(UserLocalData.getUser(this)).getUserPhone();
+                Log.d("AddData","phone="+phone);
         HttpMethods.getInstance().myContract(new BaseObserver<MyContract>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
+                Log.d("AddData",t.getMessage());
+                Log.d("AddData",t.getResult());
                 MyContract houseDetil= (MyContract) t;
-                viewDataBeanList=houseDetil.getViewDataX();
+                viewDataBeanList=houseDetil.getViewData();
                 System.out.println(houseDetil.getViewData()+"");
+
+                Log.d("AddData",viewDataBeanList.get(0).getContractName());
                 adapter.addAll(viewDataBeanList);
             }
 
@@ -203,7 +211,7 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },"");
+        }, phone);
     }
 
 

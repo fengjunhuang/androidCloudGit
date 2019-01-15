@@ -4,9 +4,10 @@
     android:orientation="vertical"
     android:background="@android:color/white"
     android:layout_width="match_parent"
-    android:padding="20dp"
     android:layout_height="match_parent">
     <LinearLayout
+        android:paddingTop="10dp"
+        android:paddingLeft="20dp"
         android:background="@android:color/white"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
@@ -22,6 +23,7 @@
             android:layout_gravity="center_vertical"
             android:text="我的合同"
             android:layout_marginLeft="2dp"
+            android:textStyle="bold"
             android:textColor="@color/light_black"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -50,10 +52,12 @@
     </LinearLayout>
 
     <View
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         style="@style/match_line"/>
 
     <com.jude.easyrecyclerview.EasyRecyclerView
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:id="@+id/recycler_view"
         app:layout_empty="@layout/view_empty"
         app:layout_progress="@layout/view_progress"

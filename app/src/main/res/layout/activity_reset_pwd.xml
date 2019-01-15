@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@android:color/white"
     android:layout_width="match_parent"
-    android:padding="20dp"
+    android:padding="15dp"
     android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/topbar"
@@ -26,25 +26,6 @@
             android:layout_weight="1"
             android:textSize="19sp"
             android:layout_height="wrap_content" />
-
-        <!--<LinearLayout
-            android:layout_width="70dp"
-            android:background="@drawable/butten_background_black"
-            android:gravity="center"
-            android:layout_height="32dp">
-            <ImageView
-                android:background="@drawable/image_me_add"
-                android:layout_width="12dp"
-                android:layout_height="12dp" />
-            <TextView
-                android:text="创 建"
-                android:textColor="@android:color/black"
-                android:textSize="11sp"
-                android:layout_marginLeft="3dp"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>-->
 
     </LinearLayout>
 
@@ -74,8 +55,6 @@
         android:text="为保障你的账号安全，修改密码前请验证手机好."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-
 
     <LinearLayout
         android:id="@+id/one"
@@ -107,11 +86,46 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/commit"
         style="@style/btn_stly"
         android:text="下一步"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <LinearLayout
+        android:id="@+id/two"
+        android:visibility="gone"
+        android:layout_below="@id/topbar"
+        android:layout_marginTop="@dimen/x15"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <EditText
+            android:layout_margin="@dimen/x5"
+            android:layout_marginTop="@dimen/x10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:id="@+id/et_pwd"
+            android:hint="请输入密码"
+            />
+        <EditText
+            android:layout_margin="@dimen/x5"
+            android:layout_marginTop="@dimen/x10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:id="@+id/et_pwd1"
+            android:hint="请再次输入密码"
+            />
+        <Button
+            android:id="@+id/commit_pwd"
+            style="@style/btn_stly"
+            android:text="提交"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </RelativeLayout>

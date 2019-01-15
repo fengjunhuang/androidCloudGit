@@ -19,18 +19,9 @@ public class RoomInfo extends BaseBeanC{
      * viewData : [{"roomSquare":"20","roomMoney":"280","roomNumber":"101","roomStatus":0,"roomReviewTimes":"10","roomHave360":true,"roomSet":"单间 热水器 床铺","roomID":"11","roomSimpleImage":"http://pic.ziroom.com/house_images/g2/M00/FD/72/v800x600_ChAFfVpjW8SAVxlTAA4eIwfrEgI392.JPG","roomMarginType":0,"roomStyle":"一房一厅","roomMoreImageArr":[{"imageTitle":"房间全景照","imageInfo":"房间非常舒适","imageFullView":"1","imageUrl":"https://theta360cn.com/cn/gallery/img/v_04.jpg"},{"imageTitle":"屋内环境照片","imageInfo":"房间","imageFullView":"0","imageUrl":"http://pic.ziroom.com/house_images/g2/M00/FD/72/v800x600_ChAFfVpjW8SAVxlTAA4eIwfrEgI392.JPG"},{"imageTitle":"屋内环境照片","imageInfo":"床屋内配置","imageFullView":"0","imageUrl":"http://pic.ziroom.com/house_images/g2/M00/FD/6B/v800x600_ChAFD1pjWsSADtIvAA5dAQdG5QU465.JPG"},{"imageTitle":"屋内环境照片","imageInfo":"屋内配置","imageFullView":"0","imageUrl":"http://pic.ziroom.com/house_images/g2/M00/FD/74/v800x600_ChAFfVpjXS2AaxWXAA7iv6GMBmA527.JPG"},{"imageTitle":"屋内环境照片","imageInfo":"浴室配置","imageFullView":"0","imageUrl":"http://pic.ziroom.com/house_images/g2/M00/FD/6D/v800x600_ChAFD1pjXBeAHhzNABBYSCeS78Q079.JPG"}],"roomBuildingID":"123123","roomLat":"23.000000","roomLng":"113.00000000"}]
      */
 
-    private String id;
     private String contract;
 
     private List<RoomInfo.ViewDataBean> viewDataX;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
 
 
@@ -70,20 +61,20 @@ public class RoomInfo extends BaseBeanC{
          * roomLng : 113.00000000
          */
 
-        private String roomSquare;
-        private String roomMoney;
-        private String roomNumber;
         private int roomStatus;
-        private String roomReviewTimes;
         private boolean roomHave360;
+        private String roomReadNum;
         private String roomSet;
         private String roomID;
         private String roomSimpleImage;
-        private int roomMarginType;
-        private String roomStyle;
-        private String roomBuildingID;
         private String roomLat;
         private String roomLng;
+        private int roomMarginType;
+        private String roomBuildingID;
+        private String roomMoney;
+        private String roomNumber;
+        private String roomSquare;
+        private String roomStyle;
         private List<RoomMoreImageArrBean> roomMoreImageArr;
 
         public String getRoomSquare() {
@@ -119,11 +110,11 @@ public class RoomInfo extends BaseBeanC{
         }
 
         public String getRoomReviewTimes() {
-            return roomReviewTimes;
+            return roomReadNum;
         }
 
         public void setRoomReviewTimes(String roomReviewTimes) {
-            this.roomReviewTimes = roomReviewTimes;
+            this.roomReadNum = roomReviewTimes;
         }
 
         public boolean isRoomHave360() {

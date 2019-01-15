@@ -28,6 +28,7 @@
             android:layout_height="wrap_content" />
 
         <LinearLayout
+            android:id="@+id/out_user"
             android:layout_width="50dp"
             android:background="@drawable/butten_background_red"
             android:gravity="center"
@@ -154,11 +155,11 @@
                     android:text="消息通知设置"
                     style="@style/me_text_style" />
                 <Switch
+                    android:checked="true"
                     android:id="@+id/s_message"
                     style="@style/setting_switch_style" />
             </RelativeLayout>
             <View style="@style/match_line"/>
-
 
         </LinearLayout>
     </ScrollView>

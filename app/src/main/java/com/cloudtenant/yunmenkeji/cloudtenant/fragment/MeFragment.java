@@ -20,11 +20,14 @@ import android.widget.Toast;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.AboutActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.ContractActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.LoginActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.LoginActivity_;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.SensorActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.EditProFileActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MyFamilyActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.RequestActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.SettingActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.SplashActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserinfoBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.PreferencesUtils;
@@ -70,20 +73,31 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), RequestActivity.class));
             }break;
             case R.id.rl_setting:{
-                startActivity(new Intent(getActivity(), SettingActivity.class));
+                if (isLogin) {
+                    getActivity().startActivityForResult(new Intent(getActivity(), SettingActivity.class), 0);
+                }else {
+                    startActivity(new Intent(getActivity(), LoginActivity_.class));
+                }
             }break;
             case R.id.rl_family:{
-                startActivity(new Intent(getActivity(), MyFamilyActivity.class));
+                if (isLogin) {
+                    startActivity(new Intent(getActivity(), MyFamilyActivity.class));
+                }else {
+                    startActivity(new Intent(getActivity(), LoginActivity_.class));
+                }
             }break;
             case R.id.rl_contract:{
-                startActivity(new Intent(getActivity(), ContractActivity.class));
+                if (isLogin) {
+                    startActivity(new Intent(getActivity(), ContractActivity.class));
+                }else {
+                    startActivity(new Intent(getActivity(), LoginActivity_.class));
+                }
             }break;
             case R.id.rl_icon:{
                 if (isLogin) {
                     startActivity(new Intent(getActivity(), EditProFileActivity.class));
                 }else {
-                    //startActivity(new Intent(getActivity(), LoginActivity.class));
-                    startActivity(new Intent(getActivity(), EditProFileActivity.class));
+                    startActivity(new Intent(getActivity(), LoginActivity_.class));
                 }
             }break;
             case R.id.rl_connect:{
@@ -120,6 +134,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected View initContentView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
         View view=layoutInflater.inflate(R.layout.activity_me,viewGroup,false);
+        isLogin=PreferencesUtils.getBoolean(getActivity(),"isLogin");
         view.findViewById(R.id.rl_about).setOnClickListener(this);
         view.findViewById(R.id.rl_clean).setOnClickListener(this);
         view.findViewById(R.id.rl_connect).setOnClickListener(this);
@@ -163,6 +178,28 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         return view;
     }
     UserinfoBean userinfoBean;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        userinfoBean= UserLocalData.getUser(getContext());
+        if (userinfoBean!=null) {
+
+        String iconUrl="http://123.207.91.208:80"+userinfoBean.getUserIcon();
+        Picasso.with(getActivity()).load(iconUrl).into(iv_icon);
+        Picasso.with(getActivity()).load(iconUrl).into(circleImageView);
+        userName.setText(userinfoBean.getUserName());
+        tv_username.setText(userinfoBean.getUserName());
+        }else {
+            iv_icon.setImageResource(R.drawable.settingicon);
+            circleImageView.setImageResource(R.drawable.settingicon);
+            userName.setText("登录/注册");
+            tv_username.setText("登录/注册");
+        }
+
+    }
+
     @Override
     protected void initView(View view) {
         if (PreferencesUtils.getBoolean(getActivity(),"isLogin",false)) {

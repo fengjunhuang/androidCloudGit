@@ -5,12 +5,12 @@
     android:orientation="horizontal"
     android:gravity="center_vertical"
     style="@style/click"
-    android:layout_height="70dp">
+    android:layout_height="90dp">
     <LinearLayout
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:orientation="vertical"
         android:layout_height="match_parent">
         <TextView

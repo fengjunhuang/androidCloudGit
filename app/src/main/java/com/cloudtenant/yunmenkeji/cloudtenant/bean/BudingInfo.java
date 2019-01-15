@@ -86,11 +86,33 @@ public class BudingInfo extends BaseBeanC{
         }
 
         public  class DataBean implements  Serializable{
+            @Override
+            public String toString() {
+                return "DataBean{" +
+                        "roomSquare='" + roomSquare + '\'' +
+                        ", roomMoney='" + roomMoney + '\'' +
+                        ", roomNumber='" + roomNumber + '\'' +
+                        ", roomStatus=" + roomStatus +
+                        ", roomHave360=" + roomHave360 +
+                        ", roomReviewTimes='" + roomReviewTimes + '\'' +
+                        ", roomSet='" + roomSet + '\'' +
+                        ", roomID='" + roomID + '\'' +
+                        ", roomSimpleImage='" + roomSimpleImage + '\'' +
+                        ", roomMarginType=" + roomMarginType +
+                        ", roomStyle='" + roomStyle + '\'' +
+                        ", roomBuildingID='" + roomBuildingID + '\'' +
+                        ", roomLat='" + roomLat + '\'' +
+                        ", roomLng='" + roomLng + '\'' +
+                        ", roomMoreImageArr=" + roomMoreImageArr +
+                        '}';
+            }
+
             /**
              * roomSquare : 20
              * roomMoney : 850
              * roomNumber : 201
              * roomStatus : 0
+             * isCollection : 0
              * roomHave360 : true
              * roomReviewTimes : 10
              * roomSet : 床 热水器 空调 宽带
@@ -106,10 +128,30 @@ public class BudingInfo extends BaseBeanC{
 
             private String roomSquare;
             private String roomMoney;
+
+            public String getIsCollection() {
+                return isCollection;
+            }
+
+            public void setIsCollection(String isCollection) {
+                this.isCollection = isCollection;
+            }
+
+            private String isCollection;
             private String roomNumber;
             private int roomStatus;
             private boolean roomHave360;
             private String roomReviewTimes;
+
+            public String getRoomReadNum() {
+                return roomReadNum;
+            }
+
+            public void setRoomReadNum(String roomReadNum) {
+                this.roomReadNum = roomReadNum;
+            }
+
+            private String roomReadNum;
             private String roomSet;
             private String roomID;
             private String roomSimpleImage;

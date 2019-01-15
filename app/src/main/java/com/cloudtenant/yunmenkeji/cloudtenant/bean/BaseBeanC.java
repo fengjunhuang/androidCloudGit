@@ -1,5 +1,7 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.bean;
 
+import android.util.Log;
+
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.AESOperator;
 
@@ -11,6 +13,7 @@ public class BaseBeanC extends BaseBean {
     private  String viewData;
 
     public String getViewData() throws Exception {
+        //Log.e("BaseBeanC",AESOperator.getInstance().decrypt(viewData));
         return AESOperator.getInstance().decrypt(viewData);
     }
 

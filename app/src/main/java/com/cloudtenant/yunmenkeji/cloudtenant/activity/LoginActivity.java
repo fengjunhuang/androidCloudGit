@@ -59,7 +59,7 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
             if (!isPwdLogin){
                     mDialog.show();
                     SMSSDK.submitVerificationCode("86",phone,et_code.getText().toString().trim());
-                    goLogin();
+
             }else {
                 pwd=et_pwd.getText().toString().trim();
                 if (pwd!=null&&pwd!=""){
@@ -73,35 +73,48 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
     }
 
     private void pwdLogin() {
-        HttpMethods.getInstance().login(new BaseObserver<UserInfo>() {
-            @Override
-            protected void onSuccees(BaseBean t) throws Exception {
-                Toast.makeText(LoginActivity.this, "登陆成功！！", Toast.LENGTH_SHORT).show();
-                mDialog.dismiss();
-                UserInfo houseDetil= (UserInfo) t;
-                Log.d("onSuccess","登陆成功");
-                Log.d("onSuccess",houseDetil.getUserinfo());
-                String s=houseDetil.getUserinfo().substring(1,houseDetil.getUserinfo().length());
-                String s1=s.substring(0,s.length()-1);
+        try {
+            HttpMethods.getInstance().login(new BaseObserver<UserInfo>() {
+                @Override
+                protected void onSuccees(BaseBean t) throws Exception {
 
-                Log.d("onSuccess","截取后的字段="+s1);
-                UserinfoBean userinfoBean= JSONUtil.fromJson(s1,UserinfoBean.class);
-                Log.d("onSuccees",userinfoBean.getUserName());
-                Log.d("onSuccees",userinfoBean.toString());
+                    //Toast.makeText(LoginActivity.this, "登陆成功！！", Toast.LENGTH_SHORT).show();
+                    mDialog.dismiss();
+                    Log.d("onSuccess","message="+t.getMessage());
 
-                UserLocalData.putUser(LoginActivity.this,userinfoBean);
-                PreferencesUtils.putBoolean(LoginActivity.this,"isLogin",true);
-                readyGo(IndexActivity_.class);
-                LoginActivity.this.finish();
+                    if (t.getResult().equals("false")) {
+                        Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        UserInfo houseDetil= (UserInfo) t;
+                        String s=houseDetil.getUserinfo().replace("[","");
+                        String s1=s.replace("]","");
+                        //String s1=s.substring(0,s.length()-1);
+                        Log.d("onSuccess",houseDetil.getUserinfo());
+                        Log.d("onSuccess","截取后的字段="+s1);
+                        UserinfoBean userinfoBean= JSONUtil.fromJson(s1,UserinfoBean.class);
+                        Log.d("onSuccees",userinfoBean.getUserName());
+                        Log.d("onSuccees",userinfoBean.toString());
+
+                        UserLocalData.putUser(LoginActivity.this,userinfoBean);
+                        PreferencesUtils.putBoolean(LoginActivity.this,"isLogin",true);
+
+                        Log.d("onSuccees","isLogin="+PreferencesUtils.getBoolean(LoginActivity.this,"isLogin"));
+                        readyGo(IndexActivity_.class);
+                        LoginActivity.this.finish();
+                    }
 
 
-            }
-            @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                Log.d("goLogin","网络状态》》"+isNetWorkError+"!!"+e.getMessage());
+                }
+                @Override
+                protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                    Log.d("goLogin","网络状态》》"+isNetWorkError+"!!"+e.getMessage());
 
-            }
-        },1+"",phone,pwd);
+                }
+            },"2",phone,AESOperator.getInstance().encrypt(pwd),true,"");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Click(R.id.btn_visitor)
@@ -129,8 +142,8 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
                 readyGo(ResetPwdActivity.class);
             }
         });
-        et_number.setText("130368893276");
-        et_code.setText("1213456");
+        et_number.setText("13068893276");
+        et_pwd.setText("123456");
         pwd_login.setOnClickListener(this);
         msg_login=findViewById(R.id.msg_login);
         msg_login.setOnClickListener(this);
@@ -289,7 +302,6 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
         msg_login.setTextColor(Color.GRAY);
         pwd_login.setTextColor(Color.GRAY);
         switch (view.getId()){
-
             case R.id.msg_login:{
                 isPwdLogin=false;
                 ll_one.setVisibility(View.VISIBLE);

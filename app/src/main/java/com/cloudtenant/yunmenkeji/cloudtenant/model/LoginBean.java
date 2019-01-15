@@ -7,6 +7,43 @@ package com.cloudtenant.yunmenkeji.cloudtenant.model;
 public class LoginBean {
     private String userPhone;
     private String  type ;
+    private String  password ;
+
+    public LoginBean(String userPhone, String type, String password, boolean isLogin, String registrationID) {
+        this.userPhone = userPhone;
+        this.type = type;
+        this.password = password;
+        this.isLogin = isLogin;
+        this.registrationID = registrationID;
+    }
+
+    public String getPassword() {
+
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isLogin() {
+        return isLogin;
+    }
+
+    public void setLogin(boolean login) {
+        isLogin = login;
+    }
+
+    public String getRegistrationID() {
+        return registrationID;
+    }
+
+    public void setRegistrationID(String registrationID) {
+        this.registrationID = registrationID;
+    }
+
+    private boolean  isLogin ;
+    private String  registrationID ;
 
     public String getUserPhone() {
         return userPhone;

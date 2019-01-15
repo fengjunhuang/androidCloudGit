@@ -60,7 +60,7 @@ public class HouseViewHolder extends BaseViewHolder<HouseDetil.ViewDataBean> {
         msp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, size, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  //粗体
         tv_cell_cost.setText(msp);
         tv_cell_name.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-        String image= "http://123.207.91.208:80/"+person.getCellImage();
+        String image= HttpMethods.BASE_URL+person.getCellImage();
         //Picasso.with(getContext()).load(person.getCellImage()).fit().into(imageView);
         Picasso.with(getContext()).load(image).fit().into(imageView);
         double long1=Double.parseDouble(person.getCellLongitude());
@@ -68,7 +68,7 @@ public class HouseViewHolder extends BaseViewHolder<HouseDetil.ViewDataBean> {
         double long2=Double.parseDouble(PreferencesUtils.getString(getContext(),"longitude","116.46"));
         double lat2=Double.parseDouble(PreferencesUtils.getString(getContext(),"latitude","39.92"));
         Log.d("setData","房子坐标="+long1+","+lat1+".>>定位坐标="+long2+","+lat2);
-        double juli=AppUtils.Distance(long1,lat1, long2,lat2);
+        double juli=AppUtils.Distance(lat1,long1, long2,lat2);
         DecimalFormat df2 = new DecimalFormat("###.0");
         tv_cell_juli.setText(df2.format(juli)+"km");
         /*if (!PreferencesUtils.getBoolean(getContext(),"isShow")){

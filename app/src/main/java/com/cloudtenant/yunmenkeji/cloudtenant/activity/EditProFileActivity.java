@@ -19,6 +19,8 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserinfoBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.AESOperator;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.AESUtils;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.PreferencesUtils;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
@@ -36,6 +38,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -151,7 +154,17 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
         //getData();
     }
     private void getUserMessage() {
-        userName=et_nick_name.getText().toString().trim();
+        try {
+            userName=new String( et_nick_name.getText().toString().trim().getBytes("GBK"),"UTF-8");
+            userSex=new String( userSex.getBytes("GBK"),"UTF-8");
+            userBirthday=new String( userBirthday.getBytes("GBK"),"UTF-8");
+            userConstellation=new String( userConstellation.getBytes("GBK"),"UTF-8");
+            userJob=new String( userJob.getBytes("GBK"),"UTF-8");
+            userFavourite=new String( userFavourite.getBytes("GBK"),"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
     }
     UserinfoBean userinfoBean;
     private String userName,userSex,userBirthday,userConstellation,userJob,userFavourite,userPhone;
@@ -172,6 +185,8 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
             }
             et_nick_name.setText(userName);
             tv_sex.setText(userSex);
+
+        Log.d("initData","userBirthday="+userBirthday);
             currentDate.setText(userBirthday);
             tv_constellation.setText(userConstellation);
             tv_job.setText(userJob);
@@ -293,30 +308,35 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
     }
 
     private void upPic() {
-        HttpMethods.getInstance().upImages(new BaseObserver<BrokenUp>() {
-            @Override
-            protected void onSuccees(BaseBean t) throws Exception {
-                BrokenUp houseDetil= (BrokenUp) t;
-                Log.e("getData","执行joinFamily方法返回"+houseDetil.getMessage());
-                System.out.println(t.getMessage()+"");
-                Toast.makeText(EditProFileActivity.this, houseDetil.getMessage(), Toast.LENGTH_SHORT).show();
-                /*userinfoBean.setUserName(userName);
-                userinfoBean.setUserBirthday(userBirthday);
-                userinfoBean.setUserConstellation(userConstellation);
-                userinfoBean.setUserJob(userJob);
-                userinfoBean.setUserFavourite(userFavourite);
-                userinfoBean.setUserSex(userSex);
-                UserLocalData.putUser(EditProFileActivity.this,userinfoBean);
-                finish();*/
-                joinFamily();
-                //adapter.addAll(viewDataBeanList);
-            }
+        try {
+            HttpMethods.getInstance().upImages(new BaseObserver<BrokenUp>() {
+                @Override
+                protected void onSuccees(BaseBean t) throws Exception {
+                    BrokenUp houseDetil= (BrokenUp) t;
+                    Log.e("getData","执行joinFamily方法返回"+houseDetil.getResult());
+                    System.out.println(t.getMessage()+"");
+                    Toast.makeText(EditProFileActivity.this, houseDetil.getMessage(), Toast.LENGTH_SHORT).show();
+                    /*userinfoBean.setUserName(userName);
+                    userinfoBean.setUserBirthday(userBirthday);
+                    userinfoBean.setUserConstellation(userConstellation);
+                    userinfoBean.setUserJob(userJob);
+                    userinfoBean.setUserFavourite(userFavourite);
+                    userinfoBean.setUserSex(userSex);
+                    UserLocalData.putUser(EditProFileActivity.this,userinfoBean);
+                    finish();*/
 
-            @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                    joinFamily();
+                    //adapter.addAll(viewDataBeanList);
+                }
 
-            }
-        },userPhone,basePic);
+                @Override
+                protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+                }
+            },userPhone, AESOperator.getInstance().encrypt(basePic));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -340,12 +360,14 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
         });
     }*/
 
+
+
     private void initDatePicker() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         String now = sdf.format(new Date());
 
         Log.e("initDatePicker","SimpleDateFormat="+now);
-        currentDate.setText(now.split(" ")[0]);
+        //currentDate.setText(now.split(" ")[0]);
 
         customDatePicker1 = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
             @Override

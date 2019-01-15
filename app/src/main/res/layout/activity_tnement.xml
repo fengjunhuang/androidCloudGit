@@ -87,7 +87,6 @@
                                     android:textColor="@color/black"
                                     android:text="待租"
                                     android:textSize="11sp"
-                                    android:textStyle="bold"
                                     />
                                 <TextView
                                     android:layout_marginLeft="@dimen/x5"
@@ -98,7 +97,7 @@
                                     android:textStyle="bold"
                                     android:id="@+id/tv_cell_remain"
                                     android:text="已经验证.剩3间"
-                                    android:textSize="19sp"
+                                    android:textSize="17sp"
                                     />
                                 <ImageView
                                     android:src="@drawable/image_blowse"
@@ -114,14 +113,25 @@
                                     android:textSize="11sp"
                                     />
                             </LinearLayout>
+                            <LinearLayout
+                                android:layout_gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:textSize="17sp"
+                                    android:id="@+id/tv_style"
+                                    android:textColor="@color/gray_cut_clorr"
+                                    android:text="一按一租 | 一房一厅 | 全景看房"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content" />
+                                <ImageView
+                                    android:id="@+id/is_sc"
+                                    android:src="@drawable/sc"
+                                    android:layout_width="@dimen/x15"
+                                    android:layout_height="@dimen/x15" />
+                            </LinearLayout>
 
-                            <TextView
-                                android:textSize="19sp"
-                                android:id="@+id/tv_style"
-                                android:textColor="@color/gray_cut_clorr"
-                                android:text="一按一租 | 一房一厅 | 全景看房"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
                         </LinearLayout>
 
                      <View
