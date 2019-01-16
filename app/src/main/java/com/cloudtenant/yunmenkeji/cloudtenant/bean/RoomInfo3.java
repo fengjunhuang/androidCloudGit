@@ -1,6 +1,7 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.bean;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.AESOperator;
 
 import java.util.List;
 
@@ -9,10 +10,23 @@ import java.util.List;
  */
 
 public class RoomInfo3  extends BaseBean {
-
-
+    String hetong;
     public List<ViewDataBean> getViewData() {
         return viewData;
+    }
+
+
+    public String getHetong() {
+        try {
+            return AESOperator.getInstance().decrypt(contract);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void setHetong(String hetong) {
+        this.hetong = hetong;
     }
 
     /**

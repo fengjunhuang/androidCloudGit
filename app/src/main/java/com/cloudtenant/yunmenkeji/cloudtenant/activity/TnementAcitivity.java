@@ -341,7 +341,7 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
             protected void onSuccees(BaseBean t) throws Exception {
                 bean1= (RoomInfo3) t;
 
-                Log.d("TnementAcitivity",bean1.getContract());
+                Log.d("TnementAcitivity",bean1.getHetong());
                 Log.d("TnementAcitivity",""+bean1.getViewData().get(0).getRoomSet());
 //                init();
             }
