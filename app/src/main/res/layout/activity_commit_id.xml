@@ -60,6 +60,7 @@
         android:layout_height="wrap_content" />
     <EditText
         android:background="@null"
+        android:id="@+id/et_phone"
         android:layout_marginTop="10dp"
         android:textSize="11sp"
         android:textColor="@color/gren_cut_clorr"
@@ -148,13 +149,14 @@
         style="@style/match_line"/>
     <TextView
         style="@style/commit_id_tv_style"
-        android:text="上传签约人身份证"
+        android:text="上传其他人身份信息"
         />
     <LinearLayout
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
+            android:visibility="invisible"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:layout_width="0dp"

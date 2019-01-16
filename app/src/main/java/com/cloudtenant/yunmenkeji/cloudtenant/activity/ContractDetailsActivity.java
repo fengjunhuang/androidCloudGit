@@ -20,6 +20,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.ChineseNumber;
 import com.gersion.library.base.BaseActivity;
 
 import java.text.SimpleDateFormat;
@@ -75,12 +76,29 @@ public class ContractDetailsActivity extends BaseActivity {
     }
     String aa;
     SpannableString msp = null;
+    String roomMoney;
+    ChineseNumber chineseNumber=new ChineseNumber();
     private void getData() {
         //houseDetil = ( HouseDetil.ViewDataBean) getIntent().getExtras().getSerializable("houseDetil");
          bean = (TnementBean) getIntent().getExtras().getSerializable("bean");
+         roomMoney=getIntent().getStringExtra("roomMoney");
+         String time=getIntent().getStringExtra("time");
+         int setTime=3;
+         switch (time){
+             case "三个月":{
+                //setTime="3";
+             }break;
+             case "半年":{
+                setTime=6;
+             }break;
+             case "一年":{
+                setTime=12;
+             }break;
+         }
         aa=bean.getContract().replace("/n", "\n");
         Log.e("onSuccees",aa);
         String a="%@";
+
         ArrayList<Integer> indexList=new ArrayList<>();
         ArrayList<Integer> indexSizeList=new ArrayList<>();
 
@@ -90,7 +108,7 @@ public class ContractDetailsActivity extends BaseActivity {
         //roomSquare
         ctList.add(bean.getRoomSquare());
         //固定
-        ctList.add("12");
+        ctList.add(setTime+"");
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
         String now = sdf.format(new Date());
@@ -101,30 +119,36 @@ public class ContractDetailsActivity extends BaseActivity {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);//设置起时间
         //System.out.println("111111111::::"+cal.getTime());
-        cal.add(Calendar.YEAR, 1);//增加一年
+        cal.add(Calendar.MONTH, setTime);//增加一年
+        String nowPlus=sdf.format(cal.getTime());
+        cal.add(Calendar.MONTH, 12-setTime);//增加一年
         String nowPlus1=sdf.format(cal.getTime());
-        cal.add(Calendar.YEAR, 1);//增加一年
+        cal.add(Calendar.MONTH, 24-setTime);//增加一年
         String nowPlus2=sdf.format(cal.getTime());
         //当前日期加一年
-        ctList.add(nowPlus1);
+        ctList.add(nowPlus);
         //roomMoney
-        ctList.add("1000");
+        ctList.add(roomMoney);
+        Log.d("ContractDetailsActivity","roomMoney="+roomMoney);
         //roomMoney大写
-        ctList.add("壹仟");
+        ctList.add(chineseNumber.getCnString(roomMoney).substring(0).replace("元",""));
         //roomMoney
-        ctList.add("1000");
+        ctList.add(roomMoney);
+        //固定涨价
+        ctList.add("300");
         //当前日期
         ctList.add(now);
         //roomMoney
-        ctList.add("1000");
+        ctList.add(roomMoney);
         //当前日期加一年
         ctList.add(nowPlus1);
         //当前日期加2年
         ctList.add(nowPlus2);
         //roomMoney+50
-        ctList.add("1050");
+        Float price=Float.parseFloat(roomMoney)+300;
+        ctList.add(price+"");
         //固定
-        ctList.add("12");
+        ctList.add(setTime+"");
 
         int ctIndex=0;
         for (String s : ctList) {

@@ -159,7 +159,6 @@ public class HttpMethods {
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
-
     }
     public void roomMessageHistory(BaseObserver<RoomMessageHistory> observer, String aa){
         apiService.roomMessageHistory().subscribeOn(Schedulers.io())

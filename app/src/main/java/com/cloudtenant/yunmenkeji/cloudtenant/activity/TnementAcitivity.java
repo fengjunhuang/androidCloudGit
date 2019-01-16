@@ -34,6 +34,8 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
+import com.cloudtenant.yunmenkeji.cloudtenant.widget.CustomDatePicker;
+import com.cloudtenant.yunmenkeji.cloudtenant.widget.CustomSinglePicker;
 import com.squareup.picasso.Picasso;
 import com.tencent.map.geolocation.TencentLocation;
 import com.tencent.map.geolocation.TencentLocationListener;
@@ -110,22 +112,37 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
     int end=4;
     Context mContext=this;
     private List<TextView> ss =new ArrayList<>();
+    private CustomSinglePicker sexPicker;
     BudingInfo.ViewDataBean.DataBean bean ;
     TnementBean tnementBean=new TnementBean();
     @Override
     protected void initContentView(Bundle var1) {
        setContentView(R.layout.activity_tnement);
-    }
 
+    }
+    private String roomMoney;
     @Override
     protected void initView() {
+        ArrayList<String> sexList=new ArrayList<>();
+        sexList.add("三个月");
+        sexList.add("半年");
+        sexList.add("一年");
+        sexPicker = new CustomSinglePicker(this, new CustomSinglePicker.ResultHandler() {
+            @Override
+            public void handle(String time) { // 回调接口，获得选中的时间
+                 Bundle bundle =new Bundle();
+                bundle.putSerializable("bean",tnementBean);
+                bundle.putSerializable("houseDetil",houseDetil);
+                bundle.putSerializable("time",time);
+                bundle.putSerializable("roomMoney",roomMoney);
+                readyGo(ContractDetailsActivity.class,bundle);
+            }
+        },sexList,"合同时间"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        sexPicker.setIsLoop(true); // 允许循环滚动
         findViewById(R.id.ll_details).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle =new Bundle();
-                bundle.putSerializable("bean",tnementBean);
-                bundle.putSerializable("houseDetil",houseDetil);
-                readyGo(ContractDetailsActivity.class,bundle);
+                sexPicker.show("三个月");
             }
         });
     }
@@ -243,6 +260,7 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
             Picasso.with(this).load(HttpMethods.BASE_URL+bean.getRoomSimpleImage()).fit().into(iv_cell);
             tv_cell_remain.setText(bean.getRoomNumber());
             SpannableString msp = new SpannableString("￥" + bean.getRoomMoney() + "/月");
+            roomMoney=bean.getRoomMoney();
             int size=bean.getRoomMoney().length()+1;
             msp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), start, size, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  //粗体
             //给限定字符之间的字符着色
@@ -367,6 +385,7 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
         Picasso.with(this).load(HttpMethods.BASE_URL+bean1.getViewData().get(0).getRoomSimpleImage()).fit().into(iv_cell);
         tv_cell_remain.setText(bean1.getViewData().get(0).getRoomNumber());
         SpannableString msp = new SpannableString("￥" + bean1.getViewData().get(0).getRoomMoney() + "/月");
+        roomMoney=bean1.getViewData().get(0).getRoomMoney()+"";
         String aa=bean1.getViewData().get(0).getRoomMoney()+"";
         int size=aa.length()+1;
         msp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), start, size, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  //粗体
