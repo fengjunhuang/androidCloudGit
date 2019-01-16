@@ -55,6 +55,7 @@ public class HouseViewHolder extends BaseViewHolder<HouseDetil.ViewDataBean> {
     public void setData(final HouseDetil.ViewDataBean person){
         tv_cell_name.setText(person.getCellName());
         tv_cell_remain.setText("云门验证·剩" + person.getCellRemain() + "间");
+        tv_cell_building_set.setText(person.getSynopsis());
         SpannableString msp = new SpannableString("￥" + person.getCellCost() + "/月");
         int size=person.getCellCost().length()+1;
         msp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, size, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  //粗体

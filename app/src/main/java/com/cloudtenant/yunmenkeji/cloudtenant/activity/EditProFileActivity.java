@@ -170,9 +170,9 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
     private String userName,userSex,userBirthday,userConstellation,userJob,userFavourite,userPhone;
     private void initData() {
 
-            userinfoBean= UserLocalData.getUser(this);
-            assert userinfoBean != null;
-            String image= "http://123.207.91.208:80/"+userinfoBean.getUserIcon();
+        userinfoBean= UserLocalData.getUser(this);
+        assert userinfoBean != null;
+        String image= "http://123.207.91.208:80/"+userinfoBean.getUserIcon();
         userPhone=userinfoBean.getUserPhone();
         userName=userinfoBean.getUserName() ;
         userSex=userinfoBean.getUserSex() ;
@@ -180,17 +180,17 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
         userConstellation=userinfoBean.getUserConstellation() ;
         userJob=userinfoBean.getUserJob() ;
         userFavourite=userinfoBean.getUserFavourite() ;
-            if (userinfoBean.getUserIcon()!=null) {
-                Picasso.with(this).load(image).into(civ_icon);
-            }
-            et_nick_name.setText(userName);
-            tv_sex.setText(userSex);
+        if (userinfoBean.getUserIcon()!=null) {
+            Picasso.with(this).load(image).into(civ_icon);
+        }
+        et_nick_name.setText(userName);
+        tv_sex.setText(userSex);
 
         Log.d("initData","userBirthday="+userBirthday);
-            currentDate.setText(userBirthday);
-            tv_constellation.setText(userConstellation);
-            tv_job.setText(userJob);
-            tv_interest.setText(userFavourite);
+        currentDate.setText(userBirthday);
+        tv_constellation.setText(userConstellation);
+        tv_job.setText(userJob);
+        tv_interest.setText(userFavourite);
 
     }
     private String frontPath;
@@ -282,7 +282,7 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
                     upPic();
                 }else {
                 }*/
-                    joinFamily();
+                joinFamily();
             }break;
             case R.id.civ_icon:{
                 selectImage();
@@ -429,17 +429,26 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
         jobList.add("营养师");
         jobList.add("演员");
         jobList.add("歌手");
+        jobList.add("文员");
+        jobList.add("销售");
+        jobList.add("健身教练");
+        jobList.add("司机");
         jobList.add("其他");
         jobPicker = new CustomSinglePicker(this, jobHandler,jobList,"选择职业"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         jobPicker.setIsLoop(false); // 允许循环滚动
 
         ArrayList<String> interestList=new ArrayList<>();
+        interestList.add("足球");
         interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-
-        interestList.add("英雄联盟");
+        interestList.add("跆拳道");
+        interestList.add("射箭");
+        interestList.add("蹦极");
+        interestList.add("煮饭");
+        interestList.add("爬山");
+        interestList.add("画画");
+        interestList.add("骑单车");
+        interestList.add("睡懒觉");
+        interestList.add("羽毛球");
         interestDatePicker = new CustomSinglePicker(this, interestHandler,interestList,"选择兴趣"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         interestDatePicker.setIsLoop(false); // 允许循环滚动
 

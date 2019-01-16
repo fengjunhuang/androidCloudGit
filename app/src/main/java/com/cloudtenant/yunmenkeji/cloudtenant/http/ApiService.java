@@ -11,6 +11,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamily;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamilyData;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.NoticeHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo3;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
@@ -126,7 +127,7 @@ public interface ApiService {
        @POST("chl/room/getRoomById")
        Observable<RoomInfo> roomInfo(@Query("roomId") String roomId);
        @POST("chl/room/getRoomById")
-       Observable<RoomInfo> roomInfo1(@Query("roomId") String roomId,@Query("phone") String phone);
+       Observable<RoomInfo3> roomInfo1(@Query("roomId") String roomId, @Query("phone") String phone);
    @POST("/chl/room/findRoomMessageByPhone")
    Observable<RoomModel> findRoomMessageByPhone(@Query("phone") String phone);
 

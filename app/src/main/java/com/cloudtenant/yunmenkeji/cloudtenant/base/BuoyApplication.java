@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.support.multidex.MultiDexApplication;
 
+import com.cloudtenant.yunmenkeji.cloudtenant.util.CrashHandler;
+
 //import me.shaohui.shareutil.ShareConfig;
 //import me.shaohui.shareutil.ShareManager;
 
@@ -50,6 +52,7 @@ public class BuoyApplication extends MultiDexApplication {
         handler = new Handler();
         mainThreadId = android.os.Process.myTid();
         mApp=this;
+        CrashHandler.getInstance().init(this);
 //        ShareConfig config = ShareConfig.instance()
 //                .qqId(QQ_ID)
 //                .wxId(WX_ID)

@@ -22,6 +22,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.activity.MpChartActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.PayActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.SensorActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.PowWindowAdapter;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo1;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
@@ -31,6 +32,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.NewBaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.NewBaseObserver;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.CommonPopupWindow;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.LoadingLayout;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
@@ -177,8 +179,13 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
 //        showPopupWindow(iv_select);
 
     }
+    RoomInfo1 bean1;
+
 
     private void request() {
+
+
+
         HttpMethods.getInstance().findRoomMessageByPhone(new BaseObserver<RoomModel>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {

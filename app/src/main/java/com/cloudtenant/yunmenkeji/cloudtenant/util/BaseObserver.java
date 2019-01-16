@@ -58,7 +58,9 @@ public abstract class BaseObserver<T> implements Observer<BaseBean> {
                     || e instanceof NetworkErrorException
                     || e instanceof UnknownHostException) {
                 onFailure(e, true);
+                e.printStackTrace();
             } else {
+                e.printStackTrace();
                 onFailure(e, false);
             }
         } catch (Exception e1) {
