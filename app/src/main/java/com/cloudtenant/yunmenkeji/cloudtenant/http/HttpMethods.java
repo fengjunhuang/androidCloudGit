@@ -43,7 +43,7 @@ import retrofit2.http.Query;
 
 public class HttpMethods {
 
-    private static final String BASE_URL1 = "http://5ae10bf1ee98370014cf2455.mockapi.io/";
+    private static final String BASE_URL1 = "http://192.168.50.13:8080/";
     public static final String BASE_URL = "http://123.207.91.208:80/";
     private static final int TIME_OUT=4;
     private Retrofit retrofit;
@@ -160,7 +160,6 @@ public class HttpMethods {
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
-
     }
     public void roomMessageHistory(BaseObserver<RoomMessageHistory> observer, String aa){
         apiService.roomMessageHistory().subscribeOn(Schedulers.io())
@@ -230,7 +229,7 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-   public void myRoom(BaseObserver<MyRoom> observer, String aa){
+    public void myRoom(BaseObserver<MyRoom> observer, String aa){
         apiService.MyRoom().subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

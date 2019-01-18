@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.IdDetails;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.IdFront;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.JSONUtil;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.PreferencesUtils;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.Youtu;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.base64.Test;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.misc.BASE64Encoder;
@@ -58,11 +60,18 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
     private LinearLayout verso,front;
     boolean isFront;
     private SpotsDialog mDialog;
+    private EditText et_phone;
+
+    //提交所需数据
+    private String userPhone;
+    private String buildingID;
+    private String roomId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commit_id);
         mDialog = new SpotsDialog(this);
+        userPhone= UserLocalData.getUser(this).getUserPhone();
         findViewById(R.id.out).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +79,7 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
             }
         });
         iv_sign=findViewById(R.id.iv_sign);
+        et_phone=findViewById(R.id.et_phone);
         verso=findViewById(R.id.verso);
         front=findViewById(R.id.front);
         iv_front=findViewById(R.id.iv_front);
@@ -77,6 +87,7 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
         iv_sign.setOnClickListener(this);
         iv_front.setOnClickListener(this);
         iv_verso.setOnClickListener(this);
+        et_phone.setText(userPhone);
     }
 
     @Override
@@ -127,7 +138,6 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
                 //加载图片
                 Glide.with(this).load(file1).signature(new StringSignature(GetNowTime())).into(iv_front);
                 //iv_front.setImageBitmap(BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getPath() + "/idFront.jpg"));
-
             Log.d("takePhoto","进入onActivityResult设置图片路径="+file1.getPath());
                 getIdDetails(file1.getPath(),0);
             }else {

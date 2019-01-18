@@ -61,6 +61,27 @@ public class RoomInfo3  extends BaseBean {
     }
 
     public static class ViewDataBean {
+        @Override
+        public String toString() {
+            return "ViewDataBean{" +
+                    "isCollection=" + isCollection +
+                    ", roomBuildingID='" + roomBuildingID + '\'' +
+                    ", roomHave360='" + roomHave360 + '\'' +
+                    ", roomID='" + roomID + '\'' +
+                    ", roomLat='" + roomLat + '\'' +
+                    ", roomLng='" + roomLng + '\'' +
+                    ", roomMarginType='" + roomMarginType + '\'' +
+                    ", roomMoney=" + roomMoney +
+                    ", roomNumber=" + roomNumber +
+                    ", roomSet='" + roomSet + '\'' +
+                    ", roomSimpleImage='" + roomSimpleImage + '\'' +
+                    ", roomSquare='" + roomSquare + '\'' +
+                    ", roomStatus='" + roomStatus + '\'' +
+                    ", roomStyle='" + roomStyle + '\'' +
+                    ", roomMoreImageArr=" + roomMoreImageArr +
+                    '}';
+        }
+
         /**
          * isCollection : false
          * roomBuildingID : 1542004972597
@@ -93,7 +114,7 @@ public class RoomInfo3  extends BaseBean {
         private String roomSquare;
         private String roomStatus;
         private String roomStyle;
-        private List<?> roomMoreImageArr;
+        private List<RoomMoreImageArrBean> roomMoreImageArr;
 
         public boolean isIsCollection() {
             return isCollection;
@@ -207,12 +228,68 @@ public class RoomInfo3  extends BaseBean {
             this.roomStyle = roomStyle;
         }
 
-        public List<?> getRoomMoreImageArr() {
+        public List<RoomMoreImageArrBean> getRoomMoreImageArr() {
             return roomMoreImageArr;
         }
 
-        public void setRoomMoreImageArr(List<?> roomMoreImageArr) {
+        public void setRoomMoreImageArr(List<RoomMoreImageArrBean> roomMoreImageArr) {
             this.roomMoreImageArr = roomMoreImageArr;
+        }
+
+        public static class RoomMoreImageArrBean {
+            /**
+             * imageFullView : 2
+             * imageShowType : 2
+             * imageUrl : /chl/upload/app/2018-11-30/1a89e041-f4c7-4a9a-b273-541dd7497cccroomPic.jpg
+             * imageInfo :
+             * imageTitle :
+             */
+
+            private String imageFullView;
+            private int imageShowType;
+            private String imageUrl;
+            private String imageInfo;
+            private String imageTitle;
+
+            public String getImageFullView() {
+                return imageFullView;
+            }
+
+            public void setImageFullView(String imageFullView) {
+                this.imageFullView = imageFullView;
+            }
+
+            public int getImageShowType() {
+                return imageShowType;
+            }
+
+            public void setImageShowType(int imageShowType) {
+                this.imageShowType = imageShowType;
+            }
+
+            public String getImageUrl() {
+                return imageUrl;
+            }
+
+            public void setImageUrl(String imageUrl) {
+                this.imageUrl = imageUrl;
+            }
+
+            public String getImageInfo() {
+                return imageInfo;
+            }
+
+            public void setImageInfo(String imageInfo) {
+                this.imageInfo = imageInfo;
+            }
+
+            public String getImageTitle() {
+                return imageTitle;
+            }
+
+            public void setImageTitle(String imageTitle) {
+                this.imageTitle = imageTitle;
+            }
         }
     }
 }
