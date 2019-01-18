@@ -155,6 +155,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
         tv_dianfei=view.findViewById(R.id.tv_dianfei);
         tv_shuifei=view.findViewById(R.id.tv_shuifei);
         tv_fangzu=view.findViewById(R.id.tv_fangzu);
+
         tv_qita=view.findViewById(R.id.tv_qita);
         tv_title=view.findViewById(R.id.title);
         ll_yijian=view.findViewById(R.id.ll_yijian);

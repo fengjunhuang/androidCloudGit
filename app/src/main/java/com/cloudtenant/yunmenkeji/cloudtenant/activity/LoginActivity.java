@@ -28,11 +28,15 @@ import com.cloudtenant.yunmenkeji.cloudtenant.util.PreferencesUtils;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.TimeCount;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
 import com.mob.MobSDK;
+import com.tsy.sdk.social.PlatformType;
+import com.tsy.sdk.social.SocialApi;
+import com.tsy.sdk.social.listener.AuthListener;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,6 +54,11 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
     private boolean isPwdLogin=false;
     private String pwd;
     private SpotsDialog mDialog;
+    private SocialApi mSocialApi;
+
+    private static final String WX_APPID = "your wx appid";    //申请的wx appid
+    private static final String QQ_APPID = "your qq appid";    //申请的qq appid
+    private static final String SINA_WB_APPKEY = "your sina wb appkey";       //申请的新浪微博 appkey
     @Click(R.id.btn_login)
     void login(){
 
@@ -150,6 +159,7 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
         ll_one=findViewById(R.id.one);
         ll_two=findViewById(R.id.two);
 
+        mSocialApi = SocialApi.get(getApplicationContext());
         // 如果希望在读取通信录的时候提示用户，可以添加下面的代码，并且必须在其他代码调用之前，否则不起作用；如果没这个需求，可以不加这行代码
         MobSDK.init(this);
         //SMSSDK.setAskPermisionOnReadContact(true);
@@ -212,7 +222,48 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
         });
 
     }
+    /**
+     * 微信登录
+     */
+    @Click(R.id.iv_wechat)
+    public void onWXLogin() {
+        mSocialApi.doOauthVerify(this, PlatformType.WEIXIN , new MyAuthListener());
+    }
 
+    /**
+     * qq登录
+     */
+    @Click(R.id.iv_qq)
+    public void onQQLogin() {
+        mSocialApi.doOauthVerify(this, PlatformType.QQ, new MyAuthListener());
+    }
+
+    /**
+     * 新浪微博登录
+     */
+    @Click(R.id.iv_sina)
+    public void onSinaWBLogin() {
+        mSocialApi.doOauthVerify(this, PlatformType.SINA_WB, new MyAuthListener());
+    }
+    public class MyAuthListener implements AuthListener {
+        @Override
+        public void onComplete(PlatformType platform_type, Map<String, String> map) {
+            Toast.makeText(LoginActivity.this, platform_type + " login onComplete", Toast.LENGTH_SHORT).show();
+            Log.i("tsy", "login onComplete:" + map);
+        }
+
+        @Override
+        public void onError(PlatformType platform_type, String err_msg) {
+            Toast.makeText(LoginActivity.this, platform_type + " login onError:" + err_msg, Toast.LENGTH_SHORT).show();
+            Log.i("tsy", "login onError:" + err_msg);
+        }
+
+        @Override
+        public void onCancel(PlatformType platform_type) {
+            Toast.makeText(LoginActivity.this, platform_type + " login onCancel", Toast.LENGTH_SHORT).show();
+            Log.i("tsy", "login onCancel");
+        }
+    }
     private void goLogin() {
 
         Log.d("goLogin","电话号码=="+phone);

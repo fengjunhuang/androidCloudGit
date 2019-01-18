@@ -18,6 +18,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://dl.bintray.com/thelasterstar/maven" }      //微博sdk maven库
         maven {
                 url 'https://jitpack.io'
                 }
