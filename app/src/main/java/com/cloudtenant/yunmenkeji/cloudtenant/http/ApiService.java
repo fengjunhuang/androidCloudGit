@@ -131,7 +131,6 @@ public interface ApiService {
    @POST("/chl/room/findRoomMessageByPhone")
    Observable<RoomModel> findRoomMessageByPhone(@Query("phone") String phone);
 
-
        @POST("MyRoom")
        Observable<MyRoom> MyRoom();
 

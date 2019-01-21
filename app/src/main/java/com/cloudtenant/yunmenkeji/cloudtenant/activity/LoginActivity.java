@@ -250,6 +250,7 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
         public void onComplete(PlatformType platform_type, Map<String, String> map) {
             Toast.makeText(LoginActivity.this, platform_type + " login onComplete", Toast.LENGTH_SHORT).show();
             Log.i("tsy", "login onComplete:" + map);
+            
         }
 
         @Override

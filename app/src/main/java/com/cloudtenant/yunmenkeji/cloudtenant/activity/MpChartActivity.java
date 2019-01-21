@@ -209,7 +209,7 @@ public class MpChartActivity extends YzsBaseActivity {
     }
     private  View MpinitMpChat(View view,int pos) {
  if(mLineChart!=null){
-     mLineChart.invalidate();
+//     mLineChart.invalidate();
  }
       mLineChart=  view.findViewById(R.id.lineChart);
         //显示边界
