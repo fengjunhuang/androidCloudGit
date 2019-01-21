@@ -76,6 +76,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
     private  TextView tv_shuifei;
     private  TextView tv_dianfei;
     private  TextView tv_qita;
+    private  TextView tv_result;
     private  TextView  tv_title;
     private  LinearLayout ll_yijian;
     private  View view1;
@@ -155,6 +156,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
         tv_dianfei=view.findViewById(R.id.tv_dianfei);
         tv_shuifei=view.findViewById(R.id.tv_shuifei);
         tv_fangzu=view.findViewById(R.id.tv_fangzu);
+        tv_result=view.findViewById(R.id.tv_result);
         tv_qita=view.findViewById(R.id.tv_qita);
         tv_title=view.findViewById(R.id.title);
         ll_yijian=view.findViewById(R.id.ll_yijian);
@@ -190,9 +192,12 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
                 roomModel=(RoomModel) t;
+                  tv_fangzu.setText("房租\n"+ roomModel.getViewData().get(0).getMyRoomRent());
+                tv_dianfei.setText("电费\n"+ roomModel.getViewData().get(0).getMyRoomPower());
+                tv_shuifei.setText("水费\n"+roomModel.getViewData().get(0).getMyRoomWater());
 
-
-
+                tv_qita.setText("其他\n"+roomModel.getViewData().get(0).getMyRoomTem());
+                tv_result.setText("支付\n"+roomModel.getViewData().get(0).getMyRoomTotal());
 //                for(Double water:((RoomModel) t).getViewData().get(0).getMyRoomWaterArr()){
 //                    entries.add(new Entry(((RoomModel) t).getViewData().get(0).getMyRoomWaterArr().indexOf(water),water.floatValue()));
 //                }
@@ -365,6 +370,12 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
                    index =position;
                    entries=new ArrayList<>();
                    entries1=new ArrayList<>();
+                   tv_fangzu.setText("房租\n"+ roomModel.getViewData().get(index).getMyRoomRent());
+                   tv_dianfei.setText("电费\n"+ roomModel.getViewData().get(index).getMyRoomPower());
+                   tv_shuifei.setText("水费\n"+roomModel.getViewData().get(index).getMyRoomWater());
+
+                   tv_qita.setText("其他\n"+roomModel.getViewData().get(index).getMyRoomTem());
+                   tv_result.setText("支付\n"+roomModel.getViewData().get(index).getMyRoomTotal());
                    for(int i=0;i<roomModel.getViewData().get(0).getMyRoomWaterArr().size();i++){
                        entries.add(new Entry(i,(roomModel.getViewData().get(0).getMyRoomWaterArr().get(i).floatValue())));
                    }

@@ -119,6 +119,7 @@ dependencies {
     compile 'com.github.recruit-lifestyle:WaveSwipeRefreshLayout:1.6'
     implementation files('libs/TencentMapSearch_v1.1.7.1.3e04ee1.jar')
     compile 'com.pnikosis:materialish-progress:1.7'
+    compile 'com.tsy.social:social-sdk-full:2.0.0'
     compile('com.jph.takephoto:takephoto_library:4.0.3') {
         exclude module: 'appcompat-v7'
     }

@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.AboutActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.ContractActivity;
-import com.cloudtenant.yunmenkeji.cloudtenant.activity.LoginActivity;
+
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.LoginActivity_;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.SensorActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.EditProFileActivity;
