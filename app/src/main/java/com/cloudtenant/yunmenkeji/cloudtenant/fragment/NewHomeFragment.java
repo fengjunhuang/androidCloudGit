@@ -207,10 +207,10 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                 String content = data.getStringExtra(Constant.CODED_CONTENT);
                 if (content.contains("qrType")) {
                     Qr qr= JSONUtil.fromJson(content,Qr.class);
-                        Log.e("getData","解析成功qrtype="+qr.getQrType());
+                    Log.e("getData","解析成功qrtype="+qr.getQrType());
                     switch (qr.getQrType()) {
                         case join:{
-                        Log.e("getData","解析成功qrtype=1>>>开始执行joinFamily方法");
+                            Log.e("getData","解析成功qrtype=1>>>开始执行joinFamily方法");
                             joinFamily();
                         }break;
                         case roominfo:{
@@ -235,7 +235,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-      return  null;
+        return  null;
     }
 
     @Override
@@ -266,7 +266,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                 scrolledDistance=scrolledDistance+dy;
                 int search_layout_max_margin= ll_tor_bar.getMeasuredHeight();
                 int newTopMargin = search_layout_max_margin - dy;
-               // Log.e("getData","onScrolled》》dy="+dy+">>>search_layout_max_margin="+search_layout_max_margin);
+                // Log.e("getData","onScrolled》》dy="+dy+">>>search_layout_max_margin="+search_layout_max_margin);
                 if (scrolledDistance<180) {
                     if (newTopMargin > 80 && newTopMargin < 180) {
                         linearParams.height = newTopMargin;
@@ -514,7 +514,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             }
         });
         isFirst=true;
-       requestData();
+        requestData();
     }
 
     private void requestData() {
@@ -554,44 +554,45 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                 System.out.println(houseDetil.getViewData());
 
 
-               //Log.e("requestData",houseDetil.getViewDataX().get(0).toString());
-                  Log.e("requestData",houseDetil.getViewDataX().size()+"条信息");
+                //Log.e("requestData",houseDetil.getViewDataX().get(0).toString());
+                Log.e("requestData",houseDetil.getViewDataX().size()+"条信息");
 
 
-                    if (!isMapMode) {
-                  Log.e("requestData","添加一次数据信息>>>>adapter="+adapter.getCount()+"条》》》》》》viewDataBean="+viewDataBean.size());
-                        if (houseDetil.getViewDataX().size()>0) {
-                            adapter.addAll(houseDetil.getViewDataX());
-                        }
-                    } else {
-                        adapter.stopMore();
+                if (!isMapMode) {
+                    Log.e("requestData","添加一次数据信息>>>>adapter="+adapter.getCount()+"条》》》》》》viewDataBean="+viewDataBean.size());
+                    if (houseDetil.getViewDataX().size()>0) {
+                        adapter.addAll(houseDetil.getViewDataX());
                     }
+                } else {
+                    adapter.stopMore();
+                }
 
-        }
+            }
 
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
             }
 
 
-            },page+"",row+"",longitude+"",latitude+"");
+        },page+"",row+"",longitude+"",latitude+"");
     }
 
     private void joinFamily() {
-        HttpMethods.getInstance().joinFamily(new BaseObserver<BrokenUp>() {
-            @Override
-            protected void onSuccees(BaseBean t) throws Exception {
-                BrokenUp houseDetil= (BrokenUp) t;
-                Log.e("getData","执行joinFamily方法返回"+houseDetil.getMessage());
-                System.out.println(t.getMessage()+"");
-                Toast.makeText(getActivity(), houseDetil.getMessage(), Toast.LENGTH_SHORT).show();
-                //adapter.addAll(viewDataBeanList);
-            }
-            @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-
-            }
-        },"");
+        //TODO:
+//        HttpMethods.getInstance().joinFamily(new BaseObserver<BrokenUp>() {
+//            @Override
+//            protected void onSuccees(BaseBean t) throws Exception {
+//                BrokenUp houseDetil= (BrokenUp) t;
+//                Log.e("getData","执行joinFamily方法返回"+houseDetil.getMessage());
+//                System.out.println(t.getMessage()+"");
+//                Toast.makeText(getActivity(), houseDetil.getMessage(), Toast.LENGTH_SHORT).show();
+//                //adapter.addAll(viewDataBeanList);
+//            }
+//            @Override
+//            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+//
+//            }
+//        },"");
     }
 
 

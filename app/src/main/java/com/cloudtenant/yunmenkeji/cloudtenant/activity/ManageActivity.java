@@ -69,7 +69,7 @@ public class ManageActivity extends BaseActivity {
         }else {
             tv_permission.setText("成员");
         }
-         iv_qr_code=findViewById(R.id.iv_qr_code);
+        iv_qr_code=findViewById(R.id.iv_qr_code);
 
         content="{\n" +
                 "\t\"cellCost\": \"\",\n" +
@@ -89,7 +89,7 @@ public class ManageActivity extends BaseActivity {
                 View.MeasureSpec.UNSPECIFIED);
         int h = View.MeasureSpec.makeMeasureSpec(0,
                 View.MeasureSpec.UNSPECIFIED);
-                iv_qr_code.measure(w,h);
+        iv_qr_code.measure(w,h);
         Log.d("getData","width="+iv_qr_code.getMeasuredWidth()+">>>>>height="+iv_qr_code.getMeasuredHeight());
         /*Bitmap bitmap = QrUtils.createQRImage(content, iv_qr_code.getWidth(),  iv_qr_code.getHeight());
         iv_qr_code.setImageBitmap(bitmap);*/
@@ -98,26 +98,27 @@ public class ManageActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-         Bitmap bitmap = QrUtils.createQRImage(content, iv_qr_code.getMeasuredWidth(),  iv_qr_code.getMeasuredHeight());
+        Bitmap bitmap = QrUtils.createQRImage(content, iv_qr_code.getMeasuredWidth(),  iv_qr_code.getMeasuredHeight());
         iv_qr_code.setImageBitmap(bitmap);
     }
 
     //List<MyFamily.ViewDataBean> viewDataBeanList;
     private void AddData() {
-        HttpMethods.getInstance().familyMemberList(new BaseObserver<MyFamilyData>() {
-            @Override
-            protected void onSuccees(BaseBean t) throws Exception {
-                MyFamilyData houseDetil= (MyFamilyData) t;
-                //viewDataBeanList=houseDetil.getViewDataX();
-                System.out.println(houseDetil.getViewData()+"");
-                //adapter.addAll(viewDataBeanList);
-            }
-
-            @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-
-            }
-        },"");
+        //TODO
+//        HttpMethods.getInstance().familyMemberList(new BaseObserver<MyFamilyData>() {
+//            @Override
+//            protected void onSuccees(BaseBean t) throws Exception {
+//                MyFamilyData houseDetil= (MyFamilyData) t;
+//                //viewDataBeanList=houseDetil.getViewDataX();
+//                System.out.println(houseDetil.getViewData()+"");
+//                //adapter.addAll(viewDataBeanList);
+//            }
+//
+//            @Override
+//            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+//
+//            }
+//        },"");
     }
 
 }

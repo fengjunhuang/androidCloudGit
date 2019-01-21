@@ -221,5 +221,8 @@ public class HouseDetil extends BaseBeanC {
 
         public String getSynopsis() { return synopsis; }
 
+        public void setSynopsis(String synopsis) {
+            this.synopsis = synopsis;
+        }
     }
 }

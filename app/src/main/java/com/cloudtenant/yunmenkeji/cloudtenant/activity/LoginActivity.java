@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BuildingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserinfoBean;
@@ -250,7 +251,42 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
         public void onComplete(PlatformType platform_type, Map<String, String> map) {
             Toast.makeText(LoginActivity.this, platform_type + " login onComplete", Toast.LENGTH_SHORT).show();
             Log.i("tsy", "login onComplete:" + map);
-            
+            int type=0;
+            if(platform_type==PlatformType.WEIXIN){
+                type=1;
+
+            }
+            HttpMethods.getInstance().checkAuthorization(new BaseObserver<UserInfo>() {
+                @Override
+                protected void onSuccees(BaseBean t) throws Exception {
+
+                    UserInfo houseDetil= (UserInfo) t;
+                    if(houseDetil.getResult().equals("true")){
+                    Log.d("onSuccess",houseDetil.getUserinfo());
+                    String s=houseDetil.getUserinfo().substring(1,houseDetil.getUserinfo().length());
+                    String s1=s.substring(0,s.length()-1);
+
+                    Log.d("onSuccess","截取后的字段="+s1);
+                    UserinfoBean userinfoBean= JSONUtil.fromJson(s1,UserinfoBean.class);
+                    Log.d("onSuccees",userinfoBean.getUserName());
+
+                    UserLocalData.putUser(LoginActivity.this,userinfoBean);
+                    PreferencesUtils.putBoolean(LoginActivity.this,"isLogin",true);
+                    readyGo(IndexActivity_.class);
+                    LoginActivity.this.finish();
+                    }else {
+                        //手机未绑定
+
+                    }
+
+                }
+
+                @Override
+                protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+                }
+            },type+"","2222");
+
         }
 
         @Override

@@ -1,12 +1,10 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.bean;
 
 import com.alibaba.fastjson.JSON;
-import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
-import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MyFamily extends BaseBeanC{
+public class MyFamily extends BaseBeanC {
 
     /**
      * id : 1
@@ -40,33 +38,24 @@ public class MyFamily extends BaseBeanC{
          * roomName : 明珠新村6栋201
          */
 
-        private String familyID;
-        private String familyName;
+        private String roomId;
         private boolean isAdmin;
         private String roomName;
 
-        public String getFamilyID() {
-            return familyID;
+        public String getRoomId() {
+            return roomId;
         }
 
-        public void setFamilyID(String familyID) {
-            this.familyID = familyID;
+        public void setRoomId(String roomId) {
+            this.roomId = roomId;
         }
 
-        public String getFamilyName() {
-            return familyName;
-        }
-
-        public void setFamilyName(String familyName) {
-            this.familyName = familyName;
-        }
-
-        public boolean isIsAdmin() {
+        public boolean isAdmin() {
             return isAdmin;
         }
 
-        public void setIsAdmin(boolean isAdmin) {
-            this.isAdmin = isAdmin;
+        public void setAdmin(boolean admin) {
+            isAdmin = admin;
         }
 
         public String getRoomName() {

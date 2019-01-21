@@ -67,20 +67,21 @@ public class NoticeActivity extends BaseActivity {
 
     List<NoticeHistory.ViewDataBean> viewDataBeanList;
     public void getData() {
-        HttpMethods.getInstance().noticeHistory(new BaseObserver<NoticeHistory>() {
-            @Override
-            protected void onSuccees(BaseBean t) throws Exception {
-                NoticeHistory houseDetil= (NoticeHistory) t;
-                System.out.println(houseDetil.getViewData()+"");
-               viewDataBeanList=houseDetil.getViewDataX();
-                adapter.addAll(viewDataBeanList);
-
-            }
-
-            @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-
-            }
-        },"");
+        //TODO
+//        HttpMethods.getInstance().noticeHistory(new BaseObserver<NoticeHistory>() {
+//            @Override
+//            protected void onSuccees(BaseBean t) throws Exception {
+//                NoticeHistory houseDetil= (NoticeHistory) t;
+//                System.out.println(houseDetil.getViewData()+"");
+//               viewDataBeanList=houseDetil.getViewDataX();
+//                adapter.addAll(viewDataBeanList);
+//
+//            }
+//
+//            @Override
+//            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+//
+//            }
+//        },"");
     }
 }

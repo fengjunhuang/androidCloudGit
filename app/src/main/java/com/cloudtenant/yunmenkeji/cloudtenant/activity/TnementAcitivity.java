@@ -16,9 +16,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo3;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMoreImageArrBean;
@@ -90,6 +92,8 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
     TextView tv_bingxiang;
     @ViewById(R.id.tv_style)
     TextView tv_style;
+    private String phone;
+
     @Click(R.id.iv_cell_image)
 
 
@@ -110,7 +114,7 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
     protected void initContentView(Bundle var1) {
        setContentView(R.layout.activity_tnement);
 
-
+        phone=UserLocalData.getUser(this).getUserPhone();
 
     }
 
@@ -240,6 +244,7 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
             tnementBean.setRoomMoney(bean.getRoomMoney());
             tnementBean.setRoomSet(bean.getRoomSet());
             tnementBean.setContract(var1.getString("contract"));
+            roomId= bean.getRoomID();
             List<RoomMoreImageArrBean> list=new ArrayList<>();
             for (int i = 0; i < bean.getRoomMoreImageArr().size(); i++) {
                 list.add(new RoomMoreImageArrBean(bean.getRoomMoreImageArr().get(i).getImageTitle(),
@@ -279,9 +284,11 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
                     if (isSC) {
                         is_sc.setImageResource(R.drawable.sc);
                         isSC=!isSC;
+                        delCollection();
                     }else {
                         is_sc.setImageResource(R.drawable.shoucang);
                         isSC=!isSC;
+                        addCollection();
                     }
                 }
             });
@@ -344,6 +351,40 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
 
      }
 
+    private void delCollection() {
+        HttpMethods.getInstance().deleteCollectionAction(new BaseObserver<BrokenUp>() {
+            @Override
+            protected void onSuccees(BaseBean t) throws Exception {
+                BrokenUp houseDetil= (BrokenUp) t;
+                Log.e("getData","执行joinFamily方法返回"+houseDetil.getResult());
+                System.out.println(t.getMessage()+"");
+                Toast.makeText(TnementAcitivity.this, houseDetil.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+            }
+        },roomId,phone,phone);
+    }
+
+    private void addCollection() {
+                Log.e("getData","执行joinFamily方法返回roomId="+roomId);
+        HttpMethods.getInstance().addCollectionAction(new BaseObserver<BrokenUp>() {
+            @Override
+            protected void onSuccees(BaseBean t) throws Exception {
+                BrokenUp houseDetil= (BrokenUp) t;
+                Log.e("getData","执行joinFamily方法返回"+houseDetil.getResult());
+                System.out.println(t.getMessage()+"");
+                Toast.makeText(TnementAcitivity.this, houseDetil.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+            }
+        },roomId,phone,phone);
+    }
+
 
     RoomInfo3 bean1;
     private void roomInfo() {
@@ -351,21 +392,13 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
                 bean1= (RoomInfo3) t;
-
-                Log.d("TnementAcitivity",bean1.getHetong());
-                Log.d("TnementAcitivity","getRoomSet="+bean1.getViewData().get(0).getRoomSet());
-                //Log.d("TnementAcitivity","RoomInfo3="+bean1.getViewData().get(0).toString());
-                Log.d("TnementAcitivity","size="+bean1.getViewData().size());
-                Log.d("TnementAcitivity","getRoomMoney="+bean1.getViewData().get(0).getRoomMoney()+"");
-                Log.d("TnementAcitivity","getRoomNumber="+bean1.getViewData().get(0).getRoomNumber()+"");
-                Log.d("TnementAcitivity","getRoomMarginType="+bean1.getViewData().get(0).getRoomMarginType()+"");
                 init();
             }
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },roomId,UserLocalData.getUser(this).getUserPhone());
+        },roomId,phone);
     }
 
 
@@ -411,9 +444,11 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
                 if (isSC) {
                     is_sc.setImageResource(R.drawable.sc);
                     isSC=!isSC;
+                    delCollection();
                 }else {
                     is_sc.setImageResource(R.drawable.shoucang);
                     isSC=!isSC;
+                    addCollection();
                 }
             }
         });
@@ -475,111 +510,6 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
         }
         initMyMap();
     }
-
-    /*private void init() throws Exception {
-        List<RoomMoreImageArrBean> list=new ArrayList<>();
-        for (int i = 0; i < bean1.getViewData().get(0).getRoomMoreImageArr().size(); i++) {
-            list.add(new RoomMoreImageArrBean(bean1.getViewData().get(0).getRoomMoreImageArr().get(i).getImageTitle(),
-                    bean1.getViewData().get(0).getRoomMoreImageArr().get(i).getImageInfo(),
-                    bean1.getViewData().get(0).getRoomMoreImageArr().get(i).getImageFullView()+"",
-                    HttpMethods.BASE_URL+bean1.getViewData().get(0).getRoomMoreImageArr().get(i).getImageUrl()));
-        }
-        tnementBean.setRoomMoreImageArr(list);
-        tnementBean.setRoomMoney(bean1.getViewData().get(0).getRoomMoney()+"");
-        tnementBean.setRoomNumber(bean1.getViewData().get(0).getRoomNumber()+"");
-        tnementBean.setRoomSquare(bean1.getViewData().get(0).getRoomSquare());
-        tnementBean.setContract(bean1.getContract());
-
-        Picasso.with(this).load(HttpMethods.BASE_URL+bean1.getViewData().get(0).getRoomSimpleImage()).fit().into(iv_cell);
-        tv_cell_remain.setText(bean1.getViewData().get(0).getRoomNumber());
-        SpannableString msp = new SpannableString("￥" + bean1.getViewData().get(0).getRoomMoney() + "/月");
-        String aa=bean1.getViewData().get(0).getRoomMoney()+"";
-        int size=aa.length()+1;
-        msp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), start, size, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  //粗体
-        //给限定字符之间的字符着色
-        msp.setSpan(new ForegroundColorSpan(Color.BLACK), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        //设置字体大小  单位：dp
-        msp.setSpan(new AbsoluteSizeSpan(11, true), end+1, end+3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        tv_cell_cost.setText(msp);
-
-        tv_seeTimes.setText(bean.getRoomReadNum());
-        Log.d("TnementAcitivity","isCollection="+bean.getIsCollection());
-        if (bean.getIsCollection().equals("false")) {
-            is_sc.setImageResource(R.drawable.sc);
-            isSC=false;
-        }else {
-            is_sc.setImageResource(R.drawable.shoucang);
-            isSC=true;
-        }
-        is_sc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isSC) {
-                    is_sc.setImageResource(R.drawable.sc);
-                    isSC=!isSC;
-                }else {
-                    is_sc.setImageResource(R.drawable.shoucang);
-                    isSC=!isSC;
-                }
-            }
-        });
-        String l="";
-        switch (bean1.getViewData().get(0).getRoomMarginType()){
-            case "0":{
-                l="一按一租";
-            }break;case "1":{
-                l="两按一租";
-            }break;case "2":{
-                l="三按一租";
-            }break;
-            default:break;
-        }
-        String r="";
-        switch (bean1.getViewData().get(0).getRoomStyle()){
-            case "0":{
-                r="单间";
-            }break;case "1":{
-                r="一房一厅";
-            }break;case "2":{
-                r="二房一厅";
-            }break;case "3":{
-                r="三房一厅";
-            }break;case "4":{
-                r="复试";
-            }break;case "5":{
-                r="未知";
-            }break;
-            default:break;
-        }
-        tv_style.setText(l+" | "+r);
-        getTv_smell().setTextColor(Color.BLACK);
-
-        if (bean1.getViewData().get(0).getRoomSet().contains("床")) {
-            tv_chuang.setBackgroundResource(R.drawable.image_bed);
-        }
-        if (bean1.getViewData().get(0).getRoomSet().contains("热水器")) {
-            tv_reshuiqi.setBackgroundResource(R.drawable.image_heater);
-        }
-        if (bean1.getViewData().get(0).getRoomSet().contains("空调")) {
-            tv_kongtiao.setBackgroundResource(R.drawable.image_aircondition);
-        }
-        if (bean1.getViewData().get(0).getRoomSet().contains("宽带")) {
-            tv_huangdai.setBackgroundResource(R.drawable.image_web);
-        }if (bean1.getViewData().get(0).getRoomSet().contains("洗衣机")) {
-            tv_huangdai.setBackgroundResource(R.drawable.image_washer);
-        }if (bean1.getViewData().get(0).getRoomSet().contains("沙发")) {
-            tv_huangdai.setBackgroundResource(R.drawable.image_sofa);
-        }if (bean1.getViewData().get(0).getRoomSet().contains("电视")) {
-            tv_huangdai.setBackgroundResource(R.drawable.image_televition);
-        }if (bean1.getViewData().get(0).getRoomSet().contains("冰箱")) {
-            tv_huangdai.setBackgroundResource(R.drawable.image_fridge);
-        }if (bean1.getViewData().get(0).getRoomSet().contains("天然气")) {
-            tv_huangdai.setBackgroundResource(R.drawable.image_gas);
-        }if (bean1.getViewData().get(0).getRoomSet().contains("衣柜")) {
-            tv_huangdai.setBackgroundResource(R.drawable.image_closet);
-        }
-        initMyMap();
-    }*/
 
 
     private void initMyMap() throws Exception {

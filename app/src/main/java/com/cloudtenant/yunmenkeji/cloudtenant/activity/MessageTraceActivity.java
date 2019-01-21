@@ -59,33 +59,34 @@ public class MessageTraceActivity extends BaseActivity implements View.OnClickLi
     }
     List<RoomMessageHistory.ViewDataBean> viewDataBean;
     private void AddData() {
-        HttpMethods.getInstance().roomMessageHistory(new BaseObserver<RoomMessageHistory>() {
-            @Override
-            protected void onSuccees(BaseBean t) throws Exception {
-                RoomMessageHistory houseDetil= (RoomMessageHistory) t;
-
-                System.out.println(houseDetil.getViewData()+"");
-                viewDataBean=houseDetil.getViewDataX();
-                for (int i = 0; i < viewDataBean.get(0).getHistoryTime().size(); i++) {
-                    Log.e("viewDataBeanList",viewDataBean.get(0).getHistoryTime().toString());
-                    traceList.add(new Trace(viewDataBean.get(0).getHistoryTime().get(i), viewDataBean.get(0).getHistoryInfo().get(i)));
-
-                }
-                for (int i = 0; i < traceList.size(); i++) {
-
-                    Log.e("viewDataBeanList","traceList.get(i).toString()="+traceList.get(i).toString());
-
-                }
-                adapter = new TraceListAdapter (MessageTraceActivity.this,traceList);
-                recyclerView.setAdapter(adapter);
-
-            }
-
-            @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-
-            }
-        },"");
+        //TODO
+//        HttpMethods.getInstance().roomMessageHistory(new BaseObserver<RoomMessageHistory>() {
+//            @Override
+//            protected void onSuccees(BaseBean t) throws Exception {
+//                RoomMessageHistory houseDetil= (RoomMessageHistory) t;
+//
+//                System.out.println(houseDetil.getViewData()+"");
+//                viewDataBean=houseDetil.getViewDataX();
+//                for (int i = 0; i < viewDataBean.get(0).getHistoryTime().size(); i++) {
+//                    Log.e("viewDataBeanList",viewDataBean.get(0).getHistoryTime().toString());
+//                    traceList.add(new Trace(viewDataBean.get(0).getHistoryTime().get(i), viewDataBean.get(0).getHistoryInfo().get(i)));
+//
+//                }
+//                for (int i = 0; i < traceList.size(); i++) {
+//
+//                    Log.e("viewDataBeanList","traceList.get(i).toString()="+traceList.get(i).toString());
+//
+//                }
+//                adapter = new TraceListAdapter (MessageTraceActivity.this,traceList);
+//                recyclerView.setAdapter(adapter);
+//
+//            }
+//
+//            @Override
+//            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+//
+//            }
+//        },"");
     }
 
 
