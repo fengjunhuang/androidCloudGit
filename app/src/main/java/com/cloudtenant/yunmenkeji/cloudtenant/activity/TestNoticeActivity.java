@@ -10,9 +10,6 @@ import android.widget.TextView;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.NoticeAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.NoticeHistory;
-import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
-import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
-import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.gersion.library.base.BaseActivity;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -63,22 +60,23 @@ public class TestNoticeActivity extends BaseActivity {
 
     List<NoticeHistory.ViewDataBean> viewDataBeanList;
     public void getData() {
-        HttpMethods.getInstance().noticeHistory(new BaseObserver<NoticeHistory>() {
-            @Override
-            protected void onSuccees(BaseBean t) throws Exception {
-                NoticeHistory houseDetil= (NoticeHistory) t;
-                System.out.println(houseDetil.getViewData()+"");
-               viewDataBeanList=houseDetil.getViewDataX();
-               viewDataBeanList.get(0).setMessageInfo(aa);
-               viewDataBeanList.get(1).setMessageInfo(aa.substring(0,100).replace("/n", "\n"));
-                adapter.addAll(viewDataBeanList);
-
-            }
-
-            @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-
-            }
-        },"");
+        //TODO
+//        HttpMethods.getInstance().noticeHistory(new BaseObserver<NoticeHistory>() {
+//            @Override
+//            protected void onSuccees(BaseBean t) throws Exception {
+//                NoticeHistory houseDetil= (NoticeHistory) t;
+//                System.out.println(houseDetil.getViewData()+"");
+//               viewDataBeanList=houseDetil.getViewDataX();
+//               viewDataBeanList.get(0).setMessageInfo(aa);
+//               viewDataBeanList.get(1).setMessageInfo(aa.substring(0,100).replace("/n", "\n"));
+//                adapter.addAll(viewDataBeanList);
+//
+//            }
+//
+//            @Override
+//            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+//
+//            }
+//        },"");
     }
 }

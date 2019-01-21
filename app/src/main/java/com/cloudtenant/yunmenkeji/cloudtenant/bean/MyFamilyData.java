@@ -1,11 +1,10 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.bean;
 
 import com.alibaba.fastjson.JSON;
-import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 
 import java.util.List;
 
-public class MyFamilyData extends BaseBeanC{
+public class MyFamilyData extends BaseBeanC {
 
 
     /**
@@ -41,7 +40,7 @@ public class MyFamilyData extends BaseBeanC{
 
         private String familyGroupID;
         private String familyGroupName;
-        private boolean familyGroupIsAdmin;
+        private String familyGroupIsAdmin;
 
         public String getFamilyGroupID() {
             return familyGroupID;
@@ -59,11 +58,11 @@ public class MyFamilyData extends BaseBeanC{
             this.familyGroupName = familyGroupName;
         }
 
-        public boolean isFamilyGroupIsAdmin() {
+        public String isFamilyGroupIsAdmin() {
             return familyGroupIsAdmin;
         }
 
-        public void setFamilyGroupIsAdmin(boolean familyGroupIsAdmin) {
+        public void setFamilyGroupIsAdmin(String familyGroupIsAdmin) {
             this.familyGroupIsAdmin = familyGroupIsAdmin;
         }
     }

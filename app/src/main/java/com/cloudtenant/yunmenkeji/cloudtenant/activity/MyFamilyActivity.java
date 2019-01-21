@@ -56,9 +56,9 @@ public class MyFamilyActivity extends BaseActivity {
             public void onItemClick(int position) {
                 Intent intent=new Intent(MyFamilyActivity.this, ManageActivity.class);
                 intent.putExtra("RoomName",viewDataBeanList.get(position).getRoomName());
-                intent.putExtra("isAdmin",viewDataBeanList.get(position).isIsAdmin());
-                intent.putExtra("familyID",viewDataBeanList.get(position).getFamilyID());
-                intent.putExtra("familyName",viewDataBeanList.get(position).getFamilyName());
+                intent.putExtra("isAdmin",viewDataBeanList.get(position).isAdmin());
+                intent.putExtra("familyID",viewDataBeanList.get(position).getRoomId());
+                intent.putExtra("familyName",viewDataBeanList.get(position).getRoomName());
                 startActivity(intent);
             }
         });
@@ -76,19 +76,20 @@ public class MyFamilyActivity extends BaseActivity {
 
     List<MyFamily.ViewDataBean> viewDataBeanList;
     private void AddData() {
-        HttpMethods.getInstance().myFamilyList(new BaseObserver<MyFamily>() {
-            @Override
-            protected void onSuccees(BaseBean t) throws Exception {
-                MyFamily houseDetil= (MyFamily) t;
-                viewDataBeanList=houseDetil.getViewDataX();
-                System.out.println(houseDetil.getViewData()+"");
-                adapter.addAll(viewDataBeanList);
-            }
-
-            @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-
-            }
-        },"");
+        //TODO
+//        HttpMethods.getInstance().myFamilyList(new BaseObserver<MyFamily>() {
+//            @Override
+//            protected void onSuccees(BaseBean t) throws Exception {
+//                MyFamily houseDetil= (MyFamily) t;
+//                viewDataBeanList=houseDetil.getViewDataX();
+//                System.out.println(houseDetil.getViewData()+"");
+//                adapter.addAll(viewDataBeanList);
+//            }
+//
+//            @Override
+//            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+//
+//            }
+//        },"");
     }
 }

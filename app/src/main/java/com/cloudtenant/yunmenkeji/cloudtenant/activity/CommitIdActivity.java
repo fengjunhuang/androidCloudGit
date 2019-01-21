@@ -66,6 +66,15 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
     private String userPhone;
     private String buildingID;
     private String roomId;
+    private String userIDFront;
+    private String userIDBack;
+    private String userSign;
+    private String userContract;
+    private String IDNum;
+    private String name;
+    private String landLoardPhone;
+    private String roomNum;
+    private String other;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

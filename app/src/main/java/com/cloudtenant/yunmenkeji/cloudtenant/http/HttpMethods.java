@@ -94,12 +94,12 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void loginWithAuthorization(BaseObserver<UserInfo> observer, String aa){
-        apiService.loginWithAuthorization().subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-    }
+//    public void loginWithAuthorization(BaseObserver<UserInfo> observer, String aa){
+//        apiService.loginWithAuthorization().subscribeOn(Schedulers.io())
+//                .unsubscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(observer);
+//    }
 
 
     public void homeData(BaseObserver<HouseDetil> observer, String page, String row, String longitdue, String latitude){
@@ -149,94 +149,94 @@ public class HttpMethods {
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
+
     }public void roomInfo1(BaseObserver<RoomInfo3> observer, String roomId, String phone){
         apiService.roomInfo1(roomId,phone).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void messageSave(BaseObserver<MessageSave> observer, String aa){
-        apiService.messageSave().subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-    }
-    public void roomMessageHistory(BaseObserver<RoomMessageHistory> observer, String aa){
-        apiService.roomMessageHistory().subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-
-    }
-    public void brokenUpDone(BaseObserver<BaseBean> observer, String aa){
-        apiService.brokenUpDone().subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-
-    }
+    //    public void messageSave(BaseObserver<MessageSave> observer, String aa){
+//        apiService.messageSave().subscribeOn(Schedulers.io())
+//                .unsubscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(observer);
+//    }
+//    public void roomMessageHistory(BaseObserver<RoomMessageHistory> observer, String aa){
+//        apiService.roomMessageHistory().subscribeOn(Schedulers.io())
+//                .unsubscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(observer);
+//
+//    }
+//    public void brokenUpDone(BaseObserver<BaseBean> observer, String aa){
+//        apiService.brokenUpDone(aa).subscribeOn(Schedulers.io())
+//                .unsubscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(observer);
+//
+//    }
     public void myContract(BaseObserver<MyContract> observer, String phone){
         apiService.myContract(phone).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void myFamilyList(BaseObserver<MyFamily> observer, String aa){
-        apiService.myFamilyList().subscribeOn(Schedulers.io())
+    public void myFamilyList(BaseObserver<MyFamily> observer, String phone,String landingPhone){
+        apiService.myFamilyList(phone, landingPhone).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void brokenUpCancel(BaseObserver<BrokenUp> observer, String aa){
-        apiService.brokenUpCancel().subscribeOn(Schedulers.io())
+    //    public void brokenUpCancel(BaseObserver<BrokenUp> observer, String aa){
+//        apiService.brokenUpCancel().subscribeOn(Schedulers.io())
+//                .unsubscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(observer);
+//    }
+//    public void brokenUp(BaseObserver<BrokenUp> observer, String aa){
+//        apiService.brokenUp().subscribeOn(Schedulers.io())
+//                .unsubscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(observer);
+//    }
+//    public void noticeHistory(BaseObserver<NoticeHistory> observer, String aa){
+//        apiService.noticeHistory().subscribeOn(Schedulers.io())
+//                .unsubscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(observer);
+//    }
+//    public void buildingInfo(BaseObserver<BuildingInfo> observer, String aa){
+//        apiService.buildingInfo().subscribeOn(Schedulers.io())
+//                .unsubscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(observer);
+//    }
+    public void familyMemberList(BaseObserver<MyFamilyData> observer, String phone, String roomId, String landingPhone){
+        apiService.familyMemberList(phone, landingPhone, roomId).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void brokenUp(BaseObserver<BrokenUp> observer, String aa){
-        apiService.brokenUp().subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-    }
-    public void noticeHistory(BaseObserver<NoticeHistory> observer, String aa){
-        apiService.noticeHistory().subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-    }
-    public void buildingInfo(BaseObserver<BuildingInfo> observer, String aa){
-        apiService.buildingInfo().subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-    }
-    public void familyMemberList(BaseObserver<MyFamilyData> observer, String aa){
-        apiService.familyMemberList().subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-    }
-    public void joinFamily(BaseObserver<BrokenUp> observer, String aa){
-        apiService.joinFamily().subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-    }
-    public void otherMessage(BaseObserver<MessageOther> observer, String aa){
-        apiService.otherMessage().subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-    }
-    public void myRoom(BaseObserver<MyRoom> observer, String aa){
-        apiService.MyRoom().subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
 
-
+    public void joinFamily(BaseObserver<BrokenUp> observer, String roomId,String phone,String idCard,String name,String landingPhone){
+        apiService.joinFamily(roomId, phone, idCard, name, landingPhone).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
+//    public void otherMessage(BaseObserver<MessageOther> observer, String aa){
+//        apiService.otherMessage().subscribeOn(Schedulers.io())
+//                .unsubscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(observer);
+//    }
+//   public void myRoom(BaseObserver<MyRoom> observer, String aa){
+//        apiService.MyRoom().subscribeOn(Schedulers.io())
+//                .unsubscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(observer);
+//    }
 
     public void BudingInfo(BaseObserver<BudingInfo> observer, String orderId,String page,String row,String phone){
         apiService.BudingInfo(orderId,page,row,phone).subscribeOn(Schedulers.io())
@@ -245,76 +245,179 @@ public class HttpMethods {
                 .subscribe(observer);
     }
 
-
-}
-
-
-
-//   public  void getAllBuoyHead(BaseObserver<BuoyListBean> observer){
-//        apiService.getAllBuoyHead().subscribeOn(Schedulers.io())
-//                .unsubscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(observer);
-//
-//    }
-//
-//    public void uploadIcon(Observer<ImageBean> observer, File file, String userId){
-//
-//        RequestBody requestFile =
-//                RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//        MultipartBody.Part body =
-//                MultipartBody.Part.createFormData("file",file.getName(), requestFile);
-//        // 添加描述
-//
-//        RequestBody description =
-//                RequestBody.create(
-//                        MediaType.parse("multipart/form-data"), userId);
-//        apiService.upload(description,body).subscribeOn(Schedulers.io())
-//                .unsubscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(observer);
-//
-//    }
-//    public void login(BaseObserver<UserBean> observer, UserBean.DataBean userBean){
-//        apiService.login(userBean).subscribeOn(Schedulers.io())
-//                .unsubscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(observer);
-//
-//    }
-//    public void updateUserInfo(BaseObserver<UserBean.DataBean> observer, UserBean.DataBean userBean){
-//        apiService.updateUserInfo(userBean).subscribeOn(Schedulers.io())
-//                .unsubscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(observer);
-//
-//    }
-//    public void getUserInfo(BaseObserver<UserBean.DataBean> observer, String  userId){
-//        apiService.getUserInfo(userId).subscribeOn(Schedulers.io())
-//                .unsubscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
-//
-//
-//    }
-//    public void searchBuoySimpleByType(BaseObserver<BuoyListBean> observer, String  userType){
-//        apiService.searchBuoySimpleByType(userType).subscribeOn(Schedulers.io())
-//                .unsubscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
-//
-//
-//    }
-//    public void   getBuoyHistorysById(BaseObserver<BuoyHistoryList> observer, HistoryParmerBean historyParmerBean){
-//        apiService.getBuoyHistorysById(historyParmerBean).subscribeOn(Schedulers.io())
-//                .unsubscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
-//    }
-   /* public void getJoke(Observer<List<MyJoke>> observer){
-
-        apiService.getData()
-                .subscribeOn(Schedulers.io())
+    //JAX Create
+    public void checkAuthorization(BaseObserver<BrokenUp> observer, String type,String uid,String isLogin){
+        apiService.checkAuthorization(type, uid, isLogin).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
-    }*/
-
-
+    }
+    public void getSMSLogin(BaseObserver<BrokenUp> observer, String phone){
+        apiService.getSMSLogin(phone).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void signContractAction(BaseObserver<BrokenUp> observer, String buildingID,String roomId,String userPhone,String other,String IDNum,String name,String landLoardPhone,String roomNum,String contractTime){
+        apiService.signContractAction(buildingID, roomId, userPhone, other, IDNum, name, landLoardPhone, roomNum, contractTime).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void updateReviewTimes(BaseObserver<BrokenUp> observer, String roomId,String ip,String landingPhone,String phone,String isLogin){
+        apiService.updateReviewTimes(roomId, ip, landingPhone, phone, isLogin).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void addCollectionAction(BaseObserver<BrokenUp> observer, String roomId,String phone,String landingPhone){
+        apiService.addCollectionAction(roomId, phone, landingPhone).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void deleteCollectionAction(BaseObserver<BrokenUp> observer, String roomId,String phone,String landingPhone){
+        apiService.deleteCollectionAction(roomId, phone, landingPhone).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void getContractUrl(BaseObserver<BrokenUp> observer, String str){
+        apiService.getContractUrl(str).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void getCollectionList(BaseObserver<BrokenUp> observer, String phone,String landingPhone){
+        apiService.getCollectionList(phone, landingPhone).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void getReviewList(BaseObserver<BrokenUp> observer, String phone,String landingPhone){
+        apiService.getReviewList(phone, landingPhone).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void deleteFamilyMember(BaseObserver<BrokenUp> observer, String phone,String landingPhone,String signId){
+        apiService.deleteFamilyMember(phone, landingPhone, signId).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void broenUpContractAction(BaseObserver<BrokenUp> observer, String phone,String landingPhone,String signId,String checkOutDate,String type){
+        apiService.broenUpContractAction(phone, landingPhone, signId, checkOutDate, type).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void payTheCash(BaseObserver<BrokenUp> observer, String roomId,String roomRentId,String widoutTradeNo,String landingPhone){
+        apiService.payTheCash(roomId, roomRentId, widoutTradeNo, landingPhone).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void getMarginPayStatus(BaseObserver<BrokenUp> observer, String authId,String widoutTradeNo,String landingPhone,String roomId,String signId){
+        apiService.getMarginPayStatus(authId, widoutTradeNo, landingPhone, roomId, signId).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void getNroamlPayStatus(BaseObserver<BrokenUp> observer, String authId,String widoutTradeNo,String landingPhone,String roomId,String signId){
+        apiService.getNroamlPayStatus(authId, widoutTradeNo, landingPhone, roomId, signId).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void checkOrderHadPay(BaseObserver<BrokenUp> observer, String roomId,String phone,String landingPhone){
+        apiService.checkOrderHadPay(roomId, phone, landingPhone).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void getBillHistory(BaseObserver<BrokenUp> observer, String phone,String landingPhone){
+        apiService.getBillHistory(phone, landingPhone).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void getNoCompleteBill(BaseObserver<BrokenUp> observer, String phone,String landingPhone,String roomId){
+        apiService.getNoCompleteBill(phone, landingPhone, roomId).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void getSensorCycleList(BaseObserver<BrokenUp> observer, String phone,String landingPhone,String sensorId){
+        apiService.getSensorCycleList(phone, landingPhone, sensorId).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void setSensorWorkCycle(BaseObserver<BrokenUp> observer, String phone,String landingPhone,String startTime,String endTime,String cycleDate,String modeName,String sensorId,String type,String ids){
+        apiService.setSensorWorkCycle(phone, landingPhone, startTime, endTime, cycleDate, modeName, sensorId, type, ids).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void setSensorCycleWorkMode(BaseObserver<BrokenUp> observer, String phone,String timeStatus,String ids,String landingPhone){
+        apiService.setSensorCycleWorkMode(phone, timeStatus, ids, landingPhone).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void getRoomSensorList(BaseObserver<BrokenUp> observer, String landingPhone,String roomId){
+        apiService.getRoomSensorList(roomId, landingPhone).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void setSensorWorkMode(BaseObserver<BrokenUp> observer, String phone,String sensorId,String sensorStatus,String landingPhone){
+        apiService.setSensorWorkMode(phone, sensorId, sensorStatus, landingPhone).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void getBuildingNotice(BaseObserver<BrokenUp> observer, String phone,String landingPhone){
+        apiService.getBuildingNotice(phone, landingPhone).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void getOrderMessageAndPaMessage(BaseObserver<BrokenUp> observer, String phone,String landingPhone,String type){
+        apiService.getOrderMessageAndPaMessage(phone, landingPhone, type).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void brokenUpDone(BaseObserver<BrokenUp> observer, String phone,String landingPhone,String signId){
+        apiService.brokenUpDone(phone, landingPhone, signId).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void getSensorMessageList(BaseObserver<BrokenUp> observer, String phone,String landingPhone,String roomId,String type){
+        apiService.getSensorMessageList(phone, landingPhone, roomId, type).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void deleteSensorData(BaseObserver<BrokenUp> observer, String phone,String landingPhone,String sensorId,String type){
+        apiService.deleteSensorData(phone, landingPhone, sensorId, type).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void cancelAuthorization(BaseObserver<BrokenUp> observer, String userPhone,String unidType,String landingPhone){
+        apiService.cancelAuthorization(userPhone, unidType, landingPhone).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void getStatAD(BaseObserver<BrokenUp> observer, String isLogin){
+        apiService.getStatAD(isLogin).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+}

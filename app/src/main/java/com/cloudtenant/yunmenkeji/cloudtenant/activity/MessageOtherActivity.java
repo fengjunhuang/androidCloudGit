@@ -89,23 +89,24 @@ public class MessageOtherActivity extends BaseActivity implements View.OnClickLi
     }
     List<MessageOther.ViewDataBean> viewDataBeanList;
     public void getData() {
-        HttpMethods.getInstance().otherMessage(new BaseObserver<MessageOther>() {
-            @Override
-            protected void onSuccees(BaseBean t) throws Exception {
-                MessageOther houseDetil= (MessageOther) t;
-                System.out.println(houseDetil.getViewData()+"");
-                viewDataBeanList=houseDetil.getViewDataX();
-                adapter.addAll(viewDataBeanList);
-               /* viewDataBeanList=houseDetil.getViewDataX();
-
-                banData(houseDetil.getViewDataX());*/
-            }
-
-            @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-
-            }
-        },"");
+        //TODO
+//        HttpMethods.getInstance().otherMessage(new BaseObserver<MessageOther>() {
+//            @Override
+//            protected void onSuccees(BaseBean t) throws Exception {
+//                MessageOther houseDetil= (MessageOther) t;
+//                System.out.println(houseDetil.getViewData()+"");
+//                viewDataBeanList=houseDetil.getViewDataX();
+//                adapter.addAll(viewDataBeanList);
+//               /* viewDataBeanList=houseDetil.getViewDataX();
+//
+//                banData(houseDetil.getViewDataX());*/
+//            }
+//
+//            @Override
+//            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+//
+//            }
+//        },"");
     }
 
 }

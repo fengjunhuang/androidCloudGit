@@ -133,7 +133,7 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
     }
     CustomDialog dialog;
     private void Broken() {
-         dialog= new CustomDialog(this);
+        dialog= new CustomDialog(this);
         dialog.show();
         dialog.setDataClick("确定要删除吗？", new View.OnClickListener() {
             @Override
@@ -157,43 +157,45 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void postContract() {
-        HttpMethods.getInstance().brokenUp(new BaseObserver<BrokenUp>() {
-            @Override
-            protected void onSuccees(BaseBean t) throws Exception {
-                BrokenUp houseDetil= (BrokenUp) t;
-                Log.e("onSuccees",houseDetil.getId()+">>>>>"+houseDetil.getMessage());
-                mPopWindow.dismiss();
-                Toast.makeText(ContractActivity.this, houseDetil.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-
-            }
-        },"");
+        //TODO:jax注释
+//        HttpMethods.getInstance().brokenUp(new BaseObserver<BrokenUp>() {
+//            @Override
+//            protected void onSuccees(BaseBean t) throws Exception {
+//                BrokenUp houseDetil= (BrokenUp) t;
+//                Log.e("onSuccees",houseDetil.getId()+">>>>>"+houseDetil.getMessage());
+//                mPopWindow.dismiss();
+//                Toast.makeText(ContractActivity.this, houseDetil.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+//
+//            }
+//        },"");
     }
 
     private void CancelBroken() {
-        HttpMethods.getInstance().brokenUpCancel(new BaseObserver<BrokenUp>() {
-            @Override
-            protected void onSuccees(BaseBean t) throws Exception {
-                BrokenUp houseDetil= (BrokenUp) t;
-                mPopWindow.dismiss();
-                Toast.makeText(ContractActivity.this, houseDetil.getMessage(), Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-
-            }
-        },"");
+        //TODO:jax注释
+//        HttpMethods.getInstance().brokenUpCancel(new BaseObserver<BrokenUp>() {
+//            @Override
+//            protected void onSuccees(BaseBean t) throws Exception {
+//                BrokenUp houseDetil= (BrokenUp) t;
+//                mPopWindow.dismiss();
+//                Toast.makeText(ContractActivity.this, houseDetil.getMessage(), Toast.LENGTH_LONG).show();
+//            }
+//
+//            @Override
+//            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+//
+//            }
+//        },"");
     }
 
     List<String> urls=new ArrayList<>();
     List<MyContract.ViewDataBean> viewDataBeanList;
     private void AddData() {
         String phone= Objects.requireNonNull(UserLocalData.getUser(this)).getUserPhone();
-                Log.d("AddData","phone="+phone);
+        Log.d("AddData","phone="+phone);
         HttpMethods.getInstance().myContract(new BaseObserver<MyContract>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {

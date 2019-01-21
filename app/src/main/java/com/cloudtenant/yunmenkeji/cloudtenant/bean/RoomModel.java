@@ -50,32 +50,33 @@ public class RoomModel  extends  BaseBean {
          * myRoomWaterUnivalence : 6.0
          * myRoomWet : 100
          */
-
-        private String myRoomBuildingID;
-        private String myRoomContractImageUrl;
-        private String myRoomDealHadNoComplete;
+        private String myRoomPayBillServerId;
+        private String myRoomName;
+        private String myRoomWaterUnivalence;
+        private String myRoomPowerUnivalence;
+        private String myRoomRent;
+        private String myRoomPower;
+        private String myRoomWater;
+        private String myRoomTotal;
         private String myRoomID;
-        private String myRoomIsOwner;
-        private String myRoomLandLoardPhone;
         private String myRoomMakeADealAvailable;
         private String myRoomMakeADealInfo;
+        private String myRoomLandLoardPhone;
         private String myRoomMan;
-        private String myRoomName;
         private String myRoomNet;
-        private String myRoomPayBillServerId;
-        private String myRoomPower;
-        private String myRoomPowerUnivalence;
-        private int myRoomRent;
-        private String myRoomRentDate;
+        private String myRoomBuildingID;
+        private Boolean myRoomIsOwner;
         private String myRoomServiceCharge;
-        private String myRoomTem;
-        private String myRoomTotal;
-        private String myRoomWater;
-        private String myRoomWaterUnivalence;
-        private String myRoomWet;
+        private String myRoomRentDate;
+        private String myRoomDealHadNoComplete;
         private List<Double> myRoomPowerArr;
-        private List<MyRoomSensorListBean> myRoomSensorList;
         private List<Double> myRoomWaterArr;
+
+        //可能会弃用的字段
+        private String myRoomContractImageUrl;
+        private String myRoomTem;
+        private String myRoomWet;
+        private List<MyRoomSensorListBean> myRoomSensorList;
 
         public String getMyRoomBuildingID() {
             return myRoomBuildingID;
@@ -109,11 +110,11 @@ public class RoomModel  extends  BaseBean {
             this.myRoomID = myRoomID;
         }
 
-        public String getMyRoomIsOwner() {
+        public Boolean getMyRoomIsOwner() {
             return myRoomIsOwner;
         }
 
-        public void setMyRoomIsOwner(String myRoomIsOwner) {
+        public void setMyRoomIsOwner(Boolean myRoomIsOwner) {
             this.myRoomIsOwner = myRoomIsOwner;
         }
 
@@ -189,11 +190,11 @@ public class RoomModel  extends  BaseBean {
             this.myRoomPowerUnivalence = myRoomPowerUnivalence;
         }
 
-        public int getMyRoomRent() {
+        public String getMyRoomRent() {
             return myRoomRent;
         }
 
-        public void setMyRoomRent(int myRoomRent) {
+        public void setMyRoomRent(String myRoomRent) {
             this.myRoomRent = myRoomRent;
         }
 

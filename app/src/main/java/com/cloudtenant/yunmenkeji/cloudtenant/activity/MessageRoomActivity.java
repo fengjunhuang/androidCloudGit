@@ -204,37 +204,38 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
     }
     List<MessageSave.ViewDataBean> viewDataBeanList;
     public void getData() {
-        HttpMethods.getInstance().messageSave(new BaseObserver<MessageSave>() {
-            @Override
-            protected void onSuccees(BaseBean t) throws Exception {
-                MessageSave houseDetil= (MessageSave) t;
-
-                System.out.println(houseDetil.getViewData()+"");
-                viewDataBeanList=houseDetil.getViewDataX();
-
-                Log.e("viewDataBeanList",viewDataBeanList.get(0).getMessageRoomName());
-                tvTitle.setText(viewDataBeanList.get(0).getMessageRoomName());
-                riskAreaList = new ArrayList<Map<String, Object>>();
-                Map<String,Object> map ;
-                for (int i = 0; i < viewDataBeanList.size(); i++) {
-                    map = new HashMap<String, Object>();
-                    map.put("tvAreaItem", viewDataBeanList.get(i).getMessageRoomName());
-                    //红色图标是否显示
-                    if (i==tag) {
-                        map.put("tvAreaNo", tag+1);
-                    }else {
-                        map.put("tvAreaNo", tag);
-                    }
-                    riskAreaList.add(map);
-                }
-                banData(houseDetil.getViewDataX());
-            }
-
-            @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-
-            }
-        },"");
+        //TODO
+//        HttpMethods.getInstance().messageSave(new BaseObserver<MessageSave>() {
+//            @Override
+//            protected void onSuccees(BaseBean t) throws Exception {
+//                MessageSave houseDetil= (MessageSave) t;
+//
+//                System.out.println(houseDetil.getViewData()+"");
+//                viewDataBeanList=houseDetil.getViewDataX();
+//
+//                Log.e("viewDataBeanList",viewDataBeanList.get(0).getMessageRoomName());
+//                tvTitle.setText(viewDataBeanList.get(0).getMessageRoomName());
+//                riskAreaList = new ArrayList<Map<String, Object>>();
+//                Map<String,Object> map ;
+//                for (int i = 0; i < viewDataBeanList.size(); i++) {
+//                    map = new HashMap<String, Object>();
+//                    map.put("tvAreaItem", viewDataBeanList.get(i).getMessageRoomName());
+//                    //红色图标是否显示
+//                    if (i==tag) {
+//                        map.put("tvAreaNo", tag+1);
+//                    }else {
+//                        map.put("tvAreaNo", tag);
+//                    }
+//                    riskAreaList.add(map);
+//                }
+//                banData(houseDetil.getViewDataX());
+//            }
+//
+//            @Override
+//            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+//
+//            }
+//        },"");
     }
 
     private void banData(List<MessageSave.ViewDataBean> houseDetil) {
