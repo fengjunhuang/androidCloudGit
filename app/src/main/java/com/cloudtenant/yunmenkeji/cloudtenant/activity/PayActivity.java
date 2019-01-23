@@ -8,12 +8,15 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 //import com.alipay.sdk.app.EnvUtils;
 //import com.alipay.sdk.app.PayTask;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.AuthResult;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.OrderInfoUtil2_0;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.PayResult;
@@ -34,6 +37,8 @@ public class PayActivity extends YzsBaseActivity {
     public static final String RSA_PRIVATE = "";
     private static final int SDK_PAY_FLAG = 1;
     private static final int SDK_AUTH_FLAG = 2;
+    private  RoomModel.ViewDataBean viewDataBean;
+    private TextView tv_dianfei,tv_shuifei,tv_qita,tv_result;
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -83,6 +88,12 @@ public class PayActivity extends YzsBaseActivity {
     protected void initContentView(Bundle var1) {
 //        EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
         setContentView(R.layout.activity_pay);
+        try {
+            var1=getIntent().getExtras();
+            getBundleExtras( var1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -92,6 +103,8 @@ public class PayActivity extends YzsBaseActivity {
         getBtn1().setVisibility(View.INVISIBLE);
         getBtn2().setVisibility(View.INVISIBLE);
         getTv_smell().setVisibility(View.GONE);
+
+
         findViewById(R.id.btn_guide_enter).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,7 +157,17 @@ public class PayActivity extends YzsBaseActivity {
 
     @Override
     protected void getBundleExtras(Bundle var1) throws Exception {
-
+        viewDataBean= (RoomModel.ViewDataBean) var1.getSerializable("viewDataBean");
+        tv_dianfei=findViewById(R.id.tv_dianfei);
+        tv_qita=findViewById(R.id.tv_qita);
+        tv_shuifei=findViewById(R.id.tv_shuifei);
+        tv_result=findViewById(R.id.tv_result);
+        tv_shuifei.setText(viewDataBean.getMyRoomWater());
+        tv_qita.setText(viewDataBean.getMyRoomTem());
+        tv_result.setText(viewDataBean.getMyRoomTotal());
+        tv_dianfei.setText(viewDataBean.getMyRoomPower());
+        Button button= findViewById(R.id.btn_guide_enter);
+        button.setText(viewDataBean.getMyRoomTotal()+"元");
     }
 
     @Override
