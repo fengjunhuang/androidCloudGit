@@ -250,8 +250,8 @@ public class HttpMethods {
     }
 
     //JAX Create
-    public void checkAuthorization(BaseObserver<BrokenUp> observer, String type,String uid,String isLogin){
-        apiService.checkAuthorization(type, uid, isLogin).subscribeOn(Schedulers.io())
+    public void checkAuthorization(BaseObserver<UserInfo> observer, String type,String uid){
+        apiService.checkAuthorization(type, uid).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

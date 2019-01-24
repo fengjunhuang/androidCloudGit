@@ -411,7 +411,11 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
         view.findViewById(R.id.tv_result).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                readyGo(PayActivity.class);
+                Bundle bundle = new Bundle();
+
+
+                bundle.putSerializable("viewDataBean", roomModel.getViewData().get(index));
+                readyGo(PayActivity.class,bundle);
             }
         });
         mLineChart.setOnChartGestureListener(new OnChartGestureListener() { // 手势监听器

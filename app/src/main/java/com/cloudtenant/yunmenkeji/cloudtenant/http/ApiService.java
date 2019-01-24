@@ -54,10 +54,10 @@ public interface ApiService {
     );
     //检测第三方是否有登录过
     @POST("chl/tenant/account/isRegister")
-    Observable<BrokenUp> checkAuthorization(
+    Observable<UserInfo> checkAuthorization(
             @Query("type") String type,
-            @Query("uid") String uid,
-            @Query("isLogin") String isLogin
+            @Query("uid") String uid
+
     );
 
     //获取短信接口
