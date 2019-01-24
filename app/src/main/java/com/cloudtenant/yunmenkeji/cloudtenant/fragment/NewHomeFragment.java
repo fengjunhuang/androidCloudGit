@@ -552,12 +552,8 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                     }
                 }
                 System.out.println(houseDetil.getViewData());
-
-
                 //Log.e("requestData",houseDetil.getViewDataX().get(0).toString());
                 Log.e("requestData",houseDetil.getViewDataX().size()+"条信息");
-
-
                 if (!isMapMode) {
                     Log.e("requestData","添加一次数据信息>>>>adapter="+adapter.getCount()+"条》》》》》》viewDataBean="+viewDataBean.size());
                     if (houseDetil.getViewDataX().size()>0) {
@@ -574,7 +570,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             }
 
 
-        },page+"",row+"",longitude+"",latitude+"");
+        },page+"",row+"",longitude+"",latitude+"","","","","","","","","","");
     }
 
     private void joinFamily() {

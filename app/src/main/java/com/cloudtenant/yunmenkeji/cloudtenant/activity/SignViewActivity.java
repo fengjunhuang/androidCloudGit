@@ -16,6 +16,8 @@ import com.gersion.library.base.BaseActivity;
 import java.io.File;
 import java.io.IOException;
 
+import static com.cloudtenant.yunmenkeji.cloudtenant.activity.CommitIdActivity.SIGN_REQUEST_CODE;
+
 
 /**
  * Created by tlol20 on 2017/6/14
@@ -64,7 +66,7 @@ public class SignViewActivity extends BaseActivity {
                     try {
 
                         handWriteView.save(path);
-                        setResult(100);
+                        setResult(SIGN_REQUEST_CODE);
                         finish();
                         /*if (isCrop) {
                             handWriteView.save(MainActivity.path1, true, 10,true);

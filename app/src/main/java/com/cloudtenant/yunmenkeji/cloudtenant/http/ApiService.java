@@ -6,11 +6,13 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BuildingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyCollection;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamily;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamilyData;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.NoticeHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo3;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
@@ -18,6 +20,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BillHistoryModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.CollectionAndReViewModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.MessageNoticeModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.SensorCycleModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.SensorModel;
@@ -73,7 +76,17 @@ public interface ApiService {
     Observable<HouseDetil> homeData(@Query("page") String page,
                                     @Query("row") String rows,
                                     @Query("longitdue") String longitdue,
-                                    @Query("latitude") String latitude
+                                    @Query("latitude") String latitude,
+                                    @Query("areNames") String areNames,
+                                    @Query("omit") String omit,
+                                    @Query("city") String city,
+                                    @Query("town") String town,
+                                    @Query("minPrice") String minPrice,
+                                    @Query("maxPrice") String maxPrice,
+                                    @Query("houseConfigNote") String houseConfigNote,
+                                    @Query("depositType") String depositType,
+                                    @Query("score") String score
+
     );
     @POST("/chl/room/getRoomList")
     Observable<BudingInfo> BudingInfo(@Query("orderId") String orderId,
@@ -109,7 +122,7 @@ public interface ApiService {
             @Query("roomId") String roomId
     );
     @POST("chl/room/getRoomById")
-    Observable<RoomInfo> roomInfo1(
+    Observable<RoomInfo3> roomInfo1(
             @Query("roomId") String roomId,
             @Query("phone") String phone
     );
@@ -142,7 +155,7 @@ public interface ApiService {
     //我的模块
     //获取收藏列表
     @POST("chl/user/experience/getCollection")
-    Observable<CollectionAndReViewModel> getCollectionList(
+    Observable<MyCollection> getCollectionList(
             @Query("phone") String phone,
             @Query("landingPhone") String landingPhone
     );
@@ -252,7 +265,8 @@ public interface ApiService {
     //我的房间模块
     @POST("/chl/room/findRoomMessageByPhone")
     Observable<RoomModel> findRoomMessageByPhone(
-            @Query("phone") String phone
+            @Query("phone") String phone,
+            @Query("landingPhone") String landingPhone
     );
     //订单历史
     @POST("chl/api/alipay/YunMenPayList")
@@ -299,8 +313,8 @@ public interface ApiService {
     //获取传感器列表
     @POST("chl/api/sensor/findRoomSensorTens")
     Observable<SensorModel> getRoomSensorList(
-            @Query("roomId") String roomId,
-            @Query("landingPhone") String landingPhone
+            @Query("landingPhone") String landingPhone,
+            @Query("roomId") String roomId
     );
     //更新传感器工作状态
     @POST("chl/api/sensor/updateSensorStatus")
@@ -313,9 +327,10 @@ public interface ApiService {
     //消息模块
     //楼宇公告
     @POST("chl/buildings/findAdviceByPhone")
-    Observable<BrokenUp> getBuildingNotice(//这里返回的数据格式跟我的房间差不多
-                                           @Query("phone") String phone,
-                                           @Query("landingPhone") String landingPhone
+    Observable<MessageNoticeModel> getBuildingNotice
+    (
+            @Query("phone") String phone,
+            @Query("landingPhone") String landingPhone
     );
     //其他消息/支付消息
     @POST("chl/sign/contract/findLandlordNew")

@@ -7,6 +7,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BuildingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyCollection;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamily;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamilyData;
@@ -18,11 +19,14 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.BillHistoryModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil1;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.ListBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.LoginBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.MessageNoticeModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.SensorModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.NewBaseObserver;
 
@@ -102,8 +106,8 @@ public class HttpMethods {
 //    }
 
 
-    public void homeData(BaseObserver<HouseDetil> observer, String page, String row, String longitdue, String latitude){
-        apiService.homeData(page,row,longitdue,latitude).subscribeOn(Schedulers.io())
+    public void homeData(BaseObserver<HouseDetil> observer, String page, String row, String longitdue, String latitude,String areNames,String omit,String city,String town,String minPrice,String maxPrice,String houseConfigNote,String depositType,String score){
+        apiService.homeData(page,row,longitdue,latitude,areNames,omit,city,town,minPrice,maxPrice,houseConfigNote,depositType,score).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -137,8 +141,8 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void findRoomMessageByPhone(BaseObserver<RoomModel> observer, String phone){
-        apiService.findRoomMessageByPhone(phone).subscribeOn(Schedulers.io())
+    public void findRoomMessageByPhone(BaseObserver<RoomModel> observer, String phone,String landingPhone){
+        apiService.findRoomMessageByPhone(phone,landingPhone).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -288,7 +292,7 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void getCollectionList(BaseObserver<BrokenUp> observer, String phone,String landingPhone){
+    public void getCollectionList(BaseObserver<MyCollection> observer, String phone, String landingPhone){
         apiService.getCollectionList(phone, landingPhone).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -342,7 +346,7 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void getNoCompleteBill(BaseObserver<BrokenUp> observer, String phone,String landingPhone,String roomId){
+    public void getNoCompleteBill(BaseObserver<BillHistoryModel> observer, String phone, String landingPhone, String roomId){
         apiService.getNoCompleteBill(phone, landingPhone, roomId).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -366,8 +370,8 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void getRoomSensorList(BaseObserver<BrokenUp> observer, String landingPhone,String roomId){
-        apiService.getRoomSensorList(roomId, landingPhone).subscribeOn(Schedulers.io())
+    public void getRoomSensorList(BaseObserver<SensorModel> observer, String landingPhone, String roomId){
+        apiService.getRoomSensorList(landingPhone, roomId).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -378,7 +382,7 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void getBuildingNotice(BaseObserver<BrokenUp> observer, String phone,String landingPhone){
+    public void getBuildingNotice(BaseObserver<MessageNoticeModel> observer, String phone, String landingPhone){
         apiService.getBuildingNotice(phone, landingPhone).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -5,11 +5,11 @@
     android:orientation="horizontal"
     android:gravity="center_vertical"
     style="@style/click"
-    android:layout_height="80dp">
+    android:layout_height="60dp">
     <TextView
         android:id="@+id/name"
         android:text="家庭1"
-        android:textSize="17sp"
+        android:textSize="15sp"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content" />

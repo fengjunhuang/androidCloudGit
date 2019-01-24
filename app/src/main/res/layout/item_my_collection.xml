@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/x5"
+    >
+
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    >
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/x5"
+    >
+    <ImageView
+        android:id="@+id/iv_cell_image"
+        android:layout_width="@dimen/x120"
+        android:layout_height="@dimen/y80"
+        android:src="@mipmap/zufang"
+        android:layout_marginRight="@dimen/x20"
+        />
+ <LinearLayout
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:orientation="vertical"
+     >
+
+     <TextView
+         android:id="@+id/nmsl"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content" />
+     <TextView
+         android:id="@+id/nimasile"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content" />
+
+     <TextView
+         android:id="@+id/tv_cell_building_set"
+         android:layout_marginTop="@dimen/x10"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="阳光好,临地铁5号线,带空调热水器"
+
+         android:textSize="11sp"
+         />
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal"
+         >
+         <TextView
+             android:id="@+id/tv_cell_cost"
+             android:layout_marginTop="@dimen/x10"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="$280"
+             android:textColor="@color/black"
+             android:textStyle="bold"
+             android:textSize="10sp"
+             />
+
+ </LinearLayout>
+
+ </LinearLayout>
+</LinearLayout>
+
+</android.support.v7.widget.CardView>
+</LinearLayout>

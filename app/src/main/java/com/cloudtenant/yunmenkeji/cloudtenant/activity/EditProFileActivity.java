@@ -154,16 +154,7 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
         //getData();
     }
     private void getUserMessage() {
-        try {
-            userName=new String( et_nick_name.getText().toString().trim().getBytes("GBK"),"UTF-8");
-            userSex=new String( userSex.getBytes("GBK"),"UTF-8");
-            userBirthday=new String( userBirthday.getBytes("GBK"),"UTF-8");
-            userConstellation=new String( userConstellation.getBytes("GBK"),"UTF-8");
-            userJob=new String( userJob.getBytes("GBK"),"UTF-8");
-            userFavourite=new String( userFavourite.getBytes("GBK"),"UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+            userName=et_nick_name.getText().toString().trim();
 
     }
     UserinfoBean userinfoBean;
@@ -172,7 +163,7 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
 
         userinfoBean= UserLocalData.getUser(this);
         assert userinfoBean != null;
-        String image= "http://123.207.91.208:80/"+userinfoBean.getUserIcon();
+        String image= HttpMethods.BASE_URL+userinfoBean.getUserIcon();
         userPhone=userinfoBean.getUserPhone();
         userName=userinfoBean.getUserName() ;
         userSex=userinfoBean.getUserSex() ;
@@ -278,11 +269,11 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
             }break;
             case R.id.ll_commit:{
                 getUserMessage();
-                /*if (basePic!=null) {
+                if (basePic!=null) {
                     upPic();
                 }else {
-                }*/
-                joinFamily();
+                    joinFamily();
+                }
             }break;
             case R.id.civ_icon:{
                 selectImage();
@@ -309,11 +300,12 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
 
     private void upPic() {
         try {
+                    Log.e("getData","执行上传头像方法userPhone="+userPhone);
+                    Log.e("getData","basePic="+basePic);
             HttpMethods.getInstance().upImages(new BaseObserver<BrokenUp>() {
                 @Override
                 protected void onSuccees(BaseBean t) throws Exception {
                     BrokenUp houseDetil= (BrokenUp) t;
-                    Log.e("getData","执行joinFamily方法返回"+houseDetil.getResult());
                     System.out.println(t.getMessage()+"");
                     Toast.makeText(EditProFileActivity.this, houseDetil.getMessage(), Toast.LENGTH_SHORT).show();
                     /*userinfoBean.setUserName(userName);

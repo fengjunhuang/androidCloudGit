@@ -30,6 +30,7 @@
             android:id="@+id/ll_delete"
             android:layout_width="wrap_content"
             android:background="@drawable/butten_background_red"
+                android:visibility="invisible"
             android:gravity="center"
             android:layout_height="25dp">
 
@@ -59,6 +60,7 @@
 
 
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/rl_room_number"
                 style="@style/me_item_rl_style">
                 <TextView
@@ -70,7 +72,7 @@
                     android:layout_alignParentRight="true"
                     style="@style/me_text_style" />
             </RelativeLayout>
-            <View style="@style/match_line"/>
+
             <RelativeLayout
                 android:id="@+id/rl_famliy_name"
                 style="@style/me_item_rl_style">
@@ -140,6 +142,7 @@
             <View style="@style/match_line"/>
 
             <RelativeLayout
+
                 android:id="@+id/rl_manage"
                 style="@style/me_item_rl_style">
                 <TextView
