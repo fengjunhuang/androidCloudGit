@@ -174,7 +174,7 @@ public interface ApiService {
 //    Observable<HouseDetil> updateMessage(@Query("page") String page, @Query("row") String rows, @Query("longitdue") String longitdue, @Query("latitude") String latitude);
     @POST("/chl/tenant/account/upImages")
     Observable<BrokenUp> upImages(
-            @Query("userPhone") String userPhone,
+            @Query("phone") String userPhone,
             @Query("base64Pic") String base64Pic
     );
     @POST("/chl/sign/contract/getContractPic")

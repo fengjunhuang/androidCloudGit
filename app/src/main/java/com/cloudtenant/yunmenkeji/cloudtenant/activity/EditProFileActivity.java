@@ -277,11 +277,11 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
 
             }break;
             case R.id.ll_commit:{
-                getUserMessage();
-                /*if (basePic!=null) {
+//                getUserMessage();
+                if (basePic!=null) {
                     upPic();
                 }else {
-                }*/
+                }
                 joinFamily();
             }break;
             case R.id.civ_icon:{
@@ -331,9 +331,10 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
 
                 @Override
                 protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                    System.out.print("1111111111111111");
 
                 }
-            },userPhone, AESOperator.getInstance().encrypt(basePic));
+            },"15088138460", basePic);
         } catch (Exception e) {
             e.printStackTrace();
         }
