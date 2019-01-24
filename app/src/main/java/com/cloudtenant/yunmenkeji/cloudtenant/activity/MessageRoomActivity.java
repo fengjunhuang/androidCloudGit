@@ -32,6 +32,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.MessageNoticeModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.OnItemClickLitener;
@@ -205,9 +206,9 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
     List<MessageSave.ViewDataBean> viewDataBeanList;
     public void getData() {
         //TODO
-//        HttpMethods.getInstance().messageSave(new BaseObserver<MessageSave>() {
-//            @Override
-//            protected void onSuccees(BaseBean t) throws Exception {
+        HttpMethods.getInstance().getBuildingNotice(new BaseObserver<MessageNoticeModel>() {
+            @Override
+            protected void onSuccees(BaseBean t) throws Exception {
 //                MessageSave houseDetil= (MessageSave) t;
 //
 //                System.out.println(houseDetil.getViewData()+"");
@@ -229,13 +230,13 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
 //                    riskAreaList.add(map);
 //                }
 //                banData(houseDetil.getViewDataX());
-//            }
-//
-//            @Override
-//            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-//
-//            }
-//        },"");
+            }
+
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+            }
+        },"13068893276","13068893276");
     }
 
     private void banData(List<MessageSave.ViewDataBean> houseDetil) {

@@ -334,7 +334,7 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
                     System.out.print("1111111111111111");
 
                 }
-            },"15088138460", basePic);
+            },userPhone, basePic);
         } catch (Exception e) {
             e.printStackTrace();
         }

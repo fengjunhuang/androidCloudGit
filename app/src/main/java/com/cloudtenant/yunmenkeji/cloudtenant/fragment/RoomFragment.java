@@ -188,7 +188,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
 
 
 
-        HttpMethods.getInstance().findRoomMessageByPhone(new BaseObserver<RoomModel>() {
+        /*HttpMethods.getInstance().findRoomMessageByPhone(new BaseObserver<RoomModel>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
                 roomModel=(RoomModel) t;
@@ -208,7 +208,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
                 for(int i=0;i<((RoomModel) t).getViewData().get(0).getMyRoomPowerArr().size();i++){
                     entries1.add(new Entry(i,((RoomModel) t).getViewData().get(0).getMyRoomPowerArr().get(i).floatValue()));
                 }
-               
+
                 initMpChat(entries,entries1,6);
 
                 mAdapter.addData(roomModel.getViewData().get(0).getMyRoomSensorList());
@@ -221,7 +221,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
                 e.printStackTrace();
 
             }
-        },"13068893276");
+        },"13068893276");*/
 //        HttpMethods.getInstance().myRoom(new BaseObserver<MyRoom>() {
 //            @Override
 //            protected void onSuccees(BaseBean t) throws Exception {

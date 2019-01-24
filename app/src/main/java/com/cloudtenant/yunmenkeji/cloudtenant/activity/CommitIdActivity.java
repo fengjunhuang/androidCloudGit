@@ -1,24 +1,38 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Looper;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.signature.StringSignature;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
+import com.cloudtenant.yunmenkeji.cloudtenant.adapter.IdAdapter;
+import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MessageRoomAdapter;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.IdDetails;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.IdFront;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.OtherId;
+import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.JSONUtil;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.PreferencesUtils;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
@@ -26,7 +40,11 @@ import com.cloudtenant.yunmenkeji.cloudtenant.util.Youtu;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.base64.Test;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.misc.BASE64Encoder;
 import com.gersion.library.base.BaseActivity;
+import com.jude.easyrecyclerview.EasyRecyclerView;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import com.yzs.yzslibrary.util.LogUtils;
+import com.yzs.yzslibrary.util.StringUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +56,9 @@ import java.io.InputStream;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import dmax.dialog.SpotsDialog;
@@ -61,20 +81,24 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
     boolean isFront;
     private SpotsDialog mDialog;
     private EditText et_phone;
-
+    public static final int SIGN_REQUEST_CODE=100;
+    public static final int OTHER_REQUEST_CODE=101;
+    private List<OtherId> list=new ArrayList<>();
+    private EasyRecyclerView recyclerView;
+    private IdAdapter adapter;
+    private RecyclerArrayAdapter.ItemView viewFooter;
     //提交所需数据
     private String userPhone;
     private String buildingID;
     private String roomId;
+    private String other;
+    private String IDNum;
+    private String name;
+    private String roomNum;
     private String userIDFront;
     private String userIDBack;
     private String userSign;
-    private String userContract;
-    private String IDNum;
-    private String name;
-    private String landLoardPhone;
-    private String roomNum;
-    private String other;
+    private String contractTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +111,11 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
                 finish();
             }
         });
+        Intent intent=getIntent();
+        buildingID=intent.getStringExtra("buildingID");
+        roomId=intent.getStringExtra("roomId");
+        roomNum=intent.getStringExtra("roomNum");
+        contractTime=intent.getStringExtra("contractTime");
         iv_sign=findViewById(R.id.iv_sign);
         et_phone=findViewById(R.id.et_phone);
         verso=findViewById(R.id.verso);
@@ -95,15 +124,44 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
         iv_verso=findViewById(R.id.iv_verso);
         iv_sign.setOnClickListener(this);
         iv_front.setOnClickListener(this);
+        findViewById(R.id.tv_commit).setOnClickListener(this);
         iv_verso.setOnClickListener(this);
         et_phone.setText(userPhone);
+        /*TextView textView=findViewById(R.id.tv_phone);
+        textView.setText("手机号码");*/
+        recyclerView= findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        adapter = new IdAdapter(this);
+        viewFooter=new RecyclerArrayAdapter.ItemView() {
+            @Override
+            public View onCreateView(ViewGroup parent) {
+                View view= LayoutInflater.from(CommitIdActivity.this).inflate(R.layout.booder_id,parent,false);
+                view.findViewById(R.id.iv_other).setOnClickListener(CommitIdActivity.this);
+                return view;
+            }
+            @Override
+            public void onBindView(View headerView) {
+            }
+        };
+        adapter.addFooter(viewFooter);
+        recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                normalDialog(position);
+            }
+        });
+
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.iv_sign:{
-                startActivityForResult(new Intent(this,SignViewActivity.class),100);
+                startActivityForResult(new Intent(this,SignViewActivity.class),SIGN_REQUEST_CODE);
+            }break;
+            case R.id.iv_other:{
+                startActivityForResult(new Intent(this,OtherIdActivity.class),OTHER_REQUEST_CODE);
             }break;
             case R.id.iv_front :{
                 Intent intent=new Intent(this,IdCammerActivity.class);
@@ -121,6 +179,18 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
                  Log.d("takePhoto","点击反面="+isFront);
                 startActivityForResult(intent,104);
             }break;
+            case R.id.tv_commit:{
+                if (userIDBack!=""&&userSign!=""&&userIDFront!=""){
+                    if (StringUtils.isEmpty(idDetails.getName())&&StringUtils.isEmpty(idDetails.getId())){
+                        normalDialog1("身份证照片不正确，无法获取身份信息！请重新上传");
+                    }else {
+                        other=JSONUtil.toJSON(list);
+                        commit();
+                    }
+                }else {
+                    normalDialog1("请提交身份证照片与签名");
+                }
+            }break;
         }
     }
     @Override
@@ -129,17 +199,22 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
         Log.d("takePhoto","Myfinish完成=进入onActivityResult");
         Log.d("takePhoto","Myfinish完成=进入onActivityResult》requestCode="+requestCode+"》》》resultCode="+resultCode);
 
-        if (resultCode == 100) {
+        if (resultCode == SIGN_REQUEST_CODE) {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inSampleSize = 2;
             Bitmap bm = BitmapFactory.decodeFile(path, options);
             iv_sign.setImageBitmap(bm);
-        } else if (resultCode == 101) {
+        } else if (resultCode == OTHER_REQUEST_CODE) {
             //Glide.with(this).load(path1 + ".sign").skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(binding.img2);
+            String otherIdString=PreferencesUtils.getString(this,"OtherId");
+            Log.d("takePhoto","OtherId="+otherIdString);
+            OtherId otherId=JSONUtil.fromJson(otherIdString,OtherId.class);
+            list.add(otherId);
+            adapter.add(otherId);
         }
         if (resultCode==11){
-
             Log.d("takePhoto","isFront="+isFront);
+
             if (isFront) {
                 front.setVisibility(View.GONE);
                 //本地文件
@@ -160,6 +235,60 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
                 //iv_verso.setImageBitmap(BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getPath() + "/idServo.jpg"));
             }
         }
+    }
+
+    private void commit() {
+        //TODO:
+        HttpMethods.getInstance().signContractAction(new BaseObserver<BrokenUp>() {
+            @Override
+            protected void onSuccees(BaseBean t) throws Exception {
+                BrokenUp houseDetil= (BrokenUp) t;
+                Log.e("getData","执行joinFamily方法返回"+houseDetil.getMessage());
+                System.out.println(t.getMessage()+"");
+                //adapter.addAll(viewDataBeanList);
+            }
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+            }
+        },buildingID,roomId,userPhone,other,idDetails.getId(),idDetails.getName(),userPhone,roomNum,contractTime);
+    }
+
+    //一般的Dialog
+    public void normalDialog1(String s){
+        AlertDialog.Builder bulider =new AlertDialog.Builder(this);
+        bulider.setTitle("提示");
+        bulider.setMessage(s);
+        bulider.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int arg1) {
+                dialog.dismiss();
+            }
+        });
+        bulider.create().show();
+    }
+    //一般的Dialog
+    public void normalDialog(final int s){
+        AlertDialog.Builder bulider =new AlertDialog.Builder(this);
+        bulider.setMessage("入住人"+list.get(s).getName()+"的信息");
+
+        bulider.setPositiveButton("删除", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int arg1) {
+                list.remove(s);
+                adapter.remove(s);
+                dialog.dismiss();
+            }
+        });
+        bulider.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int arg1) {
+                // TODO Auto-generated method stub
+                dialog.dismiss();
+            }
+        });
+        bulider.create().show();
     }
     private Bitmap theSelectedImage = null;
     private void getIdDetails(String filePath, final int type) {

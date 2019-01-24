@@ -69,6 +69,11 @@ public class ContractDetailsActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(ContractDetailsActivity.this, CommitIdActivity.class);
+                intent.putExtra("buildingID",bean.getCellBuildID());
+                intent.putExtra("roomId",bean.getRoomID());
+                intent.putExtra("roomNum",bean.getRoomNumber());
+                intent.putExtra("roomNum",bean.getRoomNumber());
+                intent.putExtra("contractTime",contractTime);
                 startActivity(intent);
             }
         });
@@ -76,7 +81,7 @@ public class ContractDetailsActivity extends BaseActivity {
     }
     String aa;
     SpannableString msp = null;
-    String roomMoney;
+    String roomMoney,contractTime;
     ChineseNumber chineseNumber=new ChineseNumber();
     private void getData() {
         //houseDetil = ( HouseDetil.ViewDataBean) getIntent().getExtras().getSerializable("houseDetil");
@@ -87,11 +92,14 @@ public class ContractDetailsActivity extends BaseActivity {
          switch (time){
              case "三个月":{
                 //setTime="3";
+                 contractTime="三个月";
              }break;
              case "半年":{
+                 contractTime="半年";
                 setTime=6;
              }break;
              case "一年":{
+                 contractTime="一年";
                 setTime=12;
              }break;
          }

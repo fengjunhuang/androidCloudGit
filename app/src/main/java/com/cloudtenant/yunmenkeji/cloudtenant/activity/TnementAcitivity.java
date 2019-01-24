@@ -483,7 +483,7 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
         }
         tv_style.setText(l+" | "+r);
         getTv_smell().setTextColor(Color.BLACK);
-
+        Log.e("RoomSet","RoomSet="+bean1.getViewData().get(0).getRoomSet());
         if (bean1.getViewData().get(0).getRoomSet().contains("床")) {
             tv_chuang.setBackgroundResource(R.drawable.image_bed);
         }

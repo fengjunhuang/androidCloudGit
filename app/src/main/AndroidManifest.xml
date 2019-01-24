@@ -177,7 +177,12 @@
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".activity.CommitIdActivity" />
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden"
             android:name=".activity.IdCammerActivity" />
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.OtherIdActivity" />
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.MyCollectionActivity" />
 
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".activity.QrCodeActivity" />

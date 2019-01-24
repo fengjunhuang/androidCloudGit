@@ -22,12 +22,14 @@ import com.cloudtenant.yunmenkeji.cloudtenant.activity.AboutActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.ContractActivity;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.LoginActivity_;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.MyCollectionActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.SensorActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.EditProFileActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MyFamilyActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.RequestActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.SettingActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.SplashActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MyCollectionAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserinfoBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.PreferencesUtils;
@@ -93,6 +95,13 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                     startActivity(new Intent(getActivity(), LoginActivity_.class));
                 }
             }break;
+            case R.id.rl_collection:{
+                if (isLogin) {
+                    startActivity(new Intent(getActivity(), MyCollectionActivity.class));
+                }else {
+                    startActivity(new Intent(getActivity(), LoginActivity_.class));
+                }
+            }break;
             case R.id.rl_icon:{
                 if (isLogin) {
                     startActivity(new Intent(getActivity(), EditProFileActivity.class));
@@ -143,6 +152,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         view.findViewById(R.id.rl_setting).setOnClickListener(this);
         view.findViewById(R.id.rl_request).setOnClickListener(this);
         view.findViewById(R.id.rl_icon).setOnClickListener(this);
+        view.findViewById(R.id.rl_collection).setOnClickListener(this);
         userName=view.findViewById(R.id.userName);
         tv_cache=view.findViewById(R.id.tv_cache);
         tv_username=view.findViewById(R.id.tv_username);

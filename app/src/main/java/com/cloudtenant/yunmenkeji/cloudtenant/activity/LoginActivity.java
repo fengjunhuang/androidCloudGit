@@ -353,7 +353,6 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
                 Toast.makeText(LoginActivity.this, "您输入的手机号码格式不正确", Toast.LENGTH_SHORT).show();
                 return false;
             }else {
-
                 return true;
             }
     }
