@@ -183,6 +183,10 @@
             android:name=".activity.OtherIdActivity" />
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".activity.MyCollectionActivity" />
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.MyReviewActivity" />
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.MessagePayActivity" />
 
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".activity.QrCodeActivity" />

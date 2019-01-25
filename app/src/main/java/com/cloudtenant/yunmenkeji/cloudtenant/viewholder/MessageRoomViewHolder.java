@@ -40,7 +40,7 @@ public class MessageRoomViewHolder extends BaseViewHolder<MessageSave.ViewDataBe
             tv_type.setTextColor(getContext().getResources().getColor(R.color.gren_cut_clorr));
             tv_type.setText("公告");
         }else {
-            if (person.getMessageWarningStatus()!=0){
+            /*if (person.getMessageWarningStatus()!=0){
                 iv_icon.setImageResource(R.drawable.demoimage);
                 tv_type.setTextColor(getContext().getResources().getColor(R.color.gren_cut_clorr));
                 tv_type.setText("安全");
@@ -49,7 +49,7 @@ public class MessageRoomViewHolder extends BaseViewHolder<MessageSave.ViewDataBe
                 tv_type.setTextColor(getContext().getResources().getColor(R.color.red_cut_clorr));
                 tv_type.setText("危險");
 
-            }
+            }*/
         }
 
         name.setText(person.getMessageNotice());

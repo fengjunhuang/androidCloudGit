@@ -9,16 +9,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
-import com.cloudtenant.yunmenkeji.cloudtenant.adapter.ContractAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MessageOtherAdapter;
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
@@ -29,13 +25,12 @@ import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by tlol20 on 2017/6/14
  */
-public class MessageOtherActivity extends BaseActivity implements View.OnClickListener{
+public class MessagePayActivity extends BaseActivity implements View.OnClickListener{
 
     private EasyRecyclerView recyclerView;
     private MessageOtherAdapter adapter;
@@ -52,12 +47,8 @@ public class MessageOtherActivity extends BaseActivity implements View.OnClickLi
                 finish();
             }
         });
-        findViewById(R.id.title).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        TextView textView=findViewById(R.id.title);
+        textView.setText("支付消息");
         recyclerView= (EasyRecyclerView)findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerDecoration(Color.parseColor("#aaaaaa"), 1));
@@ -91,7 +82,7 @@ public class MessageOtherActivity extends BaseActivity implements View.OnClickLi
         bulider.setPositiveButton("去支付", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int arg1) {
-                Intent intent=new Intent(MessageOtherActivity.this,PayActivity.class);
+                Intent intent=new Intent(MessagePayActivity.this,PayActivity.class);
                 intent.putExtra("widoutTradeMoney",widoutTradeMoney);
                 intent.putExtra("widoutTradeNo",widoutTradeNo);
                 intent.putExtra("roomId",roomId);
@@ -170,7 +161,7 @@ public class MessageOtherActivity extends BaseActivity implements View.OnClickLi
             protected void onFailure(Throwable e, boolean isNetWorkError)  {
 
             }
-        },phone,phone,"5");
+        },phone,phone,"4");
     }
 
 }

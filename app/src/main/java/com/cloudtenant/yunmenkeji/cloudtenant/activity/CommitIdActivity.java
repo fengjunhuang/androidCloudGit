@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Looper;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,7 @@ import com.yzs.yzslibrary.util.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -58,7 +60,9 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import dmax.dialog.SpotsDialog;
@@ -81,6 +85,7 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
     boolean isFront;
     private SpotsDialog mDialog;
     private EditText et_phone;
+
     public static final int SIGN_REQUEST_CODE=100;
     public static final int OTHER_REQUEST_CODE=101;
     private List<OtherId> list=new ArrayList<>();
@@ -116,6 +121,10 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
         roomId=intent.getStringExtra("roomId");
         roomNum=intent.getStringExtra("roomNum");
         contractTime=intent.getStringExtra("contractTime");
+        Log.d("takePhoto","buildingID="+buildingID);
+        Log.d("takePhoto","roomId="+roomId);
+        Log.d("takePhoto","roomNum="+roomNum);
+        Log.d("takePhoto","contractTime="+contractTime);
         iv_sign=findViewById(R.id.iv_sign);
         et_phone=findViewById(R.id.et_phone);
         verso=findViewById(R.id.verso);
@@ -180,15 +189,20 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
                 startActivityForResult(intent,104);
             }break;
             case R.id.tv_commit:{
-                if (userIDBack!=""&&userSign!=""&&userIDFront!=""){
-                    if (StringUtils.isEmpty(idDetails.getName())&&StringUtils.isEmpty(idDetails.getId())){
-                        normalDialog1("身份证照片不正确，无法获取身份信息！请重新上传");
-                    }else {
+                 Log.d("tv_commit","userIDBack="+StringUtils.isEmpty(userIDBack));
+                 Log.d("tv_commit","userSign="+StringUtils.isEmpty(userSign));
+                 Log.d("tv_commit","userIDFront="+StringUtils.isEmpty(userIDFront));
+                 Log.d("tv_commit", String.valueOf("idDetails="+idDetails!=null));
+                if (StringUtils.isEmpty(userIDBack)||StringUtils.isEmpty(userSign)||StringUtils.isEmpty(userIDFront)||idDetails==null){
+                    normalDialog1("请提交身份证照片与签名");
+                }else {
+                    if (idDetails.getErrorcode()==0){
+                        mDialog.show();
                         other=JSONUtil.toJSON(list);
                         commit();
+                    }else {
+                        normalDialog1("身份证照片不正确，无法获取身份信息！请重新上传");
                     }
-                }else {
-                    normalDialog1("请提交身份证照片与签名");
                 }
             }break;
         }
@@ -204,6 +218,7 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
             options.inSampleSize = 2;
             Bitmap bm = BitmapFactory.decodeFile(path, options);
             iv_sign.setImageBitmap(bm);
+            userSign=path;
         } else if (resultCode == OTHER_REQUEST_CODE) {
             //Glide.with(this).load(path1 + ".sign").skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(binding.img2);
             String otherIdString=PreferencesUtils.getString(this,"OtherId");
@@ -222,8 +237,9 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
                 //加载图片
                 Glide.with(this).load(file1).signature(new StringSignature(GetNowTime())).into(iv_front);
                 //iv_front.setImageBitmap(BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getPath() + "/idFront.jpg"));
-            Log.d("takePhoto","进入onActivityResult设置图片路径="+file1.getPath());
+                Log.d("takePhoto","进入onActivityResult设置图片路径="+file1.getPath());
                 getIdDetails(file1.getPath(),0);
+                userIDFront=file1.getPath();
             }else {
                 verso.setVisibility(View.GONE);
                 //本地文件
@@ -231,6 +247,7 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
                 //加载图片
                 Log.d("takePhoto","进入onActivityResult设置图片路径="+file.getPath());
                 getIdDetails(file.getPath(),1);
+                userIDBack=file.getPath();
                 Glide.with(this).load(file).signature(new StringSignature(GetNowTime())).into(iv_verso);
                 //iv_verso.setImageBitmap(BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getPath() + "/idServo.jpg"));
             }
@@ -238,6 +255,19 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void commit() {
+        Map<String,String> map = new HashMap<String, String>();
+        map.put("userPhone",userPhone);
+        map.put("buildingID",buildingID);
+        map.put("roomId",roomId);
+        map.put("other","");
+        map.put("IDNum",idDetails.getId());
+        map.put("name",idDetails.getName());
+        map.put("landLoardPhone",userPhone);
+        map.put("roomNum",roomNum);
+        map.put("contractTime",contractTime);
+        map.put("userIDBack",getImageToView(userIDBack));
+        map.put("userIDFront",getImageToView(userIDFront));
+        map.put("userSign",getImageToView(userSign));
         //TODO:
         HttpMethods.getInstance().signContractAction(new BaseObserver<BrokenUp>() {
             @Override
@@ -245,13 +275,14 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
                 BrokenUp houseDetil= (BrokenUp) t;
                 Log.e("getData","执行joinFamily方法返回"+houseDetil.getMessage());
                 System.out.println(t.getMessage()+"");
+                Toast.makeText(CommitIdActivity.this, houseDetil.getMessage(), Toast.LENGTH_SHORT).show();
                 //adapter.addAll(viewDataBeanList);
             }
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },buildingID,roomId,userPhone,other,idDetails.getId(),idDetails.getName(),userPhone,roomNum,contractTime);
+        },map);
     }
 
     //一般的Dialog
@@ -363,7 +394,36 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
         String str = formatter.format(curDate);
         return str;
     }
+    private String getImageToView(String filePhat) {
+        String headimage = null;
 
+        Bitmap photo = BitmapFactory.decodeFile(filePhat);
+
+        try {
+            /**
+             * 下面注释的方法是将裁剪之后的图片以Base64Coder的字符方式上
+             */
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+            photo.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] b = stream.toByteArray();
+            // 将图片流以字符串形式存储下来
+            headimage = Base64.encodeToString(b, Base64.DEFAULT);
+            // image = new String(Base64Coder.encodeLines(b));
+            //System.err.println(headimage);
+            stream.close();
+            // 这个地方给服务器上传图片的实现，直接把image直接上传就可以了，
+            // 如果下载到的服务器的数据还是以Base64Coder的形式的话，可以用以下方式转换
+            // 为我们可以用的图片类型
+            // Bitmap dBitmap = BitmapFactory.decodeFile(photo);
+            // drawable = new BitmapDrawable(dBitmap);
+            // //////////////////////////////////
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return headimage;
+    }
     private String APP_ID = "10140989";
     private String SECRET_ID = "AKIDEH9m9G3oEjz0qRIukOo6C4j9JhsqpATX";
     private String SECRET_KEY = "zmMkuqZO1RdaJowviGZcQ3UhhU7WjiSH";

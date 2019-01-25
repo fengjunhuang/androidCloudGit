@@ -14,7 +14,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by Mr.Jude on 2015/2/22
  */
-public class MessageOtherViewHolder extends BaseViewHolder<MessageOther.ViewDataBean> {
+public class MessageOtherViewHolder extends BaseViewHolder<MessageOther.LandlordNewListBean> {
     private TextView name;
     private TextView time;
 
@@ -27,9 +27,13 @@ public class MessageOtherViewHolder extends BaseViewHolder<MessageOther.ViewData
     }
 
     @Override
-    public void setData(final MessageOther.ViewDataBean person){
-        name.setText(person.getContractName());
-        time.setText(person.getContractTime());
+    public void setData(final MessageOther.LandlordNewListBean person){
+        if (person.getType().equals("4")) {
+         name.setText(person.getMessageContract());
+        }else {
+         name.setText(person.getMessageTitle());
+        }
+        time.setText(person.getCreateTime());
 
         //name.setText(person.getName());
     }

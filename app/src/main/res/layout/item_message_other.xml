@@ -12,7 +12,6 @@
         android:id="@+id/tv_message"
         android:text="家庭1"
         android:textSize="15sp"
-        android:lines="1"
         android:layout_width="match_parent"
         android:textColor="@color/light_black"
         android:layout_height="wrap_content" />

@@ -72,7 +72,6 @@ public class ContractDetailsActivity extends BaseActivity {
                 intent.putExtra("buildingID",bean.getCellBuildID());
                 intent.putExtra("roomId",bean.getRoomID());
                 intent.putExtra("roomNum",bean.getRoomNumber());
-                intent.putExtra("roomNum",bean.getRoomNumber());
                 intent.putExtra("contractTime",contractTime);
                 startActivity(intent);
             }
