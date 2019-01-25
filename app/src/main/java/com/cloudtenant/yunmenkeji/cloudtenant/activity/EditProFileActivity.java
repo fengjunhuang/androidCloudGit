@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MyFamliyAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.IconUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserinfoBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
@@ -39,10 +40,13 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -277,12 +281,12 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
 
             }break;
             case R.id.ll_commit:{
-//                getUserMessage();
+                getUserMessage();
                 if (basePic!=null) {
                     upPic();
                 }else {
+                    joinFamily();
                 }
-                joinFamily();
             }break;
             case R.id.civ_icon:{
                 selectImage();
@@ -308,14 +312,18 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
     }
 
     private void upPic() {
+        Map<String,String> map = new HashMap<String, String>();
+        map.put("phone",userPhone);
+        map.put("base64Pic",basePic);
         try {
-            HttpMethods.getInstance().upImages(new BaseObserver<BrokenUp>() {
+            HttpMethods.getInstance().upImages(new BaseObserver<IconUp>() {
                 @Override
                 protected void onSuccees(BaseBean t) throws Exception {
-                    BrokenUp houseDetil= (BrokenUp) t;
+                    IconUp houseDetil= (IconUp) t;
                     Log.e("getData","执行joinFamily方法返回"+houseDetil.getResult());
-                    System.out.println(t.getMessage()+"");
                     Toast.makeText(EditProFileActivity.this, houseDetil.getMessage(), Toast.LENGTH_SHORT).show();
+                    userinfoBean.setUserIcon(houseDetil.getNewImageURL());
+                    UserLocalData.putUser(EditProFileActivity.this,userinfoBean);
                     /*userinfoBean.setUserName(userName);
                     userinfoBean.setUserBirthday(userBirthday);
                     userinfoBean.setUserConstellation(userConstellation);
@@ -334,7 +342,7 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
                     System.out.print("1111111111111111");
 
                 }
-            },userPhone, basePic);
+            },map);
         } catch (Exception e) {
             e.printStackTrace();
         }

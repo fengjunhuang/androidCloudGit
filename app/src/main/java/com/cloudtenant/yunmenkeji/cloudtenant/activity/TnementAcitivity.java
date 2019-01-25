@@ -243,6 +243,8 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
             tnementBean.setRoomSquare(bean.getRoomSquare());
             tnementBean.setRoomMoney(bean.getRoomMoney());
             tnementBean.setRoomSet(bean.getRoomSet());
+            tnementBean.setCellBuildID(bean.getRoomBuildingID());
+            tnementBean.setRoomID(bean.getRoomID());
             tnementBean.setContract(var1.getString("contract"));
             roomId= bean.getRoomID();
             List<RoomMoreImageArrBean> list=new ArrayList<>();

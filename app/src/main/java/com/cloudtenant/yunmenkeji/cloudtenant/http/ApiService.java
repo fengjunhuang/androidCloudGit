@@ -4,6 +4,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.http;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BuildingInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.IconUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyCollection;
@@ -26,7 +27,11 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.SensorCycleModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.SensorModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.StarAdModel;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -94,10 +99,13 @@ public interface ApiService {
                                       @Query("row") String row,
                                       @Query("phone") String phone
     );
+
     //上传合同,注意:这里须要用data形式上传,以保证图片质量
     @POST("chl/sign/contract/save")
+    @FormUrlEncoded
     Observable<BrokenUp> signContractAction(
-            @Query("buildingID") String buildingID,
+            @FieldMap Map<String,String> map
+            /*@Query("buildingID") String buildingID,
             @Query("roomId") String roomId,
             @Query("userPhone") String userPhone,
             @Query("other") String other,//这里是多个其他人的model转成string形式的json字符串
@@ -105,7 +113,7 @@ public interface ApiService {
             @Query("name") String name,
             @Query("landLoardPhone") String landLoardPhone,
             @Query("roomNum") String roomNum,
-            @Query("contractTime") String contractTime
+            @Query("contractTime") String contractTime*/
     );
 
     //加入到家庭组
@@ -161,7 +169,7 @@ public interface ApiService {
     );
     //获取浏览记录列表
     @POST("chl/user/experience/getBrowsingHistory")
-    Observable<CollectionAndReViewModel> getReviewList(
+    Observable<MyCollection> getReviewList(
             @Query("phone") String phone,
             @Query("landingPhone") String landingPhone
     );
@@ -186,9 +194,9 @@ public interface ApiService {
     //    @POST("/chl/tenant/account/updateMessage")
 //    Observable<HouseDetil> updateMessage(@Query("page") String page, @Query("row") String rows, @Query("longitdue") String longitdue, @Query("latitude") String latitude);
     @POST("/chl/tenant/account/upImages")
-    Observable<BrokenUp> upImages(
-            @Query("phone") String userPhone,
-            @Query("base64Pic") String base64Pic
+    @FormUrlEncoded
+    Observable<IconUp> upImages(
+            @FieldMap Map<String,String> map
     );
     @POST("/chl/sign/contract/getContractPic")
     Observable<MyContract> myContract(
@@ -327,14 +335,14 @@ public interface ApiService {
     //消息模块
     //楼宇公告
     @POST("chl/buildings/findAdviceByPhone")
-    Observable<MessageNoticeModel> getBuildingNotice
+    Observable<MessageSave> getBuildingNotice
     (
             @Query("phone") String phone,
             @Query("landingPhone") String landingPhone
     );
     //其他消息/支付消息
     @POST("chl/sign/contract/findLandlordNew")
-    Observable<BrokenUp> getOrderMessageAndPaMessage(//model还没做
+    Observable<MessageOther> getOrderMessageAndPaMessage(//model还没做
                                                      @Query("phone") String phone,
                                                      @Query("landingPhone") String landingPhone,
                                                      @Query("type") String type

@@ -2,7 +2,9 @@ package com.cloudtenant.yunmenkeji.cloudtenant.fragment;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -23,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -51,6 +54,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.JSONUtil;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.PreferencesUtils;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.SpacesItemDecoration;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
 import com.daimajia.slider.library.SliderLayout;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -112,6 +116,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
     private LinearLayout.LayoutParams linearParams;
     private int scrolledDistance = 0;
     private Button tv_common, tv_map;
+    private String phone;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -211,7 +216,8 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                     switch (qr.getQrType()) {
                         case join:{
                             Log.e("getData","解析成功qrtype=1>>>开始执行joinFamily方法");
-                            joinFamily();
+                            //joinFamily(qr.getFamilyID());
+                            normalDialog(qr.getFamilyID());
                         }break;
                         case roominfo:{
                             openActivity(qr.getCellRoomID());
@@ -224,7 +230,36 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             }
         }
     }
+    String name,id;
+    //一般的Dialog
+    public void normalDialog(final String s){
+        final View dialogView = LayoutInflater.from(mContext)
+                .inflate(R.layout.view_dialog,null);
+        AlertDialog.Builder bulider =new AlertDialog.Builder(mContext);
+        bulider.setTitle("请填写您的基础资料").setView(dialogView);
 
+
+        bulider.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int arg1) {
+                EditText et_name = dialogView.findViewById(R.id.edit_text_name);
+                EditText et_id =  dialogView.findViewById(R.id.edit_text_id);
+                name=et_name.getText().toString();
+                id=et_id.getText().toString();
+                joinFamily(s,id,name);
+                dialog.dismiss();
+            }
+        });
+        bulider.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int arg1) {
+                // TODO Auto-generated method stub
+                dialog.dismiss();
+            }
+        });
+        bulider.create().show();
+    }
     private void openActivity(String roomid) {
         Bundle bundle =new Bundle();
         bundle.putBoolean("isMap",true);
@@ -241,9 +276,9 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
     @Override
     protected View initContentView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle bundle) {
         PreferencesUtils.putBoolean(getActivity(),"isShow",true);
-
         View view=inflater.inflate(R.layout.fragment_house,container,false);
         mContext=getActivity();
+        phone= UserLocalData.getUser(mContext).getUserPhone();
         tv_location =view. findViewById(R.id.tv_location);
         ll_tor_bar =view. findViewById(R.id.ll_top_bar);
         linearParams= (LinearLayout.LayoutParams) ll_tor_bar.getLayoutParams();
@@ -562,33 +597,29 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                 } else {
                     adapter.stopMore();
                 }
-
             }
-
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
             }
-
-
         },page+"",row+"",longitude+"",latitude+"","","","","","","","","","");
     }
 
-    private void joinFamily() {
+    private void joinFamily(String roomId,String idCard,String name) {
         //TODO:
-//        HttpMethods.getInstance().joinFamily(new BaseObserver<BrokenUp>() {
-//            @Override
-//            protected void onSuccees(BaseBean t) throws Exception {
-//                BrokenUp houseDetil= (BrokenUp) t;
-//                Log.e("getData","执行joinFamily方法返回"+houseDetil.getMessage());
-//                System.out.println(t.getMessage()+"");
-//                Toast.makeText(getActivity(), houseDetil.getMessage(), Toast.LENGTH_SHORT).show();
-//                //adapter.addAll(viewDataBeanList);
-//            }
-//            @Override
-//            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-//
-//            }
-//        },"");
+        HttpMethods.getInstance().joinFamily(new BaseObserver<BrokenUp>() {
+            @Override
+            protected void onSuccees(BaseBean t) throws Exception {
+                BrokenUp houseDetil= (BrokenUp) t;
+                Log.e("getData","执行joinFamily方法返回"+houseDetil.getMessage());
+                System.out.println(t.getMessage()+"");
+                Toast.makeText(getActivity(), houseDetil.getMessage(), Toast.LENGTH_SHORT).show();
+                //adapter.addAll(viewDataBeanList);
+            }
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+            }
+        },roomId,phone,idCard,name,phone);
     }
 
 

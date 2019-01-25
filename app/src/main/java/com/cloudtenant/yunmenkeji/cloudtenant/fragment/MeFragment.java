@@ -23,6 +23,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.activity.ContractActivity;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.LoginActivity_;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MyCollectionActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.MyReviewActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.SensorActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.EditProFileActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MyFamilyActivity;
@@ -102,6 +103,13 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                     startActivity(new Intent(getActivity(), LoginActivity_.class));
                 }
             }break;
+            case R.id.rl_reviewHistory:{
+                if (isLogin) {
+                    startActivity(new Intent(getActivity(), MyReviewActivity.class));
+                }else {
+                    startActivity(new Intent(getActivity(), LoginActivity_.class));
+                }
+            }break;
             case R.id.rl_icon:{
                 if (isLogin) {
                     startActivity(new Intent(getActivity(), EditProFileActivity.class));
@@ -153,6 +161,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         view.findViewById(R.id.rl_request).setOnClickListener(this);
         view.findViewById(R.id.rl_icon).setOnClickListener(this);
         view.findViewById(R.id.rl_collection).setOnClickListener(this);
+        view.findViewById(R.id.rl_reviewHistory).setOnClickListener(this);
         userName=view.findViewById(R.id.userName);
         tv_cache=view.findViewById(R.id.tv_cache);
         tv_username=view.findViewById(R.id.tv_username);

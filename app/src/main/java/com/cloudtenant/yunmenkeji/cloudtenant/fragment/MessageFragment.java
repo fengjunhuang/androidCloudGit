@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MessageOtherActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.MessagePayActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MessageRoomActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.RequestActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.ContractAdapter;
@@ -79,6 +80,9 @@ public class MessageFragment extends YzsBaseListFragment<HouseDetil> implements 
                     }break;
                     case 1: {
                         startActivity(new Intent(getActivity(), MessageOtherActivity.class));
+                    }break;
+                    case 2: {
+                        startActivity(new Intent(getActivity(), MessagePayActivity.class));
                     }break;
                 }
             }

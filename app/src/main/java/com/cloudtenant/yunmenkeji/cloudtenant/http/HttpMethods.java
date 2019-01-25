@@ -5,6 +5,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.http;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BuildingInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.IconUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyCollection;
@@ -29,6 +30,8 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.SensorModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.NewBaseObserver;
+
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -117,8 +120,8 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void upImages(BaseObserver<BrokenUp> observer, String userPhone,String base64Pic){
-        apiService.upImages(userPhone,base64Pic).subscribeOn(Schedulers.io())
+    public void upImages(BaseObserver<IconUp> observer, Map<String,String> map){
+        apiService.upImages(map).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -262,8 +265,8 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void signContractAction(BaseObserver<BrokenUp> observer, String buildingID,String roomId,String userPhone,String other,String IDNum,String name,String landLoardPhone,String roomNum,String contractTime){
-        apiService.signContractAction(buildingID, roomId, userPhone, other, IDNum, name, landLoardPhone, roomNum, contractTime).subscribeOn(Schedulers.io())
+    public void signContractAction(BaseObserver<BrokenUp> observer,Map<String,String> map){
+        apiService.signContractAction(map).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -298,7 +301,7 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void getReviewList(BaseObserver<BrokenUp> observer, String phone,String landingPhone){
+    public void getReviewList(BaseObserver<MyCollection> observer, String phone,String landingPhone){
         apiService.getReviewList(phone, landingPhone).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -382,13 +385,13 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void getBuildingNotice(BaseObserver<MessageNoticeModel> observer, String phone, String landingPhone){
+    public void getBuildingNotice(BaseObserver<MessageSave> observer, String phone, String landingPhone){
         apiService.getBuildingNotice(phone, landingPhone).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void getOrderMessageAndPaMessage(BaseObserver<BrokenUp> observer, String phone,String landingPhone,String type){
+    public void getOrderMessageAndPaMessage(BaseObserver<MessageOther> observer, String phone,String landingPhone,String type){
         apiService.getOrderMessageAndPaMessage(phone, landingPhone, type).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
