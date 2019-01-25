@@ -26,10 +26,12 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo1;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.BillHistoryModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.ImageText;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.NewBaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.SensorModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.NewBaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
@@ -83,7 +85,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
     private  int index;
     private  RoomModel roomModel;
     private List<Map<String, Object>> riskAreaList = null;
-
+    private BillHistoryModel billListModel;
     @Override
     protected void initItemLayout() {
         setLayoutResId(R.layout.item_safe_sensor);
@@ -185,22 +187,22 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
 
 
     private void request() {
-
-
-
-        /*HttpMethods.getInstance().findRoomMessageByPhone(new BaseObserver<RoomModel>() {
+        HttpMethods.getInstance().findRoomMessageByPhone(new BaseObserver<RoomModel>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
                 roomModel=(RoomModel) t;
-                  tv_fangzu.setText("房租\n"+ roomModel.getViewData().get(0).getMyRoomRent());
-                tv_dianfei.setText("电费\n"+ roomModel.getViewData().get(0).getMyRoomPower());
+                tv_title.setText(roomModel.getViewData().get(0).getMyRoomName());
+                tv_dianfei.setText("电费\n"+roomModel.getViewData().get(0).getMyRoomPower());
                 tv_shuifei.setText("水费\n"+roomModel.getViewData().get(0).getMyRoomWater());
-
-                tv_qita.setText("其他\n"+roomModel.getViewData().get(0).getMyRoomTem());
+                tv_fangzu.setText("房租\n"+roomModel.getViewData().get(0).getMyRoomRent());
+                int num = Integer.parseInt(roomModel.getViewData().get(0).getMyRoomMan())+ Integer.parseInt(roomModel.getViewData().get(0).getMyRoomNet())+Integer.parseInt(roomModel.getViewData().get(0).getMyRoomServiceCharge());
+                tv_qita.setText("其他\n"+String.valueOf(num));
                 tv_result.setText("支付\n"+roomModel.getViewData().get(0).getMyRoomTotal());
+
 //                for(Double water:((RoomModel) t).getViewData().get(0).getMyRoomWaterArr()){
 //                    entries.add(new Entry(((RoomModel) t).getViewData().get(0).getMyRoomWaterArr().indexOf(water),water.floatValue()));
 //                }
+//                tv_name.setText("1111111111111111111111");
                 for(int i=0;i<((RoomModel) t).getViewData().get(0).getMyRoomWaterArr().size();i++){
                     entries.add(new Entry(i,((RoomModel) t).getViewData().get(0).getMyRoomWaterArr().get(i).floatValue()));
                 }
@@ -210,9 +212,46 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
                 }
 
                 initMpChat(entries,entries1,6);
+//                mAdapter.addData(roomModel.getViewData().get(0).getMyRoomSensorList());
 
-                mAdapter.addData(roomModel.getViewData().get(0).getMyRoomSensorList());
-                mLoading.dimssDoading();
+//查询未完成订单
+                HttpMethods.getInstance().getNoCompleteBill(new BaseObserver<BillHistoryModel>() {
+                    @Override
+                    protected void onSuccees(BaseBean t) throws Exception {
+                        billListModel = (BillHistoryModel) t;
+
+                        if (((BillHistoryModel) t).getViewData().size()>0)
+                        {
+                            //界面数据处理
+                        }
+                        else
+                        {
+                            //同上
+                        }
+//查找传感器列表
+                        HttpMethods.getInstance().getRoomSensorList(new BaseObserver<SensorModel>() {
+                            @Override
+                            protected void onSuccees(BaseBean t) throws Exception {
+                                //这里插入传感器数据
+                                if (((SensorModel) t).getViewData().size() == 0)
+                                {
+//没有传感器数据
+                                }
+                                else
+                                {
+                                    mAdapter.addData((RoomModel.ViewDataBean.MyRoomSensorListBean) ((SensorModel) t).getViewData());
+                                }
+                                mLoading.dimssDoading();
+                            }
+                            @Override
+                            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                            }
+                        },"13068893276",roomModel.getViewData().get(0).getMyRoomID());
+                    }
+                    @Override
+                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                    }
+                },"13068893276","13068893276",roomModel.getViewData().get(0).getMyRoomID());
             }
 
             @Override
@@ -221,39 +260,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
                 e.printStackTrace();
 
             }
-        },"13068893276");*/
-//        HttpMethods.getInstance().myRoom(new BaseObserver<MyRoom>() {
-//            @Override
-//            protected void onSuccees(BaseBean t) throws Exception {
-//                 myRoom=(MyRoom)t;
-//                  initRoomData(myRoom.getViewDataX().get(0));
-//
-//                for(Integer water:((MyRoom) t).getViewDataX().get(0).getMyRoomWaterArr()){
-//                    entries.add(new Entry(((MyRoom) t).getViewDataX().get(0).getMyRoomWaterArr().indexOf(water),water.floatValue()));
-//                }
-//                for(Integer power:((MyRoom) t).getViewDataX().get(0).getMyRoomPowerArr()){
-//                    entries1.add(new Entry(((MyRoom) t).getViewDataX().get(0).getMyRoomPowerArr().indexOf(power),power.floatValue()));
-//                }
-//                initMpChat(entries,entries1,6);
-//
-//                mAdapter.addData(myRoom.getViewDataX().get(0).getMyRoomSensorList());
-//                mLoading.dimssDoading();
-//
-//
-//            }
-//
-//            private void initRoomData(MyRoom.ViewDataBean viewDataBean) {
-//
-//
-//            }
-//
-//            @Override
-//            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-//                mLoading.showState();
-//
-//            }
-//        },"");
-    }
+        },"13068893276", "13068893276");
 
     private void initMpChat(List<Entry> entries, List<Entry> entries1, final int size) {
 
