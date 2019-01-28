@@ -146,7 +146,7 @@ public class ContractDetailsActivity extends BaseActivity {
         //msp.setSpan(new AbsoluteSizeSpan(80), 0, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         details.setText(msp);
-        HttpMethods.getInstance().BudingInfo(new BaseObserver<BudingInfo>() {
+       /* HttpMethods.getInstance().BudingInfo(new BaseObserver<BudingInfo>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
                 BudingInfo budingInfo= (BudingInfo) t;
@@ -162,6 +162,6 @@ public class ContractDetailsActivity extends BaseActivity {
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },"");
+        },"");*/
     }
 }

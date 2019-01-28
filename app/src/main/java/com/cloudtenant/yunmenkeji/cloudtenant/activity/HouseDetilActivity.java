@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
@@ -101,23 +102,31 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
                 bundle.putSerializable("bean",bean);
                 readyGo(RoutingActivity.class,bundle);*/
                 Intent intent=new Intent(HouseDetilActivity.this,RoutingActivity.class);
-                intent.putExtra("lat",bean.getCellLatitude());
-                intent.putExtra("longitude",bean.getCellLongitude());
+                Log.d("导航","lat="+lat);
+                Log.d("导航","longitude="+longitude);
+                intent.putExtra("lat",longitude);
+                intent.putExtra("longitude",lat);
                 startActivity(intent);
             }
         });
-        requset();
+
         getBundleExtras(getIntent().getExtras());
     }
     String con;
     private void requset() {
+        Log.d("BudingInfo","budingid="+bean.getCellBuildID());
         HttpMethods.getInstance().BudingInfo(new BaseObserver<BudingInfo>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
+
                 BudingInfo budingInfo= (BudingInfo) t;
                 con=budingInfo.getContract();
                viewDataX = budingInfo.getViewDataX();
                mAdapter.addData(viewDataX);
+               /* if (budingInfo.getResult().equals("true")) {
+                }else {
+                    Toast.makeText(mContext, budingInfo.getMessage(), Toast.LENGTH_SHORT).show();
+                }*/
 
 
             }
@@ -126,7 +135,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },"");
+        },bean.getCellBuildID(),"1","100","");
     }
 
     @Override
@@ -136,6 +145,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
         //setSmellText(bean.getCellAddress());
         lat=bean.getCellLatitude();
         longitude=bean.getCellLongitude();
+        requset();
     }
 
     @Override

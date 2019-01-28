@@ -1,5 +1,7 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.bean;
 
+import android.util.Log;
+
 import com.alibaba.fastjson.JSON;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.AESOperator;
@@ -15,6 +17,15 @@ public class UserInfo extends BaseBean{
     private String userinfo;
 
     public String getUserinfo() throws Exception {
+        //return userinfo;
+        if (!getResult().equals("false")) {
+
+        Log.d("替换前userinfo",userinfo);
+        userinfo=userinfo.replace("\n","");
+        Log.d("替换后userinfo",userinfo);
+        userinfo=userinfo.replace("\r;","");
+        Log.d("替换掉userinfo",userinfo);
+        }
         return AESOperator.getInstance().decrypt(userinfo);
     }
 

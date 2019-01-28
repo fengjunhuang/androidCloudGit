@@ -12,6 +12,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamily;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamilyData;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.NoticeHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo1;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
@@ -43,7 +44,7 @@ import retrofit2.http.Query;
 public class HttpMethods {
 
     private static final String BASE_URL1 = "http://5ae10bf1ee98370014cf2455.mockapi.io/";
-    private static final String BASE_URL = "http://123.207.91.208:80/";
+    public static final String BASE_URL = "http://123.207.91.208:80/";
     private static final int TIME_OUT=4;
     private Retrofit retrofit;
     private ApiService apiService;
@@ -87,8 +88,8 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void login(BaseObserver<UserInfo> observer, String type, String userPhone,String pwd){
-        apiService.login(type,userPhone,pwd).subscribeOn(Schedulers.io())
+    public void login(BaseObserver<UserInfo> observer, String type, String userPhone,String pwd,boolean isLogin,String registrationID){
+        apiService.login(type,userPhone,pwd,isLogin,registrationID).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -118,15 +119,38 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void findRoomMessageByPhone(BaseObserver<RoomModel> observer,RequestModel phone){
+    public void feedbackProblem(BaseObserver<BrokenUp> observer, String userPhone,String content){
+        apiService.feedbackProblem(userPhone,content).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void upStatus(BaseObserver<BrokenUp> observer, String phone,String status,String type){
+        apiService.upStatus(phone,status,type).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void updatePassword(BaseObserver<BrokenUp> observer, String userPhone,String newPassword){
+        apiService.updatePassword(userPhone,newPassword).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public void findRoomMessageByPhone(BaseObserver<RoomModel> observer, String phone){
         apiService.findRoomMessageByPhone(phone).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
 
-    public void roomInfo(BaseObserver<RoomInfo> observer, String aa){
-        apiService.roomInfo().subscribeOn(Schedulers.io())
+    public void roomInfo(BaseObserver<RoomInfo> observer, String roomId){
+        apiService.roomInfo(roomId).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }public void roomInfo1(BaseObserver<RoomInfo1> observer, String roomId,String phone){
+        apiService.roomInfo1(roomId,phone).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -152,8 +176,8 @@ public class HttpMethods {
                 .subscribe(observer);
 
     }
-    public void myContract(BaseObserver<MyContract> observer, String aa){
-        apiService.myContract().subscribeOn(Schedulers.io())
+    public void myContract(BaseObserver<MyContract> observer, String phone){
+        apiService.myContract(phone).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -215,15 +239,15 @@ public class HttpMethods {
 
     }
 
-    public void BudingInfo(BaseObserver<BudingInfo> observer, String aa){
-        apiService.BudingInfo().subscribeOn(Schedulers.io())
+    public void BudingInfo(BaseObserver<BudingInfo> observer, String orderId,String page,String row,String phone){
+        apiService.BudingInfo(orderId,page,row,phone).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
+    }
 
 
-    }
-    }
+}
 
 
 

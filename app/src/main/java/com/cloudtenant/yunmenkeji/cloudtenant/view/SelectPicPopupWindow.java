@@ -31,7 +31,7 @@ public class SelectPicPopupWindow extends PopupWindow {
 	private ImageView imageView;
 	private View mMenuView;
 	@SuppressLint("InflateParams")
-	public SelectPicPopupWindow(Context context, OnClickListener itemsOnClick,int type) {
+	public SelectPicPopupWindow(Context context, OnClickListener itemsOnClick,String type) {
 		super(context);
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -46,7 +46,7 @@ public class SelectPicPopupWindow extends PopupWindow {
 		takePhotoBtn.setOnClickListener(itemsOnClick);
 
 
-		if (type==1) {
+		if (type.equals("1")) {
 			pickPhotoBtn.setText("撤销退房申请");
 		}else {
 			pickPhotoBtn.setText("申请退房");

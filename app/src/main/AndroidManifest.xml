@@ -85,10 +85,8 @@
 
             />
         <activity android:name=".activity.LoginActivity_"
-
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"
-
             />
         <activity android:name=".activity.HouseDetilActivity"
 
@@ -128,10 +126,7 @@
 
             />
         <activity android:name=".activity.MpChartActivity"
-
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-
-
             />
         <activity android:name=".activity.OnlineVisitAcivity"
 
@@ -142,6 +137,9 @@
         <activity
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".activity.AboutActivity" />
+        <activity
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".activity.WebVActivity" />
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".activity.RequestActivity" />
         <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"

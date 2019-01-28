@@ -58,7 +58,7 @@ public class ContractViewHolder extends BaseViewHolder<MyContract.ViewDataBean> 
         }
         stute_ing.setVisibility(View.GONE);
         stute_confirm.setVisibility(View.GONE);
-        if (person.getContractType()==1) {
+        if (person.getContractType().equals("1")) {
             stute_ing.setVisibility(View.VISIBLE);
         }else {
             stute_confirm.setVisibility(View.VISIBLE);

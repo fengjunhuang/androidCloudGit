@@ -169,7 +169,6 @@
                 <TextView
                     android:id="@+id/tv_interest"
                     style="@style/edit_pro_text_style"
-                    android:layout_width="160dp"
                     android:text="篮球"
                     android:layout_alignParentRight="true"
                     />

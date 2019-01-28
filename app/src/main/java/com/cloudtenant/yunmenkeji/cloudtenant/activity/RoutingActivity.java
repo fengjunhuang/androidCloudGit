@@ -209,6 +209,11 @@ public class RoutingActivity extends YzsBaseActivity  implements TencentLocation
     protected void getDrivePlan() {
         TencentSearch tencentSearch = new TencentSearch(this);
         DrivingParam drivingParam = new DrivingParam();
+
+        Log.e("searchdemo", "getDrivePlan> startLat="+startLat);
+        Log.e("searchdemo", "getDrivePlan> startLongitude="+startLongitude);
+        Log.e("searchdemo", "getDrivePlan> lat="+lat);
+        Log.e("searchdemo", "getDrivePlan> longitude="+longitude);
         drivingParam.from(new com.tencent.lbssearch.object.Location(Float.parseFloat(startLat),Float.parseFloat(startLongitude)));
         drivingParam.to(new com.tencent.lbssearch.object.Location(Float.parseFloat(lat),Float.parseFloat(longitude)));
         //策略
@@ -310,8 +315,11 @@ public class RoutingActivity extends YzsBaseActivity  implements TencentLocation
     @Override
     protected void getBundleExtras(Bundle bundle) {
         bean = (HouseDetil.ViewDataBean) bundle.getSerializable("bean");
-        lat=bean.getCellLatitude();
-        longitude=bean.getCellLongitude();
+        //lat=bean.getCellLatitude();
+        //longitude=bean.getCellLongitude();
+        lat=bean.getCellLongitude();
+        longitude=bean.getCellLatitude();
+
         Log.e("location", "lat="+lat+">>>>>longitude="+longitude);
 
     }

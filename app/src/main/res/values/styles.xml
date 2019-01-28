@@ -146,12 +146,12 @@
     </style>
 
     <style name="contract_text_style">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">13sp</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:layout_width">25dp</item>
-        <item name="android:layout_height">25dp</item>
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
     </style>
 
 
