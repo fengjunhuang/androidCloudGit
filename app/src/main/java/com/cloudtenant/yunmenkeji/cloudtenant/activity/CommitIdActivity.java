@@ -69,6 +69,7 @@ import dmax.dialog.SpotsDialog;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -199,7 +200,8 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
                     if (idDetails.getErrorcode()==0){
                         mDialog.show();
                         other=JSONUtil.toJSON(list);
-                        commit();
+                       // commit();
+                        Test(userIDBack,userIDFront,userSign);
                     }else {
                         normalDialog1("身份证照片不正确，无法获取身份信息！请重新上传");
                     }
@@ -252,6 +254,74 @@ public class CommitIdActivity extends BaseActivity implements View.OnClickListen
                 //iv_verso.setImageBitmap(BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getPath() + "/idServo.jpg"));
             }
         }
+    }
+    public static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
+    public void Test(String userIDBack, String userIDFront, String imagePath){
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        File fUserIDBack = new File(userIDBack);
+        File fUserIDFront = new File(userIDFront);
+        File fUserSign = new File(imagePath);
+
+            builder.addFormDataPart("userSign", fUserIDFront.getName(), RequestBody.create(MEDIA_TYPE_PNG, fUserIDFront));
+            builder.addFormDataPart("userIDBack", fUserIDFront.getName(), RequestBody.create(MEDIA_TYPE_PNG, fUserIDFront));
+            builder.addFormDataPart("userIDFront", fUserIDFront.getName(), RequestBody.create(MEDIA_TYPE_PNG, fUserIDFront));
+            builder.addFormDataPart("userContract", fUserIDFront.getName(), RequestBody.create(MEDIA_TYPE_PNG, fUserIDFront));
+            builder.addFormDataPart("userPhone",userPhone);
+            builder.addFormDataPart("buildingID", buildingID);
+            builder.addFormDataPart("roomId", roomId);
+            builder.addFormDataPart("other", other);
+            builder.addFormDataPart("IDNum", idDetails.getId());
+            builder.addFormDataPart("name", idDetails.getName());
+            builder.addFormDataPart("landLoardPhone", userPhone);
+            builder.addFormDataPart("roomNum", roomNum);
+            builder.addFormDataPart("contractTime", contractTime);
+
+
+        OkHttpClient client = new OkHttpClient();
+        MultipartBody requestBody = builder.build();
+
+        //构建请求
+        Request request = new Request.Builder()
+                .url(HttpMethods.BASE_URL+"chl/sign/contract/save")//地址
+                .post(requestBody)//添加请求体
+                .build();
+        mDialog.show();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("网络请求", "上传失败" + e.getLocalizedMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, okhttp3.Response response) throws IOException {
+                mDialog.dismiss();
+                String resultValue = response.body().string();
+                Log.e("网络请求", "上传照片成功" + resultValue);
+                /*final Ad uploadImg = JSONUtil.fromJson(resultValue, Ad.class);
+                Looper.prepare();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (uploadImg.getMsg().getCode() == 0) {
+                            Toast.makeText(RegSecondActivity.this, uploadImg.getMsg().getText(), Toast.LENGTH_SHORT).show();
+                            PreferencesUtils.putString(RegSecondActivity.this, "photoUrl", uploadImg.getPhotoUrl());
+                            PreferencesUtils.putString(RegSecondActivity.this,"nickName",name);
+                            PreferencesUtils.putString(RegSecondActivity.this,"personSign",persign);
+                            PreferencesUtils.putString(RegSecondActivity.this,"sex",sex);
+                            PreferencesUtils.putString(RegSecondActivity.this,"address",adr);
+                            setResult(11);
+                            startActivity(new Intent(RegSecondActivity.this, MainActivity.class));
+                            finish();
+                        } else {
+                            Toast.makeText(RegSecondActivity.this, uploadImg.getMsg().getText(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                Looper.loop();*/
+            }
+
+        });
+
     }
 
     private void commit() {
