@@ -4,8 +4,10 @@ import android.content.Context;
 import android.os.Handler;
 import android.support.multidex.MultiDexApplication;
 
-//import me.shaohui.shareutil.ShareConfig;
-//import me.shaohui.shareutil.ShareManager;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.CrashHandler;
+import com.tsy.sdk.social.PlatformConfig;
+
+
 
 
 /**
@@ -21,7 +23,9 @@ public class BuoyApplication extends MultiDexApplication {
     protected static int mainThreadId;
     private static BuoyApplication mApp;
     private boolean isLongin=false;
-
+    private static final String WX_APPID = "1108121392";    //申请的wx appid
+    private static final String QQ_APPID = "1108046073";    //申请的qq appid
+    private static final String SINA_WB_APPKEY = "2794037332";       //申请的新浪微博 appkey
 
     public static synchronized BuoyApplication getInstance() {
         return mApp;
@@ -50,6 +54,7 @@ public class BuoyApplication extends MultiDexApplication {
         handler = new Handler();
         mainThreadId = android.os.Process.myTid();
         mApp=this;
+        CrashHandler.getInstance().init(this);
 //        ShareConfig config = ShareConfig.instance()
 //                .qqId(QQ_ID)
 //                .wxId(WX_ID)
@@ -59,7 +64,9 @@ public class BuoyApplication extends MultiDexApplication {
 //                .wxSecret(WX_ID);
 //        ShareManager.init(config);
 
-
+        PlatformConfig.setWeixin(WX_APPID);
+        PlatformConfig.setQQ(QQ_APPID);
+        PlatformConfig.setSinaWB(SINA_WB_APPKEY);
     }
 
     /**

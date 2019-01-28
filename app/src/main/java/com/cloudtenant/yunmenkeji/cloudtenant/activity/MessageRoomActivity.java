@@ -32,9 +32,11 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.MessageNoticeModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.OnItemClickLitener;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.Solve7PopupWindow;
 import com.gersion.library.base.BaseActivity;
@@ -60,6 +62,7 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
     private ArrayAdapter<String> arrayAdapter;
     private Spinner spinner;
     private String telephone="tel:10086";
+    private String phone;
     private List<String> list=new ArrayList<>();
     //private TextView tvAllArea;
     //private OkHttpHelper ok=OkHttpHelper.getInstance();
@@ -102,6 +105,7 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
                         }).start();
             }
         });
+        phone= UserLocalData.getUser(this).getUserPhone();
         spinner=findViewById(R.id.room_spinner);
         mImageView=findViewById(R.id.tvAllArea);
         tvRiskArea=findViewById(R.id.tvRiskArea);
@@ -160,7 +164,7 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
             public void onItemClick(View view, int position) {
                 int iTag= (int) riskAreaList.get(position).get("tvAreaNo");
                 riskAreaList.get(position).put("tvAreaNo",iTag+2);
-                tvTitle.setText(viewDataBeanList.get(position).getMessageRoomName());
+                tvTitle.setText(viewDataBeanList.get(position).getMessageBuildingName());
                 adapter.removeAll();
                 adapter.addAll(viewDataBeanList.get(position).getMessageArray());
                 telephone="tel:"+viewDataBeanList.get(position).getMessageLandlordPhone();
@@ -204,21 +208,22 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
     }
     List<MessageSave.ViewDataBean> viewDataBeanList;
     public void getData() {
-        HttpMethods.getInstance().messageSave(new BaseObserver<MessageSave>() {
+        //TODO
+        HttpMethods.getInstance().getBuildingNotice(new BaseObserver<MessageSave>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
                 MessageSave houseDetil= (MessageSave) t;
 
                 System.out.println(houseDetil.getViewData()+"");
-                viewDataBeanList=houseDetil.getViewDataX();
+                viewDataBeanList=houseDetil.getViewData();
 
-                Log.e("viewDataBeanList",viewDataBeanList.get(0).getMessageRoomName());
-                tvTitle.setText(viewDataBeanList.get(0).getMessageRoomName());
+                Log.e("viewDataBeanList",viewDataBeanList.get(0).getMessageBuildingName());
+                tvTitle.setText(viewDataBeanList.get(0).getMessageBuildingName());
                 riskAreaList = new ArrayList<Map<String, Object>>();
                 Map<String,Object> map ;
                 for (int i = 0; i < viewDataBeanList.size(); i++) {
                     map = new HashMap<String, Object>();
-                    map.put("tvAreaItem", viewDataBeanList.get(i).getMessageRoomName());
+                    map.put("tvAreaItem", viewDataBeanList.get(i).getMessageBuildingName());
                     //红色图标是否显示
                     if (i==tag) {
                         map.put("tvAreaNo", tag+1);
@@ -227,14 +232,14 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
                     }
                     riskAreaList.add(map);
                 }
-                banData(houseDetil.getViewDataX());
+                banData(houseDetil.getViewData());
             }
 
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },"");
+        },phone,phone);
     }
 
     private void banData(List<MessageSave.ViewDataBean> houseDetil) {
@@ -242,7 +247,7 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
         adapter.addAll(viewDataBeanList.get(0).getMessageArray());
         telephone="tel:"+viewDataBeanList.get(0).getMessageLandlordPhone();
         for (int i = 0; i < houseDetil.size(); i++) {
-            list.add(houseDetil.get(i).getMessageRoomName());
+            list.add(houseDetil.get(i).getMessageBuildingName());
         }
         /*新建适配器*/
         arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,list);

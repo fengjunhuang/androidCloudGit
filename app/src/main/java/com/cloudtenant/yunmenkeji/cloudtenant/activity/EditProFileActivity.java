@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MyFamliyAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.IconUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserinfoBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
@@ -39,10 +40,13 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -170,9 +174,9 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
     private String userName,userSex,userBirthday,userConstellation,userJob,userFavourite,userPhone;
     private void initData() {
 
-            userinfoBean= UserLocalData.getUser(this);
-            assert userinfoBean != null;
-            String image= "http://123.207.91.208:80/"+userinfoBean.getUserIcon();
+        userinfoBean= UserLocalData.getUser(this);
+        assert userinfoBean != null;
+        String image= "http://123.207.91.208:80/"+userinfoBean.getUserIcon();
         userPhone=userinfoBean.getUserPhone();
         userName=userinfoBean.getUserName() ;
         userSex=userinfoBean.getUserSex() ;
@@ -180,17 +184,17 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
         userConstellation=userinfoBean.getUserConstellation() ;
         userJob=userinfoBean.getUserJob() ;
         userFavourite=userinfoBean.getUserFavourite() ;
-            if (userinfoBean.getUserIcon()!=null) {
-                Picasso.with(this).load(image).into(civ_icon);
-            }
-            et_nick_name.setText(userName);
-            tv_sex.setText(userSex);
+        if (userinfoBean.getUserIcon()!=null) {
+            Picasso.with(this).load(image).into(civ_icon);
+        }
+        et_nick_name.setText(userName);
+        tv_sex.setText(userSex);
 
         Log.d("initData","userBirthday="+userBirthday);
-            currentDate.setText(userBirthday);
-            tv_constellation.setText(userConstellation);
-            tv_job.setText(userJob);
-            tv_interest.setText(userFavourite);
+        currentDate.setText(userBirthday);
+        tv_constellation.setText(userConstellation);
+        tv_job.setText(userJob);
+        tv_interest.setText(userFavourite);
 
     }
     private String frontPath;
@@ -278,11 +282,11 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
             }break;
             case R.id.ll_commit:{
                 getUserMessage();
-                /*if (basePic!=null) {
+                if (basePic!=null) {
                     upPic();
                 }else {
-                }*/
                     joinFamily();
+                }
             }break;
             case R.id.civ_icon:{
                 selectImage();
@@ -308,14 +312,18 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
     }
 
     private void upPic() {
+        Map<String,String> map = new HashMap<String, String>();
+        map.put("phone",userPhone);
+        map.put("base64Pic",basePic);
         try {
-            HttpMethods.getInstance().upImages(new BaseObserver<BrokenUp>() {
+            HttpMethods.getInstance().upImages(new BaseObserver<IconUp>() {
                 @Override
                 protected void onSuccees(BaseBean t) throws Exception {
-                    BrokenUp houseDetil= (BrokenUp) t;
+                    IconUp houseDetil= (IconUp) t;
                     Log.e("getData","执行joinFamily方法返回"+houseDetil.getResult());
-                    System.out.println(t.getMessage()+"");
                     Toast.makeText(EditProFileActivity.this, houseDetil.getMessage(), Toast.LENGTH_SHORT).show();
+                    userinfoBean.setUserIcon(houseDetil.getNewImageURL());
+                    UserLocalData.putUser(EditProFileActivity.this,userinfoBean);
                     /*userinfoBean.setUserName(userName);
                     userinfoBean.setUserBirthday(userBirthday);
                     userinfoBean.setUserConstellation(userConstellation);
@@ -331,9 +339,10 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
 
                 @Override
                 protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                    System.out.print("1111111111111111");
 
                 }
-            },userPhone, AESOperator.getInstance().encrypt(basePic));
+            },map);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -429,17 +438,26 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
         jobList.add("营养师");
         jobList.add("演员");
         jobList.add("歌手");
+        jobList.add("文员");
+        jobList.add("销售");
+        jobList.add("健身教练");
+        jobList.add("司机");
         jobList.add("其他");
         jobPicker = new CustomSinglePicker(this, jobHandler,jobList,"选择职业"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         jobPicker.setIsLoop(false); // 允许循环滚动
 
         ArrayList<String> interestList=new ArrayList<>();
+        interestList.add("足球");
         interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-        interestList.add("篮球");
-
-        interestList.add("英雄联盟");
+        interestList.add("跆拳道");
+        interestList.add("射箭");
+        interestList.add("蹦极");
+        interestList.add("煮饭");
+        interestList.add("爬山");
+        interestList.add("画画");
+        interestList.add("骑单车");
+        interestList.add("睡懒觉");
+        interestList.add("羽毛球");
         interestDatePicker = new CustomSinglePicker(this, interestHandler,interestList,"选择兴趣"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         interestDatePicker.setIsLoop(false); // 允许循环滚动
 

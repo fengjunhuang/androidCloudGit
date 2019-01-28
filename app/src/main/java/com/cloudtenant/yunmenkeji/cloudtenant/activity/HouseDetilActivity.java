@@ -44,7 +44,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
             public void onClick(View view) {
                 Bundle bundle =new Bundle();
                 bundle.putSerializable("bean",bean);
-                    readyGo(ShareActivity.class,bundle);
+                readyGo(ShareActivity.class,bundle);
             }
         });
 
@@ -121,8 +121,8 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
 
                 BudingInfo budingInfo= (BudingInfo) t;
                 con=budingInfo.getContract();
-               viewDataX = budingInfo.getViewDataX();
-               mAdapter.addData(viewDataX);
+                viewDataX = budingInfo.getViewDataX();
+                mAdapter.addData(viewDataX);
                /* if (budingInfo.getResult().equals("true")) {
                 }else {
                     Toast.makeText(mContext, budingInfo.getMessage(), Toast.LENGTH_SHORT).show();
@@ -140,7 +140,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
 
     @Override
     protected void getBundleExtras(Bundle bundle) {
-       bean = (HouseDetil.ViewDataBean) bundle.getSerializable("bean");
+        bean = (HouseDetil.ViewDataBean) bundle.getSerializable("bean");
         setMainText(bean.getCellName());
         //setSmellText(bean.getCellAddress());
         lat=bean.getCellLatitude();

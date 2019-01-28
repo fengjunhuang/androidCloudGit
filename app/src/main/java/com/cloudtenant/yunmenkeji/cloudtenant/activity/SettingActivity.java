@@ -122,19 +122,19 @@ public class SettingActivity extends BaseActivity {
         }
     }
     private void goLogin() {
-        HttpMethods.getInstance().loginWithAuthorization(new BaseObserver<UserInfo>() {
+        /*HttpMethods.getInstance().loginWithAuthorization(new BaseObserver<UserInfo>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
                 UserInfo houseDetil= (UserInfo) t;
                 Log.d("onSuccees",houseDetil.getUserinfo());
 
-                /*UserinfoBean userinfoBean= JSONUtil.fromJson(houseDetil.getUserinfo(),UserinfoBean.class);
+                *//*UserinfoBean userinfoBean= JSONUtil.fromJson(houseDetil.getUserinfo(),UserinfoBean.class);
                 Log.d("onSuccees",userinfoBean.getUserName());
 
                 UserLocalData.putUser(LoginActivity.this,userinfoBean);
                 PreferencesUtils.putBoolean(LoginActivity.this,"isLogin",true);
                 readyGo(IndexActivity_.class);
-                LoginActivity.this.finish();*/
+                LoginActivity.this.finish();*//*
 
 
             }
@@ -142,6 +142,6 @@ public class SettingActivity extends BaseActivity {
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },"");
+        },"");*/
     }
 }

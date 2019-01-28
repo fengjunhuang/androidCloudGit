@@ -10,7 +10,6 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-
 /**
  * Created by Mr.Jude on 2015/2/22
  */
@@ -29,7 +28,7 @@ public class MyFamilyViewHolder extends BaseViewHolder<MyFamily.ViewDataBean> {
 
     @Override
     public void setData(final MyFamily.ViewDataBean person){
-        name.setText(person.getFamilyName());
+        name.setText(person.getRoomName());
 
         //name.setText(person.getName());
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@android:color/white"
     android:layout_width="match_parent"
@@ -41,7 +42,9 @@
                 android:layout_width="12dp"
                 android:layout_height="12dp" />-->
             <TextView
+                style="@style/click"
                 android:text="提 交"
+                android:id="@+id/tv_commit"
                 android:textColor="@android:color/black"
                 android:textSize="11sp"
                 android:layout_marginLeft="3dp"
@@ -53,6 +56,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_phone"
         android:layout_marginTop="20dp"
         android:text="填写手机号码"
         android:textColor="@color/gray_cut_clorr"
@@ -60,6 +64,7 @@
         android:layout_height="wrap_content" />
     <EditText
         android:background="@null"
+        android:id="@+id/et_phone"
         android:layout_marginTop="10dp"
         android:textSize="11sp"
         android:textColor="@color/gren_cut_clorr"
@@ -148,63 +153,19 @@
         style="@style/match_line"/>
     <TextView
         style="@style/commit_id_tv_style"
-        android:text="上传签约人身份证"
+        android:text="上传其他人身份信息"
         />
     <LinearLayout
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <RelativeLayout
+        <com.jude.easyrecyclerview.EasyRecyclerView
+            android:id="@+id/recycler_view"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="80dp">
-            <ImageView
-                android:id="@+id/iv_other"
-                android:background="@color/gray1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_gravity="center"
-                    android:src="@drawable/image_nav_plus"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp" />
-            </LinearLayout>
-
-        </RelativeLayout>
-        <RelativeLayout
-            android:visibility="invisible"
-            android:layout_marginRight="20dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="80dp">
-            <ImageView
-                android:background="@color/gray1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:visibility="gone"
-                    android:layout_gravity="center"
-                    android:src="@drawable/image_nav_plus"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp" />
-                <TextView
-                    android:layout_marginTop="3dp"
-                    android:text="反 面"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </RelativeLayout>
+        </com.jude.easyrecyclerview.EasyRecyclerView>
 
     </LinearLayout>
     <View

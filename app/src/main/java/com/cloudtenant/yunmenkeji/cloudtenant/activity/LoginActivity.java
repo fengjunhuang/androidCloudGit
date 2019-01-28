@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BuildingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.UserinfoBean;
@@ -28,11 +29,15 @@ import com.cloudtenant.yunmenkeji.cloudtenant.util.PreferencesUtils;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.TimeCount;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
 import com.mob.MobSDK;
+import com.tsy.sdk.social.PlatformType;
+import com.tsy.sdk.social.SocialApi;
+import com.tsy.sdk.social.listener.AuthListener;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,6 +55,9 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
     private boolean isPwdLogin=false;
     private String pwd;
     private SpotsDialog mDialog;
+    private SocialApi mSocialApi;
+
+
     @Click(R.id.btn_login)
     void login(){
 
@@ -150,6 +158,8 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
         ll_one=findViewById(R.id.one);
         ll_two=findViewById(R.id.two);
 
+        mSocialApi = SocialApi.get(getApplicationContext());
+
         // 如果希望在读取通信录的时候提示用户，可以添加下面的代码，并且必须在其他代码调用之前，否则不起作用；如果没这个需求，可以不加这行代码
         MobSDK.init(this);
         //SMSSDK.setAskPermisionOnReadContact(true);
@@ -212,7 +222,84 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
         });
 
     }
+    /**
+     * 微信登录
+     */
+    @Click(R.id.iv_wechat)
+    public void onWXLogin() {
+        mSocialApi.doOauthVerify(this, PlatformType.WEIXIN , new MyAuthListener());
+    }
 
+    /**
+     * qq登录
+     */
+    @Click(R.id.iv_qq)
+    public void onQQLogin() {
+        mSocialApi.doOauthVerify(this, PlatformType.QQ, new MyAuthListener());
+    }
+
+    /**
+     * 新浪微博登录
+     */
+    @Click(R.id.iv_sina)
+    public void onSinaWBLogin() {
+        mSocialApi.doOauthVerify(this, PlatformType.SINA_WB, new MyAuthListener());
+    }
+    public class MyAuthListener implements AuthListener {
+        @Override
+        public void onComplete(PlatformType platform_type, Map<String, String> map) {
+            Toast.makeText(LoginActivity.this, platform_type + " login onComplete", Toast.LENGTH_SHORT).show();
+            Log.i("tsy", "login onComplete:" + map);
+            int type=0;
+            if(platform_type==PlatformType.WEIXIN){
+                type=1;
+
+            }
+            HttpMethods.getInstance().checkAuthorization(new BaseObserver<UserInfo>() {
+                @Override
+                protected void onSuccees(BaseBean t) throws Exception {
+
+                    UserInfo houseDetil= (UserInfo) t;
+                    if(houseDetil.getResult().equals("true")){
+                    Log.d("onSuccess",houseDetil.getUserinfo());
+                    String s=houseDetil.getUserinfo().substring(1,houseDetil.getUserinfo().length());
+                    String s1=s.substring(0,s.length()-1);
+
+                    Log.d("onSuccess","截取后的字段="+s1);
+                    UserinfoBean userinfoBean= JSONUtil.fromJson(s1,UserinfoBean.class);
+                    Log.d("onSuccees",userinfoBean.getUserName());
+
+                    UserLocalData.putUser(LoginActivity.this,userinfoBean);
+                    PreferencesUtils.putBoolean(LoginActivity.this,"isLogin",true);
+                    readyGo(IndexActivity_.class);
+                    LoginActivity.this.finish();
+                    }else {
+                        //手机未绑定
+
+                    }
+
+                }
+
+                @Override
+                protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+                }
+            },type+"","2222");
+
+        }
+
+        @Override
+        public void onError(PlatformType platform_type, String err_msg) {
+            Toast.makeText(LoginActivity.this, platform_type + " login onError:" + err_msg, Toast.LENGTH_SHORT).show();
+            Log.i("tsy", "login onError:" + err_msg);
+        }
+
+        @Override
+        public void onCancel(PlatformType platform_type) {
+            Toast.makeText(LoginActivity.this, platform_type + " login onCancel", Toast.LENGTH_SHORT).show();
+            Log.i("tsy", "login onCancel");
+        }
+    }
     private void goLogin() {
 
         Log.d("goLogin","电话号码=="+phone);
@@ -265,7 +352,6 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
                 Toast.makeText(LoginActivity.this, "您输入的手机号码格式不正确", Toast.LENGTH_SHORT).show();
                 return false;
             }else {
-
                 return true;
             }
     }

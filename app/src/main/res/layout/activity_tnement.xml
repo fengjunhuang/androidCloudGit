@@ -109,7 +109,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_width="wrap_content"
                                     android:textColor="@color/gray_cut_clorr"
-                                    android:text="10次"
+                                    android:text="0"
                                     android:textSize="11sp"
                                     />
                             </LinearLayout>

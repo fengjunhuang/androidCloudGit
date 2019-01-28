@@ -22,6 +22,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.activity.MpChartActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.PayActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.SensorActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.PowWindowAdapter;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo1;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
@@ -32,6 +33,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.NewBaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.RequestModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.NewBaseObserver;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.CommonPopupWindow;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.LoadingLayout;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
@@ -75,6 +77,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
     private  TextView tv_shuifei;
     private  TextView tv_dianfei;
     private  TextView tv_qita;
+    private  TextView tv_result;
     private  TextView  tv_title;
     private  LinearLayout ll_yijian;
     private  View view1;
@@ -147,13 +150,14 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
     protected View initContentView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
 
         View view=layoutInflater.inflate(R.layout.frament_room,viewGroup,false);
-         myScrollView = view.findViewById(R.id.my_scrollview);
+        myScrollView = view.findViewById(R.id.my_scrollview);
         mLoading = (LoadingLayout) view.findViewById(R.id.loading_layout);
         mLoading.showContent(myScrollView);
         mLoading.showLoading();
         tv_dianfei=view.findViewById(R.id.tv_dianfei);
         tv_shuifei=view.findViewById(R.id.tv_shuifei);
         tv_fangzu=view.findViewById(R.id.tv_fangzu);
+        tv_result=view.findViewById(R.id.tv_result);
         tv_qita=view.findViewById(R.id.tv_qita);
         tv_title=view.findViewById(R.id.title);
         ll_yijian=view.findViewById(R.id.ll_yijian);
@@ -171,22 +175,30 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
 
         setListener();
         request();
-     recyclerView = view.findViewById(R.id.recy_pow);
+        recyclerView = view.findViewById(R.id.recy_pow);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
- powWindowAdapter=new PowWindowAdapter(getActivity());
+        powWindowAdapter=new PowWindowAdapter(getActivity());
         recyclerView.setAdapter(powWindowAdapter);
 //        showPopupWindow(iv_select);
 
     }
+    RoomInfo1 bean1;
+
 
     private void request() {
+
+
+
         HttpMethods.getInstance().findRoomMessageByPhone(new BaseObserver<RoomModel>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
                 roomModel=(RoomModel) t;
+                tv_fangzu.setText("房租\n"+ roomModel.getViewData().get(0).getMyRoomRent());
+                tv_dianfei.setText("电费\n"+ roomModel.getViewData().get(0).getMyRoomPower());
+                tv_shuifei.setText("水费\n"+roomModel.getViewData().get(0).getMyRoomWater());
 
-
-
+                tv_qita.setText("其他\n"+roomModel.getViewData().get(0).getMyRoomTem());
+                tv_result.setText("支付\n"+roomModel.getViewData().get(0).getMyRoomTotal());
 //                for(Double water:((RoomModel) t).getViewData().get(0).getMyRoomWaterArr()){
 //                    entries.add(new Entry(((RoomModel) t).getViewData().get(0).getMyRoomWaterArr().indexOf(water),water.floatValue()));
 //                }
@@ -197,7 +209,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
                 for(int i=0;i<((RoomModel) t).getViewData().get(0).getMyRoomPowerArr().size();i++){
                     entries1.add(new Entry(i,((RoomModel) t).getViewData().get(0).getMyRoomPowerArr().get(i).floatValue()));
                 }
-               
+
                 initMpChat(entries,entries1,6);
 
                 mAdapter.addData(roomModel.getViewData().get(0).getMyRoomSensorList());
@@ -210,7 +222,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
                 e.printStackTrace();
 
             }
-        },new RequestModel("13068893276"));
+        },"13068893276","13068893276");
 //        HttpMethods.getInstance().myRoom(new BaseObserver<MyRoom>() {
 //            @Override
 //            protected void onSuccees(BaseBean t) throws Exception {
@@ -288,7 +300,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
         entries1.add(new Entry(11, 19f));*/
         //一个LineDataSet就是一条线
         XAxis xAxis = mLineChart.getXAxis();
-   int i=0;
+        int i=0;
 
         xAxis.setValueFormatter(new IAxisValueFormatter() {
 
@@ -355,28 +367,34 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
         powWindowAdapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-               try{
-                   index =position;
-                   entries=new ArrayList<>();
-                   entries1=new ArrayList<>();
-                   for(int i=0;i<roomModel.getViewData().get(0).getMyRoomWaterArr().size();i++){
-                       entries.add(new Entry(i,(roomModel.getViewData().get(0).getMyRoomWaterArr().get(i).floatValue())));
-                   }
+                try{
+                    index =position;
+                    entries=new ArrayList<>();
+                    entries1=new ArrayList<>();
+                    tv_fangzu.setText("房租\n"+ roomModel.getViewData().get(index).getMyRoomRent());
+                    tv_dianfei.setText("电费\n"+ roomModel.getViewData().get(index).getMyRoomPower());
+                    tv_shuifei.setText("水费\n"+roomModel.getViewData().get(index).getMyRoomWater());
 
-                   for(int i=0;i<(roomModel.getViewData().get(0).getMyRoomPowerArr().size());i++){
-                       entries1.add(new Entry(i,(roomModel).getViewData().get(0).getMyRoomPowerArr().get(i).floatValue()));
-                   }
-                   mLineChart.notifyDataSetChanged();
+                    tv_qita.setText("其他\n"+roomModel.getViewData().get(index).getMyRoomTem());
+                    tv_result.setText("支付\n"+roomModel.getViewData().get(index).getMyRoomTotal());
+                    for(int i=0;i<roomModel.getViewData().get(0).getMyRoomWaterArr().size();i++){
+                        entries.add(new Entry(i,(roomModel.getViewData().get(0).getMyRoomWaterArr().get(i).floatValue())));
+                    }
 
-                   mAdapter.getData().clear();
-                   mAdapter.addData(roomModel.getViewData().get(position).getMyRoomSensorList());
-                   tv_title.setText(roomModel.getViewData().get(position).getMyRoomName());
-                   initMpChat(entries,entries1,6);
-                   mPopWindow.dismiss();
+                    for(int i=0;i<(roomModel.getViewData().get(0).getMyRoomPowerArr().size());i++){
+                        entries1.add(new Entry(i,(roomModel).getViewData().get(0).getMyRoomPowerArr().get(i).floatValue()));
+                    }
+                    mLineChart.notifyDataSetChanged();
 
-               }catch (Exception e){
-                   e.printStackTrace();
-               }
+                    mAdapter.getData().clear();
+                    mAdapter.addData(roomModel.getViewData().get(position).getMyRoomSensorList());
+                    tv_title.setText(roomModel.getViewData().get(position).getMyRoomName());
+                    initMpChat(entries,entries1,6);
+                    mPopWindow.dismiss();
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
 
             }
         });
@@ -394,7 +412,11 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
         view.findViewById(R.id.tv_result).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                readyGo(PayActivity.class);
+                Bundle bundle = new Bundle();
+
+
+                bundle.putSerializable("viewDataBean", roomModel.getViewData().get(index));
+                readyGo(PayActivity.class,bundle);
             }
         });
         mLineChart.setOnChartGestureListener(new OnChartGestureListener() { // 手势监听器
@@ -444,23 +466,23 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
             }
         });
         view.findViewById(R.id.iv_detil)
-        .setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("entries", entries);
-                bundle.putParcelableArrayList("entries1", entries1);
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelableArrayList("entries", entries);
+                            bundle.putParcelableArrayList("entries1", entries1);
 
 
-                    bundle.putSerializable("viewDataBean", roomModel.getViewData().get(index));
-                    readyGo(MpChartActivity.class, bundle);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                            bundle.putSerializable("viewDataBean", roomModel.getViewData().get(index));
+                            readyGo(MpChartActivity.class, bundle);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
-            }
-        });
+                    }
+                });
         iv_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

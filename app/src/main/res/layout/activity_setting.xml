@@ -35,7 +35,7 @@
             android:layout_height="25dp">
 
             <TextView
-                android:text="注 销"
+                android:text="退出登录"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="11sp"
                 android:layout_marginLeft="3dp"

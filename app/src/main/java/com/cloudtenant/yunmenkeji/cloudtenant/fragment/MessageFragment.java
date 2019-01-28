@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MessageOtherActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.MessagePayActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.MessageRoomActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.RequestActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.ContractAdapter;
@@ -63,7 +64,7 @@ public class MessageFragment extends YzsBaseListFragment<HouseDetil> implements 
 
     @Override
     protected View initContentView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
-       View view=layoutInflater.inflate(R.layout.fragment_message,viewGroup,false);
+        View view=layoutInflater.inflate(R.layout.fragment_message,viewGroup,false);
         recyclerView= (EasyRecyclerView)view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new DividerDecoration(Color.parseColor("#aaaaaa"), 1));
@@ -74,12 +75,15 @@ public class MessageFragment extends YzsBaseListFragment<HouseDetil> implements 
             @Override
             public void onItemClick(int position) {
                 switch (position){
-                            case 0: {
-                                startActivity(new Intent(getActivity(), MessageRoomActivity.class));
-                                 }break;
-                            case 1: {
-                                startActivity(new Intent(getActivity(), MessageOtherActivity.class));
-                                 }break;
+                    case 0: {
+                        startActivity(new Intent(getActivity(), MessageRoomActivity.class));
+                    }break;
+                    case 1: {
+                        startActivity(new Intent(getActivity(), MessageOtherActivity.class));
+                    }break;
+                    case 2: {
+                        startActivity(new Intent(getActivity(), MessagePayActivity.class));
+                    }break;
                 }
             }
         });
@@ -107,8 +111,10 @@ public class MessageFragment extends YzsBaseListFragment<HouseDetil> implements 
 
     private void AddData() {
         List<FgMessage> list=new ArrayList<>();
-        list.add(new FgMessage("来自房间的安防",R.drawable.image_message_save));
+        list.add(new FgMessage("楼宇公告",R.drawable.image_message_save));
         list.add(new FgMessage("来自其他",R.drawable.image_message_other));
+        list.add(new FgMessage("支付通知",R.drawable.image_message_other));
+        list.add(new FgMessage("房间消息",R.drawable.image_message_other));
         adapter.addAll(list);
     }
     @Override

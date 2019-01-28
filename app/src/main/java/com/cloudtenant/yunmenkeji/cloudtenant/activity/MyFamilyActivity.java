@@ -13,6 +13,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamily;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
 import com.gersion.library.base.BaseActivity;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -28,10 +29,12 @@ public class MyFamilyActivity extends BaseActivity {
     private EasyRecyclerView recyclerView;
     private MyFamliyAdapter adapter;
     //private OkHttpHelper ok=OkHttpHelper.getInstance();
+    private String userPhone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_family);
+        userPhone= UserLocalData.getUser(this).getUserPhone();
         findViewById(R.id.out).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,9 +59,10 @@ public class MyFamilyActivity extends BaseActivity {
             public void onItemClick(int position) {
                 Intent intent=new Intent(MyFamilyActivity.this, ManageActivity.class);
                 intent.putExtra("RoomName",viewDataBeanList.get(position).getRoomName());
-                intent.putExtra("isAdmin",viewDataBeanList.get(position).isIsAdmin());
-                intent.putExtra("familyID",viewDataBeanList.get(position).getFamilyID());
-                intent.putExtra("familyName",viewDataBeanList.get(position).getFamilyName());
+                intent.putExtra("isAdmin",viewDataBeanList.get(position).getIsAdmin());
+                intent.putExtra("userPhone",userPhone);
+                intent.putExtra("familyID",viewDataBeanList.get(position).getRoomId());
+                intent.putExtra("familyName",viewDataBeanList.get(position).getRoomName());
                 startActivity(intent);
             }
         });
@@ -76,11 +80,12 @@ public class MyFamilyActivity extends BaseActivity {
 
     List<MyFamily.ViewDataBean> viewDataBeanList;
     private void AddData() {
+        //TODO
         HttpMethods.getInstance().myFamilyList(new BaseObserver<MyFamily>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
                 MyFamily houseDetil= (MyFamily) t;
-                viewDataBeanList=houseDetil.getViewDataX();
+                viewDataBeanList=houseDetil.getViewData();
                 System.out.println(houseDetil.getViewData()+"");
                 adapter.addAll(viewDataBeanList);
             }
@@ -89,6 +94,6 @@ public class MyFamilyActivity extends BaseActivity {
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },"");
+        },userPhone,userPhone);
     }
 }

@@ -15,6 +15,8 @@ public class TnementBean implements Serializable {
     private String cellLongitude;
     private String roomSquare;
     private String roomMoney;
+
+
     private String contract;
 
     public String getContract() {

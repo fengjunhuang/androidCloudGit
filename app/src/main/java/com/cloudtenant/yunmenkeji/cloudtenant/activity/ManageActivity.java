@@ -21,7 +21,7 @@ import com.gersion.library.base.BaseActivity;
  * Created by tlol20 on 2017/6/14
  */
 public class ManageActivity extends BaseActivity {
-    private String content, familyID;
+    private String content, familyID,userPhone;
     private ImageView iv_qr_code;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,11 @@ public class ManageActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });findViewById(R.id.rl_manage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
         findViewById(R.id.rl_qr_code).setOnClickListener(new View.OnClickListener() {
@@ -51,7 +56,7 @@ public class ManageActivity extends BaseActivity {
         findViewById(R.id.ll_delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddData();
+
             }
         });
         TextView tvFamilyName=findViewById(R.id.tv_name);
@@ -61,15 +66,16 @@ public class ManageActivity extends BaseActivity {
         String familyName=intent.getStringExtra("familyName");
         String roomName=intent.getStringExtra("RoomName");
         familyID=intent.getStringExtra("familyID");
-        boolean isAdmin=intent.getBooleanExtra("isAdmin",false);
+        userPhone=intent.getStringExtra("userPhone");
+        String isAdmin=intent.getStringExtra("isAdmin");
         tvFamilyName.setText(familyName);
         tvRoomName.setText(roomName);
-        if (isAdmin) {
+        if (isAdmin.equals("true")) {
             tv_permission.setText("管理员");
         }else {
             tv_permission.setText("成员");
         }
-         iv_qr_code=findViewById(R.id.iv_qr_code);
+        iv_qr_code=findViewById(R.id.iv_qr_code);
 
         content="{\n" +
                 "\t\"cellCost\": \"\",\n" +
@@ -89,21 +95,23 @@ public class ManageActivity extends BaseActivity {
                 View.MeasureSpec.UNSPECIFIED);
         int h = View.MeasureSpec.makeMeasureSpec(0,
                 View.MeasureSpec.UNSPECIFIED);
-                iv_qr_code.measure(w,h);
+        iv_qr_code.measure(w,h);
         Log.d("getData","width="+iv_qr_code.getMeasuredWidth()+">>>>>height="+iv_qr_code.getMeasuredHeight());
         /*Bitmap bitmap = QrUtils.createQRImage(content, iv_qr_code.getWidth(),  iv_qr_code.getHeight());
         iv_qr_code.setImageBitmap(bitmap);*/
+        AddData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-         Bitmap bitmap = QrUtils.createQRImage(content, iv_qr_code.getMeasuredWidth(),  iv_qr_code.getMeasuredHeight());
+        Bitmap bitmap = QrUtils.createQRImage(content, iv_qr_code.getMeasuredWidth(),  iv_qr_code.getMeasuredHeight());
         iv_qr_code.setImageBitmap(bitmap);
     }
 
     //List<MyFamily.ViewDataBean> viewDataBeanList;
     private void AddData() {
+        //TODO
         HttpMethods.getInstance().familyMemberList(new BaseObserver<MyFamilyData>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
@@ -117,7 +125,7 @@ public class ManageActivity extends BaseActivity {
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },"");
+        },userPhone,familyID,userPhone);
     }
 
 }

@@ -72,6 +72,28 @@
             </RelativeLayout>
             <View style="@style/match_line"/>
             <RelativeLayout
+                android:id="@+id/rl_collection"
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="我的收藏"
+                    style="@style/me_text_style" />
+                <ImageView
+                    android:src="@drawable/image_my_family"
+                    style="@style/me_img_style" />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+            <RelativeLayout
+                android:id="@+id/rl_reviewHistory"
+                style="@style/me_item_rl_style">
+                <TextView
+                    android:text="浏览历史"
+                    style="@style/me_text_style" />
+                <ImageView
+                    android:src="@drawable/image_my_family"
+                    style="@style/me_img_style" />
+            </RelativeLayout>
+            <View style="@style/match_line"/>
+            <RelativeLayout
                 android:id="@+id/rl_setting"
                 style="@style/me_item_rl_style">
                 <TextView

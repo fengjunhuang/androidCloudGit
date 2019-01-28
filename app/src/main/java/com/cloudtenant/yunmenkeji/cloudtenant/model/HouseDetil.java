@@ -120,6 +120,7 @@ public class HouseDetil extends BaseBeanC {
                     ", cellBuildingSet='" + cellBuildingSet + '\'' +
                     ", cellLatitude='" + cellLatitude + '\'' +
                     ", cellLongitude='" + cellLongitude + '\'' +
+                    ", synopsis='" + synopsis + '\'' +
                     '}';
         }
 
@@ -144,6 +145,7 @@ public class HouseDetil extends BaseBeanC {
         private String cellBuildingSet;
         private String cellLatitude;
         private String cellLongitude;
+        private String synopsis;
 
         public String getCellImage() {
             return cellImage;
@@ -215,6 +217,12 @@ public class HouseDetil extends BaseBeanC {
 
         public void setCellLongitude(String cellLongitude) {
             this.cellLongitude = cellLongitude;
+        }
+
+        public String getSynopsis() { return synopsis; }
+
+        public void setSynopsis(String synopsis) {
+            this.synopsis = synopsis;
         }
     }
 }
