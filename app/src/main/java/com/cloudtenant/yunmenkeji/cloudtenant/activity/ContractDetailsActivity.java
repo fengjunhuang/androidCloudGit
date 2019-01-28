@@ -91,14 +91,14 @@ public class ContractDetailsActivity extends BaseActivity {
          switch (time){
              case "三个月":{
                 //setTime="3";
-                 contractTime="三个月";
+                 contractTime="3";
              }break;
              case "半年":{
-                 contractTime="半年";
+                 contractTime="6";
                 setTime=6;
              }break;
              case "一年":{
-                 contractTime="一年";
+                 contractTime="12";
                 setTime=12;
              }break;
          }

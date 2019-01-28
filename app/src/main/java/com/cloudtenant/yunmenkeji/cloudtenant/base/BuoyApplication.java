@@ -23,9 +23,9 @@ public class BuoyApplication extends MultiDexApplication {
     protected static int mainThreadId;
     private static BuoyApplication mApp;
     private boolean isLongin=false;
-    private static final String WX_APPID = "your wx appid";    //申请的wx appid
-    private static final String QQ_APPID = "your qq appid";    //申请的qq appid
-    private static final String SINA_WB_APPKEY = "your sina wb appkey";       //申请的新浪微博 appkey
+    private static final String WX_APPID = "1108121392";    //申请的wx appid
+    private static final String QQ_APPID = "1108046073";    //申请的qq appid
+    private static final String SINA_WB_APPKEY = "2794037332";       //申请的新浪微博 appkey
 
     public static synchronized BuoyApplication getInstance() {
         return mApp;

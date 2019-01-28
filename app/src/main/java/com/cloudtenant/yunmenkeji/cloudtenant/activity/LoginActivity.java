@@ -57,9 +57,7 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
     private SpotsDialog mDialog;
     private SocialApi mSocialApi;
 
-    private static final String WX_APPID = "your wx appid";    //申请的wx appid
-    private static final String QQ_APPID = "your qq appid";    //申请的qq appid
-    private static final String SINA_WB_APPKEY = "your sina wb appkey";       //申请的新浪微博 appkey
+
     @Click(R.id.btn_login)
     void login(){
 
@@ -161,6 +159,7 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
         ll_two=findViewById(R.id.two);
 
         mSocialApi = SocialApi.get(getApplicationContext());
+
         // 如果希望在读取通信录的时候提示用户，可以添加下面的代码，并且必须在其他代码调用之前，否则不起作用；如果没这个需求，可以不加这行代码
         MobSDK.init(this);
         //SMSSDK.setAskPermisionOnReadContact(true);
