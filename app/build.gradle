@@ -123,6 +123,8 @@ dependencies {
     compile('com.jph.takephoto:takephoto_library:4.0.3') {
         exclude module: 'appcompat-v7'
     }
+
+    compile 'com.yuyh.bubble:library:1.0.0'
 //    // 支付宝
 //    compile (ame: 'alipaySdk-15.5.7-20181023110917', ext: 'aar')
 

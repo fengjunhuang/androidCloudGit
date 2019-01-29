@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -50,6 +51,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.yuyh.library.BubblePopupWindow;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 import com.yzs.yzsbaseactivitylib.fragment.YzsBaseListFragment;
 
@@ -59,8 +61,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.Inflater;
 
-public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.MyRoomSensorListBean> implements CommonPopupWindow.ViewInterface{
+public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.MyRoomSensorListBean> implements CommonPopupWindow.ViewInterface,View.OnClickListener{
     LineChart mLineChart;
     View myScrollView;
 
@@ -161,8 +164,22 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
         tv_title=view.findViewById(R.id.title);
         ll_yijian=view.findViewById(R.id.ll_yijian);
         view1=view.findViewById(R.id.view);
+
         return view;
+
+
     }
+
+    private void showPoView(View view,String text) {
+        BubblePopupWindow leftTopWindow = new BubblePopupWindow(getContext());
+        LayoutInflater inflater=LayoutInflater.from(getContext());
+        View bubbleView = inflater.inflate(R.layout.layout_popup_view, null);
+        TextView tvContent = (TextView) bubbleView.findViewById(R.id.tvContent);
+        tvContent.setText(text);
+        leftTopWindow.setBubbleView(bubbleView); // 设置气泡内容
+        leftTopWindow.show(view, Gravity.TOP, 50); // 显示弹窗
+    }
+
 
     @Override
     protected void initLogic() {
@@ -198,6 +215,11 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
 
                 tv_qita.setText("其他\n"+roomModel.getViewData().get(0).getMyRoomTem());
                 tv_result.setText("支付\n"+roomModel.getViewData().get(0).getMyRoomTotal());
+                tv_fangzu.setOnClickListener(RoomFragment.this);
+                tv_dianfei.setOnClickListener(RoomFragment.this);
+                tv_shuifei.setOnClickListener(RoomFragment.this);
+                tv_qita.setOnClickListener(RoomFragment.this);
+                tv_result.setOnClickListener(RoomFragment.this);
 //                for(Double water:((RoomModel) t).getViewData().get(0).getMyRoomWaterArr()){
 //                    entries.add(new Entry(((RoomModel) t).getViewData().get(0).getMyRoomWaterArr().indexOf(water),water.floatValue()));
 //                }
@@ -535,6 +557,28 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
 
     @Override
     public void getChildView(View view, int layoutResId) {
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.tv_fangzu:
+                showPoView(view,roomModel.getViewData().get(index).getMyRoomRentDate());
+
+                break;
+            case R.id.tv_dianfei:
+                showPoView(view,"电费单价:"+roomModel.getViewData().get(index).getMyRoomPowerUnivalence()+"/度\n"+"使用度数:"+roomModel.getViewData().get(index).getMyRoomPower());
+             break;
+            case R.id.tv_shuifei:
+                showPoView(view,"水费单价:"+roomModel.getViewData().get(index).getMyRoomWaterUnivalence()+"/度\n"+"使用度数:"+roomModel.getViewData().get(index).getMyRoomWater());
+
+                break;
+            case R.id.tv_qita:
+                showPoView(view,"其他包括:\n"+"管理费:"+roomModel.getViewData().get(index).getMyRoomMan()+"元"+"网费:"+roomModel.getViewData().get(index).getMyRoomNet()+"元\n"+"服务费:"+roomModel.getViewData().get(index).getMyRoomServiceCharge()+"元");
+                break;
+
+        }
 
     }
 }
