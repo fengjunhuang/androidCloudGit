@@ -213,7 +213,7 @@ public class MpChartActivity extends YzsBaseActivity {
  }
       mLineChart=  view.findViewById(R.id.lineChart);
         //显示边界
-//     initMpChat(entries,entries1,pos);
+     initMpChat(entries,entries1,pos);
         return mLineChart;
 
     }
@@ -324,7 +324,7 @@ public class MpChartActivity extends YzsBaseActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 1;
         }
 
         @Override

@@ -38,6 +38,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.view.CommonPopupWindow;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.LoadingLayout;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.Solve7PopupWindow;
+import com.cloudtenant.yunmenkeji.cloudtenant.view.TriangleDrawable;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
@@ -54,6 +55,10 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.yuyh.library.BubblePopupWindow;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 import com.yzs.yzsbaseactivitylib.fragment.YzsBaseListFragment;
+import com.yzs.yzslibrary.util.SizeUtils;
+import com.zyyoona7.popup.EasyPopup;
+import com.zyyoona7.popup.XGravity;
+import com.zyyoona7.popup.YGravity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -85,6 +90,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
     private  View view1;
     private  int index;
     private  RoomModel roomModel;
+    private  View containview;
     private List<Map<String, Object>> riskAreaList = null;
 
     @Override
@@ -151,7 +157,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
     @Override
     protected View initContentView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
 
-        View view=layoutInflater.inflate(R.layout.frament_room,viewGroup,false);
+       view=layoutInflater.inflate(R.layout.frament_room,viewGroup,false);
         myScrollView = view.findViewById(R.id.my_scrollview);
         mLoading = (LoadingLayout) view.findViewById(R.id.loading_layout);
         mLoading.showContent(myScrollView);
@@ -178,8 +184,24 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
         tvContent.setText(text);
         leftTopWindow.setBubbleView(bubbleView); // 设置气泡内容
         leftTopWindow.show(view, Gravity.TOP, 50); // 显示弹窗
+        leftTopWindow.setAnimationStyle(R.style.style_pop_animation);
     }
-
+    private void showdetil(View view) {
+     EasyPopup   mWeiboPop = EasyPopup.create()
+                .setContentView(getContext(), R.layout.layout_center_pop)
+                .setAnimationStyle(R.style.TopPopAnim)
+                .setOnViewListener(new EasyPopup.OnViewListener() {
+                    @Override
+                    public void initViews(View view, EasyPopup basePopup) {
+                        View arrowView = view.findViewById(R.id.v_arrow_weibo);
+                        arrowView.setBackground(new TriangleDrawable(TriangleDrawable.TOP, Color.parseColor("#ed6f55")));
+                    }
+                })
+                .setFocusAndOutsideEnable(true)
+                .apply();
+        int offsetY = (ll_yijian.getHeight() - view.getHeight()) / 2;
+        mWeiboPop.showAtAnchorView(view, YGravity.BELOW, XGravity.CENTER, 0,offsetY);
+    }
 
     @Override
     protected void initLogic() {
@@ -491,13 +513,15 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
                     @Override
                     public void onClick(View view) {
                         try {
-                            Bundle bundle = new Bundle();
-                            bundle.putParcelableArrayList("entries", entries);
-                            bundle.putParcelableArrayList("entries1", entries1);
+//                            Bundle bundle = new Bundle();
+//                            bundle.putParcelableArrayList("entries", entries);
+//                            bundle.putParcelableArrayList("entries1", entries1);
+//
+//
+//                            bundle.putSerializable("viewDataBean", roomModel.getViewData().get(index));
+//                            readyGo(MpChartActivity.class, bundle);
 
-
-                            bundle.putSerializable("viewDataBean", roomModel.getViewData().get(index));
-                            readyGo(MpChartActivity.class, bundle);
+                            showdetil(view);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
