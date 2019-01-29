@@ -200,6 +200,37 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
                 .setFocusAndOutsideEnable(true)
                 .apply();
         int offsetY = (ll_yijian.getHeight() - view.getHeight()) / 2;
+        mWeiboPop.findViewById(R.id.tv_conten1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                request();
+            }
+        });
+        mWeiboPop.findViewById(R.id.tv_conten2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelableArrayList("entries", entries);
+                            bundle.putParcelableArrayList("entries1", entries1);
+
+
+                            bundle.putSerializable("viewDataBean", roomModel.getViewData().get(index));
+                            readyGo(MpChartActivity.class, bundle);
+
+            }
+        });
+        mWeiboPop.findViewById(R.id.tv_conten3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("entries", entries);
+                bundle.putParcelableArrayList("entries1", entries1);
+
+
+                bundle.putSerializable("viewDataBean", roomModel.getViewData().get(index));
+                readyGo(MpChartActivity.class, bundle);
+            }
+        });
         mWeiboPop.showAtAnchorView(view, YGravity.BELOW, XGravity.CENTER, 0,offsetY);
     }
 
@@ -225,12 +256,13 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
 
     private void request() {
 
-
+        mLoading.showLoading();
 
         HttpMethods.getInstance().findRoomMessageByPhone(new BaseObserver<RoomModel>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
                 roomModel=(RoomModel) t;
+                mAdapter.getData().clear();
                 tv_fangzu.setText("房租\n"+ roomModel.getViewData().get(0).getMyRoomRent());
                 tv_dianfei.setText("电费\n"+ roomModel.getViewData().get(0).getMyRoomPower());
                 tv_shuifei.setText("水费\n"+roomModel.getViewData().get(0).getMyRoomWater());
