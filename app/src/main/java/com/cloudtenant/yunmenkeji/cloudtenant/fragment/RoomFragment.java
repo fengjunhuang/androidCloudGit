@@ -186,8 +186,6 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
 
     private void request() {
 
-
-
         HttpMethods.getInstance().findRoomMessageByPhone(new BaseObserver<RoomModel>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
@@ -273,31 +271,6 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
             mlistX.add(i+1+"月");
         }
 
-       /* entries.add(new Entry(0, 30f));
-        entries.add(new Entry(1, 50f));
-        entries.add(new Entry(2, 81f));
-        entries.add(new Entry(3, 46f));
-        entries.add(new Entry(4, 204f));
-        entries.add(new Entry(5, 290f));
-        entries.add(new Entry(6, 310f));
-        entries.add(new Entry(7, 259f));
-        entries.add(new Entry(8, 530f));
-        entries.add(new Entry(9, 430f));
-        entries.add(new Entry(10, 498f));
-        entries.add(new Entry(11, 431f));
-        entries1.add(new Entry(0, 14f));
-        entries1.add(new Entry(1, 16f));
-        entries1.add(new Entry(2, 11f));
-        entries1.add(new Entry(3, 12f));
-        entries1.add(new Entry(4, 18f));
-        entries1.add(new Entry(5, 10f));
-        entries1.add(new Entry(6, 21f));
-        entries1.add(new Entry(7, 32f));
-        entries1.add(new Entry(8, 17f));
-        entries1.add(new Entry(9, 12f));
-        entries1.add(new Entry(10, 17f));
-        entries1.add(new Entry(11, 19f));*/
-        //一个LineDataSet就是一条线
         XAxis xAxis = mLineChart.getXAxis();
         int i=0;
 
@@ -312,8 +285,6 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
                 }else {
                     return "";
                 }
-
-
 
             }
         });
