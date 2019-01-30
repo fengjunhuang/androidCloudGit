@@ -74,7 +74,11 @@ public class CharPicPopupWindow extends PopupWindow {
 
 		if (type==1) {
 			pickPhotoBtn.setText("撤销退房申请");
-		}else {
+		}else  if(type==2){
+			pickPhotoBtn.setText("半年报表");
+		}
+
+		else {
 			pickPhotoBtn.setText("申请退房");
 		}
 		// 设置SelectPicPopupWindow的View
