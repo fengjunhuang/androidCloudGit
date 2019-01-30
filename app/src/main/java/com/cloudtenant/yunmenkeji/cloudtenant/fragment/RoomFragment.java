@@ -27,10 +27,12 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo1;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.BillHistoryModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.ImageText;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.NewBaseBean;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.SensorModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.NewBaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
@@ -68,10 +70,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.zip.Inflater;
 
-public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.MyRoomSensorListBean> implements CommonPopupWindow.ViewInterface,View.OnClickListener{
+public class RoomFragment extends YzsBaseListFragment<SensorModel.ViewDataBean> implements CommonPopupWindow.ViewInterface,View.OnClickListener{
     LineChart mLineChart;
     View myScrollView;
-
+    private BillHistoryModel billListModel;
     private ImageView iv_select;
     private  CommonPopupWindow popupWindow;
     private LoadingLayout mLoading;
@@ -99,69 +101,117 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
         setListType(LINEAR_LAYOUT_MANAGER, false);
 
     }
-
     @Override
-    protected void MyHolder(final BaseViewHolder baseViewHolder, final RoomModel.ViewDataBean.MyRoomSensorListBean myRoomSensorListBean) {
-        ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_name))).setText(myRoomSensorListBean.getSensorName());
-        ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_sensorID))).setText(myRoomSensorListBean.getSensorID());
-        if(myRoomSensorListBean.getSensorOn().equals("true")){
-            ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_name))).setTextColor(Color.WHITE);
-            ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_sensorID))).setTextColor(Color.WHITE);
-            ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_sensorID))).setText(myRoomSensorListBean.getSensorID());
-            ((ImageView)(baseViewHolder.convertView.findViewById(R.id.iv_sign))).setImageResource(R.drawable.image_myroom_open);
-            ((ImageView)(baseViewHolder.convertView.findViewById(R.id.iv_senicon))).setImageResource(R.drawable.image_sensor_status_on);
-            baseViewHolder.convertView.setBackgroundResource((R.drawable.shape_corner_up));
-            ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_switch))).setText("开");
+    protected void MyHolder(final BaseViewHolder baseViewHolder, final SensorModel.ViewDataBean myRoomSensorListBean) {
+        ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_name))).setText(myRoomSensorListBean.getGateModel());
+        ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_sensorID))).setText("所在位置:" + myRoomSensorListBean.getPosition());
+        ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_tem))).setText("温度:" + myRoomSensorListBean.getTen() + "℃");
+        ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_light))).setText("光线强度:" + myRoomSensorListBean.getLight());
+        ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_wet))).setText("湿度:" + myRoomSensorListBean.getWet() + "%");
 
+        if (billListModel.getViewData().size() > 0) {
+            ((ImageView) (baseViewHolder.convertView.findViewById(R.id.iv_sign))).setImageResource(R.drawable.image_myroom_off);
+            ((ImageView) (baseViewHolder.convertView.findViewById(R.id.iv_senicon))).setImageResource(R.drawable.image_sensor_status_off);
+            baseViewHolder.convertView.setBackground(getResources().getDrawable(R.drawable.shape_corner_down));
+            ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_switch))).setText("传感器工作状态:欠费停用");
             baseViewHolder.convertView.findViewById(R.id.iv_sign).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Bundle bundle =new Bundle();
-                    bundle.putSerializable("isOn", myRoomSensorListBean);
-                    readyGo(SensorActivity.class,bundle);
+                    Log.d("onClick", "给钱");
                 }
             });
-        }
-        else {
-            ((ImageView)(baseViewHolder.convertView.findViewById(R.id.iv_sign))).setImageResource(R.drawable.image_myroom_off);
-            ((ImageView)(baseViewHolder.convertView.findViewById(R.id.iv_senicon))).setImageResource(R.drawable.image_sensor_status_off);
-            baseViewHolder.convertView.setBackground(getResources().getDrawable(R.drawable.shape_corner_down));
-            ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_switch))).setText("关");
-
-
-        }
-        baseViewHolder.convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_name))).setTextColor(Color.WHITE);
-                ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_sensorID))).setTextColor(Color.WHITE);
-                ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_sensorID))).setText(myRoomSensorListBean.getSensorID());
-                ((ImageView)(baseViewHolder.convertView.findViewById(R.id.iv_sign))).setImageResource(R.drawable.image_myroom_open);
-                ((ImageView)(baseViewHolder.convertView.findViewById(R.id.iv_senicon))).setImageResource(R.drawable.image_sensor_status_on);
+            baseViewHolder.convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("onClick", "给钱");
+                }
+            });
+        } else {
+            if (myRoomSensorListBean.getSecurityStatus().equals("1")) {
+                ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_name))).setTextColor(Color.WHITE);
+                ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_sensorID))).setTextColor(Color.WHITE);
+                ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_tem))).setTextColor(Color.WHITE);
+                ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_light))).setTextColor(Color.WHITE);
+                ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_wet))).setTextColor(Color.WHITE);
+                ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_switch))).setTextColor(Color.WHITE);
+                ((ImageView) (baseViewHolder.convertView.findViewById(R.id.iv_sign))).setImageResource(R.drawable.image_myroom_open);
+                ((ImageView) (baseViewHolder.convertView.findViewById(R.id.iv_senicon))).setImageResource(R.drawable.image_sensor_status_on);
                 baseViewHolder.convertView.setBackgroundResource((R.drawable.shape_corner_up));
-                ((TextView)(baseViewHolder.convertView.findViewById(R.id.tv_switch))).setText("开");
-                myRoomSensorListBean.setSensorOn("true");
+                ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_switch))).setText("传感器工作状态:开");
+
+                baseViewHolder.convertView.findViewById(R.id.iv_sign).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("isOn", myRoomSensorListBean);
+                        readyGo(SensorActivity.class, bundle);
+                    }
+                });
+                baseViewHolder.convertView.findViewById(R.id.iv_sign).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("isOn", myRoomSensorListBean);
+                        readyGo(SensorActivity.class, bundle);
+                    }
+                });
+            } else if (myRoomSensorListBean.getSecurityStatus().equals("2")) {
+                ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_tem))).setText("温度:0℃");
+                ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_light))).setText("光线强度:0");
+                ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_wet))).setText("湿度:0%");
+                ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_name))).setTextColor(Color.WHITE);
+                ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_sensorID))).setTextColor(Color.WHITE);
+                ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_tem))).setTextColor(Color.WHITE);
+                ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_light))).setTextColor(Color.WHITE);
+                ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_wet))).setTextColor(Color.WHITE);
+                ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_switch))).setTextColor(Color.WHITE);
+                ((ImageView) (baseViewHolder.convertView.findViewById(R.id.iv_sign))).setImageResource(R.drawable.image_myroom_open);
+                ((ImageView) (baseViewHolder.convertView.findViewById(R.id.iv_senicon))).setImageResource(R.drawable.image_sensor_status_on);
+                baseViewHolder.convertView.setBackground(getResources().getDrawable(R.drawable.shape_corner_down));
+                ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_switch))).setText("传感器工作状态:离线");
+
+
+                baseViewHolder.convertView.findViewById(R.id.iv_sign).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("onClick", "传感器处于离线状态,详情可以联系房东");
+                    }
+                });
+                baseViewHolder.convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("onClick", "传感器处于离线状态,详情可以联系房东");
+                    }
+                });
+            } else {
+                ((ImageView) (baseViewHolder.convertView.findViewById(R.id.iv_sign))).setImageResource(R.drawable.image_myroom_off);
+                ((ImageView) (baseViewHolder.convertView.findViewById(R.id.iv_senicon))).setImageResource(R.drawable.image_sensor_status_off);
+                baseViewHolder.convertView.setBackground(getResources().getDrawable(R.drawable.shape_corner_down));
+                ((TextView) (baseViewHolder.convertView.findViewById(R.id.tv_switch))).setText("传感器工作状态:关");
+                baseViewHolder.convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("onClick", "开");
+                    }
+                });
+                baseViewHolder.convertView.findViewById(R.id.iv_sign).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("isOff", myRoomSensorListBean);
+                        readyGo(SensorActivity.class, bundle);
+                    }
+                });
             }
-        });
-        baseViewHolder.convertView.findViewById(R.id.iv_sign).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle =new Bundle();
-                bundle.putSerializable("isOn", myRoomSensorListBean);
-                readyGo(SensorActivity.class,bundle);
-            }
-        });
+        }
     }
-
-
     @Override
     protected View initContentView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
 
        view=layoutInflater.inflate(R.layout.frament_room,viewGroup,false);
         myScrollView = view.findViewById(R.id.my_scrollview);
         mLoading = (LoadingLayout) view.findViewById(R.id.loading_layout);
-        mLoading.showContent(myScrollView);
-        mLoading.showLoading();
+
         tv_dianfei=view.findViewById(R.id.tv_dianfei);
         tv_shuifei=view.findViewById(R.id.tv_shuifei);
         tv_fangzu=view.findViewById(R.id.tv_fangzu);
@@ -187,7 +237,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
         leftTopWindow.setAnimationStyle(R.style.style_pop_animation);
     }
     private void showdetil(View view) {
-     EasyPopup   mWeiboPop = EasyPopup.create()
+     final EasyPopup   mWeiboPop = EasyPopup.create()
                 .setContentView(getContext(), R.layout.layout_center_pop)
                 .setAnimationStyle(R.style.TopPopAnim)
                 .setOnViewListener(new EasyPopup.OnViewListener() {
@@ -204,6 +254,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
             @Override
             public void onClick(View view) {
                 request();
+                mWeiboPop.dismiss();
             }
         });
         mWeiboPop.findViewById(R.id.tv_conten2).setOnClickListener(new View.OnClickListener() {
@@ -256,6 +307,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
 
     private void request() {
 
+        mLoading.showContent(myScrollView);
         mLoading.showLoading();
 
         HttpMethods.getInstance().findRoomMessageByPhone(new BaseObserver<RoomModel>() {
@@ -273,7 +325,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
                 tv_dianfei.setOnClickListener(RoomFragment.this);
                 tv_shuifei.setOnClickListener(RoomFragment.this);
                 tv_qita.setOnClickListener(RoomFragment.this);
-                tv_result.setOnClickListener(RoomFragment.this);
+
 //                for(Double water:((RoomModel) t).getViewData().get(0).getMyRoomWaterArr()){
 //                    entries.add(new Entry(((RoomModel) t).getViewData().get(0).getMyRoomWaterArr().indexOf(water),water.floatValue()));
 //                }
@@ -287,8 +339,45 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
 
                 initMpChat(entries,entries1,6);
 
-                mAdapter.addData(roomModel.getViewData().get(0).getMyRoomSensorList());
-                mLoading.dimssDoading();
+
+//查询未完成订单
+                HttpMethods.getInstance().getNoCompleteBill(new BaseObserver<BillHistoryModel>() {
+                    @Override
+                    protected void onSuccees(BaseBean t) throws Exception {
+                        billListModel = (BillHistoryModel) t;
+
+                        if (((BillHistoryModel) t).getViewData().size()>0)
+                        {
+                            //界面数据处理
+                        }
+                        else
+                        {
+                            //同上
+                        }
+//查找传感器列表
+                        HttpMethods.getInstance().getRoomSensorList(new BaseObserver<SensorModel>() {
+                            @Override
+                            protected void onSuccees(BaseBean t) throws Exception {
+                                //这里插入传感器数据
+                                if (((SensorModel) t).getViewData().size() == 0)
+                                {
+//没有传感器数据
+                                }
+                                else
+                                {
+                                    mAdapter.addData(((SensorModel) t).getViewData());
+                                }
+                                mLoading.dimssDoading();
+                            }
+                            @Override
+                            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                            }
+                        },"13068893276",roomModel.getViewData().get(0).getMyRoomID());
+                    }
+                    @Override
+                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                    }
+                },"13068893276","13068893276",roomModel.getViewData().get(0).getMyRoomID());
             }
 
             @Override
@@ -297,38 +386,8 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
                 e.printStackTrace();
 
             }
-        },"13068893276","13068893276");
-//        HttpMethods.getInstance().myRoom(new BaseObserver<MyRoom>() {
-//            @Override
-//            protected void onSuccees(BaseBean t) throws Exception {
-//                 myRoom=(MyRoom)t;
-//                  initRoomData(myRoom.getViewDataX().get(0));
-//
-//                for(Integer water:((MyRoom) t).getViewDataX().get(0).getMyRoomWaterArr()){
-//                    entries.add(new Entry(((MyRoom) t).getViewDataX().get(0).getMyRoomWaterArr().indexOf(water),water.floatValue()));
-//                }
-//                for(Integer power:((MyRoom) t).getViewDataX().get(0).getMyRoomPowerArr()){
-//                    entries1.add(new Entry(((MyRoom) t).getViewDataX().get(0).getMyRoomPowerArr().indexOf(power),power.floatValue()));
-//                }
-//                initMpChat(entries,entries1,6);
-//
-//                mAdapter.addData(myRoom.getViewDataX().get(0).getMyRoomSensorList());
-//                mLoading.dimssDoading();
-//
-//
-//            }
-//
-//            private void initRoomData(MyRoom.ViewDataBean viewDataBean) {
-//
-//
-//            }
-//
-//            @Override
-//            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-//                mLoading.showState();
-//
-//            }
-//        },"");
+        },"13068893276", "13068893276");
+
     }
 
     private void initMpChat(List<Entry> entries, List<Entry> entries1, final int size) {
@@ -462,7 +521,7 @@ public class RoomFragment extends YzsBaseListFragment< RoomModel.ViewDataBean.My
                     mLineChart.notifyDataSetChanged();
 
                     mAdapter.getData().clear();
-                    mAdapter.addData(roomModel.getViewData().get(position).getMyRoomSensorList());
+//                    mAdapter.addData(roomModel.getViewData().get(position).getMyRoomSensorList());
                     tv_title.setText(roomModel.getViewData().get(position).getMyRoomName());
                     initMpChat(entries,entries1,6);
                     mPopWindow.dismiss();
