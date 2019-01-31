@@ -36,7 +36,9 @@ public class SensorModel extends BaseBean {
         private String securityStatus;
         private String sensorId;
         private String ten;
-        private long time;
+
+        private double time;
+
         private String wet;
 
         public String getGateModel() {
@@ -95,11 +97,13 @@ public class SensorModel extends BaseBean {
             this.ten = ten;
         }
 
-        public long getTime() {
+
+        public double getTime() {
+
             return time;
         }
 
-        public void setTime(long time) {
+        public void setTime(double time) {
             this.time = time;
         }
 
