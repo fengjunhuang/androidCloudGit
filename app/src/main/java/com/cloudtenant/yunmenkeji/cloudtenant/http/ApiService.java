@@ -23,6 +23,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.CollectionAndReViewModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MessageNoticeModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.SenerNetWork;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.SensorCycleModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.SensorModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.StarAdModel;
@@ -292,7 +293,7 @@ public interface ApiService {
     //传感器
     //获取传感器周期列表
     @POST("chl/api/sensor/sensorList")
-    Observable<SensorCycleModel> getSensorCycleList(
+    Observable<SenerNetWork> getSensorCycleList(
             @Query("phone") String phone,
             @Query("sensorId") String sensorId,
             @Query("landingPhone") String landingPhone

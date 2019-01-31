@@ -14,10 +14,16 @@ import android.widget.Toast;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.SensorAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.Sensor;
 import com.cloudtenant.yunmenkeji.cloudtenant.event.SensorFinshEvent;
+import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.MyRoom;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.SenerNetWork;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.SensorModel;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.gersion.library.base.BaseActivity;
 import com.jude.easyrecyclerview.EasyRecyclerView;
@@ -42,8 +48,9 @@ public class SensorActivity extends YzsBaseActivity implements View.OnClickListe
     private ImageView iv_senr;
     private TextView tv_tip;
     private String getIsSenOpen;
+    private TextView tv_name;
 
-    RoomModel.ViewDataBean.MyRoomSensorListBean bean;
+    SensorModel.ViewDataBean bean;
     //private OkHttpHelper ok=OkHttpHelper.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,12 +82,35 @@ public class SensorActivity extends YzsBaseActivity implements View.OnClickListe
         adapter = new SensorAdapter(this);
         recyclerView.setAdapter(adapter);
         rela_bg=findViewById(R.id.rela_bg);
-
+        tv_name=findViewById(R.id.tv_name);
 
         var1=  getIntent().getExtras();
-        bean= (RoomModel.ViewDataBean.MyRoomSensorListBean) var1.getSerializable("isOn");
-        getIsSenOpen=bean.getSensorOn();
-        if(getIsSenOpen.equals("true")){
+        bean= (SensorModel.ViewDataBean) var1.getSerializable("isOn");
+        getIsSenOpen=bean.getSecurityStatus();
+        tv_name.setText("安防"+bean.getGateModel());
+        HttpMethods.getInstance().getSensorCycleList(new BaseObserver<SenerNetWork>() {
+            @Override
+            protected void onSuccees(BaseBean t) throws Exception {
+                SenerNetWork senerNetWork = (SenerNetWork) t;
+                List<Sensor> list=new ArrayList<>();
+                for(SenerNetWork.ViewDataBean bean:senerNetWork.getViewData()){
+                    list.add(new Sensor(bean.getStartTime()+"-"+bean.getEndTime()));
+
+                }
+
+//                list.add(new Sensor("10:00-11:29"));
+//                list.add(new Sensor("17:00-19:29"));
+                adapter.addAll(list);
+
+            }
+
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+            }
+        },"13068893276",bean.getSensorId(),"13068893276");
+
+        if(getIsSenOpen.equals("1")){
             isSenOpen=true;
         }else {
             isSenOpen=false;
@@ -95,16 +125,33 @@ public class SensorActivity extends YzsBaseActivity implements View.OnClickListe
                 if(isSenOpen){
                     isSenOpen=false;
                     tv_tip.setText("关");
-                    bean.setSensorOn("false");
-                    iv_senr.setImageResource(R.drawable.image_sensor_status_off);
-                rela_bg.setBackgroundColor(Color.GRAY);}
+                    bean.setSecurityStatus("0");
+                }
                 else {
                     tv_tip.setText("开");
-                    bean.setSensorOn("true");
+                    bean.setSecurityStatus("1");
                     isSenOpen=true;
-                    iv_senr.setImageResource(R.drawable.image_sensor_status_on);
-                    rela_bg.setBackgroundResource(R.drawable.image_onoffimage);
+
                 }
+                HttpMethods.getInstance().setSensorCycleWorkMode(new BaseObserver<BrokenUp>() {
+                    @Override
+                    protected void onSuccees(BaseBean t) throws Exception {
+                        showLongToast(t.getMessage());
+                        if(bean.getSecurityStatus().equals("0")){
+                        iv_senr.setImageResource(R.drawable.image_sensor_status_off);
+                        rela_bg.setBackgroundColor(Color.GRAY);
+                        }else {
+                            iv_senr.setImageResource(R.drawable.image_sensor_status_on);
+                            rela_bg.setBackgroundResource(R.drawable.image_onoffimage);
+                        }
+                    }
+
+                    @Override
+                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+                    }
+                },"13068893276", bean.getSecurityStatus(),bean.getSensorId(),"13068893276");
+
             }
         });
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
@@ -114,8 +161,14 @@ public class SensorActivity extends YzsBaseActivity implements View.OnClickListe
             }
         });
 
-        getIsSenOpen=bean.getSensorOn();
-        if(getIsSenOpen.equals("true")){
+        getIsSenOpen=bean.getSecurityStatus();
+
+        if(getIsSenOpen.equals("1")){
+            isSenOpen=true;
+        }else {
+            isSenOpen=false;
+        }
+        if(getIsSenOpen.equals("1")){
             isSenOpen=true;
         }else {
             isSenOpen=false;
@@ -168,10 +221,7 @@ public class SensorActivity extends YzsBaseActivity implements View.OnClickListe
     }
 
     private void AddData() {
-        List<Sensor> list=new ArrayList<>();
-        list.add(new Sensor("10:00-11:29"));
-        list.add(new Sensor("17:00-19:29"));
-        adapter.addAll(list);
+
     }
 
 
