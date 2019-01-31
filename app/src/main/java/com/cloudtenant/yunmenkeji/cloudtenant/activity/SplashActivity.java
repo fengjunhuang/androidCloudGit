@@ -47,6 +47,10 @@ public class SplashActivity extends YzsBaseActivity {
     @Override
     protected void initContentView(Bundle var1) {
         setContentView(R.layout.activity_splash);
+        if (PreferencesUtils.getBoolean(this,"isLogin",false)) {
+            startActivity(new Intent(SplashActivity.this, IndexActivity_.class));
+            finish();
+        }
 
     }
 
