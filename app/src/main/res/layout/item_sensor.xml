@@ -18,6 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
+        android:id="@+id/tv_date"
         android:text="一  三  五"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"

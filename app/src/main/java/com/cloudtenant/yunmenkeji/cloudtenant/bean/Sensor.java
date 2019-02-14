@@ -1,17 +1,27 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.bean;
 
 public class Sensor {
-    private String Family;
+    private String time;
+    private String date;
 
-    public Sensor(String family) {
-        Family = family;
+    public String getTime() {
+        return time;
     }
 
-    public String getFamily() {
-        return Family;
+    public Sensor(String time, String date) {
+        this.time = time;
+        this.date = date;
     }
 
-    public void setFamily(String family) {
-        Family = family;
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

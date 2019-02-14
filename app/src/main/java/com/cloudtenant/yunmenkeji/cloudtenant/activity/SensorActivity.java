@@ -49,6 +49,7 @@ public class SensorActivity extends YzsBaseActivity implements View.OnClickListe
     private TextView tv_tip;
     private String getIsSenOpen;
     private TextView tv_name;
+    private   SenerNetWork senerNetWork;
 
     SensorModel.ViewDataBean bean;
     //private OkHttpHelper ok=OkHttpHelper.getInstance();
@@ -91,10 +92,10 @@ public class SensorActivity extends YzsBaseActivity implements View.OnClickListe
         HttpMethods.getInstance().getSensorCycleList(new BaseObserver<SenerNetWork>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
-                SenerNetWork senerNetWork = (SenerNetWork) t;
+              senerNetWork = (SenerNetWork) t;
                 List<Sensor> list=new ArrayList<>();
                 for(SenerNetWork.ViewDataBean bean:senerNetWork.getViewData()){
-                    list.add(new Sensor(bean.getStartTime()+"-"+bean.getEndTime()));
+                    list.add(new Sensor(bean.getStartTime()+"-"+bean.getEndTime(),bean.getCycleDate()));
 
                 }
 
@@ -157,7 +158,11 @@ public class SensorActivity extends YzsBaseActivity implements View.OnClickListe
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                startActivity(new Intent(SensorActivity.this, SensorAddActivity.class));
+                Bundle bundle =new Bundle();
+
+                bundle.putSerializable("bean", senerNetWork);
+
+                startActivity(new Intent(SensorActivity.this, SensorAddActivity.class),bundle);
             }
         });
 

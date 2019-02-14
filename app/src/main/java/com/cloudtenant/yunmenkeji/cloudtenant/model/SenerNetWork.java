@@ -1,5 +1,6 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -28,7 +29,7 @@ public class SenerNetWork extends BaseBean {
         this.viewData = viewData;
     }
 
-    public static class ViewDataBean {
+    public static class ViewDataBean implements Serializable {
         /**
          * cycleDate : 每天
          * endTime : 23:59

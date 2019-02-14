@@ -7,9 +7,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
+import com.cloudtenant.yunmenkeji.cloudtenant.model.SenerNetWork;
 import com.cloudtenant.yunmenkeji.cloudtenant.widget.CustomDatePicker;
 import com.gersion.library.base.BaseActivity;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -20,7 +22,7 @@ import java.util.Locale;
  */
 public class SensorAddActivity extends BaseActivity implements View.OnClickListener{
 
-
+    private SenerNetWork senerNetWork;
 
     private CustomDatePicker customDatePicker1,customDatePicker2;
     private TextView startTime,endTime;
@@ -39,6 +41,8 @@ public class SensorAddActivity extends BaseActivity implements View.OnClickListe
         findViewById(R.id.start_time).setOnClickListener(this);
         findViewById(R.id.end_time).setOnClickListener(this);
         findViewById(R.id.title).setOnClickListener(this);
+
+        senerNetWork= (SenerNetWork) getIntent().getExtras().getSerializable("bean");
         initDatePicker();
     }
 
@@ -57,7 +61,7 @@ public class SensorAddActivity extends BaseActivity implements View.OnClickListe
                 Log.e("initDatePicker","SimpleDateFormat="+time);
 
             }
-        }, "1970-01-01 00:00", now,"请选择时间"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        }, "1970-01-01 "+senerNetWork.getViewData().get(0).getStartTime(), now,"请选择时间"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         customDatePicker1.showSpecificTime(true); // 不显示时和分
         customDatePicker1.setIsLoop(false); // 不允许循环滚动
 
@@ -67,7 +71,7 @@ public class SensorAddActivity extends BaseActivity implements View.OnClickListe
                 time=time+"";
                 endTime.setText(time.split(" ")[1]);
             }
-        }, "1970-01-01 00:00", now,"请选择时间"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        }, "1970-01-01 00:00"+senerNetWork.getViewData().get(0).getEndTime(), now,"请选择时间"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         customDatePicker2.showSpecificTime(true); // 不显示时和分
         customDatePicker2.setIsLoop(false); // 不允许循环滚动
 
