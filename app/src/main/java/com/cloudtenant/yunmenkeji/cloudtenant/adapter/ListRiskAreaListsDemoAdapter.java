@@ -1,5 +1,6 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,7 +45,7 @@ public class ListRiskAreaListsDemoAdapter extends BaseAdapter {
      * @param from Map中的key
      * @param to view的id
      */
-    public ListRiskAreaListsDemoAdapter(MessageRoomActivity context, List<? extends Map<String, ?>> data,
+    public ListRiskAreaListsDemoAdapter(Activity context, List<? extends Map<String, ?>> data,
                                         int resource, String[] from, int[] to){
         mContext = context;
         mData = data;

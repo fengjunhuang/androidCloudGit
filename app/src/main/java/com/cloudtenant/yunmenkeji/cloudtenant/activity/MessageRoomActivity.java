@@ -213,33 +213,40 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
                 MessageSave houseDetil= (MessageSave) t;
-
                 System.out.println(houseDetil.getViewData()+"");
-                viewDataBeanList=houseDetil.getViewData();
 
-                Log.e("viewDataBeanList",viewDataBeanList.get(0).getMessageBuildingName());
-                tvTitle.setText(viewDataBeanList.get(0).getMessageBuildingName());
-                riskAreaList = new ArrayList<Map<String, Object>>();
-                Map<String,Object> map ;
-                for (int i = 0; i < viewDataBeanList.size(); i++) {
-                    map = new HashMap<String, Object>();
-                    map.put("tvAreaItem", viewDataBeanList.get(i).getMessageBuildingName());
-                    //红色图标是否显示
-                    if (i==tag) {
-                        map.put("tvAreaNo", tag+1);
-                    }else {
-                        map.put("tvAreaNo", tag);
-                    }
-                    riskAreaList.add(map);
+                if (houseDetil.getResult().equals("false"))
+                {
+
                 }
-                banData(houseDetil.getViewData());
+                else
+                {
+                    viewDataBeanList=houseDetil.getViewData();
+
+                    Log.e("viewDataBeanList",viewDataBeanList.get(0).getMessageBuildingName());
+                    tvTitle.setText(viewDataBeanList.get(0).getMessageBuildingName());
+                    riskAreaList = new ArrayList<Map<String, Object>>();
+                    Map<String,Object> map ;
+                    for (int i = 0; i < viewDataBeanList.size(); i++) {
+                        map = new HashMap<String, Object>();
+                        map.put("tvAreaItem", viewDataBeanList.get(i).getMessageBuildingName());
+                        //红色图标是否显示
+                        if (i==tag) {
+                            map.put("tvAreaNo", tag+1);
+                        }else {
+                            map.put("tvAreaNo", tag);
+                        }
+                        riskAreaList.add(map);
+                    }
+                    banData(houseDetil.getViewData());
+                }
             }
 
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },phone,phone);
+        },phone,phone,UserLocalData.getUser(this).getTokenID(),"","","","","","","true");
     }
 
     private void banData(List<MessageSave.ViewDataBean> houseDetil) {

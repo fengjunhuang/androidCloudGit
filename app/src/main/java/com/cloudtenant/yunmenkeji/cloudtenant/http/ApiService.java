@@ -62,20 +62,44 @@ public interface ApiService {
     @POST("chl/tenant/account/isRegister")
     Observable<UserInfo> checkAuthorization(
             @Query("type") String type,
-            @Query("uid") String uid
+            @Query("uid") String uid,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
 
     );
 
     //获取短信接口
     @POST("chl/tenant/account/sendLoginCode")
     Observable<BrokenUp> getSMSLogin(
-            @Query("phone") String phone
-    );
+            @Query("phone") String phone,
+            @Query("isLogin") String isTrue,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
+
+            );
     //设置密码
     @POST("/chl/tenant/account/updatePassword")
     Observable<BrokenUp> updatePassword(
             @Query("userPhone") String userPhone,
-            @Query("newPassword") String newPassword);
+            @Query("newPassword") String newPassword,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
+    );
 
     //首页模块
     @POST("/chl/buildings/getBuilding")
@@ -83,6 +107,7 @@ public interface ApiService {
                                     @Query("row") String rows,
                                     @Query("longitdue") String longitdue,
                                     @Query("latitude") String latitude,
+                                    @Query("landingPhone") String landingPhone,
                                     @Query("areNames") String areNames,
                                     @Query("omit") String omit,
                                     @Query("city") String city,
@@ -91,14 +116,29 @@ public interface ApiService {
                                     @Query("maxPrice") String maxPrice,
                                     @Query("houseConfigNote") String houseConfigNote,
                                     @Query("depositType") String depositType,
-                                    @Query("score") String score
-
+                                    @Query("score") String score,
+                                    @Query("isLogin") String isTrue,
+                                    @Query("tokenID") String tokenID,
+                                    @Query("appName") String appName,
+                                    @Query("appVersion") String appVersion,
+                                    @Query("phoneSystem") String phoneSystem,
+                                    @Query("phoneType") String phoneType,
+                                    @Query("userLat") String userLat,
+                                    @Query("userLon") String userLon
     );
     @POST("/chl/room/getRoomList")
     Observable<BudingInfo> BudingInfo(@Query("orderId") String orderId,
                                       @Query("page") String page,
                                       @Query("row") String row,
-                                      @Query("phone") String phone
+                                      @Query("phone") String phone,
+                                      @Query("isLogin") String isTrue,
+                                      @Query("tokenID") String tokenID,
+                                      @Query("appName") String appName,
+                                      @Query("appVersion") String appVersion,
+                                      @Query("phoneSystem") String phoneSystem,
+                                      @Query("phoneType") String phoneType,
+                                      @Query("userLat") String userLat,
+                                      @Query("userLon") String userLon
     );
 
     //上传合同,注意:这里须要用data形式上传,以保证图片质量
@@ -124,7 +164,15 @@ public interface ApiService {
             @Query("phone") String phone,
             @Query("idCard") String idCard,
             @Query("name") String name,
-            @Query("landingPhone") String landingPhone);
+            @Query("landingPhone") String landingPhone,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
+    );
 
     @POST("chl/room/getRoomById")
     Observable<RoomInfo> roomInfo(
@@ -133,7 +181,15 @@ public interface ApiService {
     @POST("chl/room/getRoomById")
     Observable<RoomInfo3> roomInfo1(
             @Query("roomId") String roomId,
-            @Query("phone") String phone
+            @Query("landingPhone") String landingPhone,
+            @Query("phone") String phone,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //增加浏览次数
     @POST("chl/room/addRoomReadNum")
@@ -142,23 +198,54 @@ public interface ApiService {
             @Query("ip") String ip,
             @Query("landingPhone") String landingPhone,
             @Query("phone") String phone,
-            @Query("isLogin") String isLogin);
+            @Query("isLogin") String isLogin,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
+    );
 
     //收藏&删除收藏
     @POST("chl/user/experience/addCollection")
     Observable<BrokenUp> addCollectionAction(
             @Query("roomId") String roomId,
             @Query("phone") String phone,
-            @Query("landingPhone") String landingPhone);
+            @Query("landingPhone") String landingPhone,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
+    );
     @POST("chl/user/experience/deleteCollection")
     Observable<BrokenUp> deleteCollectionAction(
             @Query("roomId") String roomId,
             @Query("phone") String phone,
-            @Query("landingPhone") String landingPhone);
+            @Query("landingPhone") String landingPhone,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
+    );
     //获取合同地址
     @POST("chl/sign/contract/getSignContractHtml")
     Observable<BrokenUp> getContractUrl(
-            @Query("str") String str //字符串拼接方式请查看文档
+            @Query("str") String str, //字符串拼接方式请查看文档,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
 
     //我的模块
@@ -166,13 +253,27 @@ public interface ApiService {
     @POST("chl/user/experience/getCollection")
     Observable<MyCollection> getCollectionList(
             @Query("phone") String phone,
-            @Query("landingPhone") String landingPhone
+            @Query("landingPhone") String landingPhone,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //获取浏览记录列表
     @POST("chl/user/experience/getBrowsingHistory")
     Observable<MyCollection> getReviewList(
             @Query("phone") String phone,
-            @Query("landingPhone") String landingPhone
+            @Query("landingPhone") String landingPhone,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     @POST("/chl/tenant/account/updateMessage")
     Observable<BrokenUp> updateMessage(
@@ -182,7 +283,14 @@ public interface ApiService {
             @Query("userConstellation") String userConstellation,
             @Query("userJob") String userJob,
             @Query("userPhone") String userPhone,
-            @Query("userFavourite") String userFavourite
+            @Query("userFavourite") String userFavourite,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
             //以下待添加
 //            @Query("userIcon") String userIcon,
 //            @Query("wechatUID") String wechatUID,
@@ -201,27 +309,56 @@ public interface ApiService {
     );
     @POST("/chl/sign/contract/getContractPic")
     Observable<MyContract> myContract(
-            @Query("phone") String phone
+            @Query("phone") String phone,
+            @Query("landingPhone") String landingPhone,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //获取家庭组列表
     @POST("chl/sign/contract/phoneAllRoom")
     Observable<MyFamily> myFamilyList(
             @Query("phone") String phone,
-            @Query("landingPhone") String landingPhone
+            @Query("landingPhone") String landingPhone,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //家庭组成员列表
     @POST("chl/sign/contract/findRoomSignPeople")
     Observable<MyFamilyData> familyMemberList(
             @Query("phone") String phone,
             @Query("landingPhone") String landingPhone,
-            @Query("roomId") String roomId
+            @Query("roomId") String roomId,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //删除成员
     @POST("chl/sign/contract/deleteSignContract")
     Observable<BrokenUp> deleteFamilyMember(
             @Query("phone") String phone,
             @Query("signId") String signId,
-            @Query("landingPhone") String landingPhone
+            @Query("landingPhone") String landingPhone,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //房间退订
     @POST("chl/sign/contract/ApplicationForCheckOut")
@@ -230,7 +367,14 @@ public interface ApiService {
             @Query("signId") String signId,
             @Query("checkOutDate") String checkOutDate,
             @Query("type") String type,
-            @Query("landingPhone") String landingPhone
+            @Query("landingPhone") String landingPhone,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
 
     //支付模块
@@ -240,7 +384,14 @@ public interface ApiService {
             @Query("roomId") String roomId,
             @Query("roomRentId") String roomRentId,
             @Query("widoutTradeNo") String widoutTradeNo,
-            @Query("landingPhone") String landingPhone
+            @Query("landingPhone") String landingPhone,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //获取支付状态
     //按金
@@ -250,7 +401,14 @@ public interface ApiService {
             @Query("widoutTradeNo") String widoutTradeNo,
             @Query("landingPhone") String landingPhone,
             @Query("roomId") String roomId,
-            @Query("signId") String signId
+            @Query("signId") String signId,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     @POST("chl/api/alipay/room/findOrderMessageByAuid")
     Observable<BrokenUp> getNroamlPayStatus(
@@ -258,7 +416,14 @@ public interface ApiService {
             @Query("widoutTradeNo") String widoutTradeNo,
             @Query("landingPhone") String landingPhone,
             @Query("roomRentId") String roomRentId,
-            @Query("roomId") String roomId
+            @Query("roomId") String roomId,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //检查房间是否被支付过
     //按金
@@ -266,7 +431,14 @@ public interface ApiService {
     Observable<BrokenUp> checkOrderHadPay(
             @Query("roomId") String roomId,
             @Query("phone") String phone,
-            @Query("landingPhone") String landingPhone
+            @Query("landingPhone") String landingPhone,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //此地址用作检查用
     //    @POST("chl/api/alipay/createOrder")
@@ -275,20 +447,41 @@ public interface ApiService {
     @POST("/chl/room/findRoomMessageByPhone")
     Observable<RoomModel> findRoomMessageByPhone(
             @Query("phone") String phone,
-            @Query("landingPhone") String landingPhone
+            @Query("landingPhone") String landingPhone,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //订单历史
     @POST("chl/api/alipay/YunMenPayList")
     Observable<BrokenUp> getBillHistory(//这里返回的是多个model,暂时不知道怎么处理,但是基础model已经生成了BillHistoryModel
                                         @Query("phone") String phone,
-                                        @Query("landingPhone") String landingPhone
+                                        @Query("landingPhone") String landingPhone,
+                                        @Query("tokenID") String tokenID,
+                                        @Query("appName") String appName,
+                                        @Query("appVersion") String appVersion,
+                                        @Query("phoneSystem") String phoneSystem,
+                                        @Query("phoneType") String phoneType,
+                                        @Query("userLat") String userLat,
+                                        @Query("userLon") String userLon
     );
     //未完成的订单列表
     @POST("chl/room/findNoPayRoomRent")
     Observable<BillHistoryModel> getNoCompleteBill(
             @Query("phone") String phone,
             @Query("landingPhone") String landingPhone,
-            @Query("roomId") String roomId
+            @Query("roomId") String roomId,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //传感器
     //获取传感器周期列表
@@ -296,7 +489,14 @@ public interface ApiService {
     Observable<SenerNetWork> getSensorCycleList(
             @Query("phone") String phone,
             @Query("sensorId") String sensorId,
-            @Query("landingPhone") String landingPhone
+            @Query("landingPhone") String landingPhone,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //设置传感器周期
     @POST("/chl/api/sensor/saveSensorTime")
@@ -309,7 +509,14 @@ public interface ApiService {
             @Query("modeName") String modeName,
             @Query("sensorId") String sensorId,
             @Query("type") String type,
-            @Query("ids") String ids
+            @Query("ids") String ids,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //传感器周期开关
     @POST("chl/api/sensor/updateSensorTimeStatus")
@@ -317,13 +524,27 @@ public interface ApiService {
             @Query("phone") String phone,
             @Query("timeStatus") String timeStatus,
             @Query("ids") String ids,
-            @Query("landingPhone") String landingPhone
+            @Query("landingPhone") String landingPhone,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //获取传感器列表
     @POST("chl/api/sensor/findRoomSensorTens")
     Observable<SensorModel> getRoomSensorList(
             @Query("landingPhone") String landingPhone,
-            @Query("roomId") String roomId
+            @Query("roomId") String roomId,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //更新传感器工作状态
     @POST("chl/api/sensor/updateSensorStatus")
@@ -331,7 +552,14 @@ public interface ApiService {
             @Query("phone") String phone,
             @Query("sensorId") String sensorId,
             @Query("sensorStatus") String sensorStatus,
-            @Query("landingPhone") String landingPhone
+            @Query("landingPhone") String landingPhone,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //消息模块
     //楼宇公告
@@ -339,29 +567,58 @@ public interface ApiService {
     Observable<MessageSave> getBuildingNotice
     (
             @Query("phone") String phone,
-            @Query("landingPhone") String landingPhone
+            @Query("landingPhone") String landingPhone,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon,
+            @Query("isLogin") String isLogin
     );
     //其他消息/支付消息
     @POST("chl/sign/contract/findLandlordNew")
     Observable<MessageOther> getOrderMessageAndPaMessage(//model还没做
                                                      @Query("phone") String phone,
                                                      @Query("landingPhone") String landingPhone,
-                                                     @Query("type") String type
+                                                     @Query("type") String type,
+                                                         @Query("tokenID") String tokenID,
+                                                         @Query("appName") String appName,
+                                                         @Query("appVersion") String appVersion,
+                                                         @Query("phoneSystem") String phoneSystem,
+                                                         @Query("phoneType") String phoneType,
+                                                         @Query("userLat") String userLat,
+                                                         @Query("userLon") String userLon
     );
     //确认退房
     @POST("chl/sign/contract/checkOut")
     Observable<BrokenUp> brokenUpDone(
             @Query("phone") String phone,
             @Query("landingPhone") String landingPhone,
-            @Query("signId") String signId
+            @Query("signId") String signId,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //获取传感器的消息
     @POST("chl/api/sensor/getRoomSensorBodyList")
-    Observable<BrokenUp> getSensorMessageList(//model还没做
+    Observable<RoomMessageHistory> getSensorMessageList(//model还没做
                                               @Query("phone") String phone,
                                               @Query("landingPhone") String landingPhone,
                                               @Query("roomId") String roomId,
-                                              @Query("type") String type
+                                              @Query("type") String type,
+                                              @Query("tokenID") String tokenID,
+                                              @Query("appName") String appName,
+                                              @Query("appVersion") String appVersion,
+                                              @Query("phoneSystem") String phoneSystem,
+                                              @Query("phoneType") String phoneType,
+                                              @Query("userLat") String userLat,
+                                              @Query("userLon") String userLon
     );
     //删除某部分传感器消息
     @POST("/chl/api/sensor/deleteSensorMessage")
@@ -369,7 +626,14 @@ public interface ApiService {
             @Query("phone") String phone,
             @Query("landingPhone") String landingPhone,
             @Query("sensorId") String sensorId,
-            @Query("type") String type
+            @Query("type") String type,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
 
     //设置模块
@@ -377,21 +641,42 @@ public interface ApiService {
     @POST("/chl/propelling/feedbackProblem")
     Observable<BrokenUp> feedbackProblem(
             @Query("phone") String phone,
-            @Query("content") String content
+            @Query("content") String content,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //更新推送状态
     @POST("/chl/jdpush/upStatus")
     Observable<BrokenUp> upStatus(
             @Query("phone") String phone,
             @Query("status") String status,
-            @Query("type") String type
+            @Query("type") String type,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
     //取消第三方授权
     @POST("chl/tenant/account/revoke")
     Observable<BrokenUp> cancelAuthorization(
             @Query("userPhone") String userPhone,
             @Query("unidType") String unidType,
-            @Query("landingPhone") String landingPhone
+            @Query("landingPhone") String landingPhone,
+            @Query("tokenID") String tokenID,
+            @Query("appName") String appName,
+            @Query("appVersion") String appVersion,
+            @Query("phoneSystem") String phoneSystem,
+            @Query("phoneType") String phoneType,
+            @Query("userLat") String userLat,
+            @Query("userLon") String userLon
     );
 
     //广告模块

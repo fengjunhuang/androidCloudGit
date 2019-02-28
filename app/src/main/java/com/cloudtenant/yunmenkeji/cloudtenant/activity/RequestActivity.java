@@ -73,7 +73,7 @@ public class RequestActivity extends BaseActivity {
                 protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
                 }
-            },userPhone,s);
+            },userPhone,s,"","","","","","","");
         } catch (Exception e) {
             e.printStackTrace();
         }

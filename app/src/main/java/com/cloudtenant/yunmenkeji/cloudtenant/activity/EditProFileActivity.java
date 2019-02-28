@@ -272,7 +272,7 @@ public class EditProFileActivity extends TakePhotoActivity implements View.OnCli
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },userName,userSex,userBirthday,userConstellation,userJob,userPhone,userFavourite);
+        },userName,userSex,userBirthday,userConstellation,userJob,userPhone,userFavourite,"","","","","","","");
     }
     @Override
     public void onClick(View view) {

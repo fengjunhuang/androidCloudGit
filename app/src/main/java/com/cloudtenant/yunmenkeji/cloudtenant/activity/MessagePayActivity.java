@@ -144,6 +144,8 @@ public class MessagePayActivity extends BaseActivity implements View.OnClickList
     }
     List<MessageOther.LandlordNewListBean> viewDataBeanList;
     public void getData() {
+        Log.e("phoneSystem",android.os.Build.VERSION.RELEASE);
+        Log.e("phoneType",android.os.Build.MODEL);
         //TODO
         HttpMethods.getInstance().getOrderMessageAndPaMessage(new BaseObserver<MessageOther>() {
             @Override
@@ -161,7 +163,7 @@ public class MessagePayActivity extends BaseActivity implements View.OnClickList
             protected void onFailure(Throwable e, boolean isNetWorkError)  {
 
             }
-        },phone,phone,"4");
+        },phone,phone,"4",UserLocalData.getUser(this).getTokenID(),"","","","","","");
     }
 
 }

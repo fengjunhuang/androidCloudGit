@@ -105,6 +105,7 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
                         Log.d("onSuccees",userinfoBean.toString());
 
                         UserLocalData.putUser(LoginActivity.this,userinfoBean);
+
                         PreferencesUtils.putBoolean(LoginActivity.this,"isLogin",true);
 
                         Log.d("onSuccees","isLogin="+PreferencesUtils.getBoolean(LoginActivity.this,"isLogin"));
@@ -284,7 +285,7 @@ public class LoginActivity extends YzsBaseActivity implements View.OnClickListen
                 protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
                 }
-            },type+"","2222");
+            },type+"","2222","","","","","","","");
 
         }
 

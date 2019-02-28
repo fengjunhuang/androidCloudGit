@@ -109,7 +109,7 @@ public class SensorActivity extends YzsBaseActivity implements View.OnClickListe
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },"13068893276",bean.getSensorId(),"13068893276");
+        },"13068893276",bean.getSensorId(),"13068893276","","","","","","","");
 
         if(getIsSenOpen.equals("1")){
             isSenOpen=true;
@@ -151,7 +151,7 @@ public class SensorActivity extends YzsBaseActivity implements View.OnClickListe
                     protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
                     }
-                },"13068893276", bean.getSecurityStatus(),bean.getSensorId(),"13068893276");
+                },"13068893276", bean.getSecurityStatus(),bean.getSensorId(),"13068893276","","","","","","","");
 
             }
         });

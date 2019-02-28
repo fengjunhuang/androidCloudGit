@@ -129,7 +129,7 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },bean.getCellBuildID(),"1","100","");
+        },bean.getCellBuildID(),"1","100","","true","","","","","","","");
     }
 
     @Override

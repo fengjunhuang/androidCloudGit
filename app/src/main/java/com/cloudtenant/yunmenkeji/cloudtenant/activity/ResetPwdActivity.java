@@ -189,7 +189,7 @@ public class ResetPwdActivity extends BaseActivity {
                 protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
                 }
-            },phone, AESOperator.getInstance().encrypt(pwd));
+            },phone, AESOperator.getInstance().encrypt(pwd),"","","","","","","");
         } catch (Exception e) {
             e.printStackTrace();
         }

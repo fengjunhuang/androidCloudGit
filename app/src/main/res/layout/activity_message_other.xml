@@ -7,6 +7,7 @@
     android:paddingTop="@dimen/x7"
     android:layout_height="match_parent">
     <LinearLayout
+        android:visibility="gone"
         android:paddingLeft="@dimen/x17"
         android:paddingRight="@dimen/x17"
         android:background="@android:color/white"
@@ -52,6 +53,7 @@
 
     </LinearLayout>
     <View android:id="@+id/line"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/x7"
         style="@style/match_line"/>
     <com.jude.easyrecyclerview.EasyRecyclerView

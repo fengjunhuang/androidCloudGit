@@ -1,5 +1,6 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,12 +38,12 @@ public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             itemHolder.tvTopLine.setVisibility(View.INVISIBLE);
             // 字体颜色加深
             itemHolder.tvAcceptTime.setTextColor(0xff555555);
-            itemHolder.tvAcceptStation.setTextColor(0xff555555);
+            //itemHolder.tvAcceptStation.setTextColor(0xff555555);
             itemHolder.tvDot.setBackgroundResource(R.drawable.timelline_dot_first);
         } else if (getItemViewType(position) == TYPE_NORMAL) {
             itemHolder.tvTopLine.setVisibility(View.VISIBLE);
             itemHolder.tvAcceptTime.setTextColor(0xff999999);
-            itemHolder.tvAcceptStation.setTextColor(0xff999999);
+            //itemHolder.tvAcceptStation.setTextColor(0xff999999);
             itemHolder.tvDot.setBackgroundResource(R.drawable.timelline_dot_normal);
         }
 
@@ -63,19 +64,37 @@ public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public  class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvAcceptTime, tvAcceptStation;
+        private TextView tvAcceptTime, tvAcceptStation,tvAcceptStation1;
         private TextView tvTopLine, tvDot;
         public ViewHolder(View itemView) {
             super(itemView);
             tvAcceptTime = (TextView) itemView.findViewById(R.id.tvAcceptTime);
             tvAcceptStation = (TextView) itemView.findViewById(R.id.tvAcceptStation);
+            tvAcceptStation1 = (TextView) itemView.findViewById(R.id.tvAcceptStation1);
             tvTopLine = (TextView) itemView.findViewById(R.id.tvTopLine);
             tvDot = (TextView) itemView.findViewById(R.id.tvDot);
         }
 
         public void bindHolder(Trace trace) {
             tvAcceptTime.setText(trace.getAcceptTime());
-            tvAcceptStation.setText(trace.getAcceptStation());
+            if (trace.getAcceptStation().equals("1")){
+                switch (trace.getState()){
+                    case "1":{
+                    tvAcceptStation1.setText("人体感应器检测到异常");
+                    }break;
+                    case "2":{
+                    tvAcceptStation1.setText("火焰感应器检测到异常");
+                    }break;
+                    case "3":{
+                    tvAcceptStation1.setText("烟雾感应器检测到异常");
+                    }break;
+                }
+                tvAcceptStation.setVisibility(View.GONE);
+                tvAcceptStation1.setVisibility(View.VISIBLE);
+            }else {
+                tvAcceptStation1.setVisibility(View.GONE);
+                tvAcceptStation.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

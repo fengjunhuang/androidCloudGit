@@ -513,30 +513,36 @@ public class RoomFragment extends YzsBaseListFragment<SensorModel.ViewDataBean> 
                         {
                             //同上
                         }
-//查找传感器列表
+                        //查找传感器列表
                         HttpMethods.getInstance().getRoomSensorList(new BaseObserver<SensorModel>() {
                             @Override
                             protected void onSuccees(BaseBean t) throws Exception {
-                                //这里插入传感器数据
-                                if (((SensorModel) t).getViewData().size() == 0)
+
+                                if (((SensorModel) t).getResult().equals("false"))
                                 {
-//没有传感器数据
+                                 //没有传感器数据
                                 }
                                 else
                                 {
                                     mAdapter.addData(((SensorModel) t).getViewData());
                                 }
+
                                 mLoading.dimssDoading();
                             }
                             @Override
                             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                                mLoading.dimssDoading();
                             }
-                        },"13068893276",roomModel.getViewData().get(0).getMyRoomID());
+                        },UserLocalData.getUser(getContext()).getUserPhone(),roomModel.getViewData().get(0).getMyRoomID(),UserLocalData.getUser(getContext()).getTokenID(),"","","","","","");
+                        Log.e("getRoomSensorList","phone="+UserLocalData.getUser(getContext()).getUserPhone());
+                        Log.e("getRoomSensorList","roomid="+roomModel.getViewData().get(0).getMyRoomID());
+                        Log.e("getRoomSensorList","tokenId="+UserLocalData.getUser(getContext()).getTokenID());
                     }
                     @Override
                     protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                        mLoading.dimssDoading();
                     }
-                },"13068893276","13068893276",roomModel.getViewData().get(0).getMyRoomID());
+                },UserLocalData.getUser(getContext()).getUserPhone(),UserLocalData.getUser(getContext()).getUserPhone(),roomModel.getViewData().get(0).getMyRoomID(),UserLocalData.getUser(getContext()).getTokenID(),"","","","","","");
 
             }
 
@@ -546,7 +552,7 @@ public class RoomFragment extends YzsBaseListFragment<SensorModel.ViewDataBean> 
                 e.printStackTrace();
 
             }
-        },"13068893276", "13068893276");
+        },UserLocalData.getUser(getContext()).getUserPhone(), UserLocalData.getUser(getContext()).getUserPhone(),UserLocalData.getUser(getContext()).getTokenID(),"","","","","","");
 
     }
 
@@ -681,9 +687,9 @@ public class RoomFragment extends YzsBaseListFragment<SensorModel.ViewDataBean> 
                                     //这里插入传感器数据
                                     mAdapter.getData().clear();
 //这里插入传感器数据
-                                    if (((SensorModel) t).getViewData() == null)
+                                    if (((SensorModel) t).getResult().equals("false"))
                                     {
-//没有传感器数据
+                                        //没有传感器数据
                                     }
                                     else
                                     {
@@ -696,14 +702,14 @@ public class RoomFragment extends YzsBaseListFragment<SensorModel.ViewDataBean> 
                                 protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
                                 }
-                            },"13068893276",roomModel.getViewData().get(index).getMyRoomID());
+                            },UserLocalData.getUser(getContext()).getUserPhone(),roomModel.getViewData().get(index).getMyRoomID(),UserLocalData.getUser(getContext()).getTokenID(),"","","","","","");
                         }
 
                         @Override
                         protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
                         }
-                    },"13068893276","13068893276",roomModel.getViewData().get(index).getMyRoomID());
+                    },UserLocalData.getUser(getContext()).getUserPhone(),UserLocalData.getUser(getContext()).getUserPhone(),roomModel.getViewData().get(index).getMyRoomID(),UserLocalData.getUser(getContext()).getTokenID(),"","","","","","");
 
                 }catch (Exception e){
                     e.printStackTrace();

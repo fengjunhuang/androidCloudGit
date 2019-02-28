@@ -95,7 +95,7 @@ public class SettingActivity extends BaseActivity {
                     protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
                     }
-                },userPhone, s,"2");
+                },userPhone, s,"2","","","","","","","");
             } catch (Exception e) {
                 e.printStackTrace();
             }

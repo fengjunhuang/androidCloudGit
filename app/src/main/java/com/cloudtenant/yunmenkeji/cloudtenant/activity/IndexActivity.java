@@ -12,6 +12,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.base.YzsBaseHomeActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.fragment.HomeFragment;
 import com.cloudtenant.yunmenkeji.cloudtenant.fragment.MeFragment;
 import com.cloudtenant.yunmenkeji.cloudtenant.fragment.MessageFragment;
+import com.cloudtenant.yunmenkeji.cloudtenant.fragment.NMessageFragment;
 import com.cloudtenant.yunmenkeji.cloudtenant.fragment.NewHomeFragment;
 import com.cloudtenant.yunmenkeji.cloudtenant.fragment.RoomFragment;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.CustomViewPager;
@@ -96,7 +97,7 @@ public class IndexActivity extends YzsBaseHomeActivity {
     @Override
     protected void initTab() {
         //setmFragments(new YzsBaseFragment[]{new HomeFragment(),new RoomFragment(),new MessageFragment(), new MeFragment()});
-        setmFragments(new YzsBaseFragment[]{new NewHomeFragment(),new RoomFragment(),new MessageFragment(), new MeFragment()});
+        setmFragments(new YzsBaseFragment[]{new NewHomeFragment(),new RoomFragment(),new NMessageFragment(), new MeFragment()});
         setmIconSelectIds(mIconSelectIds);
         setmIconUnSelectIds(mIconUnselectIds);
         setmTitles(mTitles);
