@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.ViewGroup;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.viewholder.ContractViewHolder;

@@ -16,7 +16,6 @@ import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.ContractAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MessageOtherAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;

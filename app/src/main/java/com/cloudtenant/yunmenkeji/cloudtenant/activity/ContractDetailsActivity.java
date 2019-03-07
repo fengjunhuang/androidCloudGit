@@ -9,26 +9,36 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomModel;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.TnementBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.ChineseNumber;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
 import com.gersion.library.base.BaseActivity;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 
 /**
@@ -39,12 +49,14 @@ public class ContractDetailsActivity extends BaseActivity {
     private TextView details,title;
     private Button button;
     private TnementBean bean;
+    private WebView webView;
     //private HouseDetil.ViewDataBean houseDetil;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contract_details);
         button=findViewById(R.id.button);
+        webView=findViewById(R.id.web_view);
         findViewById(R.id.out).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,10 +89,13 @@ public class ContractDetailsActivity extends BaseActivity {
             }
         });
         getData();
+
     }
+
     String aa;
     SpannableString msp = null;
-    String roomMoney,contractTime;
+        String str;
+    String roomMoney,contractTime,now,nowPlus,nowPlus1;
     ChineseNumber chineseNumber=new ChineseNumber();
     private void getData() {
         //houseDetil = ( HouseDetil.ViewDataBean) getIntent().getExtras().getSerializable("houseDetil");
@@ -118,7 +133,7 @@ public class ContractDetailsActivity extends BaseActivity {
         ctList.add(setTime+"");
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
-        String now = sdf.format(new Date());
+        now = sdf.format(new Date());
         //当前日期
         ctList.add(now);
 
@@ -127,9 +142,9 @@ public class ContractDetailsActivity extends BaseActivity {
         cal.setTime(date);//设置起时间
         //System.out.println("111111111::::"+cal.getTime());
         cal.add(Calendar.MONTH, setTime);//增加一年
-        String nowPlus=sdf.format(cal.getTime());
+        nowPlus=sdf.format(cal.getTime());
         cal.add(Calendar.MONTH, 12-setTime);//增加一年
-        String nowPlus1=sdf.format(cal.getTime());
+        nowPlus1=sdf.format(cal.getTime());
         cal.add(Calendar.MONTH, 24-setTime);//增加一年
         String nowPlus2=sdf.format(cal.getTime());
         //当前日期加一年
@@ -177,22 +192,81 @@ public class ContractDetailsActivity extends BaseActivity {
         //msp.setSpan(new AbsoluteSizeSpan(80), 0, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         details.setText(msp);
-       /* HttpMethods.getInstance().BudingInfo(new BaseObserver<BudingInfo>() {
+        Log.d("getEncoding",getEncoding(bean.getCellName()));
+        Log.d("getEncoding",bean.getCellName());
+        String name = null;
+        try {
+            String gbk=new String(bean.getCellName().getBytes(getEncoding(bean.getCellName())),"GBK");
+            String u8=new String(gbk.getBytes(getEncoding(gbk)),"utf-8");
+        Log.d("getEncoding",getEncoding(u8));
+        Log.d("getEncoding",u8);
+        Log.d("getEncoding",URLEncoder.encode(u8,"utf-8"));
+        Log.d("getEncoding",URLEncoder.encode(bean.getCellName(),"utf-8"));
+            name=u8;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+            str=    name
+                    +bean.getRoomNumber()+";"+bean.getRoomSquare()+";"+contractTime+";"+now+";"+nowPlus+";"+roomMoney+";"
+                    +chineseNumber.getCnString(roomMoney).substring(0).replace("元","")+";"
+                    +roomMoney+";"
+                    +"50;"+now+";"
+                    +roomMoney+";"
+                    +nowPlus+";"
+                    +nowPlus1+";"
+                    +price+";3";
+
+
+        HttpMethods.getInstance().getContractUrl(new BaseObserver<Contract>() {
             @Override
             protected void onSuccees(BaseBean t) throws Exception {
-                BudingInfo budingInfo= (BudingInfo) t;
-                //details.setText(model.);
+                Contract houseDetil= (Contract) t;
 
-                //details.setText(houseDetil.getContract().replace("/n", "\n"));
-                //Log.e("onSuccees",houseDetil.getViewData());
-
-
+                webView.loadUrl(HttpMethods.BASE_URL+houseDetil.getUrl());
             }
 
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },"");*/
+        },str, UserLocalData.getUser(ContractDetailsActivity.this).getTokenID(),"","","","","","","true");
+    }
+
+
+
+    public  String getEncoding(String str) {
+        String encode = "GB2312";
+        try {
+            if (str.equals(new String(str.getBytes(encode), encode))) {
+                String s = encode;
+                return s;
+            }
+        } catch (Exception exception) {
+        }
+        encode = "ISO-8859-1";
+        try {
+            if (str.equals(new String(str.getBytes(encode), encode))) {
+                String s1 = encode;
+                return s1;
+            }
+        } catch (Exception exception1) {
+        }
+        encode = "UTF-8";
+        try {
+            if (str.equals(new String(str.getBytes(encode), encode))) {
+                String s2 = encode;
+                return s2;
+            }
+        } catch (Exception exception2) {
+        }
+        encode = "GBK";
+        try {
+            if (str.equals(new String(str.getBytes(encode), encode))) {
+                String s3 = encode;
+                return s3;
+            }
+        } catch (Exception exception3) {
+        }
+        return "";
     }
 }

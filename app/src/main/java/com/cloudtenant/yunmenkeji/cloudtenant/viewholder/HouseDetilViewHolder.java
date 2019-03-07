@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;

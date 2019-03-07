@@ -14,7 +14,6 @@ import com.bumptech.glide.request.target.Target;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.ContractAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;

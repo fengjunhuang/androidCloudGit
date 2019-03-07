@@ -2,7 +2,10 @@ package com.cloudtenant.yunmenkeji.cloudtenant.fragment;
 
 
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -20,6 +23,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
@@ -35,6 +39,9 @@ import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.OnItemClickLitener;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.Solve7PopupWindow;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
 import com.yzs.yzsbaseactivitylib.entity.EventCenter;
 import com.yzs.yzsbaseactivitylib.fragment.YzsBaseListFragment;
 
@@ -48,7 +55,7 @@ public class NMessageFragment extends YzsBaseListFragment<HouseDetil> implements
 
 
 
-    private String[] mTabTitles = new String[]{"楼宇公告","其他消息","支付消息","房间消息"};
+    private String[] mTabTitles = new String[]{"楼宇公告","签约消息","支付消息","房间消息"};
     public ViewPager viewPager;
     private ArrayAdapter<String> arrayAdapter;
     private Spinner spinner;
@@ -57,6 +64,7 @@ public class NMessageFragment extends YzsBaseListFragment<HouseDetil> implements
     private List<Map<String, Object>> riskAreaList3 = null;
     private View tvRiskArea;
     private ImageView mImageView;
+    private ImageView iv_phone;
     private TextView tvTitle;
     private MessageRoomAdapter adapter;
     private String phone;
@@ -64,7 +72,7 @@ public class NMessageFragment extends YzsBaseListFragment<HouseDetil> implements
     private int tag=0,roomP0=0,roomP3=0,titleTag=0;
     public MessageRoomFragment messageRoomFragment=new MessageRoomFragment();
     public RoomMessageFragment roomFragment=new RoomMessageFragment();
-
+    private String telephone="tel:10086";
     @Override
     protected View initContentView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
         View view=layoutInflater.inflate(R.layout.fragment_message_one,viewGroup,false);
@@ -72,6 +80,29 @@ public class NMessageFragment extends YzsBaseListFragment<HouseDetil> implements
         spinner=view.findViewById(R.id.room_spinner);
         mImageView=view.findViewById(R.id.tvAllArea);
         tvRiskArea=view.findViewById(R.id.tvRiskArea);
+        iv_phone=view.findViewById(R.id.iv_phone);
+        iv_phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AndPermission.with(getActivity())
+                        .permission(Permission.CALL_PHONE, Permission.READ_EXTERNAL_STORAGE)
+                        .onGranted(new Action() {
+                            @SuppressLint("MissingPermission")
+                            @Override
+                            public void onAction(Object data) {
+                                //用intent启动拨打电话
+                                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(telephone));
+                                startActivity(intent);
+                            }
+                        })
+                        .onDenied(new Action() {
+                            @Override
+                            public void onAction(Object data) {
+                                Toast.makeText(getActivity(), "没有权限打电话哦", Toast.LENGTH_LONG).show();
+                            }
+                        }).start();
+            }
+        });
         tvTitle=view.findViewById(R.id.tvTitle);
         tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,20 +144,24 @@ public class NMessageFragment extends YzsBaseListFragment<HouseDetil> implements
                 switch (position){
                     case 0:{
                         mImageView.setVisibility(View.VISIBLE);
+                        iv_phone.setVisibility(View.VISIBLE);
                         titleTag=0;
                         tvTitle.setText(viewDataBeanList.get(roomP0).getMessageBuildingName());
                     }break;case 1:{
-                        tvTitle.setText("其他消息");
+                        tvTitle.setText("签约消息");
                         titleTag=1;
                         mImageView.setVisibility(View.GONE);
+                        iv_phone.setVisibility(View.GONE);
                     }break;case 2:{
                         mImageView.setVisibility(View.GONE);
+                        iv_phone.setVisibility(View.GONE);
                         titleTag=2;
                         tvTitle.setText("支付消息");
                     }break;case 3:{
                         titleTag=3;
                         tvTitle.setText(viewDataBeanList3.get(roomP3).getMyRoomName());
                         mImageView.setVisibility(View.VISIBLE);
+                        iv_phone.setVisibility(View.GONE);
                     }break;
                 }
             }
@@ -271,7 +306,7 @@ public class NMessageFragment extends YzsBaseListFragment<HouseDetil> implements
     private void banData(List<MessageSave.ViewDataBean> houseDetil) {
         adapter.removeAll();
         adapter.addAll(viewDataBeanList.get(0).getMessageArray());
-        //telephone="tel:"+viewDataBeanList.get(0).getMessageLandlordPhone();
+        telephone="tel:"+viewDataBeanList.get(0).getMessageLandlordPhone();
         for (int i = 0; i < houseDetil.size(); i++) {
             list.add(houseDetil.get(i).getMessageBuildingName());
         }
@@ -290,7 +325,7 @@ public class NMessageFragment extends YzsBaseListFragment<HouseDetil> implements
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         spinner.setSelection(i);
-
+        telephone="tel:"+viewDataBeanList.get(i).getMessageLandlordPhone();
     }
 
     @Override
