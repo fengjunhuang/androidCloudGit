@@ -127,6 +127,7 @@
             />
         <activity android:name=".activity.MpChartActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="landscape"
             />
         <activity android:name=".activity.OnlineVisitAcivity"
 

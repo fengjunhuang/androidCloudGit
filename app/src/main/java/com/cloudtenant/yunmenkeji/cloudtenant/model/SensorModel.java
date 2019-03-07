@@ -1,12 +1,10 @@
 package com.cloudtenant.yunmenkeji.cloudtenant.model;
 
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.BaseBeanC;
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomModel;
-
 import java.io.Serializable;
 import java.util.List;
 
 public class SensorModel extends BaseBean {
+
 
     private List<ViewDataBean> viewData;
 
@@ -18,16 +16,36 @@ public class SensorModel extends BaseBean {
         this.viewData = viewData;
     }
 
-    public static class ViewDataBean implements Serializable {
+    public static class ViewDataBean  implements Serializable{
+        /**
+         * gateModel : TS2012
+         * light : 10
+         * position : 客卧室
+         * positionId : 2
+         * securityStatus : 2
+         * sensorId : xr4gst3xyi2012
+         * ten : 26
+         * time : 1548825987122
+         * wet : 30
+         */
+
+        private String gateModel;
         private String light;
         private String position;
-        private String securityStatus;
-        private String gateModel;
-        private String sensorId;
         private String positionId;
+        private String securityStatus;
+        private String sensorId;
         private String ten;
-        private int time;
+        private long time;
         private String wet;
+
+        public String getGateModel() {
+            return gateModel;
+        }
+
+        public void setGateModel(String gateModel) {
+            this.gateModel = gateModel;
+        }
 
         public String getLight() {
             return light;
@@ -45,20 +63,20 @@ public class SensorModel extends BaseBean {
             this.position = position;
         }
 
+        public String getPositionId() {
+            return positionId;
+        }
+
+        public void setPositionId(String positionId) {
+            this.positionId = positionId;
+        }
+
         public String getSecurityStatus() {
             return securityStatus;
         }
 
         public void setSecurityStatus(String securityStatus) {
             this.securityStatus = securityStatus;
-        }
-
-        public String getGateModel() {
-            return gateModel;
-        }
-
-        public void setGateModel(String gateModel) {
-            this.gateModel = gateModel;
         }
 
         public String getSensorId() {
@@ -69,14 +87,6 @@ public class SensorModel extends BaseBean {
             this.sensorId = sensorId;
         }
 
-        public String getPositionId() {
-            return positionId;
-        }
-
-        public void setPositionId(String positionId) {
-            this.positionId = positionId;
-        }
-
         public String getTen() {
             return ten;
         }
@@ -85,11 +95,11 @@ public class SensorModel extends BaseBean {
             this.ten = ten;
         }
 
-        public int getTime() {
+        public long getTime() {
             return time;
         }
 
-        public void setTime(int time) {
+        public void setTime(long time) {
             this.time = time;
         }
 

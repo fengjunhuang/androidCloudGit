@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/butten_background_green_solid"
+
+
+
+    >
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
+        android:gravity="center"
+        android:textSize="13sp"
+        android:text="刷新"
+        android:textColor="@color/white" />
+    <TextView
+
+        android:id="@+id/tvContent1"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:layout_marginTop="0.5dp"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:text="详细数据分析" />
+    <TextView
+
+        android:id="@+id/tvContent2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_marginTop="0.5dp"
+        android:textSize="13sp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="账单历史" />
+</LinearLayout>

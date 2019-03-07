@@ -217,7 +217,7 @@ public class MpChartActivity extends YzsBaseActivity {
         return mLineChart;
 
     }
-    private void initMpChat( List<Entry> entries,List<Entry> entries1,int size) {
+    private void initMpChat(List<Entry> entries, List<Entry> entries1, final int size) {
 
 
         List<Entry> mentries=  entries.subList(0,size);
@@ -262,15 +262,20 @@ public class MpChartActivity extends YzsBaseActivity {
         XAxis xAxis = mLineChart.getXAxis();
 
         xAxis.setLabelCount(size, true);
-//        xAxis.setValueFormatter(new IAxisValueFormatter() {
-//
-//
-//            @Override
-//            public String getFormattedValue(float value, AxisBase axis) {
-//
-//                return mlistX.get((int) value);
-//            }
-//        });
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+
+
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+
+                int index = (int) value;
+                if(index >= 0 && index < size ){
+                    return mlistX.get(index);
+                }else {
+                    return "";
+                }
+            }
+        });
 
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextSize(18);
@@ -324,7 +329,7 @@ public class MpChartActivity extends YzsBaseActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 1;
         }
 
         @Override

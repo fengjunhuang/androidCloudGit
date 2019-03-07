@@ -123,12 +123,6 @@ public class HouseDetilActivity extends YzsBaseListActivity<BudingInfo.ViewDataB
                 con=budingInfo.getContract();
                 viewDataX = budingInfo.getViewDataX();
                 mAdapter.addData(viewDataX);
-               /* if (budingInfo.getResult().equals("true")) {
-                }else {
-                    Toast.makeText(mContext, budingInfo.getMessage(), Toast.LENGTH_SHORT).show();
-                }*/
-
-
             }
 
             @Override

@@ -33,6 +33,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/right"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:src="@mipmap/right_return"

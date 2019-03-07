@@ -84,7 +84,7 @@ import com.yzs.yzsbaseactivitylib.fragment.YzsBaseListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Objects;
 
 
 public class NewHomeFragment extends BaseFragment implements TencentLocationListener, RecyclerArrayAdapter.OnMoreListener,SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
@@ -278,7 +278,9 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
         PreferencesUtils.putBoolean(getActivity(),"isShow",true);
         View view=inflater.inflate(R.layout.fragment_house,container,false);
         mContext=getActivity();
-        phone= UserLocalData.getUser(mContext).getUserPhone();
+        if (!isFirst) {
+            phone= Objects.requireNonNull(UserLocalData.getUser(mContext)).getUserPhone();
+        }
         tv_location =view. findViewById(R.id.tv_location);
         ll_tor_bar =view. findViewById(R.id.ll_top_bar);
         linearParams= (LinearLayout.LayoutParams) ll_tor_bar.getLayoutParams();
@@ -345,6 +347,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                 //headerView.setVisibility(View.VISIBLE);
                 locationManager = TencentLocationManager.getInstance(getActivity());
                 locationRequest = TencentLocationRequest.create();
+                locationRequest.setInterval(600000);//每分钟重新定位一次
                 bindListener();
             }
         };
@@ -406,6 +409,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             public void onInfoWindowDettached(Marker arg0, View arg1) {
                 // TODO Auto-generated method stub
                 Log.d("WindowAdapter","onInfoWindowDettached！！");
+                arg0.hideInfoWindow();
             }
             //infoWindow弹出前调用，返回的view将作为弹出的infoWindow
             @Override
@@ -422,10 +426,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                 HouseDetil.ViewDataBean bean = (HouseDetil.ViewDataBean) arg0.getTag();
                 tv_name.setText(bean.getCellName());
                 tv_pay.setText(bean.getCellCost());
-
-                Picasso.with(mContext).load(bean.getCellImage()).fit().into(iv_pic);
-                tv_shengxia.setText("剩:"+bean.getCellRemain()+"间");
-                view.setOnClickListener(new View.OnClickListener() {
+                tv_name.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Log.d("onclick","点击了地图上的弹框");
@@ -434,11 +435,55 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                         readyGo(HouseDetilActivity.class,bundle);
                     }
                 });
+                tv_pay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("onclick","点击了地图上的弹框");
+                        Bundle bundle =new Bundle();
+                        bundle.putSerializable("bean",(HouseDetil.ViewDataBean)arg0.getTag());
+                        readyGo(HouseDetilActivity.class,bundle);
+                    }
+                });
+                Picasso.with(mContext).load(HttpMethods.BASE_URL+bean.getCellImage()).fit().into(iv_pic);
+                tv_shengxia.setText("剩:"+bean.getCellRemain()+"间");
+
                 return view;
             }
         });
         if (list!=null) {
-            for(HouseDetil.ViewDataBean bean :list){
+
+
+            for (int i = 0; i < list.size(); i++) {
+
+                HouseDetil.ViewDataBean bean=list.get(i);
+                if (!bean.getCellLatitude().equals("0.000000")) {
+                    String lat=bean.getCellLatitude();
+                    String lon=bean.getCellLongitude();
+                    LatLng latLng = new LatLng(Double.valueOf(bean.getCellLatitude()),Double.valueOf(bean.getCellLongitude()));
+                    Log.d("initMyMap","lat="+Double.valueOf(bean.getCellLatitude())+">>>long="+Double.valueOf(bean.getCellLongitude()));
+                    Log.d("initMyMap","lat="+bean.getCellLatitude()+">>>long="+bean.getCellLongitude());
+                    //Log.d("initMyMap","getCellName="+bean.getCellName()+">>>getCellAddress="+bean.getCellAddress());
+                    ImageView imageView=new ImageView(getActivity());
+                    imageView.setImageResource(R.drawable.image_message_warning);
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                                Log.d("initMyMap","lat=imageView");
+                        }
+                    });
+                    final Marker marker = tencentMap.addMarker(new MarkerOptions().
+                            position(latLng).
+                            title(bean.getCellName()).anchor(1f, 1f)
+                            .markerView(imageView)
+                            .snippet(bean.getCellAddress()));
+
+                    marker.setTag(bean);
+                    markers.add(marker);
+                }
+
+            }
+           /* for(HouseDetil.ViewDataBean bean :list){
                 LatLng latLng = new LatLng(Double.valueOf(bean.getCellLatitude()),Double.valueOf(bean.getCellLongitude()));
                 Log.d("initMyMap","lat="+bean.getCellLongitude()+">>>long="+bean.getCellLongitude());
                 Log.d("initMyMap","getCellName="+bean.getCellName()+">>>getCellAddress="+bean.getCellAddress());
@@ -449,7 +494,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
 
                 marker.setTag(bean);
                 markers.add(marker);
-            }
+            }*/
         }else {
             Log.d("initMyMap","list为空！！");
         }
@@ -459,7 +504,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             @Override
             public boolean onMarkerClick(Marker arg0) {
                 // TODO Auto-generated method stub
-                Log.d("onclick","点击了地图上的小标点");
+                Log.d("onclick","点击了地图上的小标点setOnMarkerClickListener");
                 arg0.hideInfoWindow();
                 arg0.showInfoWindow();
                 /*Bundle bundle =new Bundle();
@@ -652,7 +697,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
                 isFist=false;
             }
 
-            if (accuracy == null) {
+            /*if (accuracy == null) {
                 accuracy = tencentMap.addCircle(new CircleOptions().
                         center(latLng).
                         radius((double)arg0.getAccuracy()).
@@ -662,7 +707,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             myLocation.setPosition(latLng);
             myLocation.setRotation(arg0.getBearing()); //仅当定位来源于gps有效，或者使用方向传感器
             accuracy.setCenter(latLng);
-            accuracy.setRadius(arg0.getAccuracy());
+            accuracy.setRadius(arg0.getAccuracy());*/
 
         } else {
         }
