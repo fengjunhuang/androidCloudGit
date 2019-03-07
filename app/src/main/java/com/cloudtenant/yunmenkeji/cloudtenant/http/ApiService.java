@@ -32,10 +32,12 @@ import com.cloudtenant.yunmenkeji.cloudtenant.model.StarAdModel;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -239,17 +241,17 @@ public interface ApiService {
     );
     //获取合同地址
     @POST("chl/sign/contract/getSignContractHtml")
-    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8") //添加
+    @FormUrlEncoded
     Observable<Contract> getContractUrl(
-            @Query("str") String str, //字符串拼接方式请查看文档,
-            @Query("tokenID") String tokenID,
-            @Query("appName") String appName,
-            @Query("appVersion") String appVersion,
-            @Query("phoneSystem") String phoneSystem,
-            @Query("phoneType") String phoneType,
-            @Query("userLat") String userLat,
-            @Query("userLon") String userLon,
-            @Query("isLogin") String isLogin
+            @Field("str") String str, //字符串拼接方式请查看文档,
+            @Field("tokenID") String tokenID,
+            @Field("appName") String appName,
+            @Field("appVersion") String appVersion,
+            @Field("phoneSystem") String phoneSystem,
+            @Field("phoneType") String phoneType,
+            @Field("userLat") String userLat,
+            @Field("userLon") String userLon,
+            @Field("isLogin") String isLogin
     );
 
     //我的模块

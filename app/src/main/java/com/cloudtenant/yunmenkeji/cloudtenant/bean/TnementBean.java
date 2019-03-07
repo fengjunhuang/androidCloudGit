@@ -48,12 +48,12 @@ public class TnementBean implements Serializable {
         return cellImage;
     }
 
-    public void setCellImage(String cellImage) {
-        this.cellImage = cellImage;
-    }
-
     public String getCellName() {
         return cellName;
+    }
+
+    public void setCellImage(String cellImage) {
+        this.cellImage = cellImage;
     }
 
     public void setCellName(String cellName) {
