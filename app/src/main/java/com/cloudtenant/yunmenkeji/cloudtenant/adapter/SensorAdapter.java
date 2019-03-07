@@ -3,7 +3,6 @@ package com.cloudtenant.yunmenkeji.cloudtenant.adapter;
 import android.content.Context;
 import android.view.ViewGroup;
 
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.Sensor;
 import com.cloudtenant.yunmenkeji.cloudtenant.viewholder.ContractViewHolder;
 import com.cloudtenant.yunmenkeji.cloudtenant.viewholder.SensorViewHolder;

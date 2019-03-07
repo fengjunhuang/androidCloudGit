@@ -58,7 +58,7 @@ public class MessageRoomFragment extends Fragment implements View.OnClickListene
     private MessageRoomAdapter adapter;
     private ArrayAdapter<String> arrayAdapter;
     private Spinner spinner;
-    private String telephone="tel:10086";
+
     private String phone;
     private List<String> list=new ArrayList<>();
     //private TextView tvAllArea;
@@ -73,28 +73,7 @@ public class MessageRoomFragment extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.activity_message_room,container,false);
-        view.findViewById(R.id.ll_phone).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AndPermission.with(getActivity())
-                        .permission(Permission.CALL_PHONE, Permission.READ_EXTERNAL_STORAGE)
-                        .onGranted(new Action() {
-                            @SuppressLint("MissingPermission")
-                            @Override
-                            public void onAction(Object data) {
-                                //用intent启动拨打电话
-                                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(telephone));
-                                startActivity(intent);
-                            }
-                        })
-                        .onDenied(new Action() {
-                            @Override
-                            public void onAction(Object data) {
-                                Toast.makeText(getActivity(), "没有权限打电话哦", Toast.LENGTH_LONG).show();
-                            }
-                        }).start();
-            }
-        });
+
         phone= UserLocalData.getUser(getActivity()).getUserPhone();
         spinner=view.findViewById(R.id.room_spinner);
         mImageView=view.findViewById(R.id.tvAllArea);
@@ -185,7 +164,6 @@ public class MessageRoomFragment extends Fragment implements View.OnClickListene
         Log.e("selectedItem","int="+i);
         adapter.removeAll();
         adapter.addAll(viewDataBeanList.get(i).getMessageArray());
-        telephone="tel:"+viewDataBeanList.get(i).getMessageLandlordPhone();
     }
 
     @Override
@@ -240,7 +218,7 @@ public class MessageRoomFragment extends Fragment implements View.OnClickListene
     private void banData(List<MessageSave.ViewDataBean> houseDetil) {
         adapter.removeAll();
         adapter.addAll(viewDataBeanList.get(0).getMessageArray());
-        telephone="tel:"+viewDataBeanList.get(0).getMessageLandlordPhone();
+
         for (int i = 0; i < houseDetil.size(); i++) {
             list.add(houseDetil.get(i).getMessageBuildingName());
         }

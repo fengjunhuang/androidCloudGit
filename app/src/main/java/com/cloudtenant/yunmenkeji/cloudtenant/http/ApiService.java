@@ -4,6 +4,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.http;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BuildingInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.IconUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
@@ -33,6 +34,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -237,7 +239,8 @@ public interface ApiService {
     );
     //获取合同地址
     @POST("chl/sign/contract/getSignContractHtml")
-    Observable<BrokenUp> getContractUrl(
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8") //添加
+    Observable<Contract> getContractUrl(
             @Query("str") String str, //字符串拼接方式请查看文档,
             @Query("tokenID") String tokenID,
             @Query("appName") String appName,
@@ -245,7 +248,8 @@ public interface ApiService {
             @Query("phoneSystem") String phoneSystem,
             @Query("phoneType") String phoneType,
             @Query("userLat") String userLat,
-            @Query("userLon") String userLon
+            @Query("userLon") String userLon,
+            @Query("isLogin") String isLogin
     );
 
     //我的模块

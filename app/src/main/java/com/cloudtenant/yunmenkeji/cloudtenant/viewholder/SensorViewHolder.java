@@ -4,7 +4,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.Sensor;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 

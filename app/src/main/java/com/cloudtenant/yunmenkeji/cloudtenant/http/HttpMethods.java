@@ -5,6 +5,7 @@ package com.cloudtenant.yunmenkeji.cloudtenant.http;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BrokenUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BudingInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.BuildingInfo;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.Contract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.IconUp;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
@@ -298,8 +299,8 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void getContractUrl(BaseObserver<BrokenUp> observer, String str, String tokenID,String appName,String appVersion,String phoneSystem,String phoneType,String userLat,String userLon){
-        apiService.getContractUrl(str,tokenID,appName,appVersion,phoneSystem,phoneType,userLat,userLon).subscribeOn(Schedulers.io())
+    public void getContractUrl(BaseObserver<Contract> observer, String str, String tokenID, String appName, String appVersion, String phoneSystem, String phoneType, String userLat, String userLon, String isLogin){
+        apiService.getContractUrl(str,tokenID,appName,appVersion,phoneSystem,phoneType,userLat,userLon,isLogin).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

@@ -68,6 +68,7 @@
         android:layout_height="0dp">
     </com.jude.easyrecyclerview.EasyRecyclerView>
     <LinearLayout
+        android:visibility="gone"
         android:gravity="center"
         android:layout_marginTop="1dp"
         android:id="@+id/ll_phone"
