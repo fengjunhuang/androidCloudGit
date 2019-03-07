@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Created by tlol20 on 2017/6/14
  */
-public class MessageTraceActivity extends BaseActivity implements View.OnClickListener{
+public class MessageTraceActivity extends BaseActivity {
 
     private EasyRecyclerView recyclerView;
     private TraceListAdapter adapter;
@@ -51,64 +51,42 @@ public class MessageTraceActivity extends BaseActivity implements View.OnClickLi
         recyclerView= (EasyRecyclerView)findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //recyclerView.addItemDecoration(new DividerDecoration(Color.parseColor("#aaaaaa"), 1));
-        AddData();
+
 
 
         //getData();
 
     }
-    List<RoomMessageHistory.ViewDataBean> viewDataBean;
+    /*List<RoomMessageHistory.ViewDataBean> viewDataBean;
     private void AddData() {
         //TODO
-//        HttpMethods.getInstance().roomMessageHistory(new BaseObserver<RoomMessageHistory>() {
-//            @Override
-//            protected void onSuccees(BaseBean t) throws Exception {
-//                RoomMessageHistory houseDetil= (RoomMessageHistory) t;
-//
-//                System.out.println(houseDetil.getViewData()+"");
-//                viewDataBean=houseDetil.getViewDataX();
-//                for (int i = 0; i < viewDataBean.get(0).getHistoryTime().size(); i++) {
-//                    Log.e("viewDataBeanList",viewDataBean.get(0).getHistoryTime().toString());
-//                    traceList.add(new Trace(viewDataBean.get(0).getHistoryTime().get(i), viewDataBean.get(0).getHistoryInfo().get(i)));
-//
-//                }
-//                for (int i = 0; i < traceList.size(); i++) {
-//
-//                    Log.e("viewDataBeanList","traceList.get(i).toString()="+traceList.get(i).toString());
-//
-//                }
-//                adapter = new TraceListAdapter (MessageTraceActivity.this,traceList);
-//                recyclerView.setAdapter(adapter);
-//
-//            }
-//
-//            @Override
-//            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-//
-//            }
-//        },"");
-    }
+        HttpMethods.getInstance().roomMessageHistory(new BaseObserver<RoomMessageHistory>() {
+            @Override
+            protected void onSuccees(BaseBean t) throws Exception {
+                RoomMessageHistory houseDetil= (RoomMessageHistory) t;
 
+                System.out.println(houseDetil.getViewData()+"");
+                viewDataBean=houseDetil.getViewDataX();
+                for (int i = 0; i < viewDataBean.get(0).getHistoryTime().size(); i++) {
+                    Log.e("viewDataBeanList",viewDataBean.get(0).getHistoryTime().toString());
+                    traceList.add(new Trace(viewDataBean.get(0).getHistoryTime().get(i), viewDataBean.get(0).getHistoryInfo().get(i)));
 
+                }
+                for (int i = 0; i < traceList.size(); i++) {
 
-    SelectPicPopupWindow mPopWindow;
-    private void showPopupWindow() {
-        //设置contentView
-        mPopWindow = new SelectPicPopupWindow(this,this,"0");
-        mPopWindow.showAsDropDown(LayoutInflater.from(this).inflate(R.layout.activity_me, null));
+                    Log.e("viewDataBeanList","traceList.get(i).toString()="+traceList.get(i).toString());
 
-    }
+                }
+                adapter = new TraceListAdapter (MessageTraceActivity.this,traceList);
+                recyclerView.setAdapter(adapter);
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.pickPhotoBtn:{
-                Toast.makeText(this, "申请退房！", Toast.LENGTH_SHORT).show();
-            }break;
-            case R.id.cancelBtn:{
-                mPopWindow.dismiss();
-            }break;
+            }
 
-        }
-    }
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+            }
+        },"");
+    }*/
+
 }

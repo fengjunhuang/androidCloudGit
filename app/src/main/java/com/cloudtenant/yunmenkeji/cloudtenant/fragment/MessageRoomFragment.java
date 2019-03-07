@@ -1,4 +1,4 @@
-package com.cloudtenant.yunmenkeji.cloudtenant.activity;
+package com.cloudtenant.yunmenkeji.cloudtenant.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,25 +22,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.MessageRoomActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.MessageTraceActivity;
+import com.cloudtenant.yunmenkeji.cloudtenant.activity.NoticeActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.ListRiskAreaListsDemoAdapter;
-import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MessageOtherAdapter;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MessageRoomAdapter;
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageRoom;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageSave;
-import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
-import com.cloudtenant.yunmenkeji.cloudtenant.model.HouseDetil;
-import com.cloudtenant.yunmenkeji.cloudtenant.model.MessageNoticeModel;
-import com.cloudtenant.yunmenkeji.cloudtenant.util.BannerPicassoImageLoader;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.OnItemClickLitener;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
-import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.Solve7PopupWindow;
-import com.gersion.library.base.BaseActivity;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
@@ -52,10 +48,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by tlol20 on 2017/6/14
- */
-public class MessageRoomActivity extends BaseActivity implements AdapterView.OnItemSelectedListener{
+import de.hdodenhof.circleimageview.CircleImageView;
+
+
+public class MessageRoomFragment extends Fragment implements View.OnClickListener , AdapterView.OnItemSelectedListener{
+
 
     private EasyRecyclerView recyclerView;
     private MessageRoomAdapter adapter;
@@ -74,19 +71,12 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
     private List<Map<String, Object>> riskAreaList = null;
     private int tag=0;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_message_room);
-        findViewById(R.id.out).setOnClickListener(new View.OnClickListener() {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view=inflater.inflate(R.layout.activity_message_room,container,false);
+        view.findViewById(R.id.ll_phone).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-            }
-        });
-        findViewById(R.id.ll_phone).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AndPermission.with(MessageRoomActivity.this)
+                AndPermission.with(getActivity())
                         .permission(Permission.CALL_PHONE, Permission.READ_EXTERNAL_STORAGE)
                         .onGranted(new Action() {
                             @SuppressLint("MissingPermission")
@@ -100,50 +90,48 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
                         .onDenied(new Action() {
                             @Override
                             public void onAction(Object data) {
-                                Toast.makeText(MessageRoomActivity.this, "没有权限打电话哦", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), "没有权限打电话哦", Toast.LENGTH_LONG).show();
                             }
                         }).start();
             }
         });
-        phone= UserLocalData.getUser(this).getUserPhone();
-        spinner=findViewById(R.id.room_spinner);
-        mImageView=findViewById(R.id.tvAllArea);
-        tvRiskArea=findViewById(R.id.tvRiskArea);
-        tvTitle=findViewById(R.id.tvTitle);
+        phone= UserLocalData.getUser(getActivity()).getUserPhone();
+        spinner=view.findViewById(R.id.room_spinner);
+        mImageView=view.findViewById(R.id.tvAllArea);
+
+        tvTitle=view.findViewById(R.id.tvTitle);
 
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("onClick","点击了下拉按钮");
-                showRiskAreaPopupWindow();
+                //showRiskAreaPopupWindow();
             }
         });
-
-
-        recyclerView= findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView= view.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new DividerDecoration(Color.parseColor("#aaaaaa"), 1));
-        adapter = new MessageRoomAdapter(this);
+        adapter = new MessageRoomAdapter(getActivity());
         recyclerView.setAdapter(adapter);
         getData();
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 if (position==1) {
-                    startActivity(new Intent(MessageRoomActivity.this, MessageTraceActivity.class));
+                   // startActivity(new Intent(getActivity(), MessageTraceActivity.class));
                 }
                 else{
-                    startActivity(new Intent(MessageRoomActivity.this, NoticeActivity.class));
+                    //startActivity(new Intent(getActivity(), NoticeActivity.class));
                 }
 
             }
         });
+        return view;
     }
-
     //PopupWindow菜单详细内容显示
     private void showRiskAreaPopupWindow() {
         //设置contentView
-        View contentView = LayoutInflater.from(MessageRoomActivity.this).inflate(R.layout.newpages_activity_risk_area_popup_demo, null);
+        View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.newpages_activity_risk_area_popup_demo, null);
         //适配7.0版本
         mPopWindow = new Solve7PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
 //        mPopWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
@@ -156,7 +144,7 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
 
 
         ListRiskAreaListsDemoAdapter listRiskAreaListsDemoAdapter = new ListRiskAreaListsDemoAdapter(
-                MessageRoomActivity.this, riskAreaList,
+                getActivity(), riskAreaList,
                 R.layout.spinner_item, new String[] { "tvAreaItem","tvAreaNo"}, new int[] { R.id.tv,R.id.iv});
         lvRiskArea.setAdapter(listRiskAreaListsDemoAdapter);
         listRiskAreaListsDemoAdapter.setOnItemClickLitener(new OnItemClickLitener() {
@@ -165,9 +153,7 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
                 int iTag= (int) riskAreaList.get(position).get("tvAreaNo");
                 riskAreaList.get(position).put("tvAreaNo",iTag+2);
                 tvTitle.setText(viewDataBeanList.get(position).getMessageBuildingName());
-                adapter.removeAll();
-                adapter.addAll(viewDataBeanList.get(position).getMessageArray());
-                telephone="tel:"+viewDataBeanList.get(position).getMessageLandlordPhone();
+
                 mPopWindow.dismiss();
             }
 
@@ -190,15 +176,16 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
         mPopWindow.showAsDropDown(tvRiskArea);
 
     }
-
-
-
-
-
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         spinner.setSelection(i);
 
+    }
+    public void selectedItem(int i) {
+        Log.e("selectedItem","int="+i);
+        adapter.removeAll();
+        adapter.addAll(viewDataBeanList.get(i).getMessageArray());
+        telephone="tel:"+viewDataBeanList.get(i).getMessageLandlordPhone();
     }
 
     @Override
@@ -206,6 +193,7 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
         spinner.setSelection(0);
 
     }
+
     List<MessageSave.ViewDataBean> viewDataBeanList;
     public void getData() {
         //TODO
@@ -246,7 +234,7 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },phone,phone,UserLocalData.getUser(this).getTokenID(),"","","","","","","true");
+        },phone,phone,UserLocalData.getUser(getActivity()).getTokenID(),"","","","","","","true");
     }
 
     private void banData(List<MessageSave.ViewDataBean> houseDetil) {
@@ -257,7 +245,7 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
             list.add(houseDetil.get(i).getMessageBuildingName());
         }
         /*新建适配器*/
-        arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,list);
+        arrayAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,list);
 
         /*adapter设置一个下拉列表样式，参数为系统子布局*/
         //arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -267,5 +255,33 @@ public class MessageRoomActivity extends BaseActivity implements AdapterView.OnI
 
         /*soDown的监听器*/
         spinner.setOnItemSelectedListener(this);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            /*case R.id.iv_one:{
+                Intent intent=new Intent(getActivity(),HePageActivity.class);
+                intent.putExtra("userIdOth",list.get(0).getUserId());
+                startActivity(intent);
+            }break;
+            case R.id.iv_two:{
+                Intent intent=new Intent(getActivity(),HePageActivity.class);
+                intent.putExtra("userIdOth",list.get(1).getUserId());
+                startActivity(intent);
+            }break;
+            case R.id.iv_three:{
+                Intent intent=new Intent(getActivity(),HePageActivity.class);
+                intent.putExtra("userIdOth",list.get(2).getUserId());
+                startActivity(intent);
+            }break;*/
+
+        }
     }
 }

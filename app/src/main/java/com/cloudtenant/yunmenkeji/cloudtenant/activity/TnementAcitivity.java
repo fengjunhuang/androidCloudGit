@@ -365,7 +365,7 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
             }
-        },roomId,phone,phone);
+        },roomId,phone,phone,"","","","","","","");
     }
 
     private void addCollection() {
@@ -384,7 +384,7 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },roomId,phone,phone);
+        },roomId,phone,phone,"","","","","","","");
     }
 
 
@@ -400,7 +400,7 @@ public class TnementAcitivity extends YzsBaseActivity implements TencentLocation
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },roomId,phone);
+        },roomId,phone,phone,"","","","","","","");
     }
 
 

@@ -52,36 +52,30 @@
         android:layout_height="wrap_content" />
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="13dp"
-        android:textSize="14sp"
+        android:text="Copyright(c)2017-2018"
         android:textColor="@android:color/black"
-        android:text="总指挥：小钢炮 产品：牙签仔、脉动"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textSize="14sp" />
+
     <TextView
-        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="云门科技(广州)有限责任公司版权所有"
         android:textColor="@android:color/black"
-        android:text="数据市场支持：小舅子"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textSize="14sp" />
+
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="13dp"
-        android:textSize="14sp"
+        android:text="《隐私保护指引》和《用户协议》"
         android:textColor="@android:color/black"
-        android:text="开发：非洲鸡"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:layout_marginTop="13dp"
-        android:textSize="14sp"
-        android:textColor="@android:color/black"
-        android:text="特别鸣谢 美工：子君姐姐"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textSize="14sp" />
 
 
 

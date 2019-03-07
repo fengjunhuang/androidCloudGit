@@ -213,7 +213,7 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        }, phone);
+        }, phone,phone,UserLocalData.getUser(this).getTokenID(),"","","","","","");
     }
 
 

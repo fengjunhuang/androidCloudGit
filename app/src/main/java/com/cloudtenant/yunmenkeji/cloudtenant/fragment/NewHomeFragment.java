@@ -646,7 +646,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
             }
-        },page+"",row+"",longitude+"",latitude+"","","","","","","","","","");
+        },page+"",row+"",longitude+"",latitude+"","","","","","","","","","","","true","","","","","","","");
     }
 
     private void joinFamily(String roomId,String idCard,String name) {
@@ -664,7 +664,7 @@ public class NewHomeFragment extends BaseFragment implements TencentLocationList
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },roomId,phone,idCard,name,phone);
+        },roomId,phone,idCard,name,phone,"","","","","","","");
     }
 
 

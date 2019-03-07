@@ -19,18 +19,21 @@ public class SensorViewHolder extends BaseViewHolder<Sensor> {
     private TextView fans;
     private TextView note;
     private TextView time;
+    private TextView date;
     private CircleImageView icon;
 
     public SensorViewHolder(ViewGroup parent) {
         super(parent, R.layout.item_sensor);
         time = $(R.id.time);
+        date= $(R.id.tv_date);
 
     }
 
     @Override
     public void setData(final Sensor person){
         //name.setText(person.getFamily());
-
+        time.setText(person.getTime());
+        date.setText(person.getDate());
         //name.setText(person.getName());
     }
 }

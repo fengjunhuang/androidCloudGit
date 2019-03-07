@@ -246,36 +246,34 @@ public class HomeFragment extends YzsBaseListFragment<HouseDetil.ViewDataBean> i
 
     private void requestData() {
 
-        /*HttpMethods.getInstance().homeData(new BaseObserver<HouseDetil>() {
-            @Override
-            protected void onSuccees(BaseBean t) throws Exception {
-                mAdapter.getData().clear();
-                images.clear();
-                banner.destroyDrawingCache();
-                 houseDetil= (HouseDetil) t;
-                System.out.println(houseDetil.getViewDataX().size()+"");
-                Log.e("getData",houseDetil.getViewDataX().get(0).toString());
-                bannerDataBeans=houseDetil.getBannerData();
-                for (int i = 0; i < bannerDataBeans.size(); i++) {
-                    images.add(bannerDataBeans.get(i).getBannerImage());
-                }
-             if(isfirst){
-                 banner.setImages(images).setImageLoader(new BannerPicassoImageLoader()).start();
-             }else {
-
-                 isfirst=false;
-             }
-
-
-                mAdapter.addData(houseDetil.getViewDataX());
-                swipeRefreshLayout.setRefreshing(false);
-            }
-
-            @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mLoading.showEmpty();
-
-            }
-        },new ListBean(page+"",row+"",longitude+"",latitude+""));*/
+//        HttpMethods.getInstance().homeData(new BaseObserver<HouseDetil>() {
+//            @Override
+//            protected void onSuccees(BaseBean t) throws Exception {
+//                mAdapter.getData().clear();
+//                images.clear();
+//                banner.destroyDrawingCache();
+//                 houseDetil= (HouseDetil) t;
+//                System.out.println(houseDetil.getViewDataX().size()+"");
+//                Log.e("getData",houseDetil.getViewDataX().get(0).toString());
+//                bannerDataBeans=houseDetil.getBannerData();
+//                for (int i = 0; i < bannerDataBeans.size(); i++) {
+//                    images.add(bannerDataBeans.get(i).getBannerImage());
+//                }
+//             if(isfirst)
+//             {
+//                 banner.setImages(images).setImageLoader(new BannerPicassoImageLoader()).start();
+//             }else {
+//                 isfirst=false;
+//             }
+//                mAdapter.addData(houseDetil.getViewDataX());
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+//
+//            @Override
+//            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+//                mLoading.showEmpty();
+//
+//            }
+//        },new ListBean("","","","","","","","","","","","","","",""));
     }
 }

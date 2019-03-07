@@ -117,6 +117,6 @@ public class MyCollectionActivity extends YzsBaseActivity {
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },userPhone,userPhone);
+        },userPhone,userPhone,UserLocalData.getUser(this).getTokenID(),"","","","","","");
     }
 }

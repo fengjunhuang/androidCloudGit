@@ -14,6 +14,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.QrUtils;
+import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
 import com.gersion.library.base.BaseActivity;
 
 
@@ -125,7 +126,7 @@ public class ManageActivity extends BaseActivity {
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
 
             }
-        },userPhone,familyID,userPhone);
+        },userPhone,familyID,userPhone, UserLocalData.getUser(this).getTokenID(),"","","","","","");
     }
 
 }
