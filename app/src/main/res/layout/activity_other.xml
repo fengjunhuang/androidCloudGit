@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:paddingTop="@dimen/x7"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/ll"
+        android:paddingLeft="@dimen/x17"
+        android:paddingRight="@dimen/x7"
+        android:background="@color/gray_cut_clorr"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="30dp">
+        <TextView
+            android:text="未完成"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:src="@drawable/ic_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginLeft="2dp"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:layout_below="@id/tvTopLine"
+            android:background="@drawable/dot_red" />
+    </LinearLayout>
+    <com.jude.easyrecyclerview.EasyRecyclerView
+        android:id="@+id/recycler_view"
+        android:paddingRight="@dimen/x17"
+        android:paddingLeft="@dimen/x17"
+        app:layout_empty="@layout/view_empty"
+        app:layout_progress="@layout/view_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.jude.easyrecyclerview.EasyRecyclerView>
+    <LinearLayout
+        android:id="@+id/ll_1"
+        android:paddingLeft="@dimen/x17"
+        android:paddingRight="@dimen/x7"
+        android:background="@color/gray_cut_clorr"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="30dp">
+        <TextView
+            android:text="已完成"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:src="@drawable/ic_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <com.jude.easyrecyclerview.EasyRecyclerView
+        android:id="@+id/recycler_view1"
+        android:paddingRight="@dimen/x17"
+        android:paddingLeft="@dimen/x17"
+        app:layout_empty="@layout/view_empty"
+        app:layout_progress="@layout/view_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.jude.easyrecyclerview.EasyRecyclerView>
+</LinearLayout>

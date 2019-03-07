@@ -13,6 +13,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamily;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamilyData;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.NoticeHistory;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.OtherMessage;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo3;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomMessageHistory;
@@ -239,7 +240,6 @@ public interface ApiService {
     );
     //获取合同地址
     @POST("chl/sign/contract/getSignContractHtml")
-    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8") //添加
     Observable<Contract> getContractUrl(
             @Query("str") String str, //字符串拼接方式请查看文档,
             @Query("tokenID") String tokenID,
@@ -594,6 +594,20 @@ public interface ApiService {
                                                          @Query("phoneType") String phoneType,
                                                          @Query("userLat") String userLat,
                                                          @Query("userLon") String userLon
+    );
+    //其他消息/支付消息2
+    @POST("chl/sign/contract/findLandlordNewFd")
+    Observable<OtherMessage> getOrderMessageAndPaMessageFd(//model还没做
+                                                           @Query("phone") String phone,
+                                                           @Query("landingPhone") String landingPhone,
+                                                           @Query("type") String type,
+                                                           @Query("tokenID") String tokenID,
+                                                           @Query("appName") String appName,
+                                                           @Query("appVersion") String appVersion,
+                                                           @Query("phoneSystem") String phoneSystem,
+                                                           @Query("phoneType") String phoneType,
+                                                           @Query("userLat") String userLat,
+                                                           @Query("userLon") String userLon
     );
     //确认退房
     @POST("chl/sign/contract/checkOut")

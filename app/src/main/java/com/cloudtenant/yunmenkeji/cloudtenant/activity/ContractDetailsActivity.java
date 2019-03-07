@@ -206,7 +206,7 @@ public class ContractDetailsActivity extends BaseActivity {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-            str=    name
+            str=    bean.getCellName()
                     +bean.getRoomNumber()+";"+bean.getRoomSquare()+";"+contractTime+";"+now+";"+nowPlus+";"+roomMoney+";"
                     +chineseNumber.getCnString(roomMoney).substring(0).replace("元","")+";"
                     +roomMoney+";"

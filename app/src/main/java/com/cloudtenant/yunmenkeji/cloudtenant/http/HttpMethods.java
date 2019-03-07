@@ -14,6 +14,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyContract;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamily;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MyFamilyData;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.NoticeHistory;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.OtherMessage;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo1;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.RoomInfo3;
@@ -403,6 +404,11 @@ public class HttpMethods {
     }
     public void getOrderMessageAndPaMessage(BaseObserver<MessageOther> observer, String phone,String landingPhone,String type, String tokenID,String appName,String appVersion,String phoneSystem,String phoneType,String userLat,String userLon){
         apiService.getOrderMessageAndPaMessage(phone, landingPhone, type,tokenID,appName,appVersion,phoneSystem,phoneType,userLat,userLon).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }public void getOrderMessageAndPaMessageFd(BaseObserver<OtherMessage> observer, String phone, String landingPhone, String type, String tokenID, String appName, String appVersion, String phoneSystem, String phoneType, String userLat, String userLon){
+        apiService.getOrderMessageAndPaMessageFd(phone, landingPhone, type,tokenID,appName,appVersion,phoneSystem,phoneType,userLat,userLon).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

@@ -16,7 +16,10 @@ import android.widget.Toast;
 import com.cloudtenant.yunmenkeji.cloudtenant.R;
 import com.cloudtenant.yunmenkeji.cloudtenant.activity.PayActivity;
 import com.cloudtenant.yunmenkeji.cloudtenant.adapter.MessageOtherAdapter;
+import com.cloudtenant.yunmenkeji.cloudtenant.adapter.OtherMessageAdapter;
+import com.cloudtenant.yunmenkeji.cloudtenant.adapter.OtherMessageAdapter1;
 import com.cloudtenant.yunmenkeji.cloudtenant.bean.MessageOther;
+import com.cloudtenant.yunmenkeji.cloudtenant.bean.OtherMessage;
 import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
@@ -34,19 +37,26 @@ import java.util.List;
  */
 public class MessageOtherFragment extends Fragment implements View.OnClickListener{
 
-    private EasyRecyclerView recyclerView;
-    private MessageOtherAdapter adapter;
+    private EasyRecyclerView recyclerView,recyclerView1;
+    private OtherMessageAdapter adapter;
+    private OtherMessageAdapter1 adapter1;
     //private OkHttpHelper ok=OkHttpHelper.getInstance();
     private String phone;
+    public boolean isHide=false,isHide1=false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.activity_message_other,container,false);
+        View view=inflater.inflate(R.layout.activity_other,container,false);
         phone= UserLocalData.getUser(getActivity()).getUserPhone();
         recyclerView= (EasyRecyclerView)view.findViewById(R.id.recycler_view);
+        recyclerView1= (EasyRecyclerView)view.findViewById(R.id.recycler_view1);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView1.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new DividerDecoration(Color.parseColor("#aaaaaa"), 1));
-        adapter = new MessageOtherAdapter(getActivity());
+        recyclerView1.addItemDecoration(new DividerDecoration(Color.parseColor("#aaaaaa"), 1));
+        adapter = new OtherMessageAdapter(getActivity());
+        adapter1 = new OtherMessageAdapter1(getActivity());
         recyclerView.setAdapter(adapter);
+        recyclerView1.setAdapter(adapter1);
         getData();
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
@@ -62,6 +72,34 @@ public class MessageOtherFragment extends Fragment implements View.OnClickListen
                             normalDialog();
                         }
                     }break;
+                }
+            }
+        });adapter1.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Log.e("onItemClick",viewDataBeanList.get(position).toString());
+                switch (viewDataBeanList.get(position).getMessageType()){
+                    case "0":{
+                        if (viewDataBeanList.get(position).getPay_status().equals("0")){
+                            normalDialog1(viewDataBeanList.get(position).getWidoutTradeMoney(),
+                                    viewDataBeanList.get(position).getWidoutTradeNo(),
+                                    viewDataBeanList.get(position).getRoomId());
+                        }else {
+                            normalDialog();
+                        }
+                    }break;
+                }
+            }
+        });
+        view.findViewById(R.id.ll).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isHide) {
+                    adapter.addAll(viewDataBeanList);
+                    isHide=!isHide;
+                }else {
+                    adapter.removeAll();
+                    isHide=!isHide;
                 }
             }
         });
@@ -128,16 +166,19 @@ public class MessageOtherFragment extends Fragment implements View.OnClickListen
 
         }
     }
-    List<MessageOther.LandlordNewListBean> viewDataBeanList;
+    List<OtherMessage.NoOverLandLordNewBean> viewDataBeanList;
+    List<OtherMessage.IsOverLandLordNewBean> viewDataBeanList1;
     public void getData() {
         //TODO
-        HttpMethods.getInstance().getOrderMessageAndPaMessage(new BaseObserver<MessageOther>() {
+        HttpMethods.getInstance().getOrderMessageAndPaMessageFd(new BaseObserver<OtherMessage>() {
             @Override
             protected void onSuccees(BaseBean t)  {
-                MessageOther houseDetil= (MessageOther) t;
-                System.out.println(houseDetil.getLandlordNewList()+"");
-                viewDataBeanList=houseDetil.getLandlordNewList();
+                OtherMessage houseDetil= (OtherMessage) t;
+                System.out.println(houseDetil.getIsOverLandLordNew()+"");
+                viewDataBeanList=houseDetil.getNoOverLandLordNew();
+                viewDataBeanList1=houseDetil.getIsOverLandLordNew();
                 adapter.addAll(viewDataBeanList);
+                adapter1.addAll(viewDataBeanList1);
 
             }
 
@@ -145,7 +186,7 @@ public class MessageOtherFragment extends Fragment implements View.OnClickListen
             protected void onFailure(Throwable e, boolean isNetWorkError)  {
 
             }
-        },phone,phone,"5",UserLocalData.getUser(getActivity()).getTokenID(),"","","","","","");
+        },phone,phone,"0",UserLocalData.getUser(getActivity()).getTokenID(),"","","","","","");
     }
 
 }
