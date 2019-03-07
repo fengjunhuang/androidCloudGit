@@ -242,6 +242,7 @@ public interface ApiService {
     );
     //获取合同地址
     @POST("chl/sign/contract/getSignContractHtml")
+    @FormUrlEncoded
     Observable<Contract> getContractUrl(
             @Field("str") String str, //字符串拼接方式请查看文档,
             @Field("tokenID") String tokenID,

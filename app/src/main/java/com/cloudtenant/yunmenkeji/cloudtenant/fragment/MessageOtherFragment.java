@@ -104,6 +104,18 @@ public class MessageOtherFragment extends Fragment implements View.OnClickListen
                 }
             }
         });
+        view.findViewById(R.id.ll_1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isHide1) {
+                    adapter1.addAll(viewDataBeanList1);
+                    isHide1=!isHide1;
+                }else {
+                    adapter1.removeAll();
+                    isHide1=!isHide1;
+                }
+            }
+        });
         return view;
     }
     //一般的Dialog
