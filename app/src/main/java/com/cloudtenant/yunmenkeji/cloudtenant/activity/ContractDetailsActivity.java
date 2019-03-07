@@ -194,18 +194,7 @@ public class ContractDetailsActivity extends BaseActivity {
         details.setText(msp);
         Log.d("getEncoding",getEncoding(bean.getCellName()));
         Log.d("getEncoding",bean.getCellName());
-        String name = null;
-        try {
-            String gbk=new String(bean.getCellName().getBytes(getEncoding(bean.getCellName())),"GBK");
-            String u8=new String(gbk.getBytes(getEncoding(gbk)),"utf-8");
-        Log.d("getEncoding",getEncoding(u8));
-        Log.d("getEncoding",u8);
-        Log.d("getEncoding",URLEncoder.encode(u8,"utf-8"));
-        Log.d("getEncoding",URLEncoder.encode(bean.getCellName(),"utf-8"));
-            name=u8;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+
             str=    bean.getCellName()
                     +bean.getRoomNumber()+";"+bean.getRoomSquare()+";"+contractTime+";"+now+";"+nowPlus+";"+roomMoney+";"
                     +chineseNumber.getCnString(roomMoney).substring(0).replace("元","")+";"

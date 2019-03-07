@@ -24,6 +24,7 @@ import com.cloudtenant.yunmenkeji.cloudtenant.http.HttpMethods;
 import com.cloudtenant.yunmenkeji.cloudtenant.model.BaseBean;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.BaseObserver;
 import com.cloudtenant.yunmenkeji.cloudtenant.util.UserLocalData;
+import com.cloudtenant.yunmenkeji.cloudtenant.view.NoScrollRecyclerView;
 import com.cloudtenant.yunmenkeji.cloudtenant.view.SelectPicPopupWindow;
 import com.gersion.library.base.BaseActivity;
 import com.jude.easyrecyclerview.EasyRecyclerView;
@@ -37,7 +38,7 @@ import java.util.List;
  */
 public class MessageOtherFragment extends Fragment implements View.OnClickListener{
 
-    private EasyRecyclerView recyclerView,recyclerView1;
+    private NoScrollRecyclerView recyclerView,recyclerView1;
     private OtherMessageAdapter adapter;
     private OtherMessageAdapter1 adapter1;
     //private OkHttpHelper ok=OkHttpHelper.getInstance();
@@ -47,8 +48,8 @@ public class MessageOtherFragment extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.activity_other,container,false);
         phone= UserLocalData.getUser(getActivity()).getUserPhone();
-        recyclerView= (EasyRecyclerView)view.findViewById(R.id.recycler_view);
-        recyclerView1= (EasyRecyclerView)view.findViewById(R.id.recycler_view1);
+        recyclerView= view.findViewById(R.id.recycler_view);
+        recyclerView1= view.findViewById(R.id.recycler_view1);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView1.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new DividerDecoration(Color.parseColor("#aaaaaa"), 1));

@@ -7,6 +7,7 @@
     android:paddingTop="@dimen/x7"
     android:layout_height="match_parent">
     <LinearLayout
+        style="@style/click"
         android:id="@+id/ll"
         android:paddingLeft="@dimen/x17"
         android:paddingRight="@dimen/x7"
@@ -34,16 +35,16 @@
             android:layout_below="@id/tvTopLine"
             android:background="@drawable/dot_red" />
     </LinearLayout>
-    <com.jude.easyrecyclerview.EasyRecyclerView
+    <com.cloudtenant.yunmenkeji.cloudtenant.view.NoScrollRecyclerView
         android:id="@+id/recycler_view"
         android:paddingRight="@dimen/x17"
         android:paddingLeft="@dimen/x17"
-        app:layout_empty="@layout/view_empty"
         app:layout_progress="@layout/view_progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.jude.easyrecyclerview.EasyRecyclerView>
+    </com.cloudtenant.yunmenkeji.cloudtenant.view.NoScrollRecyclerView>
     <LinearLayout
+        style="@style/click"
         android:id="@+id/ll_1"
         android:paddingLeft="@dimen/x17"
         android:paddingRight="@dimen/x7"
@@ -64,14 +65,20 @@
             android:src="@drawable/ic_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <TextView
+            android:visibility="invisible"
+            android:layout_marginLeft="2dp"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:layout_below="@id/tvTopLine"
+            android:background="@drawable/dot_red" />
     </LinearLayout>
-    <com.jude.easyrecyclerview.EasyRecyclerView
+    <com.cloudtenant.yunmenkeji.cloudtenant.view.NoScrollRecyclerView
         android:id="@+id/recycler_view1"
         android:paddingRight="@dimen/x17"
         android:paddingLeft="@dimen/x17"
-        app:layout_empty="@layout/view_empty"
         app:layout_progress="@layout/view_progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.jude.easyrecyclerview.EasyRecyclerView>
+    </com.cloudtenant.yunmenkeji.cloudtenant.view.NoScrollRecyclerView>
 </LinearLayout>
